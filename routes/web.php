@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
+use App\Http\Controllers\RegistrasiController as RegistrasiController;
 
 Route::get('/', function () {
     return view('index');
@@ -27,10 +28,10 @@ Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
         ->name('hasiluser');
     Route::view('/obat', 'pages.pasien.obat')
         ->name('obatuser');
-
+    Route::resource('registrasi', RegistrasiController::class);
 });
 
-Route ::middleware(['auth'])->prefix('dokter')->group(function () {
+Route::middleware(['auth'])->prefix('dokter')->group(function () {
     Route::view('/', 'pages.dokter.dashboard')
         ->name('dashboarddokter');
     Route::view('/janji', 'pages.dokter.janji')
