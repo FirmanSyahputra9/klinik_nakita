@@ -4,17 +4,29 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 
-Route::get('/home', function () {
+Route::get('/', function () {
     return view('index');
 })->name('home');
 
-Route::get('/yazid', function () {
-    return view('yazid');
+Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
+    Route::view('/', 'pages.admin.dashboard')
+        ->name('dashboard');
+    Route::view('/users', 'pages.admin.users')
+        ->name('users');
+    Route::view('/appointment', 'pages.admin.appointment')->name('appointmentadmin');
 });
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
+    Route::view('/', 'pages.pasien.dashboard')
+        ->name('dashboarduser');
+
+});
+
+Route ::middleware(['auth'])->prefix('dokter')->group(function () {
+    Route::view('/', 'pages.dokter.dashboard')
+        ->name('dashboarddokter');
+});
+
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,9 +22,20 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
+        'nik',
+        'show',
+        'gender',
+        'birth_date',
+        'phone',
+        'role',
         'email',
         'password',
+        'approved_at',
+        'approved',
     ];
+
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,13 +54,15 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+
+    protected $casts = [
+        'approved' => 'boolean',
+        'email_verified_at' => 'datetime',
+        'approved_at' => 'datetime',
+        'birth_date' => 'date',
+        'password' => 'hashed',
+    ];
+
 
     /**
      * Get the user's initials
@@ -58,7 +72,19 @@ class User extends Authenticatable
         return Str::of($this->name)
             ->explode(' ')
             ->take(2)
-            ->map(fn ($word) => Str::substr($word, 0, 1))
+            ->map(fn($word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+
+    // Cek apakah user disetujui
+    public function isApproved(): bool
+    {
+        return (bool) $this->approved;
+    }
+
+    // Accessor untuk status teks
+    public function getApprovedStatusAttribute(): string
+    {
+        return $this->approved ? 'Ya' : 'Tidak';
     }
 }
