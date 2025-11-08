@@ -19,12 +19,28 @@ Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
 Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
     Route::view('/', 'pages.pasien.dashboard')
         ->name('dashboarduser');
+    Route::view('/jadwal', 'pages.pasien.jadwal')
+        ->name('jadwaluser');
+    Route::view('/riwayat', 'pages.pasien.riwayat')
+        ->name('riwayatuser');
+    Route::view('/hasil', 'pages.pasien.hasil')
+        ->name('hasiluser');
+    Route::view('/obat', 'pages.pasien.obat')
+        ->name('obatuser');
 
 });
 
 Route ::middleware(['auth'])->prefix('dokter')->group(function () {
     Route::view('/', 'pages.dokter.dashboard')
         ->name('dashboarddokter');
+    Route::view('/janji', 'pages.dokter.janji')
+        ->name('janjidokter');
+    Route::view('/data', 'pages.dokter.data')
+        ->name('datapasien');
+    Route::view('/resep', 'pages.dokter.resep')
+        ->name('resep');
+    Route::view('/jadwal', 'pages.dokter.jadwal')
+        ->name('jadwalpraktek');
 });
 
 

@@ -37,12 +37,44 @@
                         :current="request()->routeIs('dashboarduser')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:navlist.item>
+                    <flux:navlist.item class="mb-2" icon="calendar-days" :href="route('jadwaluser')"
+                        :current="request()->routeIs('jadwaluser')" wire:navigate>
+                        {{ __('Jadwal') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item class="mb-2" icon="clipboard-document-list" :href="route('riwayatuser')"
+                        :current="request()->routeIs('riwayatuser')" wire:navigate>
+                        {{ __('Riwayat') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item class="mb-2" icon="clipboard-document-list" :href="route('hasiluser')"
+                        :current="request()->routeIs('hasiluser')" wire:navigate>
+                        {{ __('Hasil Lab') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item class="mb-2" icon="clipboard-document-list" :href="route('obatuser')"
+                        :current="request()->routeIs('obatuser')" wire:navigate>
+                        {{ __('Obat') }}
+                    </flux:navlist.item>
                 @endif
 
                 @if (auth()->check() && auth()->user()->role == 'doctor')
                     <flux:navlist.item class="mb-2" icon="home" :href="route('dashboarddokter')"
                         :current="request()->routeIs('dashboarddokter')" wire:navigate>
                         {{ __('Dashboard') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item class="mb-2" icon="clock" :href="route('janjidokter')"
+                        :current="request()->routeIs('janjidokter')" wire:navigate>
+                        {{ __('Janji') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item class="mb-2" icon="users" :href="route('datapasien')"
+                        :current="request()->routeIs('datapasien')" wire:navigate>
+                        {{ __('Data') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item class="mb-2" icon="cube" :href="route('resep')"
+                        :current="request()->routeIs('resep')" wire:navigate>
+                        {{ __('Resep') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item class="mb-2" icon="cube" :href="route('jadwalpraktek')"
+                        :current="request()->routeIs('jadwalpraktek')" wire:navigate>
+                        {{ __('Jadwal') }}
                     </flux:navlist.item>
                 @endif
 

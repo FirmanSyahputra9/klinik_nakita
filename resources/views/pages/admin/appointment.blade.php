@@ -32,10 +32,10 @@
         <!-- Card Jadwal -->
         <div class="bg-pink-50 p-4 rounded shadow">
             <div class="flex justify-between items-center">
-                <p class="font-semibold">08:00</p>
+                <p class="font-semibold text-gray-500">08:00</p>
                 <span class="text-purple-500 text-sm">Confirmed</span>
             </div>
-            <p class="font-bold">Budi Santoso</p>
+            <p class="font-bold text-gray-500">Budi Santoso</p>
             <p class="text-gray-500">Konsultasi - Dr. Hitler</p>
             <p class="text-gray-400 text-sm">Kontrol Tekanan Darah</p>
             <div class="text-gray-500 text-sm mt-1">RM-2024-001 | 0812-3456-7890 | 60 Menit</div>
@@ -43,10 +43,10 @@
 
         <div class="bg-pink-50 p-4 rounded shadow">
             <div class="flex justify-between items-center">
-                <p class="font-semibold">09:00</p>
+                <p class="font-semibold text-gray-500">09:00</p>
                 <span class="text-green-500 text-sm">Checked-in</span>
             </div>
-            <p class="font-bold">Rudi Hermawan</p>
+            <p class="font-bold text-gray-500">Rudi Hermawan</p>
             <p class="text-gray-500">Pemeriksaan Rutin - Dr. Hitler</p>
             <p class="text-gray-400 text-sm">Follow Up Diabetes</p>
             <div class="text-gray-500 text-sm mt-1">RM-2024-001 | 0812-3456-7890 | 30 Menit</div>
@@ -54,10 +54,10 @@
 
         <div class="bg-pink-50 p-4 rounded shadow">
             <div class="flex justify-between items-center">
-                <p class="font-semibold">09:30</p>
+                <p class="font-semibold text-gray-500">09:30</p>
                 <span class="text-green-500 text-sm">Checked-in</span>
             </div>
-            <p class="font-bold">Budi Santoso</p>
+            <p class="font-bold text-gray-500">Budi Santoso</p>
             <p class="text-gray-500">Pemeriksaan Rutin - Dr. Hitler</p>
             <p class="text-gray-400 text-sm">Kontrol Tekanan Darah</p>
             <div class="text-gray-500 text-sm mt-1">RM-2024-001 | 0812-3456-7890</div>
