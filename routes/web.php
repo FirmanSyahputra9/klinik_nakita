@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DokterController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -17,9 +18,8 @@ Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
         ->name('users');
     Route::view('/appointment', 'pages.admin.appointment')
         ->name('appointmentadmin');
-    Route::view('/datadokter', 'pages.admin.data-dokter')
-        ->name('datadokter');
     Route::resource('/stok-obat', ObatController::class);
+    Route::resource('dokter', DokterController::class);
 });
 
 Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {

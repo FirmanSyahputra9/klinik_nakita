@@ -66,7 +66,8 @@ class DatabaseSeeder extends Seeder
         User::factory(100)->create();
 
         $this->call([
-            ObatSeeder::class
+            ObatSeeder::class,
+            DokterSeeder::class
         ]);
 
     }

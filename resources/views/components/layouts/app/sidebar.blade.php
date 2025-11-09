@@ -26,8 +26,8 @@
                         {{ __('Users') }}
                     </flux:navlist.item>
 
-                    <flux:navlist.item class="mb-2" icon="cube" :href="route('datadokter')"
-                        :current="request()->routeIs('datadokter')" wire:navigate>
+                    <flux:navlist.item class="mb-2" icon="cube" :href="route('dokter.index')"
+                        :current="request()->routeIs('dokter.*')" wire:navigate>
                         {{ __('Data Dokter') }}
                     </flux:navlist.item>
 

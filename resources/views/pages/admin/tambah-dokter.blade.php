@@ -3,7 +3,7 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-semibold text-gray-800">Tambah Dokter</h1>
 
-        <a href="{{ route('data-dokter.index') }}"
+        <a href="{{ route('dokter.index') }}"
            class="flex items-center gap-2 bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
@@ -13,7 +13,7 @@
     </div>
 
     <div class="bg-white shadow rounded-lg p-6 max-w-3xl mx-auto">
-        <form action="#" method="POST" class="space-y-5">
+        <form action="{{ route('dokter.store') }}" method="POST" class="space-y-5">
             @csrf
 
             <div>
@@ -57,7 +57,7 @@
             </div>
 
             <div class="flex justify-end gap-3 pt-4">
-                <a href="{{ route('data-dokter.index') }}"
+                <a href="{{ route('dokter.index') }}"
                    class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
                     Batal
                 </a>

@@ -19,23 +19,23 @@ class ObatController extends Controller
     }
 
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'kode' => 'required|string|max:50|unique:obat,kode',
-        'nama' => 'required|string|max:255',
-        'stok' => 'required|integer|min:0',
-        'satuan' => 'required|string',
-        'harga_beli' => 'required|numeric|min:0',
-        'harga_jual' => 'required|numeric|min:0',
-        'tanggal_kadaluwarsa' => 'required|date',
-        'deskripsi' => 'nullable|string',
-    ]);
+    {
+        $validated = $request->validate([
+            'kode' => 'required|string|max:50|unique:obat,kode',
+            'nama' => 'required|string|max:255',
+            'stok' => 'required|integer|min:0',
+            'satuan' => 'required|string',
+            'harga_beli' => 'required|numeric|min:0',
+            'harga_jual' => 'required|numeric|min:0',
+            'tanggal_kadaluwarsa' => 'required|date',
+            'deskripsi' => 'nullable|string',
+        ]);
 
-    Obat::create($validated);
+        Obat::create($validated);
 
-    return redirect()->route('obat.index')
-                     ->with('success', 'Obat berhasil ditambahkan!');
-}
+        return redirect()->route('obat.index')
+            ->with('success', 'Obat berhasil ditambahkan!');
+    }
 
     public function edit($id)
     {
