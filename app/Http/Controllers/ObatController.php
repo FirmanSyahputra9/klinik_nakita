@@ -9,7 +9,7 @@ class ObatController extends Controller
 {
     public function index()
     {
-        $obats = Obat::all(); // ambil semua data obat
+        $obats = Obat::paginate(10);
         return view('pages.admin.stok-obat', compact('obats'));
     }
 
