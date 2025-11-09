@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('obat', function (Blueprint $table) {
-            $table->id(); // sama seperti SERIAL PRIMARY KEY
+            $table->id();
             $table->string('kode', 50)->unique();
             $table->string('nama', 255);
             $table->integer('stok')->default(0);
@@ -20,7 +20,8 @@ return new class extends Migration
             $table->decimal('harga_beli', 12, 2)->nullable();
             $table->decimal('harga_jual', 12, 2)->nullable();
             $table->date('tanggal_kadaluwarsa')->nullable();
-            $table->timestamp('dibuat_pada')->useCurrent();
+            $table->text('deskripsi')->nullable();
+            $table->timestamps();
         });
     }
 

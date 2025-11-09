@@ -2,11 +2,11 @@
 
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-semibold text-gray-800">Tambah Obat Baru</h1>
-        
+
         <a href="{{ route('obat.index') }}"
-           class="flex items-center gap-2 bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition">
+            class="flex items-center gap-2 bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
             Kembali
         </a>
@@ -14,7 +14,7 @@
 
     <!-- Form Card -->
     <div class="bg-white rounded-lg shadow p-6">
-        
+
         <!-- Alert Error -->
         @if ($errors->any())
             <div class="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
@@ -29,21 +29,17 @@
 
         <form action="{{ route('obat.store') }}" method="POST">
             @csrf
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
+
                 <!-- Kode Obat -->
                 <div>
                     <label for="kode" class="block text-sm font-medium text-gray-700 mb-2">
                         Kode Obat <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" 
-                           name="kode" 
-                           id="kode"
-                           value="{{ old('kode') }}"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('kode') border-red-500 @enderror"
-                           placeholder="Contoh: OBT001"
-                           required>
+                    <input type="text" name="kode" id="kode" value="{{ old('kode') }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('kode') border-red-500 @enderror"
+                        placeholder="Contoh: OBT001" required>
                     @error('kode')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror
@@ -54,13 +50,9 @@
                     <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">
                         Nama Obat <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" 
-                           name="nama" 
-                           id="nama"
-                           value="{{ old('nama') }}"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('nama') border-red-500 @enderror"
-                           placeholder="Contoh: Paracetamol"
-                           required>
+                    <input type="text" name="nama" id="nama" value="{{ old('nama') }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('nama') border-red-500 @enderror"
+                        placeholder="Contoh: Paracetamol" required>
                     @error('nama')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror
@@ -71,14 +63,9 @@
                     <label for="stok" class="block text-sm font-medium text-gray-700 mb-2">
                         Stok <span class="text-red-500">*</span>
                     </label>
-                    <input type="number" 
-                           name="stok" 
-                           id="stok"
-                           value="{{ old('stok') }}"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('stok') border-red-500 @enderror"
-                           placeholder="0"
-                           min="0"
-                           required>
+                    <input type="number" name="stok" id="stok" value="{{ old('stok') }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('stok') border-red-500 @enderror"
+                        placeholder="0" min="0" required>
                     @error('stok')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror
@@ -89,10 +76,9 @@
                     <label for="satuan" class="block text-sm font-medium text-gray-700 mb-2">
                         Satuan <span class="text-red-500">*</span>
                     </label>
-                    <select name="satuan" 
-                            id="satuan"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('satuan') border-red-500 @enderror"
-                            required>
+                    <select name="satuan" id="satuan"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('satuan') border-red-500 @enderror"
+                        required>
                         <option value="">Pilih Satuan</option>
                         <option value="Strip" {{ old('satuan') == 'Strip' ? 'selected' : '' }}>Strip</option>
                         <option value="Box" {{ old('satuan') == 'Box' ? 'selected' : '' }}>Box</option>
@@ -114,14 +100,9 @@
                     </label>
                     <div class="relative">
                         <span class="absolute left-3 top-2.5 text-gray-500">Rp</span>
-                        <input type="number" 
-                               name="harga_beli" 
-                               id="harga_beli"
-                               value="{{ old('harga_beli') }}"
-                               class="w-full pl-12 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('harga_beli') border-red-500 @enderror"
-                               placeholder="0"
-                               min="0"
-                               required>
+                        <input type="number" name="harga_beli" id="harga_beli" value="{{ old('harga_beli') }}"
+                            class="w-full pl-12 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('harga_beli') border-red-500 @enderror"
+                            placeholder="0" min="0" required>
                     </div>
                     @error('harga_beli')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -135,14 +116,9 @@
                     </label>
                     <div class="relative">
                         <span class="absolute left-3 top-2.5 text-gray-500">Rp</span>
-                        <input type="number" 
-                               name="harga_jual" 
-                               id="harga_jual"
-                               value="{{ old('harga_jual') }}"
-                               class="w-full pl-12 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('harga_jual') border-red-500 @enderror"
-                               placeholder="0"
-                               min="0"
-                               required>
+                        <input type="number" name="harga_jual" id="harga_jual" value="{{ old('harga_jual') }}"
+                            class="w-full pl-12 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('harga_jual') border-red-500 @enderror"
+                            placeholder="0" min="0" required>
                     </div>
                     @error('harga_jual')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -154,12 +130,10 @@
                     <label for="tanggal_kadaluwarsa" class="block text-sm font-medium text-gray-700 mb-2">
                         Tanggal Kadaluwarsa <span class="text-red-500">*</span>
                     </label>
-                    <input type="date" 
-                           name="tanggal_kadaluwarsa" 
-                           id="tanggal_kadaluwarsa"
-                           value="{{ old('tanggal_kadaluwarsa') }}"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('tanggal_kadaluwarsa') border-red-500 @enderror"
-                           required>
+                    <input type="date" name="tanggal_kadaluwarsa" id="tanggal_kadaluwarsa"
+                        value="{{ old('tanggal_kadaluwarsa') }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('tanggal_kadaluwarsa') border-red-500 @enderror"
+                        required>
                     @error('tanggal_kadaluwarsa')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror
@@ -172,11 +146,9 @@
                 <label for="deskripsi" class="block text-sm font-medium text-gray-700 mb-2">
                     Deskripsi (Opsional)
                 </label>
-                <textarea name="deskripsi" 
-                          id="deskripsi"
-                          rows="4"
-                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('deskripsi') border-red-500 @enderror"
-                          placeholder="Tambahkan deskripsi obat...">{{ old('deskripsi') }}</textarea>
+                <textarea name="deskripsi" id="deskripsi" rows="4"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('deskripsi') border-red-500 @enderror"
+                    placeholder="Tambahkan deskripsi obat...">{{ old('deskripsi') }}</textarea>
                 @error('deskripsi')
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror
@@ -185,11 +157,11 @@
             <!-- Buttons -->
             <div class="mt-8 flex justify-end gap-3">
                 <a href="{{ route('obat.index') }}"
-                   class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                    class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
                     Batal
                 </a>
                 <button type="submit"
-                        class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                    class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
                     Simpan Obat
                 </button>
             </div>
