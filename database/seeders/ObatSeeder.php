@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Obat;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
 
 class ObatSeeder extends Seeder
@@ -12,6 +14,6 @@ class ObatSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Obat::factory(100)->create();
     }
 }

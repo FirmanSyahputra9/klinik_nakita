@@ -3,7 +3,7 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-semibold text-gray-800">Tambah Obat Baru</h1>
 
-        <a href="{{ route('obat.index') }}"
+        <a href="{{ route('stok-obat.index') }}"
             class="flex items-center gap-2 bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -27,7 +27,7 @@
             </div>
         @endif
 
-        <form action="{{ route('obat.store') }}" method="POST">
+        <form action="{{ route('stok-obat.store') }}" method="POST">
             @csrf
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -156,7 +156,7 @@
 
             <!-- Buttons -->
             <div class="mt-8 flex justify-end gap-3">
-                <a href="{{ route('obat.index') }}"
+                <a href="{{ route('stok-obat.index') }}"
                     class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
                     Batal
                 </a>

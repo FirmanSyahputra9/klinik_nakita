@@ -3,11 +3,11 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-semibold text-gray-800">Stok Obat</h1>
 
-        <a href="{{ route('obat.create') }}"
-           class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+        <a href="{{ route('stok-obat.create') }}"
+            class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>dit
             Tambah Obat
         </a>
     </div>
@@ -40,16 +40,16 @@
                             {{ \Carbon\Carbon::parse($obat->tanggal_kadaluwarsa)->format('d M Y') }}
                         </td>
                         <td class="px-4 py-3 text-center flex justify-center gap-2">
-                            <a href="{{ route('obat.edit', $obat->id) }}"
-                               class="p-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
+                            <a href="{{ route('stok-obat.edit', $obat->id) }}"
+                                class="p-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
-                            <form action="{{ route('obat.destroy', $obat->id) }}" method="POST"
-                                  onsubmit="return confirm('Hapus obat ini?')">
+                            <form action="{{ route('stok-obat.destroy', $obat->id) }}" method="POST"
+                                onsubmit="return confirm('Hapus obat ini?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"
-                                        class="p-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
+                                    class="p-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>
