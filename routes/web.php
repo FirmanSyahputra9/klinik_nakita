@@ -17,6 +17,8 @@ Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
         ->name('users');
     Route::view('/appointment', 'pages.admin.appointment')
         ->name('appointmentadmin');
+    Route::view('/datadokter', 'pages.admin.data-dokter')
+        ->name('datadokter');
     Route::resource('/stok-obat', ObatController::class);
 });
 
@@ -29,6 +31,8 @@ Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
         ->name('riwayatuser');
     Route::view('/hasil', 'pages.pasien.hasil')
         ->name('hasiluser');
+    Route::view('/obat', 'pages.pasien.obat')
+        ->name('obatuser');
     Route::resource('registrasi', RegistrasiController::class);
 });
 

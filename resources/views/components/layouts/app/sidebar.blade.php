@@ -26,6 +26,11 @@
                         {{ __('Users') }}
                     </flux:navlist.item>
 
+                    <flux:navlist.item class="mb-2" icon="cube" :href="route('datadokter')"
+                        :current="request()->routeIs('datadokter')" wire:navigate>
+                        {{ __('Data Dokter') }}
+                    </flux:navlist.item>
+
                     <flux:navlist.item class="mb-2" icon="home" :href="route('appointmentadmin')"
                         :current="request()->routeIs('appointmentadmin')" wire:navigate>
                         {{ __('Appointments') }}

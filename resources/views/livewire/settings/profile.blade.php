@@ -75,7 +75,14 @@ new class extends Component {
     <x-settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
         <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
             <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" />
+<flux:input label="NIK" type="text" value="1234567890123456" readonly />
+        <flux:input label="No. Rekam Medis (MR No)" type="text" value="RM-001234" readonly />
 
+        <flux:input label="Jenis Kelamin" type="text" value="Laki-laki" readonly />
+        <flux:input label="Tanggal Lahir" type="date" value="2002-05-13" readonly />
+
+        <flux:input label="Nomor Telepon" type="text" value="0812-3456-7890" readonly />
+        <flux:input label="Alamat" type="text" value="Jl. Melati No. 10, Medan" readonly />
             <div>
                 <flux:input wire:model="email" :label="__('Email')" type="email" required autocomplete="email" />
 

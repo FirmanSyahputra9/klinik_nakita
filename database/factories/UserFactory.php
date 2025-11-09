@@ -30,6 +30,7 @@ class UserFactory extends Factory
         $username = $faker->unique()->userName();
         $email = $faker->unique()->safeEmail();
         $nik = $faker->unique()->nik();
+        
 
         return [
             'name' => $name,
@@ -39,7 +40,7 @@ class UserFactory extends Factory
             'role' => 'user',
             'nik' => $nik,
             'gender' => $faker->randomElement(['male', 'female']),
-            'phone' => $faker->phoneNumber(),
+            'phone' => $faker->unique()->phoneNumber(),
             'approved' => $faker->boolean(80),
             'email_verified_at' => now(),
             'approved_at' => $faker->dateTimeBetween('-1 year', 'now'),

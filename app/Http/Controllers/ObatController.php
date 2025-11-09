@@ -57,13 +57,13 @@ class ObatController extends Controller
         ]);
 
         $obat->update($request->all());
-        return redirect()->route('obat.index')->with('success', 'Data obat diperbarui');
+        return redirect()->route('stok-obat.index')->with('success', 'Data obat diperbarui');
     }
 
     public function destroy($id)
     {
         $obat = Obat::findOrFail($id);
         $obat->delete();
-        return redirect()->route('obat.index')->with('success', 'Obat dihapus');
+        return redirect()->route('stok-obat.index')->with('success', 'Obat dihapus');
     }
 }
