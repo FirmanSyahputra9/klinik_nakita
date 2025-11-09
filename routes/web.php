@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\RegistrasiController as RegistrasiController;
+use App\Http\Controllers\ObatController as ObatController;  
 
 Route::get('/', function () {
     return view('index');
@@ -14,7 +15,11 @@ Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
         ->name('dashboard');
     Route::view('/users', 'pages.admin.users')
         ->name('users');
-    Route::view('/appointment', 'pages.admin.appointment')->name('appointmentadmin');
+    Route::view('/appointment', 'pages.admin.appointment')
+        ->name('appointmentadmin');
+    Route::view('/stok-obat', 'pages.admin.stok-obat')
+        ->name('stok');
+    Route::resource('/stok-obat', ObatController::class);
 });
 
 Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
@@ -26,9 +31,12 @@ Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
         ->name('riwayatuser');
     Route::view('/hasil', 'pages.pasien.hasil')
         ->name('hasiluser');
-    Route::view('/obat', 'pages.pasien.obat')
-        ->name('obatuser');
     Route::resource('registrasi', RegistrasiController::class);
+});
+
+
+Route::middleware(['auth', 'is.admin'])->group(function () {
+    Route::resource('obat', ObatController::class);
 });
 
 Route::middleware(['auth'])->prefix('dokter')->group(function () {

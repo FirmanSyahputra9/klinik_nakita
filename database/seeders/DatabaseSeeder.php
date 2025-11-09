@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
             'approved_at' => now(),
         ]);
 
-        User::factory(2)->create();
+        User::factory(100)->create();
 
     }
 }

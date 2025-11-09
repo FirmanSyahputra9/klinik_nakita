@@ -7,7 +7,7 @@
 
         <!-- Content Card -->
         <div class="bg-white rounded-lg shadow p-6">
-            <!-- Filter Button -->
+            <!-- Filter B
             <div class="mb-6 flex justify-between items-center">
                 <button
                     class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
@@ -18,14 +18,7 @@
                     Filter
                 </button>
 
-                <!-- Tombol ke route registrasi -->
-                <a href="{{ route('registrasiuser') }}"
-                    class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                    Registrasi
-                </a>
+                
             </div>
 
             <!-- Table -->
@@ -53,12 +46,14 @@
                                 </span>
                             </td>
                             <td class="py-4 px-4">
-                                <button class="p-2 text-white bg-green-500 rounded-lg hover:bg-green-600 transition">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                    </svg>
-                                </button>
+                                    <a href="{{ route('registrasi.index') }}"
+                                    class="inline-flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                        </svg>
+                                        Registrasi
+                                    </a>
                             </td>
                         </tr>
 

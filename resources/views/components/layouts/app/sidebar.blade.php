@@ -30,6 +30,11 @@
                         :current="request()->routeIs('appointmentadmin')" wire:navigate>
                         {{ __('Appointments') }}
                     </flux:navlist.item>
+
+                    <flux:navlist.item class="mb-2" icon="inbox-stack" :href="route('stok-obat.index')"
+                        :current="request()->routeIs('stok-obat.*')" wire:navigate>
+                        {{ __('Stok') }}
+                    </flux:navlist.item>
                 @endif
 
                 @if (auth()->check() && auth()->user()->role == 'user')
