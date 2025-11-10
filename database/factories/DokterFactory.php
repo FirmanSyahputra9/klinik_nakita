@@ -22,7 +22,21 @@ class DokterFactory extends Factory
 
         return [
             'nama_lengkap' => $faker->name,
-            'spesialisasi' => $faker->jobTitle,
+            'spesialisasi' => $faker->randomElement([
+                'Dokter Umum',
+                'Spesialis Anak',
+                'Spesialis Kandungan',
+                'Spesialis Penyakit Dalam',
+                'Spesialis Bedah',
+                'Spesialis Saraf',
+                'Spesialis THT',
+                'Spesialis Kulit dan Kelamin',
+                'Spesialis Mata',
+                'Spesialis Gigi',
+                'Spesialis Jantung',
+                'Spesialis Paru',
+                'Spesialis Psikiatri',
+            ]),
             'no_telepon' => $faker->phoneNumber,
             'email' => $faker->email,
             'status' => $faker->randomElement(['aktif', 'tidak aktif']),
