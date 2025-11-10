@@ -21,7 +21,7 @@ class ObatController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kode' => 'required|string|max:50|unique:obat,kode',
+            'kode' => 'required|string|max:50|unique:obats,kode',
             'nama' => 'required|string|max:255',
             'stok' => 'required|integer|min:0',
             'satuan' => 'required|string',
@@ -33,7 +33,7 @@ class ObatController extends Controller
 
         Obat::create($validated);
 
-        return redirect()->route('obat.index')
+        return redirect()->route('stok-obat.index')
             ->with('success', 'Obat berhasil ditambahkan!');
     }
 
