@@ -1,4 +1,5 @@
 <x-layouts.app :title="__('Data Dokter')">
+<<<<<<< HEAD
     <div>
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-semibold text-gray-800">Data Dokter</h1>
@@ -31,9 +32,11 @@
                         <th class="px-4 py-3 text-center">Status</th>
                         <th class="px-4 py-3 text-center">Dibuat Pada</th>
                         <th class="px-4 py-3 text-center">Aksi</th>
+=======
                     </tr>
                 </thead>
 
+<<<<<<< HEAD
                 <tbody>
                     @foreach ($dokters as $dokter)
                         <tr class="border-b hover:bg-gray-50">
@@ -61,5 +64,10 @@
         <div class="mt-4">
             {{ $dokters->links() }}
         </div>
+=======
+    <!-- Pagination -->
+    <div class="mt-4">
+        {{ $dokters->links() }}
+>>>>>>> e73829759016e4f8ed848a941fe2ce7cf7fd2b14
     </div>
 </x-layouts.app>

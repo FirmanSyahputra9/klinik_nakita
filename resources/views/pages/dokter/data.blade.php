@@ -25,12 +25,12 @@
                     <tbody class="text-sm text-gray-800">
                         <tr class="bg-white hover:bg-gray-50 rounded-lg shadow-sm">
                             <td class="px-4 py-3">
-                                <div class="font-semibold">Siti Nurhaliza</div>
-                                <div class="text-gray-500 text-xs">0812-3456-7890</div>
+                                <div class="font-semibold">Yazid Nasution</div>
+                                <div class="text-gray-500 text-xs">085372736669</div>
                             </td>
-                            <td class="px-4 py-3">45 Tahun</td>
-                            <td class="px-4 py-3">Perempuan</td>
-                            <td class="px-4 py-3">RM-001234</td>
+                            <td class="px-4 py-3">21 Tahun</td>
+                            <td class="px-4 py-3">Laki-laki</td>
+                            <td class="px-4 py-3">RM-2024-001</td>
                             <td class="px-4 py-3">12 Jan 2024</td>
                             <td class="px-4 py-3">
                                 <a href="{{ url('/dokter/data/detail') }}"

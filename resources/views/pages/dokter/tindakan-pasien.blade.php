@@ -30,7 +30,7 @@
             
             <!-- Left: Patient Card -->
             <div class="lg:col-span-1">
-                <div class="bg-gradient-to-br from-green-600 to-green-700 rounded-2xl p-6 text-white shadow-lg">
+                <div class="bg-linear-to-br from-green-600 to-green-700 rounded-2xl p-6 text-white shadow-lg">
                     <div class="space-y-3">
                         <div>
                             <h3 class="text-2xl font-bold">RM-00-001</h3>
