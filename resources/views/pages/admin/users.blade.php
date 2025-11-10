@@ -36,11 +36,11 @@
             <tbody>
                 <tr class="border-b hover:bg-gray-50">
                     <td class="py-2 px-4 text-gray-500">RM-2024-001</td>
-                    <td class="py-2 px-4 text-gray-500">Budi Santoso</td>
-                    <td class="py-2 px-4 text-gray-500">3174012345670001</td>
+                    <td class="py-2 px-4 text-gray-500">Yazid Nasution</td>
+                    <td class="py-2 px-4 text-gray-500">12710308000402</td>
                     <td class="py-2 px-4 text-gray-500">L</td>
-                    <td class="py-2 px-4 text-gray-500">39 Tahun</td>
-                    <td class="py-2 px-4 text-gray-500">0812-3456-7890</td>
+                    <td class="py-2 px-4 text-gray-500">21 Tahun</td>
+                    <td class="py-2 px-4 text-gray-500">085372736669</td>
                     <td class="py-2 px-4 text-gray-500 hover:text-gray-800 cursor-pointer">
                         <a href="{{ route('pasien.show', 1) }}">
 
