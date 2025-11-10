@@ -6,6 +6,7 @@ use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\RegistrasiController as RegistrasiController;
 use App\Http\Controllers\ObatController as ObatController;
+use App\Http\Controllers\PasienController as PasienController;
 
 Route::get('/', function () {
     return view('index');
@@ -20,6 +21,8 @@ Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
         ->name('appointmentadmin');
     Route::resource('/stok-obat', ObatController::class);
     Route::resource('dokter', DokterController::class);
+    Route::resource('pasien', PasienController::class);
+
 });
 
 Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {

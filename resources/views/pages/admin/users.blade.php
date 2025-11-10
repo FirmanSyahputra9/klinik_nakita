@@ -42,7 +42,11 @@
                     <td class="py-2 px-4 text-gray-500">39 Tahun</td>
                     <td class="py-2 px-4 text-gray-500">0812-3456-7890</td>
                     <td class="py-2 px-4 text-gray-500 hover:text-gray-800 cursor-pointer">
-                        <i class="fas fa-eye"></i>
+                        <a href="{{ route('pasien.show', 1) }}">
+
+                            <i class="fas fa-eye"></i>
+                        </a>
+
                     </td>
                 </tr>
                 <tr class="border-b hover:bg-gray-50">
