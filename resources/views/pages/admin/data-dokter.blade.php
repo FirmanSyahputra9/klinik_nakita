@@ -31,11 +31,10 @@
                         <th class="px-4 py-3 text-center">Status</th>
                         <th class="px-4 py-3 text-center">Dibuat Pada</th>
                         <th class="px-4 py-3 text-center">Aksi</th>
-                        =======
+
                     </tr>
                 </thead>
-
-                <<<<<<< HEAD <tbody>
+                <tbody>
                     @foreach ($dokters as $dokter)
                         <tr class="border-b hover:bg-gray-50">
                             <td class="px-4 py-3 font-medium text-gray-800">{{ $dokter->nama_lengkap }}</td>
@@ -55,7 +54,7 @@
                             </td>
                         </tr>
                     @endforeach
-                    </tbody>
+                </tbody>
             </table>
         </div>
 
