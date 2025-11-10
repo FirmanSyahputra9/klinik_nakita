@@ -6,11 +6,8 @@
         <div class="bg-white shadow-md rounded-lg p-6">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="font-semibold text-lg">Data Pasien</h2>
-                <input
-                    type="text"
-                    placeholder="Cari Pasien..."
-                    class="border border-gray-300 rounded-md px-3 py-2 w-64 focus:outline-none focus:ring focus:ring-blue-200"
-                />
+                <input type="text" placeholder="Cari Pasien..."
+                    class="border border-gray-300 rounded-md px-3 py-2 w-64 focus:outline-none focus:ring focus:ring-blue-200" />
             </div>
 
             <div class="overflow-x-auto">
@@ -35,36 +32,11 @@
                             <td class="px-4 py-3">Perempuan</td>
                             <td class="px-4 py-3">RM-001234</td>
                             <td class="px-4 py-3">12 Jan 2024</td>
-                            <td class="px-4 py-3 text-blue-600 font-medium hover:underline cursor-pointer">
-                                Lihat Detail
-                            </td>
-                        </tr>
-
-                        <tr class="bg-white hover:bg-gray-50 rounded-lg shadow-sm">
                             <td class="px-4 py-3">
-                                <div class="font-semibold">Jeffrey Epstein</div>
-                                <div class="text-gray-500 text-xs">0813-4567-8901</div>
-                            </td>
-                            <td class="px-4 py-3">32 Tahun</td>
-                            <td class="px-4 py-3">Laki-laki</td>
-                            <td class="px-4 py-3">RM-001235</td>
-                            <td class="px-4 py-3">15 Jan 2024</td>
-                            <td class="px-4 py-3 text-blue-600 font-medium hover:underline cursor-pointer">
-                                Lihat Detail
-                            </td>
-                        </tr>
-
-                        <tr class="bg-white hover:bg-gray-50 rounded-lg shadow-sm">
-                            <td class="px-4 py-3">
-                                <div class="font-semibold">Adolf Hitler</div>
-                                <div class="text-gray-500 text-xs">0853-6969-6721</div>
-                            </td>
-                            <td class="px-4 py-3">28 Tahun</td>
-                            <td class="px-4 py-3">Perempuan</td>
-                            <td class="px-4 py-3">RM-001236</td>
-                            <td class="px-4 py-3">10 Jan 2024</td>
-                            <td class="px-4 py-3 text-blue-600 font-medium hover:underline cursor-pointer">
-                                Lihat Detail
+                                <a href="{{ url('/dokter/data/detail') }}"
+                                    class="text-blue-600 font-medium hover:underline">
+                                    Lihat Detail
+                                </a>
                             </td>
                         </tr>
                     </tbody>

@@ -22,7 +22,6 @@ Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
     Route::resource('/stok-obat', ObatController::class);
     Route::resource('dokter', DokterController::class);
     Route::resource('pasien', PasienController::class);
-
 });
 
 Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
@@ -45,12 +44,12 @@ Route::middleware(['auth'])->prefix('dokter')->group(function () {
         ->name('dashboarddokter');
     Route::view('/janji', 'pages.dokter.janji')
         ->name('janjidokter');
-    Route::view('/data', 'pages.dokter.data')
-        ->name('datapasien');
     Route::view('/resep', 'pages.dokter.resep')
         ->name('resep');
     Route::view('/jadwal', 'pages.dokter.jadwal')
         ->name('jadwalpraktek');
+    Route::resource('data', PasienController::class);
+    Route::view('/dokter/data/tindakan', 'pages.dokter.tindakan-pasien');
 });
 
 
