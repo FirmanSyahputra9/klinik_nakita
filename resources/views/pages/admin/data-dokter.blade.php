@@ -62,7 +62,6 @@
         <!-- Pagination -->
         <div class="mt-4">
             {{ $dokters->links() }}
+            <p>tes</p>
         </div>
-    </div>
-
 </x-layouts.app>
