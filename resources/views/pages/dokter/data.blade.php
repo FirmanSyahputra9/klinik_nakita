@@ -33,7 +33,7 @@
                             <td class="px-4 py-3">RM-2024-001</td>
                             <td class="px-4 py-3">12 Jan 2024</td>
                             <td class="px-4 py-3">
-                                <a href="{{ url('/dokter/data/tindakan') }}"
+                                <a href="{{ route('tindakanpasien') }}"
                                     class="text-blue-600 font-medium hover:underline">
                                     Lihat Detail
                                 </a>
