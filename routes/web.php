@@ -49,7 +49,7 @@ Route::middleware(['auth'])->prefix('dokter')->group(function () {
     Route::view('/jadwal', 'pages.dokter.jadwal')
         ->name('jadwalpraktek');
     Route::resource('data', PasienController::class);
-    Route::view('/dokter/data/tindakan', 'pages.dokter.tindakan-pasien');
+    Route::view('/tindakan', 'index');
 });
 
 
