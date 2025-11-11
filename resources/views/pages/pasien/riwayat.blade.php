@@ -70,6 +70,14 @@
                             <p class="text-gray-500">Biaya</p>
                             <p class="font-medium text-green-600">Rp 150.000</p>
                         </div>
+                        <div>
+                            <p class="text-gray-500">Jenis Tindakan</p>
+                            <p class="font-medium text-gray-600">Pemantauan Kesehatan</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Alergi</p>
+                            <p class="font-medium text-gray-600">-</p>
+                        </div>
                     </div>
                 </div>
 
@@ -115,7 +123,7 @@
                 </button>
                 
                 <div id="detail-2" class="hidden mt-4 pt-4 border-t border-gray-200">
-                    <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div class="grid grid-cols-4 gap-4 text-sm">
                         <div>
                             <p class="text-gray-500">Jenis Pemeriksaan</p>
                             <p class="font-medium">Darah lengkap, Gula darah</p>
