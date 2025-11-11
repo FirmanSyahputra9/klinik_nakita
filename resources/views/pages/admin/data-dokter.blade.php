@@ -1,4 +1,6 @@
 <x-layouts.app :title="__('Data Dokter')">
+
+>>>>>>> 85e989f4023a8c6f3b17118ce3c87a77c84737fd
     <div>
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-semibold text-gray-800">Data Dokter</h1>
@@ -34,6 +36,9 @@
 
                     </tr>
                 </thead>
+=======
+
+>>>>>>> 85e989f4023a8c6f3b17118ce3c87a77c84737fd
                 <tbody>
                     @foreach ($dokters as $dokter)
                         <tr class="border-b hover:bg-gray-50">
@@ -63,4 +68,7 @@
         <div class="mt-4">
             {{ $dokters->links() }}
         </div>
+<<<<<<< HEAD
+=======
+
 </x-layouts.app>
