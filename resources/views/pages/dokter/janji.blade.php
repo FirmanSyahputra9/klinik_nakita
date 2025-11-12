@@ -46,8 +46,8 @@
                 <table class="w-full">
                     <thead>
                         <tr class="border-b border-gray-200">
-                            <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Waktu</th>
                             <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Tanggal</th>
+                            <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Waktu</th>
                             <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Pasien</th>
                             <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Keluhan</th>
                             <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Status</th>

@@ -36,6 +36,11 @@
                         {{ __('Appointments') }}
                     </flux:navlist.item>
 
+                    <flux:navlist.item class="mb-2" icon="home" :href="route('kasir')"
+                        :current="request()->routeIs('kasir')" wire:navigate>
+                        {{ __('Kasir') }}
+                    </flux:navlist.item>
+
                     <flux:navlist.item class="mb-2" icon="inbox-stack" :href="route('stok-obat.index')"
                         :current="request()->routeIs('stok-obat.*')" wire:navigate>
                         {{ __('Stok') }}

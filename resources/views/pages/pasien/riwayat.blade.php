@@ -55,28 +55,28 @@
                 <div id="detail-1" class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out mt-4 pt-0 border-t border-gray-200 opacity-0">
                     <div class="grid grid-cols-2 gap-4 text-sm py-4">
                         <div>
-                            <p class="text-gray-500">Diagnosa</p>
-                            <p class="font-medium text-gray-500">Tekanan darah tinggi</p>
+                            <p class="text-gray-500">Jenis Tindakan</p>
+                            <p class="font-medium text-gray-600">Pemantauan Kesehatan</p>
                         </div>
                         <div>
-                            <p class="text-gray-500">Resep Obat</p>
-                            <p class="font-medium text-gray-500">Amlodipin 5mg, Captopril 25mg</p>
+                            <p class="text-gray-500">Keluhan Utama</p>
+                            <p class="font-medium text-gray-500">Bengkak-bengkak kek</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Diagnosa</p>
+                            <p class="font-medium text-gray-500">Tekanan darah tinggi</p>
                         </div>
                         <div>
                             <p class="text-gray-500">Catatan</p>
                             <p class="font-medium text-gray-500">Kontrol rutin tekanan darah, diet rendah garam</p>
                         </div>
                         <div>
-                            <p class="text-gray-500">Biaya</p>
-                            <p class="font-medium text-green-600">Rp 150.000</p>
-                        </div>
-                        <div>
-                            <p class="text-gray-500">Jenis Tindakan</p>
-                            <p class="font-medium text-gray-600">Pemantauan Kesehatan</p>
-                        </div>
-                        <div>
                             <p class="text-gray-500">Alergi</p>
                             <p class="font-medium text-gray-600">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Reaksi</p>
+                            <p class="font-medium text-gray-600">Bentol-bentol kayak kaki gajah</p>
                         </div>
                     </div>
                 </div>

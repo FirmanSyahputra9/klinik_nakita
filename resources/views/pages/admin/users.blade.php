@@ -84,7 +84,7 @@
                             <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->umur }}</td>
                             <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->alamat }}</td>
                             <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->phone }}</td>
-                            <td class="py-2 px-4">
+                            <td class="py-2 px-4 whitespace-nowrap">
                                 <a href="{{ route('users.show', $pasien->id) }}"
                                     class="text-blue-600 hover:text-blue-800">
                                     <i class="fas fa-eye"></i>
@@ -94,7 +94,16 @@
                                         class="inline">
                                         @csrf
                                         <button type="submit" class="text-green-600 hover:text-green-800 cursor-pointer">
-                                            <i class="fas fa-check"></i>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                            </svg>
+                                        </button>
+                                    </form>
+                                    <form>
+                                        <button type="submit" class="text-red-600 hover:text-red-800 cursor-pointer">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                            </svg>
                                         </button>
                                     </form>
                                 @endif

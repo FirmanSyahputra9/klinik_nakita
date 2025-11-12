@@ -87,7 +87,7 @@
 
         <!-- Tombol Edit -->
         <div class="mt-8 text-center sm:text-right">
-            <a href="{{ route('pasien.edit', $pasien->id) }}"
+            <a href="{{ route('users.edit', $pasien->id) }}"
                 class="inline-flex items-center bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700 transition">
                 <i class="fas fa-edit mr-2"></i> Edit Data
             </a>

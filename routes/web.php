@@ -21,6 +21,10 @@ Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
         ->name('users.approve');
     Route::view('/appointment', 'pages.admin.appointment')
         ->name('appointmentadmin');
+    Route::view('/kasir', 'pages.admin.kasir')
+        ->name('kasir');
+    Route::view('/tambah-kas', 'pages.admin.tambah-kas')
+        ->name('tambahkas');
     Route::resource('/stok-obat', ObatController::class);
     Route::resource('dokter', DokterController::class);
     // Route::resource('pasien', PasienController::class);
