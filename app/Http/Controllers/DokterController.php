@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Dokter;
 use App\Models\Obat;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class DokterController extends Controller
 {
@@ -30,19 +33,35 @@ class DokterController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'nama_lengkap' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
             'spesialisasi' => 'required|string|max:255',
-            'no_telepon' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:dokters',
-            'status' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'status' => 'required|string',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
         ]);
 
-        Dokter::create($validated);
+        $user = User::create([
+            'username' => $request->nama_lengkap,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => 'doctor',
+        ]);
 
-        return redirect()->route('dokter.index')
-            ->with('success', 'Dokter berhasil ditambahkan!');
+        Dokter::create([
+            'user_id' => $user->id,
+            'nama_lengkap' => $request->nama_lengkap,
+            'alamat' => $request->alamat,
+            'spesialisasi' => $request->spesialisasi,
+            'phone' => $request->phone,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('dokter.index')->with('success', 'Dokter baru berhasil ditambahkan!');
     }
+
 
     /**
      * Display the specified resource.

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Obat;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 
 /**
@@ -19,10 +20,13 @@ class ObatFactory extends Factory
     {
 
         $faker = \Faker\Factory::create('id_ID');
-        $kode = $faker->unique()->lexify('OBT???');
+        $kode = 'OBT' . strtoupper(Str::random(3)) . $faker->randomNumber(3, true);
         return [
-            'kode' => strtoupper($kode),
-            'nama' => $faker->randomElement([
+            // pastikan kode selalu unik
+            'kode' => $kode,
+
+            // tambahkan ->unique() di nama juga biar tidak dobel
+            'nama' => $faker->unique()->randomElement([
                 'Paracetamol',
                 'Amoxicillin',
                 'Ibuprofen',
@@ -44,6 +48,7 @@ class ObatFactory extends Factory
                 'Diclofenac',
                 'Prednisone'
             ]),
+
             'stok' => $faker->numberBetween(10, 200),
             'satuan' => $faker->randomElement(['Strip', 'Box', 'Botol', 'Tube', 'Tablet', 'Kapsul', 'Pcs']),
             'harga_beli' => $faker->randomFloat(2, 1000, 50000),

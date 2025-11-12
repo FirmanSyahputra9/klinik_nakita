@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use App\Models\Pasien;
+use Illuminate\Support\Facades\Hash;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -20,32 +22,36 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input): User
     {
         Validator::make($input, [
-            'nik' => ['required', 'string', 'max:255', 'unique:niks'],
-            'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'phone' => ['required', 'string', 'max:255', 'unique:users'],
-            'birth_date' => ['required', 'date', 'before:today'],
-            'gender' => ['required', 'string', 'max:255'],
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique(User::class),
-            ],
+            'username' => ['required', 'string', 'max:255', 'unique:users,username'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => $this->passwordRules(),
+            'name' => ['required', 'string', 'max:255'],
+            'gol_darah' => ['nullable', 'string', 'max:255'],
+            'alamat' => ['required', 'string', 'max:255', 'unique:pasiens,alamat'],
+            'nik' => ['required', 'string', 'max:255', 'unique:pasiens,nik'],
+            'birth_date' => ['nullable', 'date'],
+            'gender' => ['nullable', 'in:male,female'],
+            'phone' => ['required', 'string', 'max:255'],
         ])->validate();
 
-        return User::create([
-            'name' => $input['name'],
-            'nik' => $input['nik'],
+        $user = User::create([
             'username' => $input['username'],
-            'phone' => $input['phone'],
-            'birth_date' => $input['birth_date'],
-            'gender' => $input['gender'],
             'email' => $input['email'],
-            'password' => $input['password'],
+            'password' => Hash::make($input['password']),
         ]);
 
+        Pasien::create([
+            'user_id' => $user->id,
+            'name' => $input['name'],
+            'gol_darah' => $input['gol_darah'] ?? null,
+            'alamat' => $input['alamat'],
+            'nik' => $input['nik'],
+            'birth_date' => $input['birth_date'] ?? null,
+            'gender' => $input['gender'] ?? null,
+            'phone' => $input['phone'],
+            'no_rm' => null
+        ]);
+
+        return $user;
     }
 }

@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('pasiens', function (Blueprint $table) {
             $table->id();
-            
+            $table->foreignId('user_id')->constrained();
+            $table->string('name');
+            $table->string('no_rm')->unique()->nullable();
+            $table->string('gol_darah')->nullable();
+            $table->string('alamat')->unique();
+            $table->string('nik')->unique();
+            $table->date('birth_date')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->string('phone');
             $table->timestamps();
         });
     }

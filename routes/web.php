@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminUser as AdminUser;
 use App\Http\Controllers\DokterController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -15,13 +16,14 @@ Route::get('/', function () {
 Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
     Route::view('/', 'pages.admin.dashboard')
         ->name('dashboard');
-    Route::view('/users', 'pages.admin.users')
-        ->name('users');
+    Route::resource('users', AdminUser::class);
+    Route::post('users/approve/{id}', [AdminUser::class, 'approve'])
+        ->name('users.approve');
     Route::view('/appointment', 'pages.admin.appointment')
         ->name('appointmentadmin');
     Route::resource('/stok-obat', ObatController::class);
     Route::resource('dokter', DokterController::class);
-    Route::resource('pasien', PasienController::class);
+    // Route::resource('pasien', PasienController::class);
 });
 
 Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {

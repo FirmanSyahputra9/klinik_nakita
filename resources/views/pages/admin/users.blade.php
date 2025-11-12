@@ -1,77 +1,162 @@
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-/>
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
 <x-layouts.app :title="__('Pengguna')">
-    <div class="bg-white rounded-lg shadow p-4 w-80 mb-6 border border-blue-200">
-        <div class="flex items-center space-x-4 bg-pink-50 p-4 rounded-lg">
-            <div class="bg-blue-100 p-3 rounded-lg">
-                <i class="fas fa-bed text-blue-500 text-2xl"></i>
-            </div>
-            <div>
-                <p class="text-sm text-gray-500">Total Pasien</p>
-                <p class="text-xl font-semibold text-gray-500">1220</p>
-            </div>
+    <div x-data="{ tab: 'pasien' }" class="p-6">
+        <!-- Tabs -->
+        <div class="flex gap-3 mb-4">
+            <button @click="tab = 'pasien'"
+                :class="tab === 'pasien' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'"
+                class="px-4 py-2 rounded-lg font-medium transition">Pasien</button>
+            <button @click="tab = 'dokter'"
+                :class="tab === 'dokter' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'"
+                class="px-4 py-2 rounded-lg font-medium transition">Dokter</button>
+            <button @click="tab = 'admin'"
+                :class="tab === 'admin' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'"
+                class="px-4 py-2 rounded-lg font-medium transition">Admin</button>
         </div>
-        <div class="mt-4 text-sm text-gray-600">
-            <p>Total pasien : 21</p>
-            <p>30 Hari Terakhir : 231</p>
+
+        <!-- Table Container -->
+        <div class="overflow-x-auto bg-white rounded-lg shadow border border-gray-100">
+            <table class="min-w-full text-left border-collapse">
+                <thead class="bg-pink-50">
+                    <tr>
+                        <template x-if="tab === 'pasien'">
+                            <th colspan="7" class="py-3 px-4 text-gray-700 font-semibold text-sm">Data Pasien</th>
+                        </template>
+                        <template x-if="tab === 'dokter'">
+                            <th colspan="7" class="py-3 px-4 text-gray-700 font-semibold text-sm">Data Dokter</th>
+                        </template>
+                        <template x-if="tab === 'admin'">
+                            <th colspan="7" class="py-3 px-4 text-gray-700 font-semibold text-sm">Data Admin</th>
+                        </template>
+                    </tr>
+                    <template x-if="tab === 'pasien'">
+                        <tr class="bg-gray-100">
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">NO</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">No. RM</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Nama</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">NIK</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Email</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Gender</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Umur</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Alamat</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Telepon</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Aksi</th>
+                        </tr>
+                    </template>
+
+                    <!-- Untuk Dokter -->
+                    <template x-if="tab === 'dokter'">
+                        <tr class="bg-gray-100">
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">NO</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Nama Lengkap</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Spesialis</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Email</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Telepon</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Alamat</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Status</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Aksi</th>
+                        </tr>
+                    </template>
+
+                    <!-- Untuk Admin -->
+                    <template x-if="tab === 'admin'">
+                        <tr class="bg-gray-100">
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">NO</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Nama</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Email</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Role</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Aksi</th>
+                        </tr>
+                    </template>
+                </thead>
+                <tbody x-show="tab === 'pasien'" class=" text-[10px]">
+                    @foreach ($pasiens as $pasien)
+                        <tr class="border-b hover:bg-gray-50">
+
+                            <td class="py-2 px-4 text-gray-500">{{ $pasien->approved }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->no_rm }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->name }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->nik }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $pasien->email }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->gender_label }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->umur }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->alamat }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->phone }}</td>
+                            <td class="py-2 px-4">
+                                <a href="{{ route('users.show', $pasien->id) }}"
+                                    class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                @if (!$pasien->approved)
+                                    <form action="{{ route('users.approve', $pasien->id) }}" method="POST"
+                                        class="inline">
+                                        @csrf
+                                        <button type="submit" class="text-green-600 hover:text-green-800 cursor-pointer">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </form>
+                                @endif
+
+                            </td>
+
+                        </tr>
+                    @endforeach
+                </tbody>
+                <tbody x-show="tab === 'dokter'" class=" text-[10px]">
+                    @foreach ($dokters as $dokter)
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="py-2 px-4 text-gray-500">{{ $loop->iteration }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $dokter->dokter->nama_lengkap }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $dokter->dokter->spesialisasi }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $dokter->email }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $dokter->dokter->phone }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $dokter->dokter->alamat }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $dokter->dokter->status }}</td>
+                            <td class="py-2 px-4">
+                                <a href="{{ route('users.show', $dokter->id) }}"
+                                    class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+
+                <!-- ADMIN -->
+                <tbody x-show="tab === 'admin'" class=" text-[10px]">
+                    @foreach ($admins as $admin)
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="py-2 px-4 text-gray-500">{{ $loop->iteration }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $admin->admin->name }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $admin->email }}</td>
+                            <td class="py-2 px-4 text-gray-500">Admin</td>
+                            <td class="py-2 px-4">
+                                <a href="{{ route('users.show', $admin->id) }}"
+                                    class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+
+            </table>
+        </div>
+        <!-- PAGINATION DI LUAR TABLE -->
+        <div class="mt-4">
+            <div x-show="tab === 'pasien'">
+                {{ $pasiens->links() }}
+            </div>
+            <div x-show="tab === 'dokter'">
+                {{ $dokters->links() }}
+            </div>
+            <div x-show="tab === 'admin'">
+                {{ $admins->links() }}
+            </div>
         </div>
     </div>
-
-    <!-- Table -->
-    <div class="overflow-x-auto bg-white rounded-lg shadow">
-        <table class="min-w-full text-left border-collapse">
-            <thead class="bg-pink-50">
-                <tr>
-                    <th class="py-3 px-4 text-sm font-medium text-gray-700">No. RM</th>
-                    <th class="py-3 px-4 text-sm font-medium text-gray-700">Nama Pasien</th>
-                    <th class="py-3 px-4 text-sm font-medium text-gray-700">NIK</th>
-                    <th class="py-3 px-4 text-sm font-medium text-gray-700">L/P</th>
-                    <th class="py-3 px-4 text-sm font-medium text-gray-700">Umur</th>
-                    <th class="py-3 px-4 text-sm font-medium text-gray-700">No. Telepon</th>
-                    <th class="py-3 px-4 text-sm font-medium text-gray-700">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="py-2 px-4 text-gray-500">RM-2024-001</td>
-                    <td class="py-2 px-4 text-gray-500">Yazid Nasution</td>
-                    <td class="py-2 px-4 text-gray-500">12710308000402</td>
-                    <td class="py-2 px-4 text-gray-500">L</td>
-                    <td class="py-2 px-4 text-gray-500">21 Tahun</td>
-                    <td class="py-2 px-4 text-gray-500">085372736669</td>
-                    <td class="py-2 px-4 text-gray-500 hover:text-gray-800 cursor-pointer">
-                        <a href="{{ route('pasien.show', 1) }}">
-
-                            <i class="fas fa-eye"></i>
-                        </a>
-
-                    </td>
-                </tr>
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="py-2 px-4 text-gray-500">RM-2024-001</td>
-                    <td class="py-2 px-4 text-gray-500">Budi Santoso</td>
-                    <td class="py-2 px-4 text-gray-500">3174012345670001</td>
-                    <td class="py-2 px-4 text-gray-500">L</td>
-                    <td class="py-2 px-4 text-gray-500">39 Tahun</td>
-                    <td class="py-2 px-4 text-gray-500">0812-3456-7890</td>
-                    <td class="py-2 px-4 text-gray-500 hover:text-gray-800 cursor-pointer">
-                        <i class="fas fa-eye"></i>
-                    </td>
-                </tr>
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="py-2 px-4 text-gray-500">RM-2024-001</td>
-                    <td class="py-2 px-4 text-gray-500">Budi Santoso</td>
-                    <td class="py-2 px-4 text-gray-500">3174012345670001</td>
-                    <td class="py-2 px-4 text-gray-500">L</td>
-                    <td class="py-2 px-4 text-gray-500">39 Tahun</td>
-                    <td class="py-2 px-4 text-gray-500">0812-3456-7890</td>
-                    <td class="py-2 px-4 text-gray-500 hover:text-gray-800 cursor-pointer">
-                        <i class="fa-solid fa-eye"></i>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </x-layouts.app>

@@ -37,8 +37,8 @@ class DokterFactory extends Factory
                 'Spesialis Paru',
                 'Spesialis Psikiatri',
             ]),
-            'no_telepon' => $faker->phoneNumber,
-            'email' => $faker->email,
+            'phone' => $faker->phoneNumber,
+            'alamat' => $faker->address,
             'status' => $faker->randomElement(['aktif', 'tidak aktif']),
         ];
     }

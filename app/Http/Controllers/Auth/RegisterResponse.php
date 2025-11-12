@@ -16,7 +16,6 @@ class RegisterResponse implements RegisterResponseContract
      */
     public function toResponse($request)
     {
-        // Jika permintaan adalah JSON/API, kembalikan JSON
         if ($request->wantsJson()) {
             return new JsonResponse(['two_factor' => false], 201);
         }

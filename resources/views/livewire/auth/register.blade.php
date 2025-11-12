@@ -19,6 +19,10 @@
             <flux:input name="username" :label="__('Username')" value="{{ old('username') }}" type="text" required autofocus
                 autocomplete="username" :placeholder="__('Username')" />
 
+            <!-- Gol Darah -->
+            <flux:input name="gol_darah" :label="__('Golongan Darah')" value="{{ old('gol_darah') }}" type="text" required autofocus
+                autocomplete="gol_darah" :placeholder="__('Golongan Darah')" />
+
             <!-- gender -->
             <div class="flex flex-col gap-1">
                 <label for="gender" class="text-sm font-medium text-zinc-700 dark:text-zinc-300">
@@ -36,6 +40,9 @@
             <flux:input name="birth_date" :label="__('Tanggal Lahir')" value="{{ old('birth_date') }}" type="date" required autofocus
                 autocomplete="tanggal_lahir" :placeholder="__('Tanggal Lahir')" />
 
+            <!-- Alamat -->
+            <flux:input name="alamat" :label="__('Alamat')" value="{{ old('alamat') }}" type="text" required autofocus autocomplete="alamat"
+                :placeholder="__('Alamat')" />
 
             <!-- Email Address -->
             <flux:input name="email" :label="__('Email address')" value="{{ old('email') }}" type="email" required autocomplete="email"

@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,35 +10,29 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, TwoFactorAuthenticatable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
+     * Kolom yang dapat diisi secara massal.
      */
     protected $fillable = [
+        'show',
         'name',
         'username',
         'nik',
-        'show',
         'gender',
         'birth_date',
         'phone',
         'role',
         'email',
         'password',
-        'approved_at',
         'approved',
+        'approved_at',
+        'email_verified_at',
     ];
 
-
-
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
+     * Kolom yang disembunyikan saat serialisasi.
      */
     protected $hidden = [
         'password',
@@ -50,11 +42,8 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Casting tipe data kolom.
      */
-
     protected $casts = [
         'approved' => 'boolean',
         'email_verified_at' => 'datetime',
@@ -63,9 +52,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-
     /**
-     * Get the user's initials
+     * Inisial nama (misal: "Aditya Hutagalung" => "AH")
      */
     public function initials(): string
     {
@@ -76,15 +64,38 @@ class User extends Authenticatable
             ->implode('');
     }
 
-    // Cek apakah user disetujui
+    /**
+     * Apakah user sudah disetujui?
+     */
     public function isApproved(): bool
     {
         return (bool) $this->approved;
     }
 
-    // Accessor untuk status teks
+    /**
+     * Accessor status persetujuan (teks).
+     */
     public function getApprovedStatusAttribute(): string
     {
         return $this->approved ? 'Ya' : 'Tidak';
+    }
+
+    /**
+     * Relasi ke model Pasien
+     * (Satu user bisa memiliki satu pasien)
+     */
+    public function pasien()
+    {
+        return $this->hasOne(Pasien::class, 'user_id');
+    }
+
+    public function dokter()
+    {
+        return $this->hasOne(Dokter::class, 'user_id');
+    }
+
+    public function admin()
+    {
+        return $this->hasOne(Admin::class, 'user_id');
     }
 }

@@ -21,12 +21,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->boolean('show')->default(true);
-            $table->string('name');
-            $table->string('nik')->unique();
             $table->string('username')->unique()->nullable();
-            $table->date('birth_date')->nullable();
-            $table->enum('gender', ['male', 'female'])->nullable();
-            $table->string('phone')->unique();
             $table->string('email')->unique();
             $table->enum('role', ['superadmin', 'admin', 'doctor',  'user'])->default('user');
             $table->boolean('approved')->default(false);
@@ -36,9 +31,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-
-
-
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

@@ -1,5 +1,4 @@
 <x-layouts.app :title="__('Tambah Dokter')">
-
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-semibold text-gray-800">Tambah Dokter</h1>
 
@@ -18,14 +17,21 @@
 
             <div>
                 <label class="block text-gray-700 mb-2 font-medium">Nama Lengkap</label>
-                <input type="text" name="nama_lengkap"
+                <input type="text" name="nama_lengkap" required
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                        placeholder="Contoh: dr. Ahmad Siregar">
             </div>
 
             <div>
+                <label class="block text-gray-700 mb-2 font-medium">Alamat</label>
+                <input type="text" name="alamat" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                       placeholder="Contoh: Jl. Gajah Mada No.12, Medan">
+            </div>
+
+            <div>
                 <label class="block text-gray-700 mb-2 font-medium">Spesialisasi</label>
-                <input type="text" name="spesialisasi"
+                <input type="text" name="spesialisasi" required
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                        placeholder="Contoh: Spesialis Anak">
             </div>
@@ -33,26 +39,33 @@
             <div class="grid sm:grid-cols-2 gap-5">
                 <div>
                     <label class="block text-gray-700 mb-2 font-medium">No. Telepon</label>
-                    <input type="text" name="no_telepon"
+                    <input type="text" name="phone" required
                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                            placeholder="0812-3456-7890">
                 </div>
 
                 <div>
-                    <label class="block text-gray-700 mb-2 font-medium">Email</label>
-                    <input type="email" name="email"
+                    <label class="block text-gray-700 mb-2 font-medium">Email Login</label>
+                    <input type="email" name="email" required
                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                            placeholder="dokter@example.com">
                 </div>
             </div>
 
             <div>
+                <label class="block text-gray-700 mb-2 font-medium">Password Login</label>
+                <input type="password" name="password" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                       placeholder="Minimal 6 karakter">
+            </div>
+
+            <div>
                 <label class="block text-gray-700 mb-2 font-medium">Status</label>
-                <select name="status"
+                <select name="status" required
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
                     <option value="">-- Pilih Status --</option>
-                    <option value="Aktif">Aktif</option>
-                    <option value="Nonaktif">Nonaktif</option>
+                    <option value="aktif">Aktif</option>
+                    <option value="tidak aktif">Tidak Aktif</option>
                 </select>
             </div>
 
@@ -68,5 +81,4 @@
             </div>
         </form>
     </div>
-
 </x-layouts.app>

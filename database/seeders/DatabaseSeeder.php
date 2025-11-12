@@ -2,73 +2,61 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Pasien;
+use App\Models\Dokter;
+use App\Models\Admin;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // SUPERADMIN
         User::factory()->create([
-            'name' => 'Super Admin',
-            'username' => 'TSAdmin',
-            'phone' => '(+62) 8123456789067',
-            'email' => 'super@example.com',
-            'gender' => 'male',
-            'birth_date' => '2000-01-01',
+            'username' => 'superadmin',
+            'email' => 'superadmin@example.com',
             'role' => 'superadmin',
             'approved' => true,
             'approved_at' => now(),
+            'password' => bcrypt('password'),
         ]);
 
+        // ADMIN
         User::factory()->create([
-            'name' => 'Admin',
-            'username' => 'TAdmin',
+            'username' => 'admin',
             'email' => 'admin@example.com',
-            'phone' => '(+62) 8123456789',
-            'gender' => 'male',
-            'birth_date' => '2000-01-01',
             'role' => 'admin',
             'approved' => true,
             'approved_at' => now(),
+            'password' => bcrypt('password'),
         ]);
 
+        // DOCTOR
         User::factory()->create([
-            'name' => 'Dokter',
-            'username' => 'TDokter',
-            'email' => 'dokter@example.com',
-            'phone' => '(+62) 812345678912',
-            'birth_date' => '2000-01-01',
-            'gender' => 'male',
+            'username' => 'doctor',
+            'email' => 'doctor@example.com',
             'role' => 'doctor',
             'approved' => true,
             'approved_at' => now(),
+            'password' => bcrypt('password'),
         ]);
 
-        User::factory()->create([
-            'name' => 'User',
-            'username' => 'TUser',
-            'email' => 'user@example.com',
-            'phone' => '(+62) 812345678913',
-            'birth_date' => '2000-01-01',
-            'gender' => 'male',
-            'role' => 'user',
-            'approved' => true,
-            'approved_at' => now(),
-        ]);
+        // USER + DATA PASIEN
+        $users = User::factory(30)->create();
+        foreach ($users as $user) {
+            match ($user->role) {
+                'user' => Pasien::factory()->create(['user_id' => $user->id]),
+                'doctor' => Dokter::factory()->create(['user_id' => $user->id]),
+                'admin' => Admin::factory()->create(['user_id' => $user->id]),
+                default => null,
+            };
+        }
 
-        User::factory(100)->create();
+
 
         $this->call([
             ObatSeeder::class,
-            DokterSeeder::class
         ]);
-
     }
 }

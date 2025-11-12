@@ -21,7 +21,7 @@
                         {{ __('Dashboard') }}
                     </flux:navlist.item>
 
-                    <flux:navlist.item class="mb-2" icon="home" :href="route('users')"
+                    <flux:navlist.item class="mb-2" icon="home" :href="route('users.index')"
                         :current="request()->routeIs('users')" wire:navigate>
                         {{ __('Users') }}
                     </flux:navlist.item>
@@ -112,7 +112,7 @@
 
         <!-- Desktop User Menu -->
         <flux:dropdown class="hidden lg:block" position="bottom" align="start">
-            <flux:profile :name="auth()->user()->name" :initials="auth()->user()->initials()"
+            <flux:profile :name="auth()->user()->username" :initials="auth()->user()->initials()"
                 icon:trailing="chevrons-up-down" data-test="sidebar-menu-button" />
 
             <flux:menu class="w-[220px]">
