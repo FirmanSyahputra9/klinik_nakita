@@ -20,6 +20,7 @@ class DokterFactory extends Factory
 
         $faker = \Faker\Factory::create('id_ID');
 
+
         return [
             'nama_lengkap' => $faker->name,
             'spesialisasi' => $faker->randomElement([
@@ -38,6 +39,7 @@ class DokterFactory extends Factory
                 'Spesialis Psikiatri',
             ]),
             'phone' => $faker->phoneNumber,
+            'nik' => $faker->unique()->nik,
             'alamat' => $faker->address,
             'status' => $faker->randomElement(['aktif', 'tidak aktif']),
         ];

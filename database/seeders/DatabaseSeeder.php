@@ -42,6 +42,16 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
+        // USER
+        User::factory()->create([
+            'username' => 'user',
+            'email' => 'user@example.com',
+            'role' => 'user',
+            'approved' => true,
+            'approved_at' => now(),
+            'password' => bcrypt('password'),
+        ]);
+
         // USER + DATA PASIEN
         $users = User::factory(30)->create();
         foreach ($users as $user) {
@@ -52,8 +62,6 @@ class DatabaseSeeder extends Seeder
                 default => null,
             };
         }
-
-
 
         $this->call([
             ObatSeeder::class,

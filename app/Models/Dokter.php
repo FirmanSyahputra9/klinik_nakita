@@ -19,6 +19,12 @@ class Dokter extends Model
         'phone',
         'email',
         'status',
+        'nik',
+        'aktif',
+    ];
+
+    protected $casts = [
+        'aktif' => 'boolean',
     ];
 
     public function user()

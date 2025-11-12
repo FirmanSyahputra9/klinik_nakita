@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('spesialisasi')->required();
             $table->string('phone')->required();
             $table->string('status')->required();
-            // tambahan: 
             $table->string('nik')->unique()->required();
             $table->timestamps();
         });
