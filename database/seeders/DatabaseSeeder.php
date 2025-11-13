@@ -7,64 +7,96 @@ use App\Models\User;
 use App\Models\Pasien;
 use App\Models\Dokter;
 use App\Models\Admin;
+use App\Models\DokterAktif;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // SUPERADMIN
-        User::factory()->create([
-            'username' => 'superadmin',
-            'email' => 'superadmin@example.com',
-            'role' => 'superadmin',
-            'approved' => true,
+        $superadmin = User::factory()->create([
+            'username'    => 'superadmin',
+            'email'       => 'superadmin@example.com',
+            'role'        => 'superadmin',
+            'approved'    => true,
             'approved_at' => now(),
-            'password' => bcrypt('password'),
+            'password'    => Hash::make('password'),
         ]);
 
-        // ADMIN
-        User::factory()->create([
-            'username' => 'admin',
-            'email' => 'admin@example.com',
-            'role' => 'admin',
-            'approved' => true,
-            'approved_at' => now(),
-            'password' => bcrypt('password'),
+        Admin::factory()->create([
+            'user_id' => $superadmin->id,
         ]);
 
-        // DOCTOR
-        User::factory()->create([
-            'username' => 'doctor',
-            'email' => 'doctor@example.com',
-            'role' => 'doctor',
-            'approved' => true,
+        $admin = User::factory()->create([
+            'username'    => 'admin',
+            'email'       => 'admin@example.com',
+            'role'        => 'admin',
+            'approved'    => true,
             'approved_at' => now(),
-            'password' => bcrypt('password'),
+            'password'    => Hash::make('password'),
         ]);
 
-        // USER
-        User::factory()->create([
-            'username' => 'user',
-            'email' => 'user@example.com',
-            'role' => 'user',
-            'approved' => true,
-            'approved_at' => now(),
-            'password' => bcrypt('password'),
+        Admin::factory()->create([
+            'user_id' => $admin->id,
         ]);
 
-        // USER + DATA PASIEN
+        $doctorUser = User::factory()->create([
+            'username'    => 'doctor',
+            'email'       => 'doctor@example.com',
+            'role'        => 'doctor',
+            'approved'    => true,
+            'approved_at' => now(),
+            'password'    => Hash::make('password'),
+        ]);
+
+        $dokterUtama = Dokter::factory()->create([
+            'user_id' => $doctorUser->id,
+        ]);
+
+        DokterAktif::create([
+            'dokter_id' => $dokterUtama->id,
+            'aktif'     => true,
+        ]);
+
+        $userUtama = User::factory()->create([
+            'username'    => 'user',
+            'email'       => 'user@example.com',
+            'role'        => 'user',
+            'approved'    => true,
+            'approved_at' => now(),
+            'password'    => Hash::make('password'),
+        ]);
+
+        Pasien::factory()->create([
+            'user_id' => $userUtama->id,
+        ]);
+
         $users = User::factory(30)->create();
+
         foreach ($users as $user) {
-            match ($user->role) {
-                'user' => Pasien::factory()->create(['user_id' => $user->id]),
-                'doctor' => Dokter::factory()->create(['user_id' => $user->id]),
-                'admin' => Admin::factory()->create(['user_id' => $user->id]),
-                default => null,
-            };
+            switch ($user->role) {
+                case 'user':
+                    Pasien::factory()->create(['user_id' => $user->id]);
+                    break;
+
+                case 'doctor':
+                    $dokter = Dokter::factory()->create(['user_id' => $user->id]);
+                    DokterAktif::create([
+                        'dokter_id' => $dokter->id,
+                        'aktif'     => false,
+                    ]);
+                    break;
+
+                case 'admin':
+                case 'superadmin':
+                    Admin::factory()->create(['user_id' => $user->id]);
+                    break;
+            }
         }
 
         $this->call([
             ObatSeeder::class,
+            DokterJadwalSeeder::class,
         ]);
     }
 }

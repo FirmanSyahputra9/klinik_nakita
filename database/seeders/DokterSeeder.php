@@ -22,6 +22,5 @@ class DokterSeeder extends Seeder
             'email' => 'amphutagalung@gmail.com',
             'status' => 'aktif',
         ]);
-        Dokter::factory(10)->create();
     }
 }

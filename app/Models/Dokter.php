@@ -20,15 +20,20 @@ class Dokter extends Model
         'email',
         'status',
         'nik',
-        'aktif',
-    ];
-
-    protected $casts = [
-        'aktif' => 'boolean',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function aktif()
+    {
+        return $this->hasOne(DokterAktif::class);
+    }
+
+    public function jadwals()
+    {
+        return $this->hasMany(DokterJadwal::class);
     }
 }

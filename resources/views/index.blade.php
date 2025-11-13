@@ -16,7 +16,7 @@
         <header class="absolute top-6 right-6">
             <nav class="flex items-center gap-3">
                 @auth
-                    <a href="{{ url('/dashboard') }}"
+                    <a href="{{ Auth::user()->role === 'admin' || Auth::user()->role === 'superadmin' ? route('dashboard') : (Auth::user()->role === 'doctor' ? route('dashboarddokter') : route('dashboarduser')) }}"
                         class="px-5 py-2 rounded-md text-sm font-medium bg-[#1b1b18] text-white dark:bg-[#EDEDEC] dark:text-[#0a0a0a] hover:opacity-90 transition">
                         Dashboard
                     </a>
@@ -49,7 +49,7 @@
             <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 @if (Route::has('login'))
                     @auth
-                        <a href="{{ url('/dashboard') }}"
+                        <a href="{{ Auth::user()->role === 'admin' || Auth::user()->role === 'superadmin' ? route('dashboard') : (Auth::user()->role === 'doctor' ? route('dashboarddokter') : route('dashboarduser')) }}"
                             class="px-6 py-3 bg-[#1b1b18] text-white dark:bg-[#EDEDEC] dark:text-[#0a0a0a] rounded-md font-medium hover:opacity-90 transition">
                             Buka Dashboard
                         </a>

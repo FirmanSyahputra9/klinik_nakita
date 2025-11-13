@@ -5,21 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DokterJadwal extends Model
+class DokterAktif extends Model
 {
     use HasFactory;
-    protected $table = 'dokter_jadwals';
+
+    protected $table = 'dokter_aktifs';
 
     protected $fillable = [
         'dokter_id',
-        'hari',
-        'aktif_mulai',
-        'aktif_selesai',
-        'keterangan',
-    ];
-    protected $casts = [
-        'aktif_mulai' => 'datetime:H:i',
-        'aktif_selesai' => 'datetime:H:i',
+        'aktif',
     ];
 
     public function dokter()

@@ -30,7 +30,7 @@
     </div>
 
     <!-- Right Sidebar -->
-    <aside class="w-64 bg-white rounded-lg p-4 shadow space-y-4">
+    <aside class="w-64 bg-white rounded-lg p-4 shadow space-y-4 mt-6">
         <div class="flex flex-col items-center">
             <div class="w-24 h-24 rounded-full bg-gray-300 mb-2"></div>
             <p class="font-semibold">Test_User</p>
