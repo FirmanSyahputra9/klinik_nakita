@@ -59,13 +59,64 @@
                        placeholder="Minimal 6 karakter">
             </div>
 
+            <!-- Jadwal Dokter -->
+            <div class="grid sm:grid-cols-2 gap-5">
+                <!-- Jam Dari -->
+                <div>
+                    <label class="block text-gray-700 mb-2 font-medium">Jam (Dari)</label>
+                    <input type="time" name="jam_dari" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-700">
+                </div>
+
+                <!-- Jam Ke -->
+                <div>
+                    <label class="block text-gray-700 mb-2 font-medium">Jam (Ke)</label>
+                    <input type="time" name="jam_ke" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-700">
+                </div>
+            </div>
+
+        <div class="grid sm:grid-cols-2 gap-5 mt-5">
+            <!-- Hari Dari -->
+            <div>
+                <label class="block text-gray-700 mb-2 font-medium">Hari (Dari)</label>
+                <select name="hari_dari" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-700">
+                    <option value="">-- Pilih Hari --</option>
+                    <option>Senin</option>
+                    <option>Selasa</option>
+                    <option>Rabu</option>
+                    <option>Kamis</option>
+                    <option>Jumat</option>
+                    <option>Sabtu</option>
+                    <option>Minggu</option>
+                </select>
+            </div>
+
+            <!-- Hari Ke -->
+            <div>
+                <label class="block text-gray-700 mb-2 font-medium">Hari (Ke)</label>
+                <select name="hari_ke" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-700">
+                    <option value="">-- Pilih Hari --</option>
+                    <option>Senin</option>
+                    <option>Selasa</option>
+                    <option>Rabu</option>
+                    <option>Kamis</option>
+                    <option>Jumat</option>
+                    <option>Sabtu</option>
+                    <option>Minggu</option>
+                </select>
+            </div>
+        </div>
+
             <div>
                 <label class="block text-gray-700 mb-2 font-medium">Status</label>
                 <select name="status" required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-700">
                     <option value="">-- Pilih Status --</option>
-                    <option value="aktif">Aktif</option>
-                    <option value="tidak aktif">Tidak Aktif</option>
+                    <option value="aktif">Online</option>
+                    <option value="tidak aktif">Online</option>
                 </select>
             </div>
 
