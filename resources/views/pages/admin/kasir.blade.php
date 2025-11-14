@@ -13,6 +13,7 @@
                         <th class="px-4 py-2 text-left">Jumlah</th>
                         <th class="px-4 py-2 text-left">Status</th>
                         <th class="px-4 py-2 text-left">Pasien</th>
+                        <th class="px-4 py-2 text-left">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
@@ -39,6 +40,9 @@
                         </td>
                         <td class="px-4 py-2">
                             <button class="text-blue-600 hover:text-blue-800">Adolf Hitler</button>
+                        </td>
+                        <td class="px-4 py-2">
+                            <button class="text-green-700 hover:text-green-700"> Detail</button>
                         </td>
                     </tr>
                 </tbody>
