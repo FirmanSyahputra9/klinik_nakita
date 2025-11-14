@@ -14,6 +14,27 @@
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 <style>
+    @font-face {
+        font-family: 'Poppins';
+        src: url('/font/Poppins/Poppins-Regular.ttf') format('truetype');
+        font-weight: 400;
+    }
+
+    @font-face {
+        font-family: 'Poppins';
+        src: url('/font/Poppins/Poppins-Medium.ttf') format('truetype');
+        font-weight: 500;
+    }
+
+    @font-face {
+        font-family: 'Poppins';
+        src: url('/font/Poppins/Poppins-Bold.ttf') format('truetype');
+        font-weight: 700;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
     [x-cloak] {
         display: none !important;
     }
