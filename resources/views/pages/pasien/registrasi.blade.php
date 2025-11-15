@@ -18,7 +18,7 @@
                         </label>
                         <input 
                             type="text" 
-                            name="nama_lengkap"
+                             name="nama_lengkap"
                             value="{{ old('nama_lengkap', $pasien->nama_lengkap ?? '') }}"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             readonly

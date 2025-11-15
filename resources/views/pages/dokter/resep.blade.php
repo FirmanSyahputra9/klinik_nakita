@@ -31,14 +31,16 @@
             <div class="mb-4">
                 <label class="block text-gray-700 font-medium mb-2">Resep Obat</label>
                 <div class="space-y-3" id="obat-list">
-                    <div class="grid grid-cols-4 gap-3">
-                        <input type="text" name="obat[0][nama_obat]" placeholder="Nama Obat"
+                    <div class="grid grid-cols-4 gap-3 text-xs">
+                        <input type="text" name="obat[0][nama_obat]" placeholder="Nama Obat (Dicari kek search engine berdasarkan stok obat)"
                             class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                         <input type="text" name="obat[0][dosis]" placeholder="Dosis"
                             class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                         <input type="text" name="obat[0][frekuensi]" placeholder="Frekuensi"
                             class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                         <input type="text" name="obat[0][waktu_konsumsi]" placeholder="Waktu Konsumsi"
+                            class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <input type="text" name="obat[0][harga]" placeholder="Harga (Autofill sesuai harga beli dari stok obat)"
                             class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                     </div>
                 </div>
@@ -67,14 +69,16 @@
             const newRow = document.createElement('div');
             newRow.classList.add('grid', 'grid-cols-4', 'gap-4');
             newRow.innerHTML = `
-                <input type="text" name="obat[${obatIndex}][nama_obat]" placeholder="Nama Obat"
-                    class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <input type="text" name="obat[${obatIndex}][nama_obat]" placeholder="Nama Obat (Dicari kek search engine berdasarkan stok obat)"
+                    class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none text-xs">
                 <input type="text" name="obat[${obatIndex}][dosis]" placeholder="Dosis"
-                    class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none text-xs">
                 <input type="text" name="obat[${obatIndex}][frekuensi]" placeholder="Frekuensi"
-                    class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none text-xs">
                 <input type="text" name="obat[${obatIndex}][waktu_konsumsi]" placeholder="Waktu Konsumsi"
-                    class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none text-xs">
+                <input type="text" name="obat[${obatIndex}][harga]" placeholder="Harga (Autofill sesuai harga jual dari stok obat)"
+                    class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none text-xs">
             `;
             container.appendChild(newRow);
             obatIndex++;

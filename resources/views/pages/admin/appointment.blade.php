@@ -11,6 +11,7 @@
             <thead class="bg-gray-100 text-gray-700">
                 <tr>
                     <th class="px-4 py-2 text-left">Waktu</th>
+                    <th class="px-4 py-2 text-left">Tanggal</th>
                     <th class="px-4 py-2 text-left">Nama Pasien</th>
                     <th class="px-4 py-2 text-left">Dokter</th>
                     <th class="px-4 py-2 text-left">Jenis Layanan</th>
@@ -29,6 +30,7 @@
             <tbody class="divide-y divide-gray-200 text-gray-700">
                 <tr class="hover:bg-gray-50">
                     <td class="px-4 py-2">08:00</td>
+                    <td class="px-4 py-2">12/29/2024</td>
                     <td class="px-4 py-2 font-semibold">Budi Santoso</td>
                     <td class="px-4 py-2">Dr. Hitler</td>
                     <td class="px-4 py-2">Konsultasi</td>
@@ -57,6 +59,7 @@
 
                 <tr class="hover:bg-gray-50">
                     <td class="px-4 py-2">09:00</td>
+                    <td class="px-4 py-2">12/29/2024</td>
                     <td class="px-4 py-2 font-semibold">Rudi Hermawan</td>
                     <td class="px-4 py-2">Dr. Hitler</td>
                     <td class="px-4 py-2">Pemeriksaan Rutin</td>
