@@ -4,17 +4,9 @@
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-3xl font-bold text-gray-900">Janji Temu</h1>
-                <p class="text-gray-600 mt-1">Selamat Datang, dr. Aditya Hutagalung</p>
+
             </div>
-            
-            <!-- Profile Badge -->
-            <div class="flex items-center gap-3">
-                <div class="text-right">
-                    <p class="font-semibold text-gray-900">Nabila Huwaida</p>
-                    <p class="text-sm text-gray-600">Dokter</p>
-                </div>
-                <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
-            </div>
+
         </div>
 
         <!-- Content Card -->
@@ -22,15 +14,15 @@
             <!-- Filter Section -->
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-xl font-bold text-gray-900">Daftar Janji Temu</h2>
-                
+
                 <div class="flex items-center gap-3">
                     <!-- Date Filter -->
-                    <input 
-                        type="date" 
+                    <input
+                        type="date"
                         value="2024-01-15"
                         class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                    
+
                     <!-- Status Filter -->
                     <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option>Semua Status</option>

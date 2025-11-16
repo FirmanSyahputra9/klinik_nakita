@@ -22,7 +22,7 @@ class DokterFactory extends Factory
 
 
         return [
-            'nama_lengkap' => $faker->name,
+            'name' => $faker->name,
             'spesialisasi' => $faker->randomElement([
                 'Dokter Umum',
                 'Spesialis Anak',

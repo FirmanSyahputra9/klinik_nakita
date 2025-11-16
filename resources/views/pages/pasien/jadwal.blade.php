@@ -17,8 +17,6 @@
                     </svg>
                     Filter
                 </button>
-
-                
             </div>
 
             <!-- Table -->
@@ -34,70 +32,41 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Row 1 -->
-                        <tr class="border-b border-gray-100 hover:bg-gray-50">
-                            <td class="py-4 px-4 text-sm text-gray-900">dr. Gio</td>
-                            <td class="py-4 px-4 text-sm text-gray-700">Dokter Umum</td>
-                            <td class="py-4 px-4 text-sm text-gray-700">Senin-Kamis, 09.00 - 17.00</td>
-                            <td class="py-4 px-4">
-                                <span
-                                    class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium text-red-700 bg-red-50">
-                                    Offline
-                                </span>
-                            </td>
-                            <td class="py-4 px-4">
-                                    <a href="{{ route('registrasi.index') }}"
-                                    class="inline-flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                        @foreach ($dokter as $dokter)
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-4 px-4 text-sm text-gray-900">{{ $dokter->name }}</td>
+                                <td class="py-4 px-4 text-sm text-gray-700">{{ $dokter->spesialisasi }}</td>
+                                <td class="py-4 px-4 text-sm text-gray-700">
+                                    @foreach ($dokter->jadwals as $jadwal)
+                                        {{ $jadwal->hari }},
+                                        {{ $jadwal->aktif_mulai }} - {{ $jadwal->aktif_selesai }}
+                                    @endforeach
+                                </td>
+                                <td class="py-4 px-4">
+                                    @if ($dokter->aktif)
+                                        <span
+                                            class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium {{ $dokter->aktif->aktif == 1 ? 'bg-green-800 ' : 'bg-red-800' }}">
+                                            {{ $dokter->aktif->aktif == 1 ? 'Online' : 'Offline' }}
+                                        </span>
+                                    @else
+                                        <span
+                                            class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium text-gray-700 bg-gray-100">
+                                            Tidak Ada Data
+                                        </span>
+                                    @endif
+                                </td>
+                                <td class="py-4 px-4">
+                                    <a href="{{ route('registrasi.index', $dokter->id) }}"
+                                        class="inline-flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                         </svg>
                                         Registrasi
                                     </a>
-                            </td>
-                        </tr>
-
-                        <!-- Row 2 -->
-                        <tr class="border-b border-gray-100 hover:bg-gray-50">
-                            <td class="py-4 px-4 text-sm text-gray-900">dr. Hitler</td>
-                            <td class="py-4 px-4 text-sm text-gray-700">Dokter Gigi</td>
-                            <td class="py-4 px-4 text-sm text-gray-700">Rabu-Jumat, 09.00 - 17.00</td>
-                            <td class="py-4 px-4">
-                                <span
-                                    class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium text-green-700 bg-green-50">
-                                    Online
-                                </span>
-                            </td>
-                            <td class="py-4 px-4">
-                                <button class="p-2 text-white bg-green-500 rounded-lg hover:bg-green-600 transition">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-
-                        <!-- Row 3 -->
-                        <tr class="hover:bg-gray-50">
-                            <td class="py-4 px-4 text-sm text-gray-900">dr. Adolf</td>
-                            <td class="py-4 px-4 text-sm text-gray-700">Dokter Gigi</td>
-                            <td class="py-4 px-4 text-sm text-gray-700">Rabu-Jumat, 09.00 - 17.00</td>
-                            <td class="py-4 px-4">
-                                <span
-                                    class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium text-green-700 bg-green-50">
-                                    Online
-                                </span>
-                            </td>
-                            <td class="py-4 px-4">
-                                <button class="p-2 text-white bg-green-500 rounded-lg hover:bg-green-600 transition">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

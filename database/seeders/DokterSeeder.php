@@ -15,7 +15,7 @@ class DokterSeeder extends Seeder
     {
 
         Dokter::factory()->create([
-            'nama_lengkap' => 'Adit Muhammad Prasetya Hutagalung, MKM',
+            'name' => 'Adit Muhammad Prasetya Hutagalung, MKM',
             'nik' => '1234567890',
             'spesialisasi' => 'Dokter Umum',
             'no_telepon' => '08116150141',

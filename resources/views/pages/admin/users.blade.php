@@ -1,40 +1,41 @@
-@vite(['resources/css/app.css', 'resources/js/app.js'])
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
 <x-layouts.app :title="__('Pengguna')">
-    <div x-data="{ tab: 'pasien' }" class="p-6">
+    <div x-data="{ tab: '{{ request('tab', 'pasien') }}' }" class="!mt-0 !p-0">
+
         <!-- Tabs -->
         <div class="flex gap-3 mb-4">
-            <button @click="tab = 'pasien'"
+            <button @click="window.location='?tab=pasien'"
                 :class="tab === 'pasien' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'"
                 class="px-4 py-2 rounded-lg font-medium transition">Pasien</button>
-            <button @click="tab = 'dokter'"
+
+            <button @click="window.location='?tab=dokter'"
                 :class="tab === 'dokter' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'"
                 class="px-4 py-2 rounded-lg font-medium transition">Dokter</button>
-            <button @click="tab = 'admin'"
+
+            <button @click="window.location='?tab=admin'"
                 :class="tab === 'admin' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'"
                 class="px-4 py-2 rounded-lg font-medium transition">Admin</button>
+
         </div>
 
         <!-- Table Container -->
         <div class="overflow-x-auto bg-white rounded-lg shadow border border-gray-100">
-            <table class="min-w-full text-left border-collapse">
+            <table class="min-w-full text-left border-collapse overflow-x-auto whitespace-nowrap">
                 <thead class="bg-pink-50">
                     <tr>
                         <template x-if="tab === 'pasien'">
-                            <th colspan="7" class="py-3 px-4 text-gray-700 font-semibold text-sm">Data Pasien</th>
+                            <th colspan="7" class="py-2 px-4 text-gray-700 font-semibold text-sm">Data Pasien</th>
                         </template>
                         <template x-if="tab === 'dokter'">
-                            <th colspan="7" class="py-3 px-4 text-gray-700 font-semibold text-sm">Data Dokter</th>
+                            <th colspan="7" class="py-2 px-4 text-gray-700 font-semibold text-sm">Data Dokter</th>
                         </template>
                         <template x-if="tab === 'admin'">
-                            <th colspan="7" class="py-3 px-4 text-gray-700 font-semibold text-sm">Data Admin</th>
+                            <th colspan="7" class="py-2 px-4 text-gray-700 font-semibold text-sm">Data Admin</th>
                         </template>
                     </tr>
                     <template x-if="tab === 'pasien'">
                         <tr class="bg-gray-100">
                             <th class="py-3 px-4 text-sm font-medium text-gray-700">NO</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">No. RM</th>
+                            <th class="py-3 px-4 text-sm font-medium text-gray-700">RM</th>
                             <th class="py-3 px-4 text-sm font-medium text-gray-700">Nama</th>
                             <th class="py-3 px-4 text-sm font-medium text-gray-700">NIK</th>
                             <th class="py-3 px-4 text-sm font-medium text-gray-700">Email</th>
@@ -74,8 +75,7 @@
                 <tbody x-show="tab === 'pasien'" class=" text-[10px]">
                     @foreach ($pasiens as $pasien)
                         <tr class="border-b hover:bg-gray-50">
-
-                            <td class="py-2 px-4 text-gray-500">{{ $pasien->approved }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $loop->iteration }}</td>
                             <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->no_rm }}</td>
                             <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->name }}</td>
                             <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->nik }}</td>
@@ -89,27 +89,34 @@
                                     class="text-blue-600 hover:text-blue-800">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                @if (!$pasien->approved)
-                                    <form action="{{ route('users.approve', $pasien->id) }}" method="POST"
+                                @if (!$pasien->approved && !$pasien->pasien->no_rm)
+                                    <form id="approve-form-{{ $pasien->id }}"
+                                        action="{{ route('users.approve', $pasien->id) }}" method="POST"
                                         class="inline">
                                         @csrf
-                                        <button type="submit" class="text-green-600 hover:text-green-800 cursor-pointer">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                        <button type="button"
+                                            @click="$dispatch('open-approve', { id: {{ $pasien->id }} })"
+                                            class="text-green-600 hover:text-green-800 cursor-pointer">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-3">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="m4.5 12.75 6 6 9-13.5" />
                                             </svg>
                                         </button>
+
+
                                     </form>
                                     <form>
                                         <button type="submit" class="text-red-600 hover:text-red-800 cursor-pointer">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-3">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M6 18 18 6M6 6l12 12" />
                                             </svg>
                                         </button>
                                     </form>
                                 @endif
-
                             </td>
-
                         </tr>
                     @endforeach
                 </tbody>
@@ -117,7 +124,7 @@
                     @foreach ($dokters as $dokter)
                         <tr class="border-b hover:bg-gray-50">
                             <td class="py-2 px-4 text-gray-500">{{ $loop->iteration }}</td>
-                            <td class="py-2 px-4 text-gray-500">{{ $dokter->dokter->nama_lengkap }}</td>
+                            <td class="py-2 px-4 text-gray-500">{{ $dokter->dokter->name }}</td>
                             <td class="py-2 px-4 text-gray-500">{{ $dokter->dokter->spesialisasi }}</td>
                             <td class="py-2 px-4 text-gray-500">{{ $dokter->email }}</td>
                             <td class="py-2 px-4 text-gray-500">{{ $dokter->dokter->phone }}</td>
@@ -154,8 +161,7 @@
 
             </table>
         </div>
-        <!-- PAGINATION DI LUAR TABLE -->
-        <div class="mt-4">
+        <div class="mt-2">
             <div x-show="tab === 'pasien'">
                 {{ $pasiens->links() }}
             </div>
@@ -167,5 +173,26 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Konfirmasi -->
+    <div x-data="{ openModal: false, userId: null }" x-cloak @open-approve.window="openModal = true; userId = $event.detail.id"
+        class="relative">
+        <div x-show="openModal" x-transition class="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
+            <div class="bg-white rounded-lg shadow p-6 w-64">
+                <h2 class="font-semibold text-gray-800 text-sm mb-3">Apakah Anda yakin?</h2>
+
+                <div class="flex justify-end gap-2 text-xs">
+                    <button @click="openModal=false"
+                        class="px-3 py-1 bg-gray-200 text-gray-700 rounded">Batal</button>
+
+                    <!-- Submit form yang benar -->
+                    <button @click="document.getElementById(`approve-form-${userId}`).submit()"
+                        class="px-3 py-1 bg-blue-600 text-white rounded">Ya</button>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+
 </x-layouts.app>

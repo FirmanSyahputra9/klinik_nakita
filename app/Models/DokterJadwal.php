@@ -18,8 +18,8 @@ class DokterJadwal extends Model
         'keterangan',
     ];
     protected $casts = [
-        'aktif_mulai' => 'datetime:H:i',
-        'aktif_selesai' => 'datetime:H:i',
+        'aktif_mulai' => 'datetime',
+        'aktif_selesai' => 'datetime',
     ];
 
     public function dokter()

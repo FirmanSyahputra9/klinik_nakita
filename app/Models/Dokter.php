@@ -13,7 +13,7 @@ class Dokter extends Model
 
     protected $fillable = [
         'user_id',
-        'nama_lengkap',
+        'name',
         'alamat',
         'spesialisasi',
         'phone',
@@ -35,5 +35,10 @@ class Dokter extends Model
     public function jadwals()
     {
         return $this->hasMany(DokterJadwal::class);
+    }
+
+    public function registrasi()
+    {
+        return $this->hasMany(Registrasi::class);
     }
 }

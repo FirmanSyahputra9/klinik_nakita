@@ -40,6 +40,7 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
         ]);
 
+        $formatPhone = trim(chunk_split(preg_replace('/\D/', '', $input['phone']), 4, ' '));
         Pasien::create([
             'user_id' => $user->id,
             'name' => $input['name'],
@@ -48,7 +49,7 @@ class CreateNewUser implements CreatesNewUsers
             'nik' => $input['nik'],
             'birth_date' => $input['birth_date'] ?? null,
             'gender' => $input['gender'] ?? null,
-            'phone' => $input['phone'],
+            'phone' => $formatPhone,
             'no_rm' => null
         ]);
 

@@ -22,7 +22,7 @@
                     </flux:navlist.item>
 
                     <flux:navlist.item class="mb-2" icon="home" :href="route('users.index')"
-                        :current="request()->routeIs('users')" wire:navigate>
+                        :current="request()->routeIs('users.*')" wire:navigate>
                         {{ __('Users') }}
                     </flux:navlist.item>
 
@@ -31,13 +31,13 @@
                         {{ __('Data Dokter') }}
                     </flux:navlist.item>
 
-                    <flux:navlist.item class="mb-2" icon="home" :href="route('appointmentadmin')"
-                        :current="request()->routeIs('appointmentadmin')" wire:navigate>
+                    <flux:navlist.item class="mb-2" icon="home" :href="route('appointment.index')"
+                        :current="request()->routeIs('appointment.*')" wire:navigate>
                         {{ __('Appointments') }}
                     </flux:navlist.item>
 
-                    <flux:navlist.item class="mb-2" icon="home" :href="route('kasir')"
-                        :current="request()->routeIs('kasir')" wire:navigate>
+                    <flux:navlist.item class="mb-2" icon="home" :href="route('kasir.index')"
+                        :current="request()->routeIs('kasir.*')" wire:navigate>
                         {{ __('Kasir') }}
                     </flux:navlist.item>
 
@@ -52,8 +52,8 @@
                         :current="request()->routeIs('dashboarduser')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:navlist.item>
-                    <flux:navlist.item class="mb-2" icon="calendar-days" :href="route('jadwaluser')"
-                        :current="request()->routeIs('jadwaluser')" wire:navigate>
+                    <flux:navlist.item class="mb-2" icon="calendar-days" :href="route('jadwaldokter.index')"
+                        :current="request()->routeIs('jadwaldokter.*')" wire:navigate>
                         {{ __('Jadwal') }}
                     </flux:navlist.item>
                     <flux:navlist.item class="mb-2" icon="clipboard-document-list" :href="route('riwayatuser')"
@@ -87,8 +87,8 @@
                         :current="request()->routeIs('resep')" wire:navigate>
                         {{ __('Resep') }}
                     </flux:navlist.item>
-                    <flux:navlist.item class="mb-2" icon="cube" :href="route('jadwalpraktek')"
-                        :current="request()->routeIs('jadwalpraktek')" wire:navigate>
+                    <flux:navlist.item class="mb-2" icon="cube" :href="route('jadwal.index')"
+                        :current="request()->routeIs('jadwal.*')" wire:navigate>
                         {{ __('Jadwal') }}
                     </flux:navlist.item>
                 @endif

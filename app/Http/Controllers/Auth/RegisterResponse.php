@@ -22,9 +22,7 @@ class RegisterResponse implements RegisterResponseContract
 
         $user = Auth::user();
 
-
-        $redirectPath = '/user';
-
-        return redirect($redirectPath);
+        Auth::logout();
+        return redirect('/login')->with('success', 'Registrasi berhasil, silakan login terlebih dahulu.');
     }
 }

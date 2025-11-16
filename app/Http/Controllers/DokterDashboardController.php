@@ -3,19 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dokter;
-use App\Models\DokterJadwal;
+use App\Models\DokterDashboard;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class DokterJadwalController extends Controller
+
+class DokterDashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $dokterJadwals = Dokter::whereHas('jadwals')->where('user_id', Auth::User()->id)->first();
-        return view('pages.dokter.jadwal', compact('dokterJadwals'));
+        $user_id = Auth::User()->id;
+        $dokter = User::whereHas('dokter')->with(['dokter'])->where('id', $user_id)->first();
+        return view('pages.dokter.dashboard', compact('dokter'));
     }
 
     /**
@@ -37,7 +40,7 @@ class DokterJadwalController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DokterJadwal $dokterJadwal)
+    public function show(DokterDashboard $dokterDashboard)
     {
         //
     }
@@ -45,7 +48,7 @@ class DokterJadwalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DokterJadwal $dokterJadwal)
+    public function edit(DokterDashboard $dokterDashboard)
     {
         //
     }
@@ -53,7 +56,7 @@ class DokterJadwalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DokterJadwal $dokterJadwal)
+    public function update(Request $request, DokterDashboard $dokterDashboard)
     {
         //
     }
@@ -61,7 +64,7 @@ class DokterJadwalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DokterJadwal $dokterJadwal)
+    public function destroy(DokterDashboard $dokterDashboard)
     {
         //
     }

@@ -34,7 +34,7 @@ class DokterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_lengkap' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'spesialisasi' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
@@ -44,7 +44,7 @@ class DokterController extends Controller
         ]);
 
         $user = User::create([
-            'username' => $request->nama_lengkap,
+            'username' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role' => 'doctor',
@@ -52,7 +52,7 @@ class DokterController extends Controller
 
         Dokter::create([
             'user_id' => $user->id,
-            'nama_lengkap' => $request->nama_lengkap,
+            'name' => $request->name,
             'alamat' => $request->alamat,
             'spesialisasi' => $request->spesialisasi,
             'phone' => $request->phone,

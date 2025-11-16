@@ -1,7 +1,7 @@
 <x-layouts.app :title="__('Data')">
     <div class="p-6">
         <h1 class="text-2xl font-bold mb-2">Data Pasien</h1>
-        <p class="text-gray-600 mb-6">Selamat Datang, dr. Aditya Hutagalung</p>
+
 
         <div class="bg-white shadow-md rounded-lg p-6">
             <div class="flex justify-between items-center mb-4">
@@ -33,7 +33,7 @@
                             <td class="px-4 py-3">RM-2024-001</td>
                             <td class="px-4 py-3">12 Jan 2024</td>
                             <td class="px-4 py-3">
-                                <a href="{{ route('tindakanpasien') }}"
+                                <a href="{{ route('data.show', 1) }}"
                                     class="text-blue-600 font-medium hover:underline">
                                     Lihat Detail
                                 </a>

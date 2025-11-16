@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dokter;
-use App\Models\DokterJadwal;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 
-class DokterJadwalController extends Controller
+class AppointmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $dokterJadwals = Dokter::whereHas('jadwals')->where('user_id', Auth::User()->id)->first();
-        return view('pages.dokter.jadwal', compact('dokterJadwals'));
+        return view('pages.admin.appointment');
     }
 
     /**
@@ -37,7 +34,7 @@ class DokterJadwalController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DokterJadwal $dokterJadwal)
+    public function show(Appointment $appointment)
     {
         //
     }
@@ -45,7 +42,7 @@ class DokterJadwalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DokterJadwal $dokterJadwal)
+    public function edit(Appointment $appointment)
     {
         //
     }
@@ -53,7 +50,7 @@ class DokterJadwalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DokterJadwal $dokterJadwal)
+    public function update(Request $request, Appointment $appointment)
     {
         //
     }
@@ -61,7 +58,7 @@ class DokterJadwalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DokterJadwal $dokterJadwal)
+    public function destroy(Appointment $appointment)
     {
         //
     }

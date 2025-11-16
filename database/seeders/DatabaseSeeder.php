@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
 
         $doctorUser = User::factory()->create([
             'username'    => 'doctor',
-            'email'       => 'doctor@example.com',
+            'email'       => 'dokter@example.com',
             'role'        => 'doctor',
             'approved'    => true,
             'approved_at' => now(),

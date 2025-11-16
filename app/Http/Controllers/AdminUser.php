@@ -17,9 +17,17 @@ class AdminUser extends Controller
      */
     public function index()
     {
-        $pasiens = User::whereHas('pasien')->with(['pasien'])->paginate(10);
-        $admins = User::whereHas('admin')->with(['admin'])->paginate(10);
-        $dokters = User::whereHas('dokter')->with(['dokter'])->paginate(10);
+        $pasiens = User::whereHas('pasien')
+            ->join('pasiens', 'pasiens.user_id', '=', 'users.id')
+            ->with('pasien')
+            ->orderBy('pasiens.no_rm', 'asc')
+            ->orderBy('users.created_at', 'desc')
+            ->select('users.*')
+            ->paginate(10)
+            ->appends(request()->query());
+
+        $admins = User::whereHas('admin')->with(['admin'])->paginate(10)->appends(request()->query());;
+        $dokters = User::whereHas('dokter')->with(['dokter'])->paginate(10)->appends(request()->query());;
         $pasiens->getCollection()->transform(function ($user) {
             if ($user->pasien) {
                 $birthDate = Carbon::parse($user->pasien->birth_date);
