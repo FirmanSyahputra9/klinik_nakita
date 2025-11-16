@@ -40,6 +40,8 @@
                             class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                         <input type="text" name="obat[0][waktu_konsumsi]" placeholder="Waktu Konsumsi"
                             class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <input type="text" name="obat[0][kuantitas]" placeholder="Kuantitas"
+                            class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                         <input type="text" name="obat[0][harga]" placeholder="Harga (Autofill sesuai harga beli dari stok obat)"
                             class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                     </div>
@@ -76,6 +78,8 @@
                 <input type="text" name="obat[${obatIndex}][frekuensi]" placeholder="Frekuensi"
                     class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none text-xs">
                 <input type="text" name="obat[${obatIndex}][waktu_konsumsi]" placeholder="Waktu Konsumsi"
+                    class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none text-xs">
+                <input type="text" name="obat[${obatIndex}][waktu_konsumsi]" placeholder="Kuantitas"
                     class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none text-xs">
                 <input type="text" name="obat[${obatIndex}][harga]" placeholder="Harga (Autofill sesuai harga jual dari stok obat)"
                     class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none text-xs">

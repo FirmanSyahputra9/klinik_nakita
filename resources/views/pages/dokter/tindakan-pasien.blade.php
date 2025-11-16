@@ -117,7 +117,7 @@
 
                         <!-- Catatan Section -->
                         <div class="mt-6">
-                            <h5 class="text-sm font-semibold text-gray-700 mb-2">Catatan</h5>
+                            <h5 class="text-sm font-semibold text-gray-700 mb-2">Catatan Lab</h5>
                             <textarea
                                 rows="4"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -199,12 +199,12 @@
             <h2 class="text-xl font-bold text-gray-900 mb-6">Tindakan</h2>
 
             <div class="mb-5">
-                <label for="keluhan" class="block text-gray-700 font-medium mb-2">
+                <label for="nama tindakan" class="block text-gray-700 font-medium mb-2">
                     Nama Tindakan
                 </label>
                 <textarea
-                    id="keluhan"
-                    name="keluhan"
+                    id="nama tindakan"
+                    name="nama tindakan"
                     rows="3"
                     class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                     placeholder="Ketik..."
@@ -212,12 +212,25 @@
             </div>
 
             <div class="mb-5">
-                <label for="keluhan" class="block text-gray-700 font-medium mb-2">
+                <label for="jenis tindakan" class="block text-gray-700 font-medium mb-2">
                     Jenis Tindakan
                 </label>
                 <textarea
-                    id="keluhan"
-                    name="keluhan"
+                    id="jenis tindakan"
+                    name="jenis tindakan"
+                    rows="3"
+                    class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    placeholder="Ketik..."
+                ></textarea>
+            </div>
+
+            <div class="mb-5">
+                <label for="catatan tindakan" class="block text-gray-700 font-medium mb-2">
+                    Catatan
+                </label>
+                <textarea
+                    id="catatan tindakan"
+                    name="catatan tindakan"
                     rows="3"
                     class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                     placeholder="Ketik..."
