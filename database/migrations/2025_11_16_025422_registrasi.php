@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('registrasis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pasiens_id')->constrained();
-            $table->foreignId('dokters_id')->constrained();
+            $table->foreignId('pasien_id')->constrained();
+            $table->foreignId('dokter_id')->constrained();
             $table->string('tanggal_kunjungan');
             $table->string('jam_berobat');
             $table->string('keluhan');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

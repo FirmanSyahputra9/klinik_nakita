@@ -2,31 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dokter;
-use App\Models\DokterDashboard;
+use App\Models\Pasien;
 use App\Models\Registrasi;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-
-class DokterDashboardController extends Controller
+class DokterJanjiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user_id = Auth::User()->id;
-        $dokter = User::whereHas('dokter')->with(['dokter'])->where('id', $user_id)->first();
+        $janji = Registrasi::whereHas('dokters', function ($query) { $query->where('user_id', Auth::id()); })->with(['pasiens', 'dokters'])->get();
 
-        $janji = Registrasi::whereHas('dokters', function ($query) {
-            $query->where('user_id', Auth::id());
-        })->with(['pasiens', 'dokters'])->get();
-
-
-        return view('pages.dokter.dashboard', compact('dokter', 'janji'));
+        return view('pages.dokter.janji', compact('janji'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -47,7 +39,7 @@ class DokterDashboardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DokterDashboard $dokterDashboard)
+    public function show(string $id)
     {
         //
     }
@@ -55,7 +47,7 @@ class DokterDashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DokterDashboard $dokterDashboard)
+    public function edit(string $id)
     {
         //
     }
@@ -63,7 +55,7 @@ class DokterDashboardController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DokterDashboard $dokterDashboard)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -71,7 +63,7 @@ class DokterDashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DokterDashboard $dokterDashboard)
+    public function destroy(string $id)
     {
         //
     }

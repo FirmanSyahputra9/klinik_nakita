@@ -11,6 +11,7 @@ use App\Http\Controllers\PasienController as PasienController;
 use App\Http\Controllers\AppointmentController as AppointmentController;
 use App\Http\Controllers\DokterDashboardController;
 use App\Http\Controllers\DokterJadwalController;
+use App\Http\Controllers\DokterJanjiController;
 use App\Http\Controllers\KasirController;
 use App\Http\Controllers\UserJadwalDokter;
 
@@ -53,8 +54,7 @@ Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
 
 Route::middleware(['auth'])->prefix('dokter')->group(function () {
     Route::get('/', [DokterDashboardController::class, 'index'])->name('dashboarddokter');
-    Route::view('/janji', 'pages.dokter.janji')
-        ->name('janjidokter');
+    Route::resource('janji', DokterJanjiController::class);
     Route::view('/resep', 'pages.dokter.resep')
         ->name('resep');
     Route::resource('jadwal', DokterJadwalController::class);

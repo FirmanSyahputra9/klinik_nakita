@@ -113,7 +113,7 @@
                     <p class="text-[10px] sm:text-sm font-semibold text-yellow-600 mb-1 uppercase tracking-wider">
                         Menunggu
                     </p>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900">4</h2>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900">{{ $janji->where('status', false)->count() }}</h2>
                 </div>
                 <svg class="w-5 h-5 sm:w-8 sm:h-8 text-yellow-500 opacity-75" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
@@ -130,9 +130,9 @@
             <div class="flex justify-between items-start">
                 <div>
                     <p class="text-[10px] sm:text-sm font-semibold text-red-600 mb-1 uppercase tracking-wider">
-                        Pesan Baru
+                        Antrian
                     </p>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900">3</h2>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900">{{ $janji->where('status', true)->count() }}</h2>
                 </div>
                 <svg class="w-5 h-5 sm:w-8 sm:h-8 text-red-500 opacity-75" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
@@ -159,7 +159,7 @@
                         <th class="px-4 py-3 text-left">Dokter</th>
                         <th class="px-4 py-3 text-left">Nama Pasien</th>
                         <th class="px-4 py-3 text-left">Tanggal</th>
-                        <th class="px-4 py-3 text-left">Waktu</th>
+                        <th class="px-4 py-3 text-left">Jam</th>
                         <th class="px-4 py-3 text-left">Gejala</th>
                         <th class="px-4 py-3 text-center">Status</th>
                     </tr>
@@ -167,58 +167,23 @@
 
                 <!-- Body -->
                 <tbody>
-
-                    <!-- BARIS 1 (Terdaftar - biru muda) -->
-                    <tr class="hover:bg-blue-50 border-b">
-                        <td class="px-4 py-3 flex items-center space-x-2">
-                            <div class="w-6 h-6 rounded-full bg-blue-100 border border-blue-300"></div>
-                            <span class="font-medium truncate">Dr. Nabila Baik Hati</span>
-                        </td>
-                        <td class="px-4 py-3 truncate">Ditha</td>
-                        <td class="px-4 py-3">03/09/25</td>
-                        <td class="px-4 py-3">15:45</td>
-                        <td class="px-4 py-3 truncate">Sakit kepala</td>
-                        <td class="px-4 py-3 text-center">
-                            <span class="bg-blue-200 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">
-                                Terdaftar
-                            </span>
-                        </td>
-                    </tr>
-
-                    <!-- BARIS 2 (Menunggu - kuning) -->
-                    <tr class="hover:bg-yellow-50 border-b">
-                        <td class="px-4 py-3 flex items-center space-x-2">
-                            <div class="w-6 h-6 rounded-full bg-blue-100 border border-blue-300"></div>
-                            <span class="font-medium truncate">Dr. Nabila Baik Hati</span>
-                        </td>
-                        <td class="px-4 py-3 truncate">Yazid</td>
-                        <td class="px-4 py-3">03/09/25</td>
-                        <td class="px-4 py-3">20:15</td>
-                        <td class="px-4 py-3 truncate">Sakit kepala</td>
-                        <td class="px-4 py-3 text-center">
-                            <span class="bg-yellow-200 text-yellow-800 text-xs font-semibold px-3 py-1 rounded-full">
-                                Menunggu
-                            </span>
-                        </td>
-                    </tr>
-
-                    <!-- BARIS 3 (Terkonfirmasi - hijau) -->
-                    <tr class="hover:bg-green-50">
-                        <td class="px-4 py-3 flex items-center space-x-2">
-                            <div class="w-6 h-6 rounded-full bg-blue-100 border border-blue-300"></div>
-                            <span class="font-medium truncate">Dr. Nabila Baik Hati</span>
-                        </td>
-                        <td class="px-4 py-3 truncate">Putra</td>
-                        <td class="px-4 py-3">03/09/25</td>
-                        <td class="px-4 py-3">21:00</td>
-                        <td class="px-4 py-3 truncate">Sakit kepala</td>
-                        <td class="px-4 py-3 text-center">
-                            <span class="bg-green-200 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">
-                                Terkonfirmasi
-                            </span>
-                        </td>
-                    </tr>
-
+                    @foreach ( $janji->where('status', true) as $item)
+                        <tr class="hover:bg-blue-50 border-b">
+                            <td class="px-4 py-3 flex items-center space-x-2">
+                                <div class="w-6 h-6 rounded-full bg-blue-100 border border-blue-300"></div>
+                                <span class="font-medium truncate">{{ $item->dokters->name }}</span>
+                            </td>
+                            <td class="px-4 py-3 truncate">{{ $item->pasiens->name }}</td>
+                            <td class="px-4 py-3">{{ $item->tanggal_kunjungan }}</td>
+                            <td class="px-4 py-3">{{ $item->jam_berobat }}</td>
+                            <td class="px-4 py-3 truncate">{{ $item->keluhan }}</td>
+                            <td class="px-4 py-3 text-center">
+                                <span class="bg-blue-200 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">
+                                    Antrian
+                                </span>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

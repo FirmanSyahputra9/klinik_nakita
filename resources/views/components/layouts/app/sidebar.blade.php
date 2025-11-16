@@ -75,8 +75,8 @@
                         :current="request()->routeIs('dashboarddokter')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:navlist.item>
-                    <flux:navlist.item class="mb-2" icon="clock" :href="route('janjidokter')"
-                        :current="request()->routeIs('janjidokter')" wire:navigate>
+                    <flux:navlist.item class="mb-2" icon="clock" :href="route('janji.index')"
+                        :current="request()->routeIs('janji.*')" wire:navigate>
                         {{ __('Janji') }}
                     </flux:navlist.item>
                     <flux:navlist.item class="mb-2" icon="users" :href="route('data.index')"

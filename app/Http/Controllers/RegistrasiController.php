@@ -70,8 +70,8 @@ class RegistrasiController extends Controller
                 'tanggal_kunjungan' => $validated['tanggal_kunjungan'],
                 'jam_berobat' => $validated['jam_berobat'],
                 'keluhan' => $request->keluhan,
-                'pasiens_id' => Auth::User()->id,
-                'dokters_id' => $request->dokter_id,
+                'pasien_id' => Auth::User()->id,
+                'dokter_id' => $request->dokter_id,
             ]
         );
 

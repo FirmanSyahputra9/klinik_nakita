@@ -12,11 +12,46 @@ class UserJadwalDokter extends Controller
      */
     public function index()
     {
-        $dokter = Dokter::with(['jadwals', 'aktif'])
+        $dayOrder = ['Senin' => 1, 'Selasa' => 2, 'Rabu' => 3, 'Kamis' => 4, 'Jumat' => 5, 'Sabtu' => 6, 'Minggu' => 7];
+
+        $dokters = Dokter::with(['jadwals', 'aktif'])
             ->whereHas('jadwals')
             ->get();
+        $dokters = $dokters->map(function ($dokter) use ($dayOrder) {
 
-        return view('pages.pasien.jadwal', compact('dokter'));
+            $sortedJadwals = $dokter->jadwals->sortBy(function ($jadwal) use ($dayOrder) {
+                return $dayOrder[$jadwal->hari] ?? 99;
+            });
+
+            $groupedJadwals = $sortedJadwals->reduce(function ($carry, $item) {
+
+                $mulai = $item->aktif_mulai->format('H:i');
+                $selesai = $item->aktif_selesai->format('H:i');
+                $signature = $mulai . ' - ' . $selesai;
+
+                $lastGroup = end($carry);
+
+                if ($lastGroup && $lastGroup['signature'] === $signature) {
+
+                    $carry[key($carry)]['hari_selesai'] = $item->hari;
+                } else {
+                    $carry[] = [
+                        'hari_mulai' => $item->hari,
+                        'hari_selesai' => $item->hari,
+                        'signature' => $signature,
+                        'mulai' => $mulai,
+                        'selesai' => $selesai,
+                    ];
+                }
+
+                return $carry;
+            }, []);
+
+            $dokter->grouped_jadwals = $groupedJadwals;
+            return $dokter;
+        });
+
+        return view('pages.pasien.jadwal', compact('dokters'));
     }
 
     /**
@@ -30,12 +65,7 @@ class UserJadwalDokter extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-
-
-
-    }
+    public function store(Request $request) {}
 
     /**
      * Display the specified resource.

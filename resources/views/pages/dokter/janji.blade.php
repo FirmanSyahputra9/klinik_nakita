@@ -17,14 +17,12 @@
 
                 <div class="flex items-center gap-3">
                     <!-- Date Filter -->
-                    <input
-                        type="date"
-                        value="2024-01-15"
-                        class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                    <input type="date" value="2024-01-15"
+                        class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
 
                     <!-- Status Filter -->
-                    <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select
+                        class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option>Semua Status</option>
                         <option>Menunggu</option>
                         <option>Selesai</option>
@@ -47,107 +45,49 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Row 1 -->
-                        <tr class="border-b border-gray-100 hover:bg-gray-50">
-                            <td class="py-4 px-4">
-                                <span class="text-sm font-medium text-gray-900">9 Desember 2024</span>
-                            </td>
-                            <td class="py-4 px-4">
-                                <span class="text-sm font-medium text-gray-900">09:00</span>
-                            </td>
-                            <td class="py-4 px-4">
-                                <div>
-                                    <p class="text-sm font-semibold text-gray-900">Siti Nurhaliza</p>
-                                    <p class="text-sm text-gray-600">0812-3456-7890</p>
-                                </div>
-                            </td>
-                            <td class="py-4 px-4">
-                                <span class="text-sm text-gray-700">Kontrol rutin diabetes</span>
-                            </td>
-                            <td class="py-4 px-4">
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
-                                    Menunggu
-                                </span>
-                            </td>
-                            <td class="py-4 px-4">
-                                <div class="flex items-center gap-2">
-                                    <button class="px-4 py-2 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition">
-                                        Konfirmasi
-                                    </button>
-                                    <button class="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition">
-                                        Batalkan
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                        @foreach ($janji as $item)
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-4 px-4">
+                                    <span
+                                        class="text-sm font-medium text-gray-900">{{ $item->tanggal_kunjungan }}</span>
+                                </td>
 
-                        <!-- Row 2 -->
-                        <tr class="border-b border-gray-100 hover:bg-gray-50">
-                            <td class="py-4 px-4">
-                                <span class="text-sm font-medium text-gray-900">9 Desember 2024</span>
-                            </td>
-                            <td class="py-4 px-4">
-                                <span class="text-sm font-medium text-gray-900">09.30</span>
-                            </td>
-                            <td class="py-4 px-4">
-                                <div>
-                                    <p class="text-sm font-semibold text-gray-900">Jeffrey Epstein</p>
-                                    <p class="text-sm text-gray-600">0813-4567-8901</p>
-                                </div>
-                            </td>
-                            <td class="py-4 px-4">
-                                <span class="text-sm text-gray-700">Sakit kepala dan demam</span>
-                            </td>
-                            <td class="py-4 px-4">
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                                    Selesai
-                                </span>
-                            </td>
-                            <td class="py-4 px-4">
-                                <div class="flex items-center gap-2">
-                                    <button class="px-4 py-2 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition">
-                                        Konfirmasi
-                                    </button>
-                                    <button class="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition">
-                                        Batalkan
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                                <td class="py-4 px-4">
+                                    <span class="text-sm font-medium text-gray-900">{{ $item->jam_berobat }}</span>
+                                </td>
 
-                        <!-- Row 3 -->
-                        <tr class="hover:bg-gray-50">
-                            <td class="py-4 px-4">
-                                <span class="text-sm font-medium text-gray-900">3 November 2024</span>
-                            </td>
-                            <td class="py-4 px-4">
-                                <span class="text-sm font-medium text-gray-900">10:00</span>
-                            </td>
-                            <td class="py-4 px-4">
-                                <div>
-                                    <p class="text-sm font-semibold text-gray-900">Jeffrey Epstein</p>
-                                    <p class="text-sm text-gray-600">0813-4567-8901</p>
-                                </div>
-                            </td>
-                            <td class="py-4 px-4">
-                                <span class="text-sm text-gray-700">Pemeriksaan kesehatan rutin</span>
-                            </td>
-                            <td class="py-4 px-4">
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
-                                    Menunggu
-                                </span>
-                            </td>
-                            <td class="py-4 px-4">
-                                <div class="flex items-center gap-2">
-                                    <button class="px-4 py-2 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition">
-                                        Konfirmasi
-                                    </button>
-                                    <button class="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition">
-                                        Batalkan
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                                <td class="py-4 px-4">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">{{ $item->pasiens->name }}</p>
+                                        <p class="text-sm text-gray-600">{{ $item->pasiens->phone }}</p>
+                                    </div>
+                                </td>
+
+                                <td class="py-4 px-4">
+                                    <span class="text-sm text-gray-700">{{ $item->keluhan }}</span>
+                                </td>
+
+                                <td class="py-4 px-4">
+                                    <span
+                                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium {{ $item->status == 0 ? 'bg-blue-600' : 'bg-green-600' }}">
+                                        {{ $item->status == 0 ? 'Menunggu' : 'Terkonfirmasi' }}
+                                    </span>
+                                </td>
+                                <td class="py-4 px-4">
+                                    <div class="flex items-center gap-2">
+                                        <button
+                                            class="px-4 py-2 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition">
+                                            Konfirmasi
+                                        </button>
+                                        <button
+                                            class="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition">
+                                            Batalkan
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+
                     </tbody>
                 </table>
             </div>

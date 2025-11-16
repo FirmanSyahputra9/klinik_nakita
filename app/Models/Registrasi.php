@@ -12,8 +12,8 @@ class Registrasi extends Model
     protected $table = 'registrasis';
 
     protected $fillable = [
-        'pasiens_id',
-        'dokters_id',
+        'pasien_id',
+        'dokter_id',
         'tanggal_kunjungan',
         'jam_berobat',
         'keluhan',
@@ -21,11 +21,11 @@ class Registrasi extends Model
 
     public function pasiens()
     {
-        return $this->belongsTo(Pasien::class);
+        return $this->belongsTo(Pasien::class, 'pasien_id');
     }
 
     public function dokters()
     {
-        return $this->belongsTo(Dokter::class);
+        return $this->belongsTo(Dokter::class, 'dokter_id');
     }
 }

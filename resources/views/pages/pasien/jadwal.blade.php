@@ -32,18 +32,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($dokter as $dokter)
+                        @foreach ($dokters as $dokter)
                             <tr class="border-b border-gray-100 hover:bg-gray-50">
                                 <td class="py-4 px-4 text-sm text-gray-900">{{ $dokter->name }}</td>
                                 <td class="py-4 px-4 text-sm text-gray-700">{{ $dokter->spesialisasi }}</td>
                                 <td class="py-4 px-4 text-sm text-gray-700">
                                     <div class="flex flex-col gap-1">
-                                        @foreach ($dokter->jadwals as $jadwal)
+                                        @foreach ($dokter->grouped_jadwals as $jadwalGroup)
+                                            @php
+                                                $hariTampil =
+                                                    $jadwalGroup['hari_mulai'] === $jadwalGroup['hari_selesai']
+                                                        ? $jadwalGroup['hari_mulai']
+                                                        : $jadwalGroup['hari_mulai'] .
+                                                            ' – ' .
+                                                            $jadwalGroup['hari_selesai'];
+                                            @endphp
+
                                             <div class="flex items-center flex-wrap gap-1">
-                                                <span class="font-semibold text-gray-800">{{ $jadwal->hari }}</span>
+                                                <span class="font-semibold text-gray-800">{{ $hariTampil }}</span>
                                                 <span class="text-gray-500">•</span>
                                                 <span class="bg-gray-100 text-gray-700 px-2 py-1 text-xs rounded-md">
-                                                    {{ $jadwal->aktif_mulai }} - {{ $jadwal->aktif_selesai }}
+                                                    {{ $jadwalGroup['mulai'] }} - {{ $jadwalGroup['selesai'] }}
                                                 </span>
                                             </div>
                                         @endforeach
