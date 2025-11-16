@@ -28,6 +28,8 @@ Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
     Route::resource('kasir', KasirController::class);
     Route::view('/tambah-kas', 'pages.admin.tambah-kas')
         ->name('tambahkas');
+    Route::get('/kasir/create', [KasirController::class, 'create'])->name('kasir.create');
+
     Route::resource('/stok-obat', ObatController::class);
     Route::resource('dokter', DokterController::class);
     // Route::resource('pasien', PasienController::class);

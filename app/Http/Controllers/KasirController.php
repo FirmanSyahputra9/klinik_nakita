@@ -20,7 +20,7 @@ class KasirController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.tambah-kas');
     }
 
     /**
