@@ -6,18 +6,6 @@
             <p class="text-gray-500 text-sm mt-1">Pantau Resep dan Obat Anda</p>
         </div>
 
-        <!-- Reminder Alert -->
-        <div class="bg-green-50 border border-green-200 rounded-lg p-4 flex items-start gap-3">
-            <div class="flex-shrink-0">
-                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-            </div>
-            <div>
-                <h3 class="font-semibold text-green-800">Reminder untuk minum Obat!</h3>
-                <p class="text-sm text-green-700 mt-1">Anda memiliki 1 obat yang perlu diminum hari ini</p>
-            </div>
-        </div>
 
         <!-- Resep Card -->
         <div class="bg-white rounded-lg shadow overflow-hidden">
@@ -73,37 +61,28 @@
                         </div>
                         <div>
                             <h5 class="font-semibold text-gray-900">Doxycycline 100 mg</h5>
-                            <p class="text-sm text-gray-600">10 Kapsul</p>
+                            <p class="text-sm text-gray-600">10 Kapsul (ini kuantitas)</p>
+                            <p class="text-sm text-gray-600">100 mg (ini dosis)</p>
                         </div>
                     </div>
 
                     <!-- Detail Grid -->
-                    <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="grid grid-cols-3 gap-4 mb-4">
                         <div>
-                            <p class="text-sm font-semibold text-gray-700 mb-1">Dosis:</p>
+                            <p class="text-sm font-semibold text-gray-700 mb-1">Frekuensi:</p>
                             <p class="text-sm text-gray-600">1 x 1 Tablet</p>
                         </div>
                         <div>
                             <p class="text-sm font-semibold text-gray-700 mb-1">Waktu Konsumsi:</p>
                             <p class="text-sm text-gray-600">Siang hari setelah makan</p>
                         </div>
-                    </div>
-
-                    <!-- Progress Bar -->
-                    <div class="mb-4">
-                        <div class="flex items-center justify-between mb-2">
-                            <p class="text-sm font-semibold text-gray-700">Sisa Obat:</p>
-                            <p class="text-sm font-semibold text-gray-900">8/10</p>
-                        </div>
-                        <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                            <div class="bg-green-500 h-3 rounded-full" style="width: 80%"></div>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-700 mb-1">Harga:</p>
+                            <p class="text-sm text-gray-600">Satu Miliar</p>
                         </div>
                     </div>
 
-                    <!-- Button Minum -->
-                    <button class="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 rounded-lg transition">
-                        Minum
-                    </button>
+                    
                 </div>
             </div>
         </div>
@@ -156,34 +135,29 @@
                         </div>
                         <div>
                             <h5 class="font-semibold text-gray-900">Amlodipin 5 mg</h5>
-                            <p class="text-sm text-gray-600">30 Tablet</p>
+                            <p class="text-sm text-gray-600">30 Tablet (kuantitas)</p>
+                            <p class="text-sm text-gray-600">5 mg (dosis)</p>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="grid grid-cols-3 gap-4 mb-4">
                         <div>
-                            <p class="text-sm font-semibold text-gray-700 mb-1">Dosis:</p>
+                            <p class="text-sm font-semibold text-gray-700 mb-1">Frekuensi:</p>
                             <p class="text-sm text-gray-600">1 x 1 Tablet</p>
                         </div>
                         <div>
                             <p class="text-sm font-semibold text-gray-700 mb-1">Waktu Konsumsi:</p>
                             <p class="text-sm text-gray-600">Pagi hari setelah makan</p>
                         </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="flex items-center justify-between mb-2">
-                            <p class="text-sm font-semibold text-gray-700">Sisa Obat:</p>
-                            <p class="text-sm font-semibold text-gray-900">25/30</p>
-                        </div>
-                        <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                            <div class="bg-blue-500 h-3 rounded-full" style="width: 83.33%"></div>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-700 mb-1">Harga:</p>
+                            <p class="text-sm text-gray-600">Setara Korupsi Pertamina</p>
                         </div>
                     </div>
 
-                    <button class="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 rounded-lg transition">
-                        Minum
-                    </button>
+                    
+
+                    
                 </div>
             </div>
         </div>
