@@ -37,10 +37,17 @@
                                 <td class="py-4 px-4 text-sm text-gray-900">{{ $dokter->name }}</td>
                                 <td class="py-4 px-4 text-sm text-gray-700">{{ $dokter->spesialisasi }}</td>
                                 <td class="py-4 px-4 text-sm text-gray-700">
-                                    @foreach ($dokter->jadwals as $jadwal)
-                                        {{ $jadwal->hari }},
-                                        {{ $jadwal->aktif_mulai }} - {{ $jadwal->aktif_selesai }}
-                                    @endforeach
+                                    <div class="flex flex-col gap-1">
+                                        @foreach ($dokter->jadwals as $jadwal)
+                                            <div class="flex items-center flex-wrap gap-1">
+                                                <span class="font-semibold text-gray-800">{{ $jadwal->hari }}</span>
+                                                <span class="text-gray-500">•</span>
+                                                <span class="bg-gray-100 text-gray-700 px-2 py-1 text-xs rounded-md">
+                                                    {{ $jadwal->aktif_mulai }} - {{ $jadwal->aktif_selesai }}
+                                                </span>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </td>
                                 <td class="py-4 px-4">
                                     @if ($dokter->aktif)

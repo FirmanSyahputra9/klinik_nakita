@@ -35,7 +35,7 @@
                             <td class="px-4 py-3">
                                 <a href="{{ route('data.show', 1) }}"
                                     class="text-blue-600 font-medium hover:underline">
-                                    Lihat Detail
+                                    Lihat Tindakan
                                 </a>
                             </td>
                         </tr>

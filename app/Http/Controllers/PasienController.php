@@ -53,7 +53,7 @@ class PasienController extends Controller
             'created_at' => Carbon::parse("2024-11-09"),
         ];
 
-        return view('pages.admin.detail-pasien', compact('pasien'));
+    return view('pages.dokter.tindakan-pasien', compact('pasien'));
     }
 
     /**
