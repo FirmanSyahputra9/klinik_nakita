@@ -21,67 +21,104 @@
 
             <!-- Table -->
             <div class="overflow-x-auto">
-                <table class="w-full">
+                <table class="w-full whitespace-nowrap text-xs">
                     <thead>
                         <tr class="border-b border-gray-200">
-                            <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Nama</th>
-                            <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Dokter</th>
-                            <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Jadwal</th>
-                            <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Status</th>
-                            <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Aksi</th>
+                            <th class="text-left py-3 px-4  font-semibold text-gray-700 md:max-w-20 md:min-w-10 overflow-x-auto">Nama</th>
+                            <th class="text-left py-3 px-4  font-semibold text-gray-700">Dokter</th>
+                            <th class="text-left py-3 px-4  font-semibold text-gray-700 hidden md:block">Jadwal</th>
+                            <th class="text-left py-3 px-4  font-semibold text-gray-700">Status</th>
+                            <th class="py-3 px-4 font-semibold text-gray-700 hidden md:flex justify-center items-center text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($dokters as $dokter)
-                            <tr class="border-b border-gray-100 hover:bg-gray-50">
-                                <td class="py-4 px-4 text-sm text-gray-900">{{ $dokter->name }}</td>
-                                <td class="py-4 px-4 text-sm text-gray-700">{{ $dokter->spesialisasi }}</td>
-                                <td class="py-4 px-4 text-sm text-gray-700">
-                                    <div class="flex flex-col gap-1">
-                                        @foreach ($dokter->grouped_jadwals as $jadwalGroup)
-                                            @php
-                                                $hariTampil =
-                                                    $jadwalGroup['hari_mulai'] === $jadwalGroup['hari_selesai']
-                                                        ? $jadwalGroup['hari_mulai']
-                                                        : $jadwalGroup['hari_mulai'] .
-                                                            ' – ' .
-                                                            $jadwalGroup['hari_selesai'];
-                                            @endphp
+                        <tr class="border-b border-gray-100 hover:bg-gray-50 ">
+                            <td class="py-4 px-4  text-gray-900 md:max-w-20 md:min-w-10 overflow-x-auto thin-scroll">
+                                <div class="flex inline-flex">
+                                    <div class="flex md:hidden">
+                                        <a href="{{ route('registrasi.index', $dokter->id) }}"
+                                            class="inline-flex items-center gap-2 px-2 mx-2 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                            <span class="hidden md:flex">Registrasi</span>
 
-                                            <div class="flex items-center flex-wrap gap-1">
-                                                <span class="font-semibold text-gray-800">{{ $hariTampil }}</span>
-                                                <span class="text-gray-500">•</span>
-                                                <span class="bg-gray-100 text-gray-700 px-2 py-1 text-xs rounded-md">
-                                                    {{ $jadwalGroup['mulai'] }} - {{ $jadwalGroup['selesai'] }}
-                                                </span>
-                                            </div>
-                                        @endforeach
+                                        </a>
                                     </div>
-                                </td>
-                                <td class="py-4 px-4">
-                                    @if ($dokter->aktif)
-                                        <span
-                                            class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium {{ $dokter->aktif->aktif == 1 ? 'bg-green-800 ' : 'bg-red-800' }}">
-                                            {{ $dokter->aktif->aktif == 1 ? 'Online' : 'Offline' }}
+                                    {{ $dokter->name }}
+                                </div>
+
+                                <div class="flex flex-col gap-1 block md:hidden mt-2">
+                                    @foreach ($dokter->grouped_jadwals as $jadwalGroup)
+                                    @php
+                                    $hariTampil =
+                                    $jadwalGroup['hari_mulai'] === $jadwalGroup['hari_selesai']
+                                    ? $jadwalGroup['hari_mulai']
+                                    : $jadwalGroup['hari_mulai'] .
+                                    ' – ' .
+                                    $jadwalGroup['hari_selesai'];
+                                    @endphp
+
+                                    <div class="flex items-center flex-wrap gap-1">
+                                        <span class="font-semibold text-gray-800">{{ $hariTampil }}</span>
+                                        <span class="text-gray-500">•</span>
+                                        <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded-md">
+                                            {{ $jadwalGroup['mulai'] }} - {{ $jadwalGroup['selesai'] }}
                                         </span>
-                                    @else
-                                        <span
-                                            class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium text-gray-700 bg-gray-100">
-                                            Tidak Ada Data
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </td>
+                            <td class="py-4 px-4 text-gray-700">{{ $dokter->spesialisasi }}</td>
+                            <td class="py-4 px-4 text-gray-700 hidden md:block">
+                                <div class="flex flex-col gap-1">
+                                    @foreach ($dokter->grouped_jadwals as $jadwalGroup)
+                                    @php
+                                    $hariTampil =
+                                    $jadwalGroup['hari_mulai'] === $jadwalGroup['hari_selesai']
+                                    ? $jadwalGroup['hari_mulai']
+                                    : $jadwalGroup['hari_mulai'] .
+                                    ' – ' .
+                                    $jadwalGroup['hari_selesai'];
+                                    @endphp
+
+                                    <div class="flex items-center flex-wrap gap-1">
+                                        <span class="font-semibold text-gray-800">{{ $hariTampil }}</span>
+                                        <span class="text-gray-500">•</span>
+                                        <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded-md">
+                                            {{ $jadwalGroup['mulai'] }} - {{ $jadwalGroup['selesai'] }}
                                         </span>
-                                    @endif
-                                </td>
-                                <td class="py-4 px-4">
-                                    <a href="{{ route('registrasi.index', $dokter->id) }}"
-                                        class="inline-flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
-                                        Registrasi
-                                    </a>
-                                </td>
-                            </tr>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </td>
+                            <td class="py-4 px-4">
+                                @if ($dokter->aktif)
+                                <span
+                                    class="inline-flex items-center px-3 py-1 rounded-full  font-medium {{ $dokter->aktif->aktif == 1 ? 'bg-green-800 ' : 'bg-red-800' }}">
+                                    {{ $dokter->aktif->aktif == 1 ? 'Online' : 'Offline' }}
+                                </span>
+                                @else
+                                <span
+                                    class="inline-flex items-center px-3 py-1 rounded-full  font-medium text-gray-700 bg-gray-100">
+                                    Tidak Ada Data
+                                </span>
+                                @endif
+                            </td>
+                            <td class="py-4 px-4 hidden md:flex justify-center items-center text-center">
+                                <a href="{{ route('registrasi.index', $dokter->id) }}"
+                                    class="inline-flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                    <span>Registrasi</span>
+                                </a>
+                            </td>
+
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
