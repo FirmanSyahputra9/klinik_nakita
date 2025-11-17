@@ -50,7 +50,7 @@
                     <!-- Contoh Data 1 -->
                     <tr>
                         <td class="px-4 py-2">15 Januari 2025</td>
-                        <td class="px-4 py-2">150000</td>
+                        <td class="px-4 py-2">50326</td>
                         <td class="px-4 py-2">
                             <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium 
                             text-green-700 bg-green-50">Lunas</span>
@@ -63,7 +63,9 @@
                                 x-on:click="openView({
                                 id: 1,
                                 tanggal: '15 Januari 2025',
-                                jumlah: 150000,
+                                jumlah: '50326',
+                                obat: 'Paracetamol',
+                                kuantitas: '20 mg',
                                 status: 'Lunas',
                                 pasien: 'Yazid Nasution'
                             })">
@@ -162,6 +164,8 @@
 
                 <p><b>Tanggal:</b> <span x-text="viewData.tanggal"></span></p>
                 <p><b>Jumlah:</b> Rp <span x-text="viewData.jumlah"></span></p>
+                <p><b>Obat:</b> <span x-text="viewData.obat"></span></p>
+                <p><b>Kuantitas:</b> Rp <span x-text="viewData.kuantitas"></span></p>
                 <p><b>Status:</b> <span x-text="viewData.status"></span></p>
                 <p><b>Pasien:</b> <span x-text="viewData.pasien"></span></p>
 
