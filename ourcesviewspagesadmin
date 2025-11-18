@@ -1,0 +1,33 @@
+[33m85e989f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{0}: rebase (abort): returning to refs/heads/main
+[33m85e989f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{1}: rebase (abort): returning to refs/heads/main
+[33mcf1ebcb[m HEAD@{2}: commit (amend): p
+[33maf9b18f[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{3}: commit: p
+[33m8b6b0fc[m HEAD@{4}: commit: added some design
+[33m90183af[m HEAD@{5}: commit: p
+[33m98d9c50[m HEAD@{6}: commit: p
+[33mf93ecc9[m HEAD@{7}: pull: Fast-forward
+[33m070d7fa[m HEAD@{8}: commit: ppp
+[33mdd5ed2b[m HEAD@{9}: commit: add new views
+[33mce9690c[m HEAD@{10}: pull: Fast-forward
+[33m1c027b0[m HEAD@{11}: commit (merge): Merge: resolve conflicts and add Poppins font assets
+[33mdd2aaca[m HEAD@{12}: commit: tweaked it a bit for db
+[33mf580db0[m HEAD@{13}: commit: added detail for struk
+[33m1fdcf8a[m HEAD@{14}: commit: added some
+[33m13e94c5[m HEAD@{15}: commit: added popup and animation
+[33m1cdaaa6[m HEAD@{16}: commit: added jadwal in doctor section (admin)
+[33m3d95ad9[m HEAD@{17}: pull: Fast-forward
+[33me70c2bf[m HEAD@{18}: commit: added appointment
+[33m544f943[m HEAD@{19}: commit: nabila bodo
+[33maedd1f3[m HEAD@{20}: pull: Fast-forward
+[33m2753468[m HEAD@{21}: commit: added assdasd
+[33m844d802[m HEAD@{22}: pull: Fast-forward
+[33m79d8ac8[m HEAD@{23}: commit: asdpsad
+[33md38eb99[m HEAD@{24}: commit: sadsad
+[33m4a8dd0e[m HEAD@{25}: pull: Fast-forward
+[33m85e989f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{26}: checkout: moving from d3696ad2cac1e00c38a7bf1ca756e8ae786d3cde to main
+[33md3696ad[m HEAD@{27}: commit (merge): kofdsnsdfnk
+[33m1b3f9da[m HEAD@{28}: commit: cfsd
+[33md9e5052[m HEAD@{29}: commit: fixed conflicts
+[33md9a9db7[m[33m ([m[1;31morigin/p[m[33m)[m HEAD@{30}: pull origin main --rebase (start): checkout d9a9db76a36fd8300fed3e78d0ea98ddc8a70fbf
+[33m85e989f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{31}: commit: updated data dokter
+[33mc0ac135[m HEAD@{32}: clone: from https://github.com/FirmanSyahputra9/klinik_nakita.git

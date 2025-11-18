@@ -154,27 +154,82 @@
             </table>
         </div>
 
-        <!-- ================= MODAL VIEW STRUK ================ -->
+        <!-- =============== MODAL VIEW STRUK (CANTIK) =============== -->
         <div x-show="showView"
-            x-transition
-            class="fixed inset-0 bg-black/40 flex items-center justify-center p-4">
-            <div class="bg-white p-6 rounded-lg w-full max-w-md">
+            x-transition.opacity
+            class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
 
-                <h2 class="text-xl font-bold mb-4">Struk Pembayaran</h2>
+            <div class="bg-white w-full max-w-md rounded-2xl shadow-xl p-6"
+                x-transition.scale>
 
-                <p><b>Tanggal:</b> <span x-text="viewData.tanggal"></span></p>
-                <p><b>Jumlah:</b> Rp <span x-text="viewData.jumlah"></span></p>
-                <p><b>Obat:</b> <span x-text="viewData.obat"></span></p>
-                <p><b>Kuantitas:</b> Rp <span x-text="viewData.kuantitas"></span></p>
-                <p><b>Status:</b> <span x-text="viewData.status"></span></p>
-                <p><b>Pasien:</b> <span x-text="viewData.pasien"></span></p>
+                <!-- HEADER -->
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-gray-800">🧾 Struk Pembayaran</h2>
 
-                <div class="flex justify-end mt-6">
-                    <button class="px-4 py-2 bg-gray-300 rounded"
-                        x-on:click="showView = false">Tutup</button>
+                    <button class="text-gray-500 hover:text-red-500 transition"
+                        @click="showView = false">
+                        ✕
+                    </button>
                 </div>
+
+                <div class="border-t border-gray-200 pt-4 space-y-3">
+
+                    <!-- ITEM -->
+                    <div class="flex justify-between">
+                        <span class="font-medium text-gray-600">Tanggal</span>
+                        <span class="text-gray-800" x-text="viewData.tanggal"></span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span class="font-medium text-gray-600">Jumlah</span>
+                        <span class="text-gray-800">Rp <span x-text="viewData.jumlah"></span></span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span class="font-medium text-gray-600">Obat</span>
+                        <span class="text-gray-800" x-text="viewData.obat"></span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span class="font-medium text-gray-600">Kuantitas</span>
+                        <span class="text-gray-800" x-text="viewData.kuantitas"></span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span class="font-medium text-gray-600">Status</span>
+                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold"
+                            :class="{
+                         'bg-green-100 text-green-700': viewData.status === 'Lunas',
+                         'bg-red-100 text-red-700': viewData.status !== 'Lunas'
+                      }"
+                            x-text="viewData.status">
+                        </span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span class="font-medium text-gray-600">Pasien</span>
+                        <span class="text-gray-800" x-text="viewData.pasien"></span>
+                    </div>
+
+                </div>
+
+                <!-- ACTION BUTTONS -->
+                <div class="flex justify-end gap-3 mt-6">
+
+                    <!-- Unduh Struk (dummy) -->
+                    <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow transition">
+                        Unduh Struk
+                    </button>
+
+                    <button class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-lg"
+                        @click="showView = false">
+                        Tutup
+                    </button>
+                </div>
+
             </div>
         </div>
+
 
         <!-- ================= MODAL KONFIRMASI ================= -->
         <div x-show="showConfirm"
