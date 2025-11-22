@@ -1,9 +1,8 @@
 <x-layouts.app.sidebar :title="$title ?? null">
 
     <!-- Alpine Root -->
-    <div x-data="{ loading: true }" x-init="window.addEventListener('load', () => loading = false)">
+    <div x-data="{ loading: true }" x-init="loading = false">
 
-        <!-- Loader Global -->
         <div x-cloak x-show="loading" x-transition:leave="transition ease-in duration-700"
             x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
             class="fixed inset-0 flex items-center justify-center bg-white z-[9999] transition-opacity">
@@ -23,5 +22,30 @@
     <flux:main>
         {{ $slot }}
     </flux:main>
+
+    <!-- Notifikasi Flash -->
+    <div x-data="{ show: true }" x-show="show" x-transition.opacity x-init="setTimeout(() => show = false, 3000)"
+        class="fixed top-4 right-4 z-[9999]">
+        @if (session('success'))
+            <div class="bg-green-500 text-white px-4 py-3 rounded shadow-lg flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="bg-red-500 text-white px-4 py-3 rounded shadow-lg flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                {{ session('error') }}
+            </div>
+        @endif
+    </div>
+
 
 </x-layouts.app.sidebar>

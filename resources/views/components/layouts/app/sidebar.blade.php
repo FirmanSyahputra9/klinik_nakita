@@ -53,7 +53,7 @@
                         {{ __('Dashboard') }}
                     </flux:navlist.item>
                     <flux:navlist.item class="mb-2" icon="calendar-days" :href="route('jadwaldokter.index')"
-                        :current="request()->routeIs('jadwaldokter.*')" wire:navigate>
+                        :current="request()->routeIs('jadwaldokter.*') || request()->routeIs('registrasi.*')" wire:navigate>
                         {{ __('Jadwal') }}
                     </flux:navlist.item>
                     <flux:navlist.item class="mb-2" icon="clipboard-document-list" :href="route('riwayatuser')"
@@ -79,7 +79,7 @@
                         :current="request()->routeIs('janji.*')" wire:navigate>
                         {{ __('Janji') }}
                     </flux:navlist.item>
-                    <flux:navlist.item class="mb-2" icon="users" :href="route('data.index')"
+                    <flux:navlist.item class="mb-2" icon="users" :href="route('data-pasien.index')"
                         :current="request()->routeIs('data.*')" wire:navigate>
                         {{ __('Data') }}
                     </flux:navlist.item>

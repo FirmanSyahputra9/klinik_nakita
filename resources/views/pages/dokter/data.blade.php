@@ -1,6 +1,6 @@
 <x-layouts.app :title="__('Data')">
     <div class="p-6">
-        <h1 class="text-2xl font-bold mb-2">Data Pasien</h1>
+        <h1 class="text-2xl font-bold mb-2">Data Pasien </h1>
 
 
         <div class="bg-white shadow-md rounded-lg p-6">

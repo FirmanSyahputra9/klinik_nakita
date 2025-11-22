@@ -70,10 +70,18 @@
 
                     <div x-data="{
                         tanggal: '{{ old('tanggal_kunjungan') }}' || '{{ now()->format('Y-m-d') }}',
-                        jam: '{{ now()->format('H:i') }}',
-                        today: '{{ now()->format('Y-m-d') }}'
+                        jam: '{{ old('jam_berobat', now()->format('H:i')) }}',
+                        today: '{{ now()->format('Y-m-d') }}',
+                        nowTime() {
+                            return new Date().toISOString().slice(11, 16);
+                        }
                     }"
-                        x-effect="if (tanggal === today && jam && jam < nowTime) { jam = nowTime }">
+                        x-effect="
+                            if (tanggal === today && jam < nowTime()) {
+                                jam = nowTime();
+                            }
+                        ">
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
                                 Tanggal Kunjungan
@@ -84,14 +92,14 @@
                                 required>
                         </div>
 
-                        <div class="mt-4">
+                        {{-- <div class="mt-4">
                             <label class="block text-sm font-medium text-gray-700 mb-2">
                                 Jam Berobat
                             </label>
                             <input type="time" name="jam_berobat" x-model="jam" value="{{ old('jam_berobat') }}"
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400"
                                 required>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div x-data="{ keluhan: '{{ old('keluhan') }}', max: 255 }" class="w-full">

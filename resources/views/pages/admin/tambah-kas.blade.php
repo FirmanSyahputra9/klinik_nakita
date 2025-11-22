@@ -26,6 +26,21 @@
                     class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
             </div>
 
+            <!-- Obat -->
+            <div class="mb-5">
+                <label for="obat" class="block text-gray-700 font-medium mb-2">Obat</label>
+                <input type="text" id="obat" name="obat" placeholder="Masukkan obat"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            </div>
+
+
+            <!-- Kuantitas -->
+            <div class="mb-5">
+                <label for="kuantitas" class="block text-gray-700 font-medium mb-2">Kuantitas</label>
+                <input type="text" id="kuantitas" name="kuantitas" placeholder="Masukkan kuantitas"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            </div>
+
             <!-- Status Pembayaran -->
             <div class="mb-5">
                 <label for="status" class="block text-gray-700 font-medium mb-2">Status Pembayaran</label>
@@ -39,7 +54,7 @@
 
             <!-- Tombol Aksi -->
             <div class="flex justify-end space-x-3 mt-6">
-                <a href="/kasir" 
+                <a href="/kasir"
                     class="bg-gray-100 text-gray-700 px-5 py-2 rounded-lg font-medium hover:bg-gray-200 transition">
                     Batal
                 </a>

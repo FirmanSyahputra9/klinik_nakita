@@ -12,12 +12,25 @@ class Registrasi extends Model
     protected $table = 'registrasis';
 
     protected $fillable = [
+        'appointment_code',
         'pasien_id',
         'dokter_id',
+        'dokter_jadwal_id',
         'tanggal_kunjungan',
-        'jam_berobat',
+        // 'jam_berobat',
+        'status',
         'keluhan',
+        'hide',
     ];
+    protected $casts = [
+        'status' => 'boolean',
+        'hide' => 'boolean',
+    ];
+
+    public function dokter_jadwals()
+    {
+        return $this->belongsTo(DokterJadwal::class, 'dokter_jadwal_id');
+    }
 
     public function pasiens()
     {

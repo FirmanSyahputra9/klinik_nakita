@@ -14,8 +14,6 @@ class PasienController extends Controller
      */
     public function index()
     {
-        
-        return view('pages.dokter.data');
     }
 
     /**
@@ -53,7 +51,7 @@ class PasienController extends Controller
             'created_at' => Carbon::parse("2024-11-09"),
         ];
 
-    return view('pages.dokter.tindakan-pasien', compact('pasien'));
+        return view('pages.dokter.tindakan-pasien', compact('pasien'));
     }
 
     /**

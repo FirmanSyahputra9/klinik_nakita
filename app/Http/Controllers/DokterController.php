@@ -16,7 +16,7 @@ class DokterController extends Controller
      */
     public function index()
     {
-        $dokters = Dokter::paginate(10);
+        $dokters = User::whereHas('dokter')->with(['dokter'])->paginate(10)->appends(request()->query());
         return view('pages.admin.data-dokter', compact('dokters'));
     }
 

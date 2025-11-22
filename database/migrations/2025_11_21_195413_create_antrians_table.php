@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('registrasis', function (Blueprint $table) {
+        Schema::create('antrians', function (Blueprint $table) {
             $table->id();
-            $table->string('appointment_code');
             $table->foreignId('pasien_id')->constrained();
+            $table->foreignId('registrasi_id')->constrained();
             $table->foreignId('dokter_id')->constrained();
-            $table->foreignId('dokter_jadwal_id')->constrained();
-            $table->string('tanggal_kunjungan');
-            // $table->string('jam_berobat');
-            $table->string('keluhan');
-            $table->boolean('hide')->default(false);
+            $table->string('kode_antrian');
             $table->boolean('status')->default(false);
             $table->timestamps();
         });
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('antrians');
     }
 };

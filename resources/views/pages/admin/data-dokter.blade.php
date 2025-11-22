@@ -29,7 +29,6 @@
                 Tambah Dokter
             </a>
         </div>
-
         <!-- Search -->
         <div class="mb-4">
             <input type="text" placeholder="Cari nama atau spesialisasi..."
@@ -52,15 +51,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($dokters as $dokter)
+                    @foreach ($dokters as $data)
                     <tr class="border-b hover:bg-gray-50">
-                        <td class="px-4 py-3 font-medium text-gray-800">{{ $dokter->name }}</td>
-                        <td class="px-4 py-3">{{ $dokter->spesialisasi }}</td>
-                        <td class="px-4 py-3">{{ $dokter->no_telepon }}</td>
-                        <td class="px-4 py-3">{{ $dokter->email }}</td>
+                        <td class="px-4 py-3 font-medium text-gray-800">{{ $data->dokter->name }}</td>
+                        <td class="px-4 py-3">{{ $data->dokter->spesialisasi }}</td>
+                        <td class="px-4 py-3">{{ $data->dokter->phone }}</td>
+                        <td class="px-4 py-3">{{ $data->email }}</td>
                         <td class="px-4 py-3">Senin-Jumat, 08.00-17.00</td>
-                        <td class="px-4 py-3 text-center">{{ $dokter->status }}</td>
-                        <td class="px-4 py-3 text-center">{{ $dokter->created_at }}</td>
+                        <td class="px-4 py-3 text-center">{{ $data->dokter->status }}</td>
+                        <td class="px-4 py-3 text-center">{{ $data->created_at }}</td>
 
                         <td class="px-4 py-3 text-center flex justify-center gap-2">
                             <!-- Online -->

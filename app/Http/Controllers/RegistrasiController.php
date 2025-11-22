@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Antrian;
+use App\Models\AntrianRegistrasi;
 use App\Models\Dokter;
 use App\Models\Registrasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Models\DokterJadwal;
+use Carbon\Carbon;
+use Illuminate\Validation\ValidationException;
+
+
 
 class RegistrasiController extends Controller
 {
@@ -58,26 +66,95 @@ class RegistrasiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'tanggal_kunjungan' => 'required|date',
-            'jam_berobat' => 'required|date_format:H:i',
-        ]);
+        // Validasi
+        try {
+            $validated = $request->validate([
+                'tanggal_kunjungan' => 'required|date',
+                'keluhan'           => 'required|string|max:255',
+            ]);
+        } catch (ValidationException $e) {
+            return redirect()->back()
+                ->withErrors($e->errors())
+                ->withInput()
+                ->with('error', 'Validasi gagal. Periksa form Anda.');
+        }
 
-        Registrasi::create(
-            [
+        DB::beginTransaction();
+
+        try {
+            $urut = Registrasi::whereDate('tanggal_kunjungan', $validated['tanggal_kunjungan'])
+                ->lockForUpdate()
+                ->count() + 1;
+            $code = str_pad($urut, 4, '0', STR_PAD_LEFT) . '/' . now()->format('d.m.y');
+            $appointment_code = 'REG-' . $code;
+
+            // Mapping hari
+            $dayMapping = [
+                'Monday'    => 'Senin',
+                'Tuesday'   => 'Selasa',
+                'Wednesday' => 'Rabu',
+                'Thursday'  => 'Kamis',
+                'Friday'    => 'Jumat',
+                'Saturday'  => 'Sabtu',
+                'Sunday'    => 'Minggu',
+            ];
+
+            $hariInggris = date('l', strtotime($validated['tanggal_kunjungan']));
+            $hari = $dayMapping[$hariInggris];
+
+            // Ambil jadwal dokter sesuai hari
+            $dokter_jadwal = DokterJadwal::where('dokter_id', $request->dokter_id)
+                ->where('hari', $hari)
+                ->first();
+
+            if (!$dokter_jadwal) {
+                DB::rollBack();
+                return redirect()->route('registrasi.index', $request->dokter_id)
+                    ->withInput()
+                    ->with('error', 'Dokter tidak praktik pada hari tersebut.');
+            }
+
+
+            if ($validated['tanggal_kunjungan'] == now()->format('Y-m-d')) {
+                $now = now()->format('H:i:s');
+
+                // Jika waktu sekarang sudah melewati jam tutup dokter → tidak boleh daftar
+                if ($now > $dokter_jadwal->aktif_selesai) {
+                    DB::rollBack();
+                    return redirect()->route('registrasi.index', $request->dokter_id)
+                        ->withInput()
+                        ->with('error', 'Jadwal dokter hari ini sudah selesai.');
+                }
+            }
+
+            // Simpan
+            Registrasi::create([
                 'tanggal_kunjungan' => $validated['tanggal_kunjungan'],
-                'jam_berobat' => $validated['jam_berobat'],
-                'keluhan' => $request->keluhan,
-                'pasien_id' => Auth::User()->id,
-                'dokter_id' => $request->dokter_id,
-            ]
-        );
+                'dokter_jadwal_id'  => $dokter_jadwal->id,
+                'appointment_code'  => $appointment_code,
+                'keluhan'           => $request->keluhan,
+                'pasien_id'         => Auth::id(),
+                'dokter_id'         => $request->dokter_id,
+            ]);
 
-        return redirect()->route('jadwaldokter.index', $request->dokter_id)
-            ->with('success', 'Registrasi berhasil ditambahkan!');
+            DB::commit();
+            return redirect()->route('dashboarduser')
+                ->with('success', 'Registrasi berhasil! Kode: ' . $appointment_code);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $msg = config('app.debug') ? $e->getMessage() : 'Terjadi kesalahan pada server.';
+            return redirect()->route('registrasi.index', $request->dokter_id)
+                ->withInput()
+                ->with('error', $msg);
+        }
     }
+
+
+
+
 
     /**
      * Display the specified resource.

@@ -52,9 +52,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    /**
-     * Inisial nama (misal: "Aditya Hutagalung" => "AH")
-     */
+  
     public function initials(): string
     {
         return Str::of($this->name)
@@ -63,27 +61,16 @@ class User extends Authenticatable
             ->map(fn($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
-
-    /**
-     * Apakah user sudah disetujui?
-     */
     public function isApproved(): bool
     {
         return (bool) $this->approved;
     }
 
-    /**
-     * Accessor status persetujuan (teks).
-     */
     public function getApprovedStatusAttribute(): string
     {
         return $this->approved ? 'Ya' : 'Tidak';
     }
 
-    /**
-     * Relasi ke model Pasien
-     * (Satu user bisa memiliki satu pasien)
-     */
     public function pasien()
     {
         return $this->hasOne(Pasien::class, 'user_id');

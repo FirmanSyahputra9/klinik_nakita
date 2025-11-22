@@ -9,7 +9,6 @@
 
 <link rel="preconnect" href="https://fonts.bunny.net">
 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-<script src="//unpkg.com/alpinejs" defer></script>
 
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -18,25 +17,30 @@
         font-family: 'Poppins';
         src: url('/font/Poppins/Poppins-Regular.ttf') format('truetype');
         font-weight: 400;
+        font-display: swap;
     }
 
     @font-face {
         font-family: 'Poppins';
         src: url('/font/Poppins/Poppins-Medium.ttf') format('truetype');
         font-weight: 500;
+        font-display: swap;
     }
 
     @font-face {
         font-family: 'Poppins';
         src: url('/font/Poppins/Poppins-Bold.ttf') format('truetype');
         font-weight: 700;
+        font-display: swap;
     }
 
     body {
         font-family: 'Poppins', sans-serif;
     }
+
     [x-cloak] {
         display: none !important;
     }
 </style>
+
 @fluxAppearance

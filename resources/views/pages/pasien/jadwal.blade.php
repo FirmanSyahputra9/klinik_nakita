@@ -117,7 +117,6 @@
                                     <span>Registrasi</span>
                                 </a>
                             </td>
-
                         </tr>
                         @endforeach
                     </tbody>
@@ -125,4 +124,5 @@
             </div>
         </div>
     </div>
+    
 </x-layouts.app>

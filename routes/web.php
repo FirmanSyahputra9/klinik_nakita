@@ -9,11 +9,13 @@ use App\Http\Controllers\RegistrasiController as RegistrasiController;
 use App\Http\Controllers\ObatController as ObatController;
 use App\Http\Controllers\PasienController as PasienController;
 use App\Http\Controllers\AppointmentController as AppointmentController;
+use App\Http\Controllers\DataPasienController;
 use App\Http\Controllers\DokterDashboardController;
 use App\Http\Controllers\DokterJadwalController;
 use App\Http\Controllers\DokterJanjiController;
 use App\Http\Controllers\KasirController;
 use App\Http\Controllers\UserJadwalDokter;
+use App\Models\DataPasien;
 
 Route::get('/', function () {
     return view('index');
@@ -26,6 +28,9 @@ Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
     Route::post('users/approve/{id}', [AdminUser::class, 'approve'])
         ->name('users.approve');
     Route::resource('appointment', AppointmentController::class);
+    Route::post('/appointment/{id}/konfirmasi', [AppointmentController::class, 'konfirmasi'])->name('appointment.konfirmasi');
+    Route::post('/appointment/{id}/selesai', [AppointmentController::class, 'selesai'])->name('appointment.selesai');
+    Route::post('/appointment/{id}/batalkan', [AppointmentController::class, 'batalkan'])->name('appointment.batalkan');
     Route::resource('kasir', KasirController::class);
     Route::view('/tambah-kas', 'pages.admin.tambah-kas')
         ->name('tambahkas');
@@ -47,7 +52,6 @@ Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
     Route::view('/obat', 'pages.pasien.obat')
         ->name('obatuser');
     Route::get('registrasi/{id}', [RegistrasiController::class, 'index'])->name('registrasi.index');
-
     Route::resource('registrasi', RegistrasiController::class)->except(['index']);
 });
 
@@ -57,8 +61,11 @@ Route::middleware(['auth'])->prefix('dokter')->group(function () {
     Route::resource('janji', DokterJanjiController::class);
     Route::view('/resep', 'pages.dokter.resep')
         ->name('resep');
+    Route::post('/janji/{id}/konfirmasi', [DokterJanjiController::class, 'konfirmasi'])->name('janji.konfirmasi');
     Route::resource('jadwal', DokterJadwalController::class);
     Route::resource('data', PasienController::class);
+    Route::resource('data-pasien', DataPasienController::class);
+
 });
 
 

@@ -5,39 +5,37 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome | {{ config('app.name', 'Laravel') }}</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
     @vite('resources/css/app.css')
 
     <style>
+        @font-face {
+            font-family: 'Poppins';
+            src: url('/font/Poppins/Poppins-Regular.ttf') format('truetype');
+            font-weight: 400;
+        }
 
-    @font-face {
-        font-family: 'Poppins';
-        src: url('/font/Poppins/Poppins-Regular.ttf') format('truetype');
-        font-weight: 400;
-    }
+        @font-face {
+            font-family: 'Poppins';
+            src: url('/font/Poppins/Poppins-Medium.ttf') format('truetype');
+            font-weight: 500;
+        }
 
-    @font-face {
-        font-family: 'Poppins';
-        src: url('/font/Poppins/Poppins-Medium.ttf') format('truetype');
-        font-weight: 500;
-    }
+        @font-face {
+            font-family: 'Poppins';
+            src: url('/font/Poppins/Poppins-Bold.ttf') format('truetype');
+            font-weight: 700;
+        }
 
-    @font-face {
-        font-family: 'Poppins';
-        src: url('/font/Poppins/Poppins-Bold.ttf') format('truetype');
-        font-weight: 700;
-    }
-
-    body {
-        font-family: 'Poppins', sans-serif;
-    }
-
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
     </style>
-    
+
 </head>
 
 <body
@@ -115,6 +113,19 @@
 
     {{-- Footer --}}
     <footer class="mt-16 text-sm text-[#706f6c] dark:text-[#A1A09A] text-center">
+
+        <div class="flex justify-center mt-4">
+            <a href="https://www.instagram.com/kliniknakita_setialuhur?igsh=djNnZDBmNjRuMWc3" target="_blank"
+                class="flex items-center gap-2 text-[#f53003] dark:text-[#FF4433] hover:opacity-80 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="1.8">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M7.5 3h9A4.5 4.5 0 0121 7.5v9a4.5 4.5 0 01-4.5 4.5h-9A4.5 4.5 0 013 16.5v-9A4.5 4.5 0 017.5 3zm9.75 3.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm-6.75 1.5a4.5 4.5 0 104.5 4.5 4.5 4.5 0 00-4.5-4.5z" />
+                </svg>
+                <span class="text-sm font-medium">Instagram</span>
+            </a>
+        </div>
+
         © {{ date('Y') }} {{ config('app.name', 'Laravel') }}. All rights reserved.
     </footer>
 

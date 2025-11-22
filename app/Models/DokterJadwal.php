@@ -26,4 +26,9 @@ class DokterJadwal extends Model
     {
         return $this->belongsTo(Dokter::class);
     }
+
+    public function registrasi()
+    {
+        return $this->hasMany(Registrasi::class, 'dokter_jadwal_id');
+    }
 }

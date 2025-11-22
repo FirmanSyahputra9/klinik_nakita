@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Antrian;
 use App\Models\Appointment;
+use App\Models\Registrasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
 {
@@ -12,7 +17,13 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.appointment');
+        $registrasi = Registrasi::with(['pasiens', 'dokters', 'dokter_jadwals'])->orderBy('status', 'asc')->get()->map(function ($item) {
+            if ($item->tanggal_kunjungan) {
+                $item->tanggal_kunjungan = \Carbon\Carbon::parse($item->tanggal_kunjungan)->format('d M Y');
+            }
+            return $item;
+        });
+        return view('pages.admin.appointment', compact('registrasi'));
     }
 
     /**
@@ -61,5 +72,70 @@ class AppointmentController extends Controller
     public function destroy(Appointment $appointment)
     {
         //
+    }
+
+
+
+    public function konfirmasi($id)
+    {
+        DB::beginTransaction();
+
+        try {
+            $reg = Registrasi::findOrFail($id);
+
+            $reg->status = true;
+            $reg->save();
+
+            $dokterId = $reg->dokter_id;
+            $tanggal = $reg->tanggal_kunjungan;
+
+            $antrianUrut = Antrian::where('dokter_id', $dokterId)
+                ->whereHas('registrasi', function ($q) use ($tanggal) {
+                    $q->whereDate('tanggal_kunjungan', $tanggal);
+                })
+                ->lockForUpdate()
+                ->count() + 1;
+
+
+            $kode = str_pad($antrianUrut, 4, '0', STR_PAD_LEFT)
+                . '/' . date('d.m.Y', strtotime($tanggal));
+            $kodeAntrian = 'A-' . $kode;
+
+            Antrian::create([
+                'kode_antrian'  => $kodeAntrian,
+                'registrasi_id' => $reg->id,
+                'dokter_id'     => $dokterId,
+                'pasien_id'     => $reg->pasien_id,
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('appointment.index')
+                ->with('success', 'Registrasi berhasil dikonfirmasi. Nomor antrian: ' . $kodeAntrian);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return redirect()->route('appointment.index')
+                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+
+
+    public function selesai($id)
+    {
+        $reg = Registrasi::findOrFail($id);
+        $reg->status = 'selesai';
+        $reg->save();
+
+        return redirect()->route('appointment.index')->with('success', 'Registrasi berhasil diselesaikan');
+    }
+
+    public function batalkan($id)
+    {
+        $reg = Registrasi::findOrFail($id);
+        $reg->status = 'batal';
+        $reg->save();
+
+        return redirect()->route('appointment.index')->with('success', 'Registrasi berhasil dibatalkan');
     }
 }
