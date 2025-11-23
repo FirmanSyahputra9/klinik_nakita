@@ -8,6 +8,7 @@ use App\Models\Pasien;
 use App\Models\Registrasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DokterJanjiController extends Controller
 {
@@ -16,7 +17,7 @@ class DokterJanjiController extends Controller
      */
     public function index()
     {
-        $today = date('2025-11-26');
+        $today = date('2025-12-04');
         $dokterId = Dokter::where('user_id', Auth::id())->value('id');
 
         $janji = Antrian::with(['pasien', 'registrasi', 'dokter'])
@@ -25,7 +26,7 @@ class DokterJanjiController extends Controller
                 $q->whereDate('tanggal_kunjungan', $today);
             })
             ->orderBy('status', 'asc')
-            ->get()->map(function ($item) {
+            ->paginate(10)->through(function ($item) {
                 if ($item->registrasi && $item->registrasi->tanggal_kunjungan) {
                     $item->registrasi->tanggal_kunjungan = \Carbon\Carbon::parse($item->registrasi->tanggal_kunjungan)
                         ->format('d M Y');
@@ -88,10 +89,27 @@ class DokterJanjiController extends Controller
 
     public function konfirmasi($id)
     {
-        $janji = Antrian::findOrFail($id);
-        $janji->status = true;
-        $janji->save();
+        try {
+            DB::beginTransaction();
 
-        return redirect()->route('janji.index')->with('success', 'Registrasi berhasil diselesaikan');
+            $janji = Antrian::where('id', $id)->lockForUpdate()->firstOrFail();
+
+            if ($janji->status === true) {
+                DB::rollBack();
+                return back()->with('error', 'Janji sudah dikonfirmasi sebelumnya');
+            }
+
+            $janji->status = true;
+            $janji->save();
+
+            DB::commit();
+
+            return redirect()
+                ->route('data.show', $janji->pasien)
+                ->with('success', 'Registrasi berhasil diselesaikan');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 }

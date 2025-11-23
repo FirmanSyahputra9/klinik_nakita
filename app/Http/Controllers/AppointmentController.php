@@ -81,13 +81,19 @@ class AppointmentController extends Controller
         DB::beginTransaction();
 
         try {
-            $reg = Registrasi::findOrFail($id);
+            $reg = Registrasi::where('id', $id)->lockForUpdate()->firstOrFail();
+
+            if ($reg->status === true) {
+                DB::rollBack();
+                return redirect()->route('appointment.index')
+                    ->with('error', 'Registrasi sudah dikonfirmasi sebelumnya.');
+            }
 
             $reg->status = true;
             $reg->save();
 
             $dokterId = $reg->dokter_id;
-            $tanggal = $reg->tanggal_kunjungan;
+            $tanggal  = $reg->tanggal_kunjungan;
 
             $antrianUrut = Antrian::where('dokter_id', $dokterId)
                 ->whereHas('registrasi', function ($q) use ($tanggal) {
@@ -96,10 +102,18 @@ class AppointmentController extends Controller
                 ->lockForUpdate()
                 ->count() + 1;
 
-
             $kode = str_pad($antrianUrut, 4, '0', STR_PAD_LEFT)
                 . '/' . date('d.m.Y', strtotime($tanggal));
+
             $kodeAntrian = 'A-' . $kode;
+
+            $antrianExists = Antrian::where('registrasi_id', $reg->id)->exists();
+
+            if ($antrianExists) {
+                DB::rollBack();
+                return redirect()->route('appointment.index')
+                    ->with('error', 'Nomor antrian sudah pernah dibuat sebelumnya.');
+            }
 
             Antrian::create([
                 'kode_antrian'  => $kodeAntrian,
@@ -119,7 +133,6 @@ class AppointmentController extends Controller
                 ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
-
 
     public function selesai($id)
     {

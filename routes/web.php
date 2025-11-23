@@ -14,6 +14,7 @@ use App\Http\Controllers\DokterDashboardController;
 use App\Http\Controllers\DokterJadwalController;
 use App\Http\Controllers\DokterJanjiController;
 use App\Http\Controllers\KasirController;
+use App\Http\Controllers\PasienDashboardController;
 use App\Http\Controllers\UserJadwalDokter;
 use App\Models\DataPasien;
 
@@ -42,7 +43,7 @@ Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
 });
 
 Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
-    Route::view('/', 'pages.pasien.dashboard')
+    Route::get('/', [PasienDashboardController::class, 'index'])
         ->name('dashboarduser');
     Route::resource('jadwaldokter', UserJadwalDokter::class);
     Route::view('/riwayat', 'pages.pasien.riwayat')

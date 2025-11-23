@@ -1,0 +1,101 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Antrian;
+use App\Models\Dokter;
+use App\Models\DokterJadwal;
+use App\Models\Pasien;
+use App\Models\Registrasi;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class PasienDashboardController extends Controller
+{
+    public function index()
+    {
+        $today = date('2025-12-04');
+        $dokterId = Dokter::where('user_id', Auth::id())->value('id');
+        $pasienId = Pasien::where('user_id', Auth::id())->value('id');
+        $dayMapping = [
+            'Monday'    => 'Senin',
+            'Tuesday'   => 'Selasa',
+            'Wednesday' => 'Rabu',
+            'Thursday'  => 'Kamis',
+            'Friday'    => 'Jumat',
+            'Saturday'  => 'Sabtu',
+            'Sunday'    => 'Minggu',
+        ];
+
+        $hariInggris = date('l', strtotime($today));
+        $hari = $dayMapping[$hariInggris];
+
+        $janjinow = Antrian::with([
+            'pasien',
+            'dokter',
+            'registrasi'
+        ])
+            ->where('pasien_id', $pasienId)
+            ->whereHas('registrasi', function ($q) use ($today) {
+                $q->whereDate('tanggal_kunjungan', $today)
+                    ->where('status', true);
+            })
+            ->get()->map(function ($item) use ($hari) {
+                if ($item->registrasi && $item->registrasi->tanggal_kunjungan) {
+                    $item->registrasi->tanggal_kunjungan = Carbon::parse($item->registrasi->tanggal_kunjungan)
+                        ->format('d M Y');
+                }
+                $dokterId = $item->dokter_id;
+
+                $item->antrian_sekarang = Antrian::where('dokter_id', $dokterId)
+                    ->where('status', true)
+                    ->count() + 1;
+
+                $item->jadwal_dokter_now = DokterJadwal::where('dokter_id', $dokterId)
+                    ->where('hari', $hari)
+                    ->first();
+
+                if ($item->jadwal_dokter_now) {
+                    $item->jadwal_dokter_now->awal_aktif =
+                        Carbon::parse($item->jadwal_dokter_now->aktif_mulai)->format('H:i');
+                }
+
+                $item->sisa_antrian = Antrian::where('dokter_id', $dokterId)
+                    ->where('status', false)
+                    ->where('id', '<', $item->id)
+                    ->count();
+
+                return $item;
+            });
+
+        $antrianjanji = Antrian::with(['pasien', 'dokter', 'registrasi'])
+            ->get();
+
+        $antrian_registrasi = Registrasi::where('pasien_id', $pasienId)->where('status', '=', false)->with('dokters', 'pasiens', 'dokter_jadwals')->get()->map(function ($item) {
+            if ($item->created_at) {
+                $item->create_at = Carbon::parse($item->created_at)->format('d M Y');
+            }
+
+            $item->nama_dokter = $item->dokters->name;
+
+            $item->antrian_registrasi = Registrasi::where('status', '=', false)->where('tanggal_kunjungan', $item->tanggal_kunjungan)->count();
+
+            if ($item->tanggal_kunjungan) {
+                $item->tanggal_kunjungan = Carbon::parse($item->tanggal_kunjungan)->format('d M Y');
+            }
+
+            return $item;
+        });
+
+        $user = User::with('pasien')->find(Auth::id());
+        if ($user && $user->pasien) {
+            $user->pasien->umur = Carbon::parse($user->pasien->birth_date)->age;
+            $user->pasien->birth_date_formatted = Carbon::parse($user->pasien->birth_date)->format('d M Y');
+        }
+
+
+        return view('pages.pasien.dashboard', compact('janjinow', 'antrianjanji', 'antrian_registrasi', 'user'));
+    }
+}

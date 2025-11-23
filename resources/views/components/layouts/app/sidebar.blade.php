@@ -53,7 +53,8 @@
                         {{ __('Dashboard') }}
                     </flux:navlist.item>
                     <flux:navlist.item class="mb-2" icon="calendar-days" :href="route('jadwaldokter.index')"
-                        :current="request()->routeIs('jadwaldokter.*') || request()->routeIs('registrasi.*')" wire:navigate>
+                        :current="request()->routeIs('jadwaldokter.*') || request()->routeIs('registrasi.*')"
+                        wire:navigate>
                         {{ __('Jadwal') }}
                     </flux:navlist.item>
                     <flux:navlist.item class="mb-2" icon="clipboard-document-list" :href="route('riwayatuser')"

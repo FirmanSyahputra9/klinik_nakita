@@ -47,5 +47,31 @@
         @endif
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
 
+            if (Notification.permission !== "granted") {
+                Notification.requestPermission();
+            }
+
+            @if (session('success'))
+                if (Notification.permission === "granted") {
+                    new Notification("Berhasil 🎉", {
+                        body: "{{ session('success') }}",
+                        icon: "/icon-success.png"
+                    });
+                }
+            @endif
+
+            @if (session('error'))
+                if (Notification.permission === "granted") {
+                    new Notification("Gagal ❌", {
+                        body: "{{ session('error') }}",
+                        icon: "/icon-error.png"
+                    });
+                }
+            @endif
+
+        });
+    </script>
 </x-layouts.app.sidebar>

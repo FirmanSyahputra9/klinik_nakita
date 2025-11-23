@@ -142,6 +142,11 @@
 
                     </tbody>
                 </table>
+
+                {{-- {{ $janji->links() }} --}}
+                <div class="mt-4">
+                    {{ $janji->links() }}
+                </div>
             </div>
 
             <!-- Empty State (jika tidak ada data) -->
