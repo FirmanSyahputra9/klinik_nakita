@@ -32,12 +32,31 @@
                             <td class="px-4 py-3">Laki-laki</td>
                             <td class="px-4 py-3">RM-2024-001</td>
                             <td class="px-4 py-3">12 Jan 2024</td>
-                            <td class="px-4 py-3">
+                            <td class="px-4 py-3 flex items-center gap-3">
+
+                                <!-- Tombol Edit (Pencil Square) -->
                                 <a href="{{ route('data.show', 1) }}"
-                                    class="text-blue-600 font-medium hover:underline">
-                                    Lihat Tindakan
+                                    class="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16.862 3.487l2.651 2.651M7.5 16.5l9.362-9.362M3 21h6l11-11a2.121 2.121 0 00-3-3L6 18v6z" />
+                                    </svg>
                                 </a>
+
+                                <!-- Tombol Lihat (Eye) -->
+                                <button class="p-2 bg-gray-500 hover:bg-gray-600 text-white rounded-md transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                </button>
+
                             </td>
+
                         </tr>
                     </tbody>
                 </table>

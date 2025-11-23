@@ -10,13 +10,11 @@
     <div class="bg-white rounded-xl shadow-sm p-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-6">Data Pasien</h2>
 
-
-
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            <!-- Left: Patient Card -->
+            <!-- Left card -->
             <div class="lg:col-span-1">
-                <div class="bg-linear-to-br from-green-600 to-green-700 rounded-2xl p-6 text-white shadow-lg">
+                <div class="bg-gradient-to-br from-green-600 to-green-700 rounded-2xl p-6 text-white shadow-lg">
                     <div class="space-y-3">
                         <div>
                             <h3 class="text-2xl font-bold">RM-00-001</h3>
@@ -36,9 +34,8 @@
                 </div>
             </div>
 
-            <!-- Right: Lab Examination Form -->
-            <div class="lg:col-span-2"
-                x-data="labForm">
+            <!-- Right: Lab Form -->
+            <div class="lg:col-span-2" x-data="labForm">
 
                 <div class="space-y-6">
 
@@ -56,24 +53,17 @@
                             <div class="flex items-center gap-3">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="w-5 h-5 text-gray-600"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 4v16m8-8H4" />
                                 </svg>
                                 <span class="text-gray-600">Tambah Pemeriksaan Lab</span>
                             </div>
+
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 class="w-5 h-5 text-gray-400"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 9l-7 7-7-7" />
                             </svg>
                         </div>
@@ -83,39 +73,34 @@
                     <div x-show="openDropdown"
                         class="border border-gray-200 rounded-lg mt-2 max-h-60 overflow-y-scroll bg-white shadow-md">
 
-                        <template x-for="(group, groupName) in labItems">
+                        <template x-for="(group, groupName) in labItems" :key="groupName">
                             <div class="border-b">
-                                <p class="p-3 font-semibold text-gray-700 bg-gray-100"
-                                    x-text="groupName"></p>
+                                <p class="p-3 font-semibold text-gray-700 bg-gray-100" x-text="groupName"></p>
 
-                                <!-- each item -->
-                                <template x-for="item in group">
+                                <template x-for="(item, i) in group" :key="i">
                                     <button @click="addTest(groupName, item)"
                                         class="w-full text-left p-3 hover:bg-gray-50">
                                         <span class="font-medium" x-text="item.name"></span>
-                                        <span class="text-xs text-gray-500 ml-1">(
+                                        <span class="text-xs text-gray-500 ml-1">
+                                            (
                                             <span x-text="item.normal"></span>
                                             <span x-text="item.unit"></span>
-                                            )</span>
+                                            )
+                                        </span>
                                     </button>
                                 </template>
                             </div>
                         </template>
                     </div>
 
-                    <!-- Results Section -->
+                    <!-- TEST RESULT SECTION -->
                     <div>
                         <h4 class="text-base font-semibold text-gray-800 mb-4">Hasil Pemeriksaan</h4>
 
-                        <!-- Render selected groups -->
                         <template x-for="(tests, category) in selectedLab" :key="category">
                             <div class="mb-6 border border-gray-200 rounded-xl p-4 shadow-sm">
+                                <h5 class="text-sm font-semibold text-gray-700 mb-4" x-text="category"></h5>
 
-                                <!-- Category name -->
-                                <h5 class="text-sm font-semibold text-gray-700 mb-4"
-                                    x-text="category"></h5>
-
-                                <!-- Cards for tests -->
                                 <template x-for="(item, index) in tests" :key="index">
                                     <div class="border border-gray-200 rounded-lg p-4 mb-3">
 
@@ -124,28 +109,25 @@
 
                                         <div class="flex items-center gap-3">
                                             <input type="text"
-                                                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                placeholder="Input hasil..."
-                                                x-model="item.value">
+                                                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg
+                                                focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                placeholder="Input hasil..." x-model="item.value">
+
                                             <span class="text-gray-600" x-text="item.unit"></span>
 
                                             <button @click="removeTest(category, index)"
                                                 class="p-2 text-red-500 hover:bg-red-50 rounded-lg">
                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                    class="w-5 h-5"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    stroke="currentColor">
-                                                    <path stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M6 18L18 6M6 6l12 12" />
+                                                    class="w-5 h-5" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                                 </svg>
                                             </button>
                                         </div>
 
                                         <p class="text-xs text-gray-500 mt-2">
-                                            Nilai Normal :
+                                            Nilai Normal:
                                             <span x-text="item.normal"></span>
                                             <span x-text="item.unit"></span>
                                         </p>
@@ -155,17 +137,28 @@
                             </div>
                         </template>
 
-                        <!-- Catatan Section -->
+                        <!-- CATATAN LAB -->
                         <div class="mt-6">
                             <h5 class="text-sm font-semibold text-gray-700 mb-2">Catatan Lab</h5>
                             <textarea rows="4"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg
+                                focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                 placeholder="Tambahkan catatan..."></textarea>
                         </div>
+
+                        <div class="flex justify-end mt-4 gap-2">
+                            <button class="px-6 py-1 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                                Batal
+                            </button>
+                            <button class="px-6 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition ">
+                                Tambah
+                            </button>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
-
             <!-- Alergi Form -->
             <div class="mt-10">
                 <h2 class="text-xl font-bold text-gray-900 mb-6">Form Alergi</h2>
@@ -213,6 +206,7 @@
                         class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         placeholder="Ketik..."></textarea>
                 </div>
+
                 <!-- Diagnosis -->
                 <div class="mb-5">
                     <label for="diagnosis" class="block text-gray-700 font-medium mb-2">
@@ -232,36 +226,36 @@
                 <h2 class="text-xl font-bold text-gray-900 mb-6">Tindakan</h2>
 
                 <div class="mb-5">
-                    <label for="nama tindakan" class="block text-gray-700 font-medium mb-2">
+                    <label for="nama_tindakan" class="block text-gray-700 font-medium mb-2">
                         Nama Tindakan
                     </label>
                     <textarea
-                        id="nama tindakan"
-                        name="nama tindakan"
+                        id="nama_tindakan"
+                        name="nama_tindakan"
                         rows="3"
                         class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         placeholder="Ketik..."></textarea>
                 </div>
 
                 <div class="mb-5">
-                    <label for="jenis tindakan" class="block text-gray-700 font-medium mb-2">
+                    <label for="jenis_tindakan" class="block text-gray-700 font-medium mb-2">
                         Jenis Tindakan
                     </label>
                     <textarea
-                        id="jenis tindakan"
-                        name="jenis tindakan"
+                        id="jenis_tindakan"
+                        name="jenis_tindakan"
                         rows="3"
                         class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         placeholder="Ketik..."></textarea>
                 </div>
 
                 <div class="mb-5">
-                    <label for="catatan tindakan" class="block text-gray-700 font-medium mb-2">
+                    <label for="catatan_tindakan" class="block text-gray-700 font-medium mb-2">
                         Catatan
                     </label>
                     <textarea
-                        id="catatan tindakan"
-                        name="catatan tindakan"
+                        id="catatan_tindakan"
+                        name="catatan_tindakan"
                         rows="3"
                         class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         placeholder="Ketik..."></textarea>
@@ -273,22 +267,22 @@
                 <button class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
                     Batal
                 </button>
+
                 <button class="px-8 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
                     Simpan Hasil
                 </button>
-                <button class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
-                    Riwayat
-                </button>
+
+
             </div>
 
         </div>
-
+        <!-- Alpine.js Script -->
         <script>
             document.addEventListener('alpine:init', () => {
                 Alpine.data('labForm', () => ({
                     openDropdown: false,
 
-                    // DATA TEMPLATE MASTER
+                    // MASTER LAB LIST
                     labItems: {
                         "Hematologi": [{
                                 name: "Hemoglobin (Hb)",
@@ -437,21 +431,26 @@
                         ]
                     },
 
-                    // SELECTED RESULTS
+                    // SELECTED LAB
                     selectedLab: {},
 
-                    // add
+                    // ADD TEST TO SELECTED LIST
                     addTest(category, item) {
                         if (!this.selectedLab[category]) {
                             this.selectedLab[category] = [];
                         }
+
                         this.selectedLab[category].push({
-                            ...item
+                            name: item.name,
+                            unit: item.unit,
+                            normal: item.normal,
+                            value: ""
                         });
+
                         this.openDropdown = false;
                     },
 
-                    // remove
+                    // REMOVE TEST
                     removeTest(category, index) {
                         this.selectedLab[category].splice(index, 1);
 
