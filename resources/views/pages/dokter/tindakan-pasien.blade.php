@@ -26,7 +26,8 @@
                             <p><span class="font-medium">NIK:</span> {{ $data->pasiens->nik }}</p>
                             <p><span class="font-medium">JK:</span> {{ $data->pasiens->gender_label }}</p>
                             <p><span class="font-medium">Tanggal Lahir:</span>
-                                {{ $data->pasiens->birth_date_formatted }}</p>
+                                {{ $data->pasiens->birth_date_formatted }}
+                            </p>
                             <p><span class="font-medium">Umur:</span> {{ $data->pasiens->umur }} Tahun</p>
                             <p><span class="font-medium">No. Telp:</span> {{ $data->pasiens->phone }}</p>
                             <p><span class="font-medium">Alamat:</span> {{ $data->pasiens->address }}</p>
@@ -51,8 +52,8 @@
                         placeholder="Pilih atau ketik...">
                     <datalist id="listPemeriksaan">
                         @foreach ($jenisPemeriksaans as $jenis)
-                            <option value="{{ $jenis->jenis_pemeriksaan }}">
-                        @endforeach
+                        <option value="{{ $jenis->jenis_pemeriksaan }}">
+                            @endforeach
                     </datalist>
 
                     <div class="grid grid-cols-2 gap-4">
@@ -129,8 +130,8 @@
                         placeholder="Pilih atau ketik nama tindakan...">
                     <datalist id="listNamaTindakan">
                         @foreach ($jenisPemeriksaans as $jp)
-                            <option value="{{ $jp->jenis_pemeriksaan }}">
-                        @endforeach
+                        <option value="{{ $jp->jenis_pemeriksaan }}">
+                            @endforeach
                     </datalist>
 
                     <!-- Combo box jenis tindakan -->
@@ -176,92 +177,93 @@
                     </thead>
                     <tbody>
                         @foreach ($jenisPemeriksaans as $jenis)
-                            @php
+                        @php
 
-                                $hasil = $antrian->lab->firstWhere('jenis_pemeriksaan_id', $jenis->id);
-                            @endphp
+                        $hasil = $antrian->lab->firstWhere('jenis_pemeriksaan_id', $jenis->id);
+                        @endphp
 
-                            <tr class="border">
+                        <tr class="border">
 
+                            <td class="px-4 py-3 border">
+                                {{ $jenis->jenis_pemeriksaan }}
+                            </td>
+
+                            <td class="px-4 py-3 border font-medium text-gray-700">
+                                {{ $jenis->normal_min }} ~ {{ $jenis->normal_max }} {{ $jenis->satuan }}
+                            </td>
+
+                            <form action="{{ route('pemeriksaan-lab.store') }}" method="POST"
+                                class="flex gap-2 items-center">
+                                @csrf
                                 <td class="px-4 py-3 border">
-                                    {{ $jenis->jenis_pemeriksaan }}
-                                </td>
 
-                                <td class="px-4 py-3 border font-medium text-gray-700">
-                                    {{ $jenis->normal_min }} ~ {{ $jenis->normal_max }} {{ $jenis->satuan }}
-                                </td>
+                                    <input type="hidden" name="antrian_id" value="{{ $antrian->id }}">
+                                    <input type="hidden" name="jenis_pemeriksaan_id"
+                                        value="{{ $jenis->id }}">
 
-                                <form action="{{ route('pemeriksaan-lab.store') }}" method="POST"
-                                    class="flex gap-2 items-center">
-                                    @csrf
-                                    <td class="px-4 py-3 border">
+                                    <div class="flex gap-2 items-center">
+                                        <input type="text" name="nilai"
+                                            class="w-full border rounded px-3 py-2" placeholder="Isi nilai..."
+                                            value="{{ $hasil->nilai ?? '' }}">
+                                        <span>{{ $jenis->satuan }}</span>
+                                    </div>
+                                    <div class="">
+                                        @if ($hasil?->nilai !== null)
 
-                                        <input type="hidden" name="antrian_id" value="{{ $antrian->id }}">
-                                        <input type="hidden" name="jenis_pemeriksaan_id"
-                                            value="{{ $jenis->id }}">
+                                        @php
+                                        $diff = 0;
+                                        $class = 'font-normal text-yellow-500';
 
-                                        <div class="flex gap-2 items-center">
-                                            <input type="text" name="nilai"
-                                                class="w-full border rounded px-3 py-2" placeholder="Isi nilai..."
-                                                value="{{ $hasil->nilai ?? '' }}">
-                                            <span>{{ $jenis->satuan }}</span>
-                                        </div>
-                                        <div class="">
-                                            @if ($hasil->nilai != null)
-                                                @php
-                                                    $diff = 0;
-                                                    $class = 'font-normal text-yellow-500';
+                                        if ($hasil->nilai < $jenis->normal_min) {
+                                            $diff = $jenis->normal_min - $hasil->nilai;
+                                            if ($diff >= 15) {
+                                            $class = 'font-extrabold text-red-600';
+                                            } elseif ($diff >= 10) {
+                                            $class = 'font-bold text-orange-700';
+                                            } elseif ($diff >= 5) {
+                                            $class = 'font-semibold text-orange-500';
+                                            } else {
+                                            $class = 'font-normal text-yellow-500';
+                                            }
+                                            $message = $jenis->jenis_pemeriksaan . ' Terlalu Rendah';
+                                            } elseif ($hasil->nilai > $jenis->normal_max) {
+                                            $diff = $hasil->nilai - $jenis->normal_max;
+                                            if ($diff >= 15) {
+                                            $class = 'font-extrabold text-red-600';
+                                            } elseif ($diff >= 10) {
+                                            $class = 'font-bold text-orange-700';
+                                            } elseif ($diff >= 5) {
+                                            $class = 'font-semibold text-orange-500';
+                                            } else {
+                                            $class = 'font-normal text-yellow-500';
+                                            }
+                                            $message = $jenis->jenis_pemeriksaan . ' Terlalu Tinggi';
+                                            } else {
+                                            $class = 'font-normal text-green-600';
+                                            $message = $jenis->jenis_pemeriksaan . ' Normal';
+                                            }
+                                            @endphp
 
-                                                    if ($hasil->nilai < $jenis->normal_min) {
-                                                        $diff = $jenis->normal_min - $hasil->nilai;
-                                                        if ($diff >= 15) {
-                                                            $class = 'font-extrabold text-red-600';
-                                                        } elseif ($diff >= 10) {
-                                                            $class = 'font-bold text-orange-700';
-                                                        } elseif ($diff >= 5) {
-                                                            $class = 'font-semibold text-orange-500';
-                                                        } else {
-                                                            $class = 'font-normal text-yellow-500';
-                                                        }
-                                                        $message = $jenis->jenis_pemeriksaan . ' Terlalu Rendah';
-                                                    } elseif ($hasil->nilai > $jenis->normal_max) {
-                                                        $diff = $hasil->nilai - $jenis->normal_max;
-                                                        if ($diff >= 15) {
-                                                            $class = 'font-extrabold text-red-600';
-                                                        } elseif ($diff >= 10) {
-                                                            $class = 'font-bold text-orange-700';
-                                                        } elseif ($diff >= 5) {
-                                                            $class = 'font-semibold text-orange-500';
-                                                        } else {
-                                                            $class = 'font-normal text-yellow-500';
-                                                        }
-                                                        $message = $jenis->jenis_pemeriksaan . ' Terlalu Tinggi';
-                                                    } else {
-                                                        $class = 'font-normal text-green-600';
-                                                        $message = $jenis->jenis_pemeriksaan . ' Normal';
-                                                    }
-                                                @endphp
-
-                                                <span class="{{ $class }}">{{ $message }}</span>
+                                            <span class="{{ $class }}">{{ $message }}</span>
                                             @endif
 
 
-                                        </div>
-                                    </td>
+                                    </div>
+                                </td>
 
-                                    <td class="px-4 py-3 border">
-                                        <textarea name="catatan" class="w-full border rounded px-3 py-2" placeholder="Catatan...">{{ $hasil->catatan ?? '' }}</textarea>
-                                    </td>
+                                <td class="px-4 py-3 border">
+                                    <textarea name="catatan" class="w-full border rounded px-3 py-2" placeholder="Catatan...">{{ $hasil->catatan ?? '' }}</textarea>
+                                </td>
 
-                                    <td class="px-4 py-3 border text-center">
-                                        <button type="submit"
-                                            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                                            Simpan
-                                        </button>
-                                    </td>
-                                </form>
+                                <td class="px-4 py-3 border text-center">
+                                    <button type="submit"
+                                        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                                        Simpan
+                                    </button>
+                                </td>
+                            </form>
 
-                            </tr>
+                        </tr>
                         @endforeach
                     </tbody>
 
