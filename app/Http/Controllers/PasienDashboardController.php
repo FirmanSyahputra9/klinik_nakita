@@ -64,6 +64,8 @@ class PasienDashboardController extends Controller
                         Carbon::parse($item->jadwal_dokter_now->aktif_mulai)->format('H:i');
                 }
 
+                
+
                 $item->registrasi->hari_kunjungan =
                     Carbon::parse($item->registrasi->tanggal_kunjungan)
                     ->locale('id')

@@ -55,11 +55,19 @@
                         @endforeach
                     </datalist>
 
+                    <div class="grid grid-cols-2 gap-4">
 
-                    <div class="mb-3">
-                        <label class="font-medium text-gray-700">Nilai Normal</label>
-                        <input type="text" name="new_normal" class="w-full border rounded px-3 py-2"
-                            placeholder="Masukkan nilai...">
+                        <div class="mb-3">
+                            <label class="font-medium text-gray-700">Nilai Normal Minimal</label>
+                            <input type="text" name="normal_min" class="w-full border rounded px-3 py-2"
+                                placeholder="Masukkan nilai...">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="font-medium text-gray-700">Nilai Normal Maksimal</label>
+                            <input type="text" name="normal_max" class="w-full border rounded px-3 py-2"
+                                placeholder="Masukkan nilai...">
+                        </div>
                     </div>
 
                     <label class="font-medium text-gray-700">Satuan</label>
@@ -152,9 +160,6 @@
         </form>
 
 
-
-
-
         <div class="mt-10">
             <h2 class="text-xl font-bold text-gray-900 mb-6">Pemeriksaan Laboratorium</h2>
 
@@ -172,7 +177,7 @@
                     <tbody>
                         @foreach ($jenisPemeriksaans as $jenis)
                             @php
-                           
+
                                 $hasil = $antrian->lab->firstWhere('jenis_pemeriksaan_id', $jenis->id);
                             @endphp
 
@@ -183,41 +188,82 @@
                                 </td>
 
                                 <td class="px-4 py-3 border font-medium text-gray-700">
-                                    {{ $jenis->nilai_normal }}
+                                    {{ $jenis->normal_min }} ~ {{ $jenis->normal_max }} {{ $jenis->satuan }}
                                 </td>
 
-                                <td class="px-4 py-3 border">
-                                    <form action="{{ route('pemeriksaan-lab.store') }}" method="POST"
-                                        class="flex gap-2 items-center">
-                                        @csrf
+                                <form action="{{ route('pemeriksaan-lab.store') }}" method="POST"
+                                    class="flex gap-2 items-center">
+                                    @csrf
+                                    <td class="px-4 py-3 border">
 
                                         <input type="hidden" name="antrian_id" value="{{ $antrian->id }}">
                                         <input type="hidden" name="jenis_pemeriksaan_id"
                                             value="{{ $jenis->id }}">
 
-                                        <input type="text" name="nilai" class="w-full border rounded px-3 py-2"
-                                            placeholder="Isi nilai..." value="{{ $hasil->nilai ?? '' }}">
+                                        <div class="flex gap-2 items-center">
+                                            <input type="text" name="nilai"
+                                                class="w-full border rounded px-3 py-2" placeholder="Isi nilai..."
+                                                value="{{ $hasil->nilai ?? '' }}">
+                                            <span>{{ $jenis->satuan }}</span>
+                                        </div>
+                                        <div class="">
+                                            @if ($hasil->nilai != null)
+                                                @php
+                                                    $diff = 0;
+                                                    $class = 'font-normal text-yellow-500';
 
-                                        <span>{{ $jenis->satuan }}</span>
-                                </td>
+                                                    if ($hasil->nilai < $jenis->normal_min) {
+                                                        $diff = $jenis->normal_min - $hasil->nilai;
+                                                        if ($diff >= 15) {
+                                                            $class = 'font-extrabold text-red-600';
+                                                        } elseif ($diff >= 10) {
+                                                            $class = 'font-bold text-orange-700';
+                                                        } elseif ($diff >= 5) {
+                                                            $class = 'font-semibold text-orange-500';
+                                                        } else {
+                                                            $class = 'font-normal text-yellow-500';
+                                                        }
+                                                        $message = $jenis->jenis_pemeriksaan . ' Terlalu Rendah';
+                                                    } elseif ($hasil->nilai > $jenis->normal_max) {
+                                                        $diff = $hasil->nilai - $jenis->normal_max;
+                                                        if ($diff >= 15) {
+                                                            $class = 'font-extrabold text-red-600';
+                                                        } elseif ($diff >= 10) {
+                                                            $class = 'font-bold text-orange-700';
+                                                        } elseif ($diff >= 5) {
+                                                            $class = 'font-semibold text-orange-500';
+                                                        } else {
+                                                            $class = 'font-normal text-yellow-500';
+                                                        }
+                                                        $message = $jenis->jenis_pemeriksaan . ' Terlalu Tinggi';
+                                                    } else {
+                                                        $class = 'font-normal text-green-600';
+                                                        $message = $jenis->jenis_pemeriksaan . ' Normal';
+                                                    }
+                                                @endphp
 
-                                <td class="px-4 py-3 border">
-                                    <textarea name="catatan" class="w-full border rounded px-3 py-2" placeholder="Catatan...">{{ $hasil->catatan ?? '' }}</textarea>
-                                </td>
+                                                <span class="{{ $class }}">{{ $message }}</span>
+                                            @endif
 
-                                <td class="px-4 py-3 border text-center">
-                                    <button type="submit"
-                                        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                                        Simpan
-                                    </button>
-                                    </form>
-                                </td>
+
+                                        </div>
+                                    </td>
+
+                                    <td class="px-4 py-3 border">
+                                        <textarea name="catatan" class="w-full border rounded px-3 py-2" placeholder="Catatan...">{{ $hasil->catatan ?? '' }}</textarea>
+                                    </td>
+
+                                    <td class="px-4 py-3 border text-center">
+                                        <button type="submit"
+                                            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                                            Simpan
+                                        </button>
+                                    </td>
+                                </form>
 
                             </tr>
                         @endforeach
                     </tbody>
-
-
 
                 </table>
             </div>

@@ -11,7 +11,8 @@ class JenisPemeriksaan extends Model
 
     protected $fillable = [
         'jenis_pemeriksaan',
-        'nilai_normal',
+        'normal_min',
+        'normal_max',
         'satuan',
     ];
 

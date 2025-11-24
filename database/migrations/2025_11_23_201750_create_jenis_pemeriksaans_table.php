@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('jenis_pemeriksaans', function (Blueprint $table) {
             $table->id();
             $table->string('jenis_pemeriksaan');
-            $table->string('nilai_normal')->nullable();
+            $table->string('normal_min')->nullable();
+            $table->string('normal_max')->nullable();
             $table->string('satuan')->nullable();
             $table->timestamps();
         });

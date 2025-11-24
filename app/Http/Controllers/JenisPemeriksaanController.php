@@ -34,7 +34,8 @@ class JenisPemeriksaanController extends Controller
         try {
             $validated = $request->validate([
                 'new_pemeriksaan' => 'required|string|unique:jenis_pemeriksaans,jenis_pemeriksaan',
-                'new_normal' => 'required',
+                'normal_min' => 'required|string|max:255',
+                'normal_max' => 'required|string|max:255',
                 'new_satuan' => 'required',
             ]);
         } catch (ValidationException $e) {
@@ -47,22 +48,29 @@ class JenisPemeriksaanController extends Controller
         return DB::transaction(function () use ($validated, $request) {
             $sudahAda = JenisPemeriksaan::where('jenis_pemeriksaan', $validated['new_pemeriksaan'])->lockForUpdate()->first();
 
+            if ((float) $request->normal_max <= (float) $request->normal_min) {
+                return back()->withErrors([
+                    'normal_max' => 'Nilai Normal Maksimal harus lebih tinggi dari Nilai Normal Minimal.'
+                ])->withInput();
+            }
+
             if ($sudahAda) {
                 return Redirect::back()
                     ->with('error', 'Jenis pemeriksaan sudah ada.');
             }
 
 
-        $jenisPemeriksaan = $validated['new_pemeriksaan'];
+            $jenisPemeriksaan = $validated['new_pemeriksaan'];
 
-        JenisPemeriksaan::create([
-            'jenis_pemeriksaan' => $jenisPemeriksaan,
-            'nilai_normal' => $validated['new_normal'],
-            'satuan' => $validated['new_satuan'],
-        ]);
+            JenisPemeriksaan::create([
+                'jenis_pemeriksaan' => $jenisPemeriksaan,
+                'normal_min' => $validated['normal_min'],
+                'normal_max' => $validated['normal_max'],
+                'satuan' => $validated['new_satuan'],
+            ]);
 
-        return Redirect::back()
-            ->with('success', 'Pemeriksaan' . $jenisPemeriksaan . 'berhasil ditambahkan.');
+            return Redirect::back()
+                ->with('success', 'Pemeriksaan' . $jenisPemeriksaan . 'berhasil ditambahkan.');
         });
     }
 
