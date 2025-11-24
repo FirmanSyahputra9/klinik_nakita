@@ -16,7 +16,9 @@ class PasienDashboardController extends Controller
 {
     public function index()
     {
-        $today = date('2025-12-04');
+        $today = date('Y-m-d');
+        $next_day = date('Y-m-d', strtotime('+1 day'));
+
         $dokterId = Dokter::where('user_id', Auth::id())->value('id');
         $pasienId = Pasien::where('user_id', Auth::id())->value('id');
         $dayMapping = [
@@ -62,6 +64,54 @@ class PasienDashboardController extends Controller
                         Carbon::parse($item->jadwal_dokter_now->aktif_mulai)->format('H:i');
                 }
 
+                $item->registrasi->hari_kunjungan =
+                    Carbon::parse($item->registrasi->tanggal_kunjungan)
+                    ->locale('id')
+                    ->diffForHumans();
+
+                $item->sisa_antrian = Antrian::where('dokter_id', $dokterId)
+                    ->where('status', false)
+                    ->where('id', '<', $item->id)
+                    ->count();
+
+                return $item;
+            });
+
+        $janjinext = Antrian::with([
+            'pasien',
+            'dokter',
+            'registrasi'
+        ])
+            ->where('pasien_id', $pasienId)
+            ->whereHas('registrasi', function ($q) use ($next_day) {
+                $q->whereDate('tanggal_kunjungan', $next_day)
+                    ->where('status', true);
+            })
+            ->get()->map(function ($item) use ($next_day) {
+                if ($item->registrasi && $item->registrasi->tanggal_kunjungan) {
+                    $item->registrasi->tanggal_kunjungan = Carbon::parse($item->registrasi->tanggal_kunjungan)
+                        ->format('d M Y');
+                }
+                $dokterId = $item->dokter_id;
+
+                $item->antrian_sekarang = Antrian::where('dokter_id', $dokterId)
+                    ->where('status', true)
+                    ->count() + 1;
+
+                $item->jadwal_dokter_now = DokterJadwal::where('dokter_id', $dokterId)
+                    ->where('hari', $next_day)
+                    ->first();
+
+                if ($item->jadwal_dokter_now) {
+                    $item->jadwal_dokter_now->awal_aktif =
+                        Carbon::parse($item->jadwal_dokter_now->aktif_mulai)->format('H:i');
+                }
+
+                $item->registrasi->hari_kunjungan =
+                    Carbon::parse($item->registrasi->tanggal_kunjungan)
+                    ->locale('id')
+                    ->diffForHumans();
+
                 $item->sisa_antrian = Antrian::where('dokter_id', $dokterId)
                     ->where('status', false)
                     ->where('id', '<', $item->id)
@@ -96,6 +146,6 @@ class PasienDashboardController extends Controller
         }
 
 
-        return view('pages.pasien.dashboard', compact('janjinow', 'antrianjanji', 'antrian_registrasi', 'user'));
+        return view('pages.pasien.dashboard', compact('janjinow', 'antrianjanji', 'antrian_registrasi', 'user', 'janjinext'));
     }
 }

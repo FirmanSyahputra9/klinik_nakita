@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kasir;
+use App\Models\Resep;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class KasirController extends Controller
@@ -12,7 +14,17 @@ class KasirController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.kasir');
+        $kasir = Kasir::with(['antrian', 'antrian.pasien', 'antrian.registrasi', 'antrian.data_pemeriksaan', 'antrian.resep.obat', 'antrian.resep'])->get()->map(function ($item) {
+            $item->antrian->tanggal = Carbon::parse($item->antrian->registrasi->tanggal_kunjungan)->translatedFormat('d M y');
+            $harga_resep = $item->antrian->resep->kuantitas * $item->antrian->resep->obat->harga_jual;
+            $item->total_harga = 'Rp ' . number_format($harga_resep, 0, ',', '.');
+            $item->nama_pasien = $item->antrian->pasien->name;
+            return $item;
+        });
+
+
+
+        return view('pages.admin.kasir', compact('kasir'));
     }
 
     /**
@@ -61,5 +73,12 @@ class KasirController extends Controller
     public function destroy(Kasir $kasir)
     {
         //
+    }
+
+    public function konfirmasi($id){
+        $kasir = Kasir::where('id', $id)->first();
+        $kasir->status = true;
+        $kasir->save();
+        return redirect()->route('kasir.index')->with('success', 'Kasir berhasil dikonfirmasi');
     }
 }

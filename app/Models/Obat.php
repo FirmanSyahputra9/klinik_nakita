@@ -22,4 +22,9 @@ class Obat extends Model
         'deskripsi',
     ];
     public $timestamps = false;
+
+    public function resep()
+    {
+        return $this->hasMany(Resep::class);
+    }
 }

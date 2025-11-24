@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Antrian;
+use App\Models\JenisPemeriksaan;
 use App\Models\Pasien;
+use App\Models\Registrasi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -12,9 +15,7 @@ class PasienController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-    }
+    public function index() {}
 
     /**
      * Show the form for creating a new resource.
@@ -37,21 +38,32 @@ class PasienController extends Controller
      */
     public function show($id)
     {
-        $pasien = (object) [
-            'id' => $id,
-            'nama' => 'Nama Pasien',
-            'jenis_kelamin' => 'L',
-            'usia' => 25,
-            'gol_darah' => 'O',
-            'tanggal_lahir' => '9 Agustus 2004',
-            'alamat' => "Jl. Contoh No. 10",
-            'no_telepon' => '08123456789',
-            'email' => 'pasien@example.com',
-            'nik' => '12710308000402',
-            'created_at' => Carbon::parse("2024-11-09"),
-        ];
+        $antrian = Antrian::with('alergi', 'data_pemeriksaan', 'tindakan', 'lab')->find($id);
 
-        return view('pages.dokter.tindakan-pasien', compact('pasien'));
+        if (!$antrian) {
+            return view('pages.dokter.data')->with('error', 'Antrian tidak ditemukan');
+        }
+
+        $data = Registrasi::where('id', $antrian->registrasi_id)
+            ->with(['dokters', 'pasiens', 'dokter_jadwals'])
+            ->first();
+
+        if ($data) {
+            if ($data->pasiens->created_at) {
+                $data->pasiens->create_at = Carbon::parse($data->pasiens->created_at)->translatedFormat('d F Y');
+            }
+            if ($data->pasiens->gender) {
+                $data->pasiens->gender_label = $data->pasiens->gender == 'female' ? 'Perempuan' : 'Laki-laki';
+            }
+            if ($data->pasiens->birth_date) {
+                $data->pasiens->birth_date_formatted = Carbon::parse($data->pasiens->birth_date)->translatedFormat('d F Y');
+                $data->pasiens->umur = Carbon::parse($data->pasiens->birth_date)->age;
+            }
+        }
+
+        $jenisPemeriksaans = JenisPemeriksaan::all();
+
+        return view('pages.dokter.tindakan-pasien', compact('data', 'antrian', 'jenisPemeriksaans'));
     }
 
     /**

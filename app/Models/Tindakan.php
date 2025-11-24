@@ -3,21 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Kasir extends Model
+class Tindakan extends Model
 {
-    protected $table = 'kasirs';
+    use HasFactory;
 
     protected $fillable = [
         'antrian_id',
-        'status',
-    ];
-    protected $casts = [
-        'status' => 'boolean',
+        'nama_tindakan',
+        'jenis_tindakan',
+        'harga',
+        'catatan',
     ];
 
     public function antrian()
     {
         return $this->belongsTo(Antrian::class);
     }
+
+
 }

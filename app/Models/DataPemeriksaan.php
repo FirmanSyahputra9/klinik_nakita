@@ -3,17 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Kasir extends Model
+class DataPemeriksaan extends Model
 {
-    protected $table = 'kasirs';
+    use HasFactory;
 
     protected $fillable = [
         'antrian_id',
-        'status',
-    ];
-    protected $casts = [
-        'status' => 'boolean',
+        'keluhan',
+        'diagnosa',
+        'rencana',
     ];
 
     public function antrian()

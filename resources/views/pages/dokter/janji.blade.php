@@ -109,7 +109,7 @@
                                         <!-- Selesai -->
                                         <div class="flex-1">
                                             <button
-                                                @click="open('Tandai sebagai selesai?', 'selesai', {{ $item->id }})"
+                                                @click="open('Tandai sebagai selesai?', ''{{ route('janji.selesai', $item->id) }}')"
                                                 class="bg-indigo-500 text-white px-2 py-1 rounded hover:bg-indigo-600 text-xs">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"

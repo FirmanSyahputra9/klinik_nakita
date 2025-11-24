@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminUser as AdminUser;
+use App\Http\Controllers\AlergiController;
 use App\Http\Controllers\DokterController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -10,13 +11,18 @@ use App\Http\Controllers\ObatController as ObatController;
 use App\Http\Controllers\PasienController as PasienController;
 use App\Http\Controllers\AppointmentController as AppointmentController;
 use App\Http\Controllers\DataPasienController;
+use App\Http\Controllers\DataPemeriksaanController;
 use App\Http\Controllers\DokterDashboardController;
 use App\Http\Controllers\DokterJadwalController;
 use App\Http\Controllers\DokterJanjiController;
+use App\Http\Controllers\JenisPemeriksaanController;
 use App\Http\Controllers\KasirController;
 use App\Http\Controllers\PasienDashboardController;
+use App\Http\Controllers\PemeriksaanLaboratoriumController;
+use App\Http\Controllers\ResepController;
 use App\Http\Controllers\UserJadwalDokter;
 use App\Models\DataPasien;
+use App\Models\PemeriksaanLaboratorium;
 
 Route::get('/', function () {
     return view('index');
@@ -33,6 +39,7 @@ Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
     Route::post('/appointment/{id}/selesai', [AppointmentController::class, 'selesai'])->name('appointment.selesai');
     Route::post('/appointment/{id}/batalkan', [AppointmentController::class, 'batalkan'])->name('appointment.batalkan');
     Route::resource('kasir', KasirController::class);
+    Route::post('/kasir/{id}/konfirmasi', [KasirController::class, 'konfirmasi'])->name('kasir.konfirmasi');
     Route::view('/tambah-kas', 'pages.admin.tambah-kas')
         ->name('tambahkas');
     Route::get('/kasir/create', [KasirController::class, 'create'])->name('kasir.create');
@@ -60,13 +67,15 @@ Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
 Route::middleware(['auth'])->prefix('dokter')->group(function () {
     Route::get('/', [DokterDashboardController::class, 'index'])->name('dashboarddokter');
     Route::resource('janji', DokterJanjiController::class);
-    Route::view('/resep', 'pages.dokter.resep')
-        ->name('resep');
+    Route::resource('resep', ResepController::class);
     Route::post('/janji/{id}/konfirmasi', [DokterJanjiController::class, 'konfirmasi'])->name('janji.konfirmasi');
+    Route::post('/janji/{id}/selesai', [DokterJanjiController::class, 'selesai'])->name('janji.selesai');
     Route::resource('jadwal', DokterJadwalController::class);
     Route::resource('data', PasienController::class);
     Route::resource('data-pasien', DataPasienController::class);
-
+    Route::resource('jenis-pemeriksaan', JenisPemeriksaanController::class);
+    Route::resource('data-pemeriksaan', DataPemeriksaanController::class);
+    Route::resource('pemeriksaan-lab', PemeriksaanLaboratoriumController::class);
 });
 
 

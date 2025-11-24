@@ -84,8 +84,8 @@
                         :current="request()->routeIs('data.*')" wire:navigate>
                         {{ __('Data') }}
                     </flux:navlist.item>
-                    <flux:navlist.item class="mb-2" icon="cube" :href="route('resep')"
-                        :current="request()->routeIs('resep')" wire:navigate>
+                    <flux:navlist.item class="mb-2" icon="cube" :href="route('resep.index')"
+                        :current="request()->routeIs('resep.*')" wire:navigate>
                         {{ __('Resep') }}
                     </flux:navlist.item>
                     <flux:navlist.item class="mb-2" icon="cube" :href="route('jadwal.index')"

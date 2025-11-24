@@ -18,7 +18,7 @@
             </div>
 
             <div class="bg-white rounded-xl shadow p-6">
-                <h3 class="font-semibold text-lg mb-4 text-gray-800">Nomor Registraasi</h3>
+                <h3 class="font-semibold text-lg mb-4 text-gray-800">Nomor Registrasi</h3>
                 @if ($antrian_registrasi)
                     @foreach ($antrian_registrasi as $ar)
                         <div class="grid grid-cols-3 gap-4 mb-4">
@@ -59,8 +59,8 @@
                                 <div class="bg-pink-50 rounded-lg p-4 text-center shadow">
                                     <p class="text-xs text-gray-500">Nomor Antrian</p>
                                     <p class="text-2xl font-bold text-pink-600">{{ $item->kode_antrian }}</p>
-                                    <p class="text-xs text-gray-400 mt-1">Dokter Aktif Hari ini di
-                                        {{ $item->jadwal_dokter_now->awal_aktif }}</p>
+                                    <p class="text-xs text-gray-400 mt-1">Dokter Aktif
+                                      {{ $item->registrasi->hari_kunjungan }} di {{ $item->jadwal_dokter_now->awal_aktif }}</p>
                                 </div>
 
                                 <!-- Antrian Sekarang -->
@@ -80,6 +80,39 @@
                 </div>
             @endif
 
+
+            @if ($janjinext)
+                <div class="bg-white rounded-xl shadow p-6">
+                    <h3 class="font-semibold text-lg mb-4 text-gray-800">Nomor Antrian Anda</h3>
+                    @foreach ($janjinow as $item)
+                        <div class="mb-4">
+                            <span>dokter : {{ $item->dokter->name }}</span>
+
+                            <div class="grid grid-cols-3 gap-4">
+                                <!-- Nomor Antrian -->
+                                <div class="bg-pink-50 rounded-lg p-4 text-center shadow">
+                                    <p class="text-xs text-gray-500">Nomor Antrian</p>
+                                    <p class="text-2xl font-bold text-pink-600">{{ $item->kode_antrian }}</p>
+                                    <p class="text-xs text-gray-400 mt-1">Dokter Aktif {{ $item->registrasi->hari_kunjungan }} di
+                                        {{ $item->jadwal_dokter_now->awal_aktif }}</p>
+                                </div>
+
+                                <!-- Antrian Sekarang -->
+                                <div class="bg-blue-50 rounded-lg p-4 text-center shadow">
+                                    <p class="text-xs text-gray-500">Antrian Sekarang</p>
+                                    <p class="text-2xl font-bold text-blue-600">{{ $item->antrian_sekarang }}</p>
+                                </div>
+
+                                <!-- Sisa Antrian -->
+                                <div class="bg-green-50 rounded-lg p-4 text-center shadow">
+                                    <p class="text-xs text-gray-500">Sisa Antrian</p>
+                                    <p class="text-2xl font-bold text-green-600">{{ $item->sisa_antrian }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
             <!-- Jadwal Janji Temu -->
             {{-- <div class="bg-white rounded-xl shadow p-4">
                 <h3 class="font-semibold mb-3 text-gray-800">Janji Temu Mendatang</h3>
@@ -113,7 +146,7 @@
             <!-- Profile -->
             <div class="flex flex-col items-center">
                 <div class="w-24 h-24 rounded-full bg-gray-300 mb-3"></div>
-                <p class="font-semibold text-gray-800 text-lg">Test_User</p>
+                <p class="font-semibold text-gray-800 text-lg">{{ $user->pasien->name }}</p>
             </div>
 
             <!-- Health Stats -->

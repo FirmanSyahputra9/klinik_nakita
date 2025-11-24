@@ -1,21 +1,20 @@
 <x-layouts.app :title="__('Kasir')">
 
-    <div class="p-6"
-        x-data="{
+    <div class="p-6" x-data="{
         // modal view
         showView: false,
         viewData: {},
-
+    
         openView(data) {
             this.viewData = data;
             this.showView = true;
         },
-
+    
         // modal konfirmasi
         showConfirm: false,
         confirmType: '',
         confirmId: null,
-
+    
         openConfirm(type, id) {
             this.confirmType = type;
             this.confirmId = id;
@@ -38,7 +37,7 @@
                 <thead class="bg-gray-100 text-gray-700">
                     <tr>
                         <th class="px-4 py-2">Tanggal</th>
-                        <th class="px-4 py-2">Jumlah</th>
+                        <th class="px-4 py-2">Total</th>
                         <th class="px-4 py-2">Status</th>
                         <th class="px-4 py-2">Pasien</th>
                         <th class="px-4 py-2">Aksi</th>
@@ -48,126 +47,78 @@
                 <tbody class="divide-y divide-gray-200">
 
                     <!-- Contoh Data 1 -->
-                    <tr>
-                        <td class="px-4 py-2">15 Januari 2025</td>
-                        <td class="px-4 py-2">50326</td>
-                        <td class="px-4 py-2">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium 
-                            text-green-700 bg-green-50">Lunas</span>
-                        </td>
-                        <td class="px-4 py-2">Yazid Nasution</td>
-                        <td class="px-4 py-2 flex items-center gap-3">
+                    @foreach ($kasir as $item)
+                        <tr>
+                            <td class="px-4 py-2">{{ $item->antrian->tanggal }}</td>
+                            <td class="px-4 py-2">{{ $item->total_harga }}</td>
+                            <td class="px-4 py-2">
+                                <span
+                                    class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                            {{ $item->status ? 'text-green-700 bg-green-50' : 'text-red-700 bg-red-50' }}">{{ $item->status ? 'Lunas' : 'Belum Lunas' }}</span>
+                            </td>
+                            <td class="px-4 py-2">{{ $item->nama_pasien }}</td>
+                            <td class="px-4 py-2 flex items-center gap-3">
 
-                            <!-- VIEW -->
-                            <button class="text-blue-600 hover:text-blue-800"
-                                x-on:click="openView({
-                                id: 1,
-                                tanggal: '15 Januari 2025',
-                                jumlah: '50326',
-                                obat: 'Paracetamol',
-                                kuantitas: '20 mg',
-                                status: 'Lunas',
-                                pasien: 'Yazid Nasution'
-                            })">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                                        d="M2.25 12s3.75-7.5 9.75-7.5 9.75 7.5 9.75 7.5-3.75 7.5-9.75 7.5S2.25 12 2.25 12z" />
-                                    <circle cx="12" cy="12" r="3" stroke-width="1.8" />
-                                </svg>
-                            </button>
+                                <!-- VIEW -->
+                                @php
+                                    $viewData = [
+                                        'id' => $item->id,
+                                        'tanggal' => $item->antrian->tanggal,
+                                        'jumlah' => $item->total_harga,
+                                        'obat' => $item->antrian->resep->obat->nama ?? '-',
+                                        'kuantitas' => $item->antrian->resep->kuantitas ?? '-',
+                                        'status' => $item->status ? 'Lunas' : 'Belum Lunas',
+                                        'pasien' => $item->nama_pasien,
+                                    ];
+                                @endphp
 
-                            <!-- KONFIRM LUNAS -->
-                            <button class="text-green-600 hover:text-green-800"
-                                x-on:click="openConfirm('lunas', 1)">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                                        d="M4.5 12.75l6 6 9-13.5" />
-                                </svg>
-                            </button>
+                                <button class="text-blue-600 hover:text-blue-800"
+                                    x-on:click="openView(@js($viewData))">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                            d="M2.25 12s3.75-7.5 9.75-7.5 9.75 7.5 9.75 7.5-3.75 7.5-9.75 7.5S2.25 12 2.25 12z" />
+                                        <circle cx="12" cy="12" r="3" stroke-width="1.8" />
+                                    </svg>
+                                </button>
 
-                            <!-- KONFIRM BELUM LUNAS -->
-                            <button class="text-red-600 hover:text-red-800"
-                                x-on:click="openConfirm('belum', 1)">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                                        d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
 
-                        </td>
-                    </tr>
 
-                    <!-- Contoh Data 2 -->
-                    <tr>
-                        <td class="px-4 py-2">20 Januari 2025</td>
-                        <td class="px-4 py-2">200000</td>
-                        <td class="px-4 py-2">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium 
-                            text-red-700 bg-red-50">Belum Lunas</span>
-                        </td>
-                        <td class="px-4 py-2">Firman Syahputra</td>
-                        <td class="px-4 py-2 flex items-center gap-3">
 
-                            <!-- VIEW -->
-                            <button class="text-blue-600 hover:text-blue-800"
-                                x-on:click="openView({
-                                id: 2,
-                                tanggal: '20 Januari 2025',
-                                jumlah: 200000,
-                                status: 'Belum Lunas',
-                                pasien: 'Firman Syahputra'
-                            })">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                                        d="M2.25 12s3.75-7.5 9.75-7.5 9.75 7.5 9.75 7.5-3.75 7.5-9.75 7.5S2.25 12 2.25 12z" />
-                                    <circle cx="12" cy="12" r="3" stroke-width="1.8" />
-                                </svg>
-                            </button>
 
-                            <!-- KONFIRM LUNAS -->
-                            <button class="text-green-600 hover:text-green-800"
-                                x-on:click="openConfirm('lunas', 2)">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                                        d="M4.5 12.75l6 6 9-13.5" />
-                                </svg>
-                            </button>
+                                <form action="{{ route('kasir.konfirmasi', $item->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('POST')
+                                    <button type="submit" class="text-green-600 hover:text-green-800">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                                d="M4.5 12.75l6 6 9-13.5" />
+                                        </svg>
+                                    </button>
+                                </form>
 
-                            <!-- KONFIRM BELUM LUNAS -->
-                            <button class="text-red-600 hover:text-red-800"
-                                x-on:click="openConfirm('belum', 2)">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                                        d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
 
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    @endforeach
+
+
                 </tbody>
             </table>
         </div>
 
         <!-- =============== MODAL VIEW STRUK (CANTIK) =============== -->
-        <div x-show="showView"
-            x-transition.opacity
+        <div x-show="showView" x-transition.opacity
             class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
 
-            <div class="bg-white w-full max-w-md rounded-2xl shadow-xl p-6"
-                x-transition.scale>
+            <div class="bg-white w-full max-w-md rounded-2xl shadow-xl p-6" x-transition.scale>
 
                 <!-- HEADER -->
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-bold text-gray-800">🧾 Struk Pembayaran</h2>
 
-                    <button class="text-gray-500 hover:text-red-500 transition"
-                        @click="showView = false">
+                    <button class="text-gray-500 hover:text-red-500 transition" @click="showView = false">
                         ✕
                     </button>
                 </div>
@@ -199,9 +150,9 @@
                         <span class="font-medium text-gray-600">Status</span>
                         <span class="px-2.5 py-1 rounded-full text-xs font-semibold"
                             :class="{
-                         'bg-green-100 text-green-700': viewData.status === 'Lunas',
-                         'bg-red-100 text-red-700': viewData.status !== 'Lunas'
-                      }"
+                                'bg-green-100 text-green-700': viewData.status === 'Lunas',
+                                'bg-red-100 text-red-700': viewData.status !== 'Lunas'
+                            }"
                             x-text="viewData.status">
                         </span>
                     </div>
@@ -216,25 +167,27 @@
                 <!-- ACTION BUTTONS -->
                 <div class="flex justify-end gap-3 mt-6">
 
-                    <!-- Unduh Struk (dummy) -->
-                    <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow transition">
-                        Unduh Struk
-                    </button>
-
                     <button class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-lg"
                         @click="showView = false">
                         Tutup
                     </button>
+                    <form action="{{ route('kasir.konfirmasi', $item->id) }}" method="POST" class="inline">
+                        @csrf
+                        @method('POST')
+                        <button type="submit" class="text-green-600 hover:text-green-800">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                    d="M4.5 12.75l6 6 9-13.5" />
+                            </svg>
+                        </button>
+                    </form>
                 </div>
 
             </div>
         </div>
 
-
-        <!-- ================= MODAL KONFIRMASI ================= -->
-        <div x-show="showConfirm"
-            x-transition
-            class="fixed inset-0 bg-black/40 flex items-center justify-center p-4">
+        <div x-show="showConfirm" x-transition class="fixed inset-0 bg-black/40 flex items-center justify-center p-4">
             <div class="bg-white p-6 rounded-lg w-full max-w-sm">
 
                 <h2 class="text-lg font-semibold mb-4">
@@ -242,21 +195,20 @@
                 </h2>
 
                 <form method="POST"
-                    :action="confirmType === 'lunas' 
-                    ? '/kasir/' + confirmId + '/lunas' 
-                    : '/kasir/' + confirmId + '/belum-lunas'">
+                    :action="confirmType === 'lunas'
+                        ?
+                        '/kasir/' + confirmId + '/lunas' :
+                        '/kasir/' + confirmId + '/belum-lunas'">
                     @csrf
                     @method('PUT')
 
                     <div class="flex justify-end gap-2 mt-4">
-                        <button type="button"
-                            class="px-4 py-2 bg-gray-300 rounded"
+                        <button type="button" class="px-4 py-2 bg-gray-300 rounded"
                             x-on:click="showConfirm = false">
                             Batal
                         </button>
 
-                        <button type="submit"
-                            class="px-4 py-2 bg-blue-600 text-white rounded">
+                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">
                             Konfirmasi
                         </button>
                     </div>
