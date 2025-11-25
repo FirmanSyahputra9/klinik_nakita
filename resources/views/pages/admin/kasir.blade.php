@@ -4,17 +4,17 @@
         // modal view
         showView: false,
         viewData: {},
-    
+
         openView(data) {
             this.viewData = data;
             this.showView = true;
         },
-    
+
         // modal konfirmasi
         showConfirm: false,
         confirmType: '',
         confirmId: null,
-    
+
         openConfirm(type, id) {
             this.confirmType = type;
             this.confirmId = id;
@@ -83,10 +83,7 @@
                                 </button>
 
 
-
-
-
-                                <form action="{{ route('kasir.konfirmasi', $item->id) }}" method="POST" class="inline">
+                                {{-- <form action="{{ route('kasir.konfirmasi', $item->id) }}" method="POST" class="inline">
                                     @csrf
                                     @method('POST')
                                     <button type="submit" class="text-green-600 hover:text-green-800">
@@ -96,9 +93,7 @@
                                                 d="M4.5 12.75l6 6 9-13.5" />
                                         </svg>
                                     </button>
-                                </form>
-
-
+                                </form> --}}
                             </td>
                         </tr>
                     @endforeach
