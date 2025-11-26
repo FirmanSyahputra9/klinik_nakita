@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Antrian;
 use App\Models\Pasien;
 use App\Models\Registrasi;
 use App\Models\User;
@@ -16,10 +17,22 @@ class PasienRiwayatController extends Controller
     public function index()
     {
         $pasienId = Pasien::where('user_id', Auth::user()->id)->value('id');
-        $riwayat = Registrasi::where('pasien_id', $pasienId)->where('status', true)->with('antrians')->get()->map(function ($item){
+        $riwayat = Antrian::where('pasien_id', $pasienId)->whereHas('kasir', function ($q) {
+            $q->where('status', '!=', false);
+        })->where('status', true)->with(['registrasi', 'dokter', 'tindakan', 'data_pemeriksaan', 'kasir' => function ($q) {
+            $q->where('status', '!=', false);
+        }])->get()->map(function ($item) {
+            if ($item->registrasi->tanggal_kunjungan) {
+                $item->registrasi->tanggal_kunjungan = \Carbon\Carbon::parse($item->registrasi->tanggal_kunjungan)->format('d M Y');
+                if ($item->created_at) {
+                    $item->created_at = \Carbon\Carbon::parse($item->created_at)->format('h:i:s');
+                }
+            }
+
+
             return $item;
         });
-        
+
         return view('pages.pasien.riwayat', compact('riwayat'));
     }
 

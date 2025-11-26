@@ -28,4 +28,6 @@ class PemeriksaanLaboratorium extends Model
     {
         return $this->belongsTo(JenisPemeriksaan::class, 'jenis_pemeriksaan_id');
     }
+
+    
 }

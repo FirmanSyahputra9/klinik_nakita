@@ -11,90 +11,76 @@
             <!-- ================================= -->
             <!--            HEMATOLOGI             -->
             <!-- ================================= -->
-            <div>
-                <h3 class="text-lg font-semibold text-gray-700 mb-1">Hematologi</h3>
-                <p class="text-sm text-gray-600 mb-3">20 Desember 2024</p>
+            @foreach ($hasil as $item)
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-1">
+                        {{ $item->lab->first()->jenis->jenis_pemeriksaan ?? '-' }}
+                    </h3>
 
-                <table class="table-fixed w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
-                    <thead class="bg-gray-100 text-gray-700">
-                        <tr>
-                            <th class="px-4 py-2 w-1/4 text-left">Pemeriksaan</th>
-                            <th class="px-4 py-2 w-1/6 text-left">Hasil</th>
-                            <th class="px-4 py-2 w-1/6 text-left">Satuan</th>
-                            <th class="px-4 py-2 w-1/4 text-left">Nilai Normal</th>
-                            <th class="px-4 py-2 w-1/6 text-left">Status</th>
-                        </tr>
-                    </thead>
+                    <p class="text-sm text-gray-600 mb-3">
+                        {{ $item->created_at->format('d F Y') }}
+                    </p>
 
-                    <tbody class="divide-y divide-gray-200">
-                        <template x-for="item in results.Hematologi">
-                            <tr>
-                                <td class="px-4 py-2" x-text="item.name"></td>
-                                <td class="px-4 py-2 font-medium" x-text="item.value"></td>
-                                <td class="px-4 py-2" x-text="item.unit"></td>
-                                <td class="px-4 py-2 text-gray-500">
-                                    <span x-text="item.range.low + ' - ' + item.range.high"></span>
-                                </td>
-                                <td class="px-4 py-2 font-semibold"
-                                    :class="statusColor(item)">
-                                    <span x-text="statusText(item)"></span>
-                                </td>
-                            </tr>
-                        </template>
-                    </tbody>
-                </table>
-            </div>
+                    <table class="table-fixed w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
 
+                        <tbody class="divide-y divide-gray-200">
+                            @foreach ($item->lab->groupBy('jenis.jenis_pemeriksaan') as $kategori => $details)
+                                <h3 class="text-lg font-semibold text-gray-700 mb-1">
+                                    {{ $kategori }}
+                                </h3>
 
+                                <table
+                                    class="table-fixed w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+                                    <thead class="bg-gray-100 text-gray-700">
+                                        <tr>
+                                            <th class="px-4 py-2">Pemeriksaan</th>
+                                            <th class="px-4 py-2">Hasil</th>
+                                            <th class="px-4 py-2">Nilai Normal</th>
+                                            <th class="px-4 py-2">Status</th>
+                                        </tr>
+                                    </thead>
 
-            <!-- ================================= -->
-            <!--            KIMIA DARAH            -->
-            <!-- ================================= -->
-            <div>
-                <h3 class="text-lg font-semibold text-gray-700 mb-1">Kimia Darah</h3>
-                <p class="text-sm text-gray-600 mb-3">20 Desember 2024</p>
+                                    <tbody class="divide-y divide-gray-200 text-center">
 
-                <table class="table-fixed w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
-                    <thead class="bg-gray-100 text-gray-700">
-                        <tr>
-                            <th class="px-4 py-2 w-1/4 text-left">Pemeriksaan</th>
-                            <th class="px-4 py-2 w-1/6 text-left">Hasil</th>
-                            <th class="px-4 py-2 w-1/6 text-left">Satuan</th>
-                            <th class="px-4 py-2 w-1/4 text-left">Nilai Normal</th>
-                            <th class="px-4 py-2 w-1/6 text-left">Status</th>
-                        </tr>
-                    </thead>
+                                        @foreach ($details as $detail)
+                                            <tr>
+                                                <td class="px-4 py-2">{{ $detail->jenis->jenis_pemeriksaan }}</td>
+                                                <td class="px-4 py-2"><span class=" @if ($detail->nilai < $detail->jenis->normal_min) text-red-600
+                                                        @elseif ($detail->nilai > $detail->jenis->normal_max) text-red-600
+                                                        @else text-green-600 @endif">
+                                                    {{ $detail->nilai }}
+                                                    </span>
+                                                     {{ $detail->jenis->satuan }}</td>
+                                                <td class="px-4 py-2">{{ $detail->jenis->normal_min }} -
+                                                    {{ $detail->jenis->normal_max }} {{ $detail->jenis->satuan }}</td>
 
-                    <tbody class="divide-y divide-gray-200">
-                        <template x-for="item in results['Kimia Darah']">
-                            <tr>
-                                <td class="px-4 py-2" x-text="item.name"></td>
-                                <td class="px-4 py-2 font-medium" x-text="item.value"></td>
-                                <td class="px-4 py-2" x-text="item.unit"></td>
-                                <td class="px-4 py-2 text-gray-500">
-                                    <span x-text="item.range.low + ' - ' + item.range.high"></span>
-                                </td>
-                                <td class="px-4 py-2 font-semibold"
-                                    :class="statusColor(item)">
-                                    <span x-text="statusText(item)"></span>
-                                </td>
-                            </tr>
-                        </template>
-                    </tbody>
-                </table>
-            </div>
+                                                <td
+                                                    class="px-4 py-2 font-semibold
+                                                        @if ($detail->nilai < $detail->jenis->normal_min) text-red-600
+                                                        @elseif ($detail->nilai > $detail->jenis->normal_max) text-red-600
+                                                        @else text-green-600 @endif">
 
+                                                    @if ($detail->nilai < $detail->jenis->normal_min)
+                                                        Rendah
+                                                    @elseif ($detail->nilai > $detail->jenis->normal_max)
+                                                        Tinggi
+                                                    @else
+                                                        Normal
+                                                    @endif
 
+                                                </td>
+                                            </tr>
+                                        @endforeach
 
-            <!-- =============================== -->
-            <!--         CATATAN DOKTER          -->
-            <!-- =============================== -->
-            <div>
-                <h3 class="text-lg font-semibold text-gray-700 mb-2">Catatan Dokter</h3>
-                <div class="border border-gray-200 rounded-lg p-3 text-gray-700 bg-gray-50">
-                    Beberapa hasil perlu perhatian. Disarankan kontrol ulang 1 minggu.
+                                    </tbody>
+                                </table>
+                            @endforeach
+
+                        </tbody>
+                    </table>
                 </div>
-            </div>
+            @endforeach
+
 
         </div>
     </div>
