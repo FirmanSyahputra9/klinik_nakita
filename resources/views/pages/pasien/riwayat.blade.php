@@ -12,12 +12,12 @@
             <div class="bg-white rounded-lg shadow hover:shadow-md transition p-4">
 
                 <!-- Tombol -->
-                <button class="w-full flex items-start justify-between" onclick="toggleDetail({{ $item->id }})">
+                <button class="w-full flex items-start justify-between" onclick="toggleDetail('{{ $item->id }}')">
 
                     <div class="flex items-start gap-4">
 
                         <!-- Icon -->
-                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center shrink-0">
                             <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
