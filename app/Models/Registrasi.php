@@ -41,4 +41,9 @@ class Registrasi extends Model
     {
         return $this->belongsTo(Dokter::class, 'dokter_id');
     }
+    public function antrians()
+    {
+        return $this->hasOne(Antrian::class);
+    }
+
 }

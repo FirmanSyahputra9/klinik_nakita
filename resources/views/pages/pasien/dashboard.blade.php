@@ -1,12 +1,12 @@
 <x-layouts.app :title="__('Dashboard')">
     <main class=" flex gap-6 p-6">
 
-    
+
         <!-- LEFT SIDEBAR -->
         <section class="flex-1 space-y-6">
             <!-- Welcome Message -->
             <header>
-                <h2 class="text-2xl font-semibold text-gray-800">Halo, Test_User 👋</h2>
+                <h2 class="text-2xl font-semibold text-gray-800">Halo, {{ Auth::check()? Auth::user()->username : '' }}👋</h2>
                 <p class="text-gray-500 text-sm">Bagaimana kabar hari ini?</p>
             </header>
 
@@ -23,7 +23,7 @@
                         <p class="text-lg font-semibold text-gray-800">Cek Jadwal</p>
                         <p class="text-sm text-gray-500">Lihat jadwal konsultasi dan janji temu Anda.</p>
                     </div>
-                    <a href="#" class="text-blue-600 font-medium text-sm hover:underline mt-1">Lihat Jadwal →</a>
+                    <a href="{{ route('jadwaldokter.index') }}" class="text-blue-600 font-medium text-sm hover:underline mt-1">Lihat Jadwal →</a>
                 </article>
 
                 <article class="bg-white rounded-xl shadow-md p-5 flex flex-col gap-3 border border-gray-100 hover:shadow-lg transition">
@@ -37,7 +37,7 @@
                         <p class="text-lg font-semibold text-gray-800">Riwayat Medis</p>
                         <p class="text-sm text-gray-500">Lihat rekam medis lengkap termasuk diagnosis dan resep.</p>
                     </div>
-                    <a href="#" class="text-purple-600 font-medium text-sm hover:underline mt-1">Lihat Riwayat →</a>
+                    <a href="{{ route('riwayat.index') }}" class="text-purple-600 font-medium text-sm hover:underline mt-1">Lihat Riwayat →</a>
                 </article>
 
                 <article class="bg-white rounded-xl shadow-md p-5 flex flex-col gap-3 border border-gray-100 hover:shadow-lg transition">
@@ -51,7 +51,7 @@
                         <p class="text-lg font-semibold text-gray-800">Hasil Laboratorium</p>
                         <p class="text-sm text-gray-500">Akses hasil pemeriksaan Lab Anda kapan saja.</p>
                     </div>
-                    <a href="#" class="text-green-600 font-medium text-sm hover:underline mt-1">Lihat Hasil Lab →</a>
+                    <a href="{{ route('hasil.index') }}" class="text-green-600 font-medium text-sm hover:underline mt-1">Lihat Hasil Lab →</a>
                 </article>
             </div>
 
@@ -134,12 +134,12 @@
 
             <!-- Health Notes -->
             <button
-                class="w-full bg-slate-50 hover:bg-sky-200 transition py-2 rounded-4xl flex items-center justify-center text-sm font-medium text-gray-800 shadow">               
+                class="w-full bg-slate-50 hover:bg-sky-200 transition py-2 rounded-4xl flex items-center justify-center text-sm font-medium text-gray-800 shadow">
                 <span>Catatan Kesehatan</span>
-                <svg xmlns="http://www.w3.org/2000/svg" 
-                    fill="none" viewBox="0 0 24 24" stroke-width="2" 
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 24 24" stroke-width="2"
                     stroke="currentColor" class="w-5 h-5 ml-2">
-                    <path stroke-linecap="round" stroke-linejoin="round" 
+                    <path stroke-linecap="round" stroke-linejoin="round"
                         d="M13 5l7 7-7 7M5 12h14" />
                 </svg>
             </button>
@@ -179,7 +179,7 @@
 
         <!-- Content -->
         <article class="bg-gray-50 rounded-lg p-4">
-            
+
             <div class="flex items-start gap-3 mb-3">
                 <div class="w-10 h-10 bg-sky-100 rounded-lg flex items-center justify-center text-xl">
                     💊
@@ -203,7 +203,7 @@
                     <dd class="font-medium text-gray-900">Rp 25.000</dd>
                 </div>
             </dl>
-        
+
         </article>
     </section>
 </x-layouts.app>

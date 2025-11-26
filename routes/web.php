@@ -18,6 +18,8 @@ use App\Http\Controllers\DokterJanjiController;
 use App\Http\Controllers\JenisPemeriksaanController;
 use App\Http\Controllers\KasirController;
 use App\Http\Controllers\PasienDashboardController;
+use App\Http\Controllers\PasienHasilController;
+use App\Http\Controllers\PasienRiwayatController;
 use App\Http\Controllers\PemeriksaanLaboratoriumController;
 use App\Http\Controllers\ResepController;
 use App\Http\Controllers\UserJadwalDokter;
@@ -55,8 +57,8 @@ Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
     Route::resource('jadwaldokter', UserJadwalDokter::class);
     Route::view('/riwayat', 'pages.pasien.riwayat')
         ->name('riwayatuser');
-    Route::view('/hasil', 'pages.pasien.hasil')
-        ->name('hasiluser');
+    Route::resource('riwayat', PasienRiwayatController::class);
+    Route::resource('hasil', PasienHasilController::class);
     Route::view('/obat', 'pages.pasien.obat')
         ->name('obatuser');
     Route::get('registrasi/{id}', [RegistrasiController::class, 'index'])->name('registrasi.index');

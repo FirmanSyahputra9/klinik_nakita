@@ -57,12 +57,12 @@
                         wire:navigate>
                         {{ __('Jadwal') }}
                     </flux:navlist.item>
-                    <flux:navlist.item class="mb-2" icon="clipboard-document-list" :href="route('riwayatuser')"
-                        :current="request()->routeIs('riwayatuser')" wire:navigate>
+                    <flux:navlist.item class="mb-2" icon="clipboard-document-list" :href="route('riwayat.index')"
+                        :current="request()->routeIs('riwayat.*')" wire:navigate>
                         {{ __('Riwayat') }}
                     </flux:navlist.item>
-                    <flux:navlist.item class="mb-2" icon="clipboard-document-list" :href="route('hasiluser')"
-                        :current="request()->routeIs('hasiluser')" wire:navigate>
+                    <flux:navlist.item class="mb-2" icon="clipboard-document-list" :href="route('hasil.index')"
+                        :current="request()->routeIs('hasil.*')" wire:navigate>
                         {{ __('Hasil Lab') }}
                     </flux:navlist.item>
                     <flux:navlist.item class="mb-2" icon="clipboard-document-list" :href="route('obatuser')"
