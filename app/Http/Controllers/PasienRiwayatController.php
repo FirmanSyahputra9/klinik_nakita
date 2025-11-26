@@ -17,10 +17,10 @@ class PasienRiwayatController extends Controller
     {
         $pasienId = Pasien::where('user_id', Auth::user()->id)->value('id');
         $riwayat = Registrasi::where('pasien_id', $pasienId)->where('status', true)->with('antrians')->get()->map(function ($item){
-            
             return $item;
         });
-        return view('pages.pasien.riwayat');
+        
+        return view('pages.pasien.riwayat', compact('riwayat'));
     }
 
     /**

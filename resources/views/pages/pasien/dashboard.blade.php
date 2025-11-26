@@ -133,16 +133,16 @@
             </div>
 
             <!-- Health Notes -->
-            <button
+            <a href="{{ route('riwayat.index') }}"
                 class="w-full bg-slate-50 hover:bg-sky-200 transition py-2 rounded-4xl flex items-center justify-center text-sm font-medium text-gray-800 shadow">
-                <span>Catatan Kesehatan</span>
+                <span>Riwayat</span>
                 <svg xmlns="http://www.w3.org/2000/svg"
                     fill="none" viewBox="0 0 24 24" stroke-width="2"
                     stroke="currentColor" class="w-5 h-5 ml-2">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M13 5l7 7-7 7M5 12h14" />
                 </svg>
-            </button>
+            </a>
         </aside>
 
     </main>
