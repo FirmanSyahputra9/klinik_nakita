@@ -65,8 +65,8 @@
                         :current="request()->routeIs('hasil.*')" wire:navigate>
                         {{ __('Hasil Lab') }}
                     </flux:navlist.item>
-                    <flux:navlist.item class="mb-2" icon="clipboard-document-list" :href="route('obatuser')"
-                        :current="request()->routeIs('obatuser')" wire:navigate>
+                    <flux:navlist.item class="mb-2" icon="clipboard-document-list" :href="route('obat.index')"
+                        :current="request()->routeIs('obat.*')" wire:navigate>
                         {{ __('Obat') }}
                     </flux:navlist.item>
                 @endif
