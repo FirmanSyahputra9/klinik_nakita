@@ -15,20 +15,17 @@ class User extends Authenticatable
     /**
      * Kolom yang dapat diisi secara massal.
      */
+    protected $table = 'users';
+
     protected $fillable = [
         'show',
-        'name',
         'username',
-        'nik',
-        'gender',
-        'birth_date',
-        'phone',
-        'role',
         'email',
-        'password',
+        'role',
         'approved',
         'approved_at',
         'email_verified_at',
+        'password',
     ];
 
     /**
@@ -47,12 +44,11 @@ class User extends Authenticatable
     protected $casts = [
         'approved' => 'boolean',
         'email_verified_at' => 'datetime',
-        'approved_at' => 'datetime',
-        'birth_date' => 'date',
+        'approved_at' => 'datetime',    
         'password' => 'hashed',
     ];
 
-  
+
     public function initials(): string
     {
         return Str::of($this->name)

@@ -48,48 +48,55 @@
 
                 <tbody class="divide-y divide-gray-200">
 
-                    @foreach ($kasir as $item)
-                    <tr>
-                        <td class="px-4 py-2">{{ $item->antrian->tanggal }}</td>
-                        <td class="px-4 py-2">{{ $item->total_harga }}</td>
+                    @forelse ($kasir as $item)
+                        <tr>
+                            <td class="px-4 py-2">{{ $item->antrian->tanggal?? '-' }}</td>
+                            <td class="px-4 py-2">{{ $item->total_harga?? '-' }}</td>
 
-                        <td class="px-4 py-2">
-                            <span
-                                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                            <td class="px-4 py-2">
+                                <span
+                                    class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
                                     {{ $item->status ? 'text-green-700 bg-green-50' : 'text-red-700 bg-red-50' }}">
-                                {{ $item->status ? 'Lunas' : 'Belum Lunas' }}
-                            </span>
-                        </td>
+                                    {{ $item->status ? 'Lunas' : 'Belum Lunas' }}
+                                </span>
+                            </td>
 
-                        <td class="px-4 py-2">{{ $item->nama_pasien }}</td>
+                            <td class="px-4 py-2">{{ $item->nama_pasien?? '-' }}</td>
 
-                        <td class="px-4 py-2 flex items-center justify-center gap-3">
+                            <td class="px-4 py-2 flex items-center justify-center gap-3">
 
-                            @php
-                            $viewData = [
-                            'id' => $item->id,
-                            'tanggal' => $item->antrian->tanggal,
-                            'jumlah' => $item->total_harga,
-                            'obat' => $item->antrian->resep->obat->nama ?? '-',
-                            'kuantitas' => $item->antrian->resep->kuantitas ?? '-',
-                            'status' => $item->status ? 'Lunas' : 'Belum Lunas',
-                            'pasien' => $item->nama_pasien,
-                            ];
-                            @endphp
+                                @php
+                                    $viewData = [
+                                        'id' => $item->id?? '-',
+                                        'tanggal' => $item->antrian->tanggal?? '-',
+                                        'jumlah' => $item->total_harga?? '-',
+                                        'obat' => $item->antrian->resep->obat->nama ?? '-',
+                                        'kuantitas' => $item->antrian->resep->kuantitas ?? '-',
+                                        'status' => $item->status ? 'Lunas' : 'Belum Lunas',
+                                        'pasien' => $item->nama_pasien?? '-',
+                                    ];
+                                @endphp
 
-                            <button class="text-blue-600 hover:text-blue-800"
-                                x-on:click="openView(@js($viewData))">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                                        d="M2.25 12s3.75-7.5 9.75-7.5 9.75 7.5 9.75 7.5-3.75 7.5-9.75 7.5S2.25 12 2.25 12z" />
-                                    <circle cx="12" cy="12" r="3" stroke-width="1.8" />
-                                </svg>
-                            </button>
+                                <button class="text-blue-600 hover:text-blue-800"
+                                    x-on:click="openView(@js($viewData))">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                            d="M2.25 12s3.75-7.5 9.75-7.5 9.75 7.5 9.75 7.5-3.75 7.5-9.75 7.5S2.25 12 2.25 12z" />
+                                        <circle cx="12" cy="12" r="3" stroke-width="1.8" />
+                                    </svg>
+                                </button>
 
-                        </td>
-                    </tr>
-                    @endforeach
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center py-6 text-gray-400">
+                                Belum ada data transaksi
+                            </td>
+                        </tr>
+                    @endforelse
+
 
                 </tbody>
             </table>
@@ -104,8 +111,7 @@
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-bold text-gray-800">🧾 Struk Pembayaran</h2>
 
-                    <button class="text-gray-500 hover:text-red-500 transition"
-                        @click="showView = false">✕</button>
+                    <button class="text-gray-500 hover:text-red-500 transition" @click="showView = false">✕</button>
                 </div>
 
                 <div class="border-t border-gray-200 pt-4 space-y-3">
@@ -154,13 +160,21 @@
                         Tutup
                     </button>
 
-                    <form action="{{ route('kasir.konfirmasi', $item->id) }}" method="POST">
-                        @csrf
-                        @method('POST')
-                        <button type="submit" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg flex items-center gap-2">
-                            Konfirmasi Pembayaran
+                    @if (!empty($item->id))
+                        <form action="{{ route('kasir.konfirmasi', $item->id?? '#') }}" method="POST">
+                            @csrf
+                            <button type="submit"
+                                class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg flex items-center gap-2">
+                                Konfirmasi Pembayaran
+                            </button>
+                        </form>
+                    @else
+                        <button disabled
+                            class="px-4 py-2 bg-gray-300 text-gray-500 rounded-lg opacity-50 cursor-not-allowed">
+                            ID Tidak Valid
                         </button>
-                    </form>
+                    @endif
+
                 </div>
 
             </div>

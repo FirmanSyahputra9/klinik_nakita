@@ -13,13 +13,14 @@ class Dokter extends Model
 
     protected $fillable = [
         'user_id',
+        'nik',
         'name',
         'alamat',
         'spesialisasi',
         'phone',
         'email',
         'status',
-        'nik',
+
     ];
 
     public function user()

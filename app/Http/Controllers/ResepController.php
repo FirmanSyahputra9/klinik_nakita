@@ -31,6 +31,9 @@ class ResepController extends Controller
             $item->harga = 'Rp. ' . number_format($item->harga_jual, 0, ',', '.');
             return $item;
         });
+        $antrian = $antrian ?? collect();
+        $obats = $obats ?? collect();
+
 
         return view('pages.dokter.resep', compact('antrian', 'obats'));
     }
@@ -61,7 +64,6 @@ class ResepController extends Controller
         $antrian = Antrian::findOrFail($request->antrian_id);
         $kasir = Kasir::where('antrian_id', $request->antrian_id)->first();
         DB::transaction(function () use ($request, $antrian, $kasir) {
-            // Simpan diagnosa di data pemeriksaan
             if ($antrian->data_pemeriksaan) {
                 $updated = $antrian->data_pemeriksaan->update([
                     'diagnosa' => $request->diagnosa,
@@ -88,12 +90,10 @@ class ResepController extends Controller
                 ]);
             }
 
-            // Simpan resep obat & kurangi stock obat
             foreach ($request->obat as $item) {
                 if (!empty($item['obat_id'])) {
                     $kuantitas = $item['kuantitas'] ?? 0;
 
-                    // Lock row obat untuk update stock
                     $obat = Obat::where('id', $item['obat_id'])->lockForUpdate()->first();
 
                     if (!$obat) {
@@ -103,15 +103,12 @@ class ResepController extends Controller
                     if ($obat->stok < $kuantitas) {
                         throw new \Exception("Stok obat {$obat->nama} tidak mencukupi!");
                     }
-
-                    // Kurangi stock dan cek berhasil
                     $updatedStock = $obat->decrement('stok', $kuantitas);
 
                     if ($updatedStock === 0 && $kuantitas > 0) {
                         throw new \Exception("Gagal mengurangi stock obat {$obat->nama}!");
                     }
 
-                    // Simpan resep
                     $resep = Resep::create([
                         'antrian_id' => $antrian->id,
                         'obat_id' => $item['obat_id'],

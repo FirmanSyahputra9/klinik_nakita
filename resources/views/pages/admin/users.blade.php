@@ -73,27 +73,33 @@
                     </template>
                 </thead>
                 <tbody x-show="tab === 'pasien'" class=" text-[10px]">
-                    @foreach ($pasiens as $pasien)
+                    @forelse ($pasiens as $pasien)
                         <tr class="border-b hover:bg-gray-50">
                             <td class="py-2 px-4 text-gray-500">{{ $loop->iteration }}</td>
                             <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->no_rm }}</td>
-                            <td class="py-2 px-4 text-gray-500 max-w-30 overflow-auto thin-scroll">{{ $pasien->pasien->name }}</td>
+                            <td class="py-2 px-4 text-gray-500 max-w-30 overflow-auto thin-scroll">
+                                {{ $pasien->pasien->name }}</td>
                             <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->nik }}</td>
-                            <td class="py-2 px-4 text-gray-500 max-w-28 overflow-auto thin-scroll">{{ $pasien->email }}</td>
+                            <td class="py-2 px-4 text-gray-500 max-w-28 overflow-auto thin-scroll">{{ $pasien->email }}
+                            </td>
                             <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->gender_label }}</td>
                             <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->umur }}</td>
-                            <td class="py-2 px-4 text-gray-500 max-w-20 overflow-auto thin-scroll">{{ $pasien->pasien->alamat }}</td>
+                            <td class="py-2 px-4 text-gray-500 max-w-20 overflow-auto thin-scroll">
+                                {{ $pasien->pasien->alamat }}</td>
                             <td class="py-2 px-4 text-gray-500">restdgvftyhfg{{ $pasien->pasien->phone }}</td>
                             <td class="py-2 px-4 whitespace-nowrap">
                                 <a href="{{ route('users.show', $pasien->id) }}"
                                     class="text-blue-600 hover:text-blue-800">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                     </svg>
                                 </a>
 
-    
+
                                 @if (!$pasien->approved && !$pasien->pasien->no_rm)
                                     <form id="approve-form-{{ $pasien->id }}"
                                         action="{{ route('users.approve', $pasien->id) }}" method="POST"
@@ -123,10 +129,16 @@
                                 @endif
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="9" class="text-center py-6 text-gray-400">
+                                Belum ada data pasien
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
                 <tbody x-show="tab === 'dokter'" class=" text-[10px]">
-                    @foreach ($dokters as $dokter)
+                    @forelse ($dokters as $dokter)
                         <tr class="border-b hover:bg-gray-50">
                             <td class="py-2 px-4 text-gray-500">{{ $loop->iteration }}</td>
                             <td class="py-2 px-4 text-gray-500">{{ $dokter->dokter->name }}</td>
@@ -138,20 +150,29 @@
                             <td class="py-2 px-4">
                                 <a href="{{ route('users.show', $dokter->id) }}"
                                     class="text-blue-600 hover:text-blue-800">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                     </svg>
                                 </a>
 
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="9" class="text-center py-6 text-gray-400">
+                                Belum ada data dokter
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
 
                 <!-- ADMIN -->
                 <tbody x-show="tab === 'admin'" class=" text-[10px]">
-                    @foreach ($admins as $admin)
+                    @forelse ($admins as $admin)
                         <tr class="border-b hover:bg-gray-50">
                             <td class="py-2 px-4 text-gray-500">{{ $loop->iteration }}</td>
                             <td class="py-2 px-4 text-gray-500">{{ $admin->admin->name }}</td>
@@ -164,7 +185,13 @@
                                 </a>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="9" class="text-center py-6 text-gray-400">
+                                Belum ada data admin
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
 
             </table>

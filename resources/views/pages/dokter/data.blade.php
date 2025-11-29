@@ -23,38 +23,42 @@
                         </tr>
                     </thead>
                     <tbody class="text-sm text-gray-800">
-                        @if ($antrian)
-                        @foreach ($antrian as $item)
-                        <tr class="bg-white hover:bg-gray-50 rounded-lg shadow-sm">
-                            <td class="px-4 py-3">
-                                <div class="font-semibold">{{ $item->pasien->name }}</div>
-                                <div class="text-gray-500 text-xs">{{ $item->pasien->phone }}</div>
-                            </td>
-                            <td class="px-4 py-3">{{ $item->pasien->umur }} Tahun</td>
-                            <td class="px-4 py-3">{{ $item->pasien->gender_label }}</td>
-                            <td class="px-4 py-3">{{ $item->pasien->no_rm }}</td>
-                            <td class="px-4 py-3">
-                                {{ $item->registrasi->tanggal_kunjungan }}
-                            </td>
-                            <td class="px-4 py-3 flex items-center gap-3">
+                        @forelse ($antrian as $item)
+                            <tr class="bg-white hover:bg-gray-50 rounded-lg shadow-sm">
+                                <td class="px-4 py-3">
+                                    <div class="font-semibold">{{ $item->pasien->name }}</div>
+                                    <div class="text-gray-500 text-xs">{{ $item->pasien->phone }}</div>
+                                </td>
+                                <td class="px-4 py-3">{{ $item->pasien->umur }} Tahun</td>
+                                <td class="px-4 py-3">{{ $item->pasien->gender_label }}</td>
+                                <td class="px-4 py-3">{{ $item->pasien->no_rm }}</td>
+                                <td class="px-4 py-3">
+                                    {{ $item->registrasi->tanggal_kunjungan }}
+                                </td>
+                                <td class="px-4 py-3 flex items-center gap-3">
 
-                                <!-- Tombol Edit (Pencil Square) -->
-                                <a href="{{ route('data.show', $item->id) }}"
-                                    class="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md transition">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor" class="w-5 h-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M16.862 3.487l2.651 2.651M7.5 16.5l9.362-9.362M3 21h6l11-11a2.121 2.121 0 00-3-3L6 18v6z" />
-                                    </svg>
-                                </a>
-
+                                    <!-- Tombol Edit (Pencil Square) -->
+                                    <a href="{{ route('data.show', $item->id) }}"
+                                        class="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md transition">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor" class="w-5 h-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M16.862 3.487l2.651 2.651M7.5 16.5l9.362-9.362M3 21h6l11-11a2.121 2.121 0 00-3-3L6 18v6z" />
+                                        </svg>
+                                    </a>
 
 
-                            </td>
 
-                        </tr>
-                        @endforeach
-                        @endif
+                                </td>
+
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center py-6 text-gray-400">
+                                    Belum ada data pasien
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

@@ -15,6 +15,10 @@ class DokterJadwalController extends Controller
     public function index()
     {
         $dokterJadwals = Dokter::whereHas('jadwals')->where('user_id', Auth::User()->id)->first();
+        if (!$dokterJadwals) {
+            $dokterJadwals = new Dokter();
+            $dokterJadwals->setRelation('jadwals', collect());
+        }
         return view('pages.dokter.jadwal', compact('dokterJadwals'));
     }
 

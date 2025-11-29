@@ -167,7 +167,7 @@
 
                 <!-- Body -->
                 <tbody>
-                    @foreach ( $janji->where('status', true) as $item)
+                    @forelse ( $janji->where('status', true) as $item)
                         <tr class="hover:bg-blue-50 border-b">
                             <td class="px-4 py-3 flex items-center space-x-2">
                                 <div class="w-6 h-6 rounded-full bg-blue-100 border border-blue-300"></div>
@@ -183,7 +183,13 @@
                                 </span>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center py-6 text-gray-400">
+                                Belum ada janji temu
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

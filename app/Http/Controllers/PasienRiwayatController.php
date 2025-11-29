@@ -22,16 +22,16 @@ class PasienRiwayatController extends Controller
         })->where('status', true)->with(['registrasi', 'dokter', 'tindakan', 'data_pemeriksaan', 'kasir' => function ($q) {
             $q->where('status', '!=', false);
         }])->get()->map(function ($item) {
-            if ($item->registrasi->tanggal_kunjungan) {
+            if ($item->registrasi && $item->registrasi->tanggal_kunjungan) {
                 $item->registrasi->tanggal_kunjungan = \Carbon\Carbon::parse($item->registrasi->tanggal_kunjungan)->format('d M Y');
                 if ($item->created_at) {
                     $item->created_at = \Carbon\Carbon::parse($item->created_at)->format('h:i:s');
                 }
             }
-
-
             return $item;
         });
+
+        $riwayat = $riwayat ?? collect();
 
         return view('pages.pasien.riwayat', compact('riwayat'));
     }

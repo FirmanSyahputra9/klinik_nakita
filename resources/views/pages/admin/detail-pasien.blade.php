@@ -41,7 +41,8 @@
                         <p><span class="font-medium">NIK:</span> {{ $pasien->nik }}</p>
                         <p><span class="font-medium">Tanggal Lahir:</span> {{ $pasien->tanggal_lahir }}</p>
                         <p><span class="font-medium">Jenis Kelamin:</span> {{ $pasien->jenis_kelamin }}</p>
-                        <p><span class="font-medium">Tanggal Registrasi:</span> {{ $pasien->created_at?->format('d-m-Y') ?? '-' }}</p>
+                        <p><span class="font-medium">Tanggal Registrasi:</span>
+                            {{ $pasien->created_at?->format('d-m-Y') ?? '-' }}</p>
                     </div>
                 </div>
 
@@ -61,7 +62,8 @@
                     <div class="text-sm text-gray-700 space-y-1">
                         <p><span class="font-medium">Nama:</span> {{ $pasien->kontak_darurat_nama ?? '-' }}</p>
                         <p><span class="font-medium">Hubungan:</span> {{ $pasien->kontak_darurat_hubungan ?? '-' }}</p>
-                        <p><span class="font-medium">No. Telepon:</span> {{ $pasien->kontak_darurat_no_telepon ?? '-' }}</p>
+                        <p><span class="font-medium">No. Telepon:</span>
+                            {{ $pasien->kontak_darurat_no_telepon ?? '-' }}</p>
                     </div>
                 </div>
 
@@ -70,11 +72,12 @@
                     <h3 class="font-semibold mb-2 text-gray-800">Informasi Medis</h3>
                     <div class="bg-white rounded-lg p-3 flex flex-wrap gap-2 border border-gray-200">
                         @if (!empty($pasien->riwayat_penyakit) && count($pasien->riwayat_penyakit) > 0)
-                        @foreach ($pasien->riwayat_penyakit as $penyakit)
-                        <span class="px-3 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">{{ $penyakit }}</span>
-                        @endforeach
+                            @foreach ($pasien->riwayat_penyakit as $penyakit)
+                                <span
+                                    class="px-3 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">{{ $penyakit }}</span>
+                            @endforeach
                         @else
-                        <p class="text-gray-500 text-sm">Tidak ada riwayat penyakit</p>
+                            <p class="text-gray-500 text-sm">Tidak ada riwayat penyakit</p>
                         @endif
                     </div>
                 </div>

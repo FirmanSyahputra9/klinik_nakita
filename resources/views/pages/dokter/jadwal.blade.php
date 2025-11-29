@@ -11,8 +11,8 @@
         <div class="bg-white border rounded-xl shadow-sm p-5">
             <h2 class="text-lg font-semibold text-gray-700 mb-4">Jadwal Praktek</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                @foreach ($dokterJadwals->jadwals as $jadwal)
-                    <div 
+                @forelse ($dokterJadwals->jadwals as $jadwal)
+                    <div
                         x-data="{ editing: false, ket: '{{ $jadwal->keterangan }}' }"
                         class="border rounded-xl p-4 shadow-sm hover:shadow-md transition"
                     >
@@ -34,7 +34,7 @@
                             <p x-show="!editing" x-text="ket"></p>
 
                             <!-- Mode edit -->
-                            <input 
+                            <input
                                 x-show="editing"
                                 x-model="ket"
                                 type="text"
@@ -60,7 +60,9 @@
                         </button>
                     </div>
 
-                @endforeach
+                @empty
+                    <p class="text-center py-6 text-gray-400">Belum ada jadwal praktek</p>
+                @endforelse
             </div>
 
         </div>

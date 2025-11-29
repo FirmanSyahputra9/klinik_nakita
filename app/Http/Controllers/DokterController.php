@@ -6,6 +6,7 @@ use App\Models\Dokter;
 use App\Models\Obat;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 
@@ -34,32 +35,54 @@ class DokterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'alamat' => 'required|string|max:255',
-            'spesialisasi' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'status' => 'required|string',
-            'email' => 'required|email|unique:users,email',
+            'name' => 'required',
+            'email' => 'required',
             'password' => 'required|min:6',
+            'alamat' => 'required',
+            'spesialisasi' => 'required',
+            'phone' => 'required',
+            'nik' => 'required',
         ]);
 
-        $user = User::create([
-            'username' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'role' => 'doctor',
-        ]);
+        DB::beginTransaction();
+        try {
+            $existing = User::where('email', $request->email)
+                ->lockForUpdate()
+                ->first();
 
-        Dokter::create([
-            'user_id' => $user->id,
-            'name' => $request->name,
-            'alamat' => $request->alamat,
-            'spesialisasi' => $request->spesialisasi,
-            'phone' => $request->phone,
-            'status' => $request->status,
-        ]);
+            if ($existing) {
+                return back()->withErrors(['email' => 'Email sudah terdaftar.']);
+            }
 
-        return redirect()->route('dokter.index')->with('success', 'Dokter baru berhasil ditambahkan!');
+            $user = User::create([
+                'username' => $request->name . Str::random(6),
+                'email' => $request->email,
+                'approved' => true,
+                'approved_at' => now(),
+                'email_verified_at' => now(),
+                'role' => 'doctor',
+                'password' => bcrypt($request->password),
+            ]);
+
+            Dokter::create([
+                'user_id' => $user->id,
+                'name' => $request->name,
+                'alamat' => $request->alamat,
+                'spesialisasi' => $request->spesialisasi,
+                'phone' => $request->phone,
+                'status' => 'aktif',
+                'nik' => $request->nik
+            ]);
+
+            DB::commit();
+
+            return redirect()
+                ->route('dokter.index')
+                ->with('success', 'Dokter baru berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
 

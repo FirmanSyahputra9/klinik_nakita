@@ -15,17 +15,24 @@
             </thead>
 
             <tbody class="text-gray-700">
-
-                @foreach ($appointment as $item)
+                @forelse ($appointment as $item)
                     <tr class="bg-white shadow rounded-lg hover:bg-gray-50">
                         <td class="px-2 py-2">{{ $item->appointment_code }}</td>
                         <td class="px-2 py-2">{{ $item->tanggal_kunjungan }}</td>
                         <td class="px-2 py-2">{{ $item->pasiens->name }}</td>
                         <td class="px-2 py-2">{{ $item->dokters->name }}</td>
                         <td class="px-2 py-2">{{ $item->keluhan }}</td>
-                        <td class="px-2 py-2 {{ $item->status? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600' }}">{{ $item->status ? 'Check-In' : 'Belum' }}</td>
+                        <td
+                            class="px-2 py-2 {{ $item->status ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600' }}">
+                            {{ $item->status ? 'Check-In' : 'Belum' }}</td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center py-6 text-gray-400">
+                            Belum ada data pendaftaran
+                        </td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
         <div>

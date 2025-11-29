@@ -24,6 +24,8 @@ class KasirController extends Controller
 
 
 
+
+        $kasir = $kasir ?? collect();
         return view('pages.admin.kasir', compact('kasir'));
     }
 
