@@ -100,34 +100,79 @@
             <div class="bg-white rounded-xl shadow p-6 border border-gray-200">
                 @livewire('appointment-short')
             </div>
+
+            <!-- Short Table: Dokter Aktif -->
+            <div class="bg-white rounded-xl shadow p-6 border border-gray-200 mt-10">
+                <h2 class="text-lg font-bold text-gray-800 mb-4">Dokter Aktif</h2>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm border border-gray-300 rounded-lg overflow-hidden">
+                        <thead class="bg-gray-200 text-gray-700">
+                            <tr>
+                                <th class="px-4 py-2 text-left">Nama Lengkap</th>
+                                <th class="px-4 py-2 text-left">Spesialisasi</th>
+                                <th class="px-4 py-2 text-left">No. Telepon</th>
+                                <th class="px-4 py-2 text-left">Email</th>
+                                <th class="px-4 py-2 text-left">Jadwal</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="bg-white divide-y">
+                            <!-- Dummy Rows (Tetap, tidak mempengaruhi backend) -->
+                            <tr>
+                                <td class="px-4 py-2">Dr. Nadya Putri</td>
+                                <td class="px-4 py-2">Dokter Anak</td>
+                                <td class="px-4 py-2">0812-3344-5566</td>
+                                <td class="px-4 py-2">nadya@example.com</td>
+                                <td class="px-4 py-2">Senin - Jumat (08:00 - 14:00)</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2">Dr. Ahmad Yasin</td>
+                                <td class="px-4 py-2">Dokter Umum</td>
+                                <td class="px-4 py-2">0857-8899-1122</td>
+                                <td class="px-4 py-2">ahmad@example.com</td>
+                                <td class="px-4 py-2">Senin - Sabtu (09:00 - 16:00)</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2">Dr. Sinta Wibowo</td>
+                                <td class="px-4 py-2">Gigi</td>
+                                <td class="px-4 py-2">0821-4455-7788</td>
+                                <td class="px-4 py-2">sinta@example.com</td>
+                                <td class="px-4 py-2">Selasa, Kamis (10:00 - 15:00)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
 
-        <!-- RIGHT SIDE CLOCK -->
-        <div class="bg-white rounded-xl shadow p-4 border border-gray-200 flex flex-col items-center justify-start self-start">
+        <!-- RIGHT SIDE -->
+        <div class="bg-white rounded-xl shadow p-6 border border-gray-200 flex flex-col items-center justify-start self-start space-y-6">
 
+            <!-- CLOCK -->
+            <div class="w-full text-center">
+                <h2 class="text-lg font-bold text-gray-800 mb-3">Jam Sekarang</h2>
 
-            <h2 class="text-lg font-bold text-gray-800 mb-3">Jam Sekarang</h2>
+                <div class="flex items-center gap-2 bg-gradient-to-br from-blue-100 to-blue-200 p-3 rounded-lg shadow-inner justify-center">
+                    <div id="h"
+                        class="px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 min-w-[70px] text-center">
+                        00
+                    </div>
 
-            <!-- Digital Clock Box -->
-            <div class="flex items-center gap-2 bg-gradient-to-br from-blue-100 to-blue-200 p-3 rounded-lg shadow-inner">
+                    <span class="text-3xl font-bold text-blue-700 pb-1">:</span>
 
-                <div id="h"
-                    class="px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 min-w-[70px] text-center">
-                    00
-                </div>
+                    <div id="m"
+                        class="px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 min-w-[70px] text-center">
+                        00
+                    </div>
 
-                <span class="text-3xl font-bold text-blue-700 pb-1">:</span>
+                    <span class="text-3xl font-bold text-blue-700 pb-1">:</span>
 
-                <div id="m"
-                    class="px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 min-w-[70px] text-center">
-                    00
-                </div>
-
-                <span class="text-3xl font-bold text-blue-700 pb-1">:</span>
-
-                <div id="s"
-                    class="px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 min-w-[70px] text-center">
-                    00
+                    <div id="s"
+                        class="px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 min-w-[70px] text-center">
+                        00
+                    </div>
                 </div>
             </div>
 
@@ -144,7 +189,34 @@
                 }, 1000);
             </script>
 
+            <!-- ACTION CARDS -->
+            <div class="w-full space-y-4">
+
+                <!-- Card 1 -->
+                <a href="#"
+                    class="block bg-blue-100 hover:bg-blue-200 transition rounded-xl p-4 shadow border border-blue-200">
+                    <h3 class="text-blue-900 font-semibold text-md">Lihat User</h3>
+                    <p class="text-blue-700 text-sm mt-1">Kelola akun pasien dan pengguna sistem.</p>
+                </a>
+
+                <!-- Card 2 -->
+                <a href="#"
+                    class="block bg-pink-100 hover:bg-pink-200 transition rounded-xl p-4 shadow border border-pink-200">
+                    <h3 class="text-pink-900 font-semibold text-md">Cek Riwayat Pembayaran</h3>
+                    <p class="text-pink-700 text-sm mt-1">Pantau transaksi dan pembayaran pasien.</p>
+                </a>
+
+                <!-- Card 3 -->
+                <a href="#"
+                    class="block bg-yellow-100 hover:bg-yellow-200 transition rounded-xl p-4 shadow border border-yellow-200">
+                    <h3 class="text-yellow-900 font-semibold text-md">Cek Stok Obat</h3>
+                    <p class="text-yellow-700 text-sm mt-1">Lihat jumlah stok obat dan status ketersediaan.</p>
+                </a>
+
+            </div>
+
         </div>
+
 
 
     </div>

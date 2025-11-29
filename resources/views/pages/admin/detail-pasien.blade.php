@@ -1,5 +1,6 @@
 <x-layouts.app :title="__('Detail Pasien')">
-    <div class="max-w-5xl mx-auto mt-6 sm:mt-10 bg-white rounded-2xl shadow p-4 sm:p-8">
+    <div class="max-w-5xl mx-auto mt-6 sm:mt-10 bg-white rounded-2xl shadow p-4 sm:p-8 overflow-y-auto max-h-screen">
+
         <!-- Header -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 mb-6 space-y-4 sm:space-y-0">
             <a href="{{ url()->previous() }}" class="text-gray-600 hover:text-gray-800 self-start sm:self-auto">
@@ -27,62 +28,121 @@
 
         <hr class="my-4">
 
-        <!-- Navigasi -->
-        <div class="flex flex-wrap gap-4 sm:space-x-8 text-sm border-b mb-6">
-            <button class="border-b-2 border-indigo-600 pb-2 font-medium text-indigo-600">Informasi Pribadi</button>
-            <button class="text-gray-500 hover:text-indigo-600">Riwayat Kunjungan</button>
-            <button class="text-gray-500 hover:text-indigo-600">Resep dan Obat</button>
-            <button class="text-gray-500 hover:text-indigo-600">Hasil Lab</button>
-            <button class="text-gray-500 hover:text-indigo-600">Pembayaran</button>
-        </div>
+        <!-- Konten Utama Scrollable -->
+        <div class="space-y-10 pb-10">
 
-        <!-- Informasi Pribadi -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            <!-- Informasi Pribadi (Tetap Ada Kontennya, Tidak Ada Navigasi) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
 
-            <!-- Data Pribadi -->
-            <div class="bg-gray-50 rounded-xl p-4">
-                <h3 class="font-semibold mb-2 text-gray-800">Data Pribadi</h3>
-                <div class="text-sm text-gray-700 space-y-1">
-                    <p><span class="font-medium">NIK:</span> {{ $pasien->nik }}</p>
-                    <p><span class="font-medium">Tanggal Lahir:</span> {{ $pasien->tanggal_lahir }}</p>
-                    <p><span class="font-medium">Jenis Kelamin:</span> {{ $pasien->jenis_kelamin }}</p>
-                    <p><span class="font-medium">Tanggal Registrasi:</span> {{ $pasien->created_at?->format('d-m-Y') ?? '-' }}</p>
+                <!-- Data Pribadi -->
+                <div class="bg-gray-50 rounded-xl p-4">
+                    <h3 class="font-semibold mb-2 text-gray-800">Data Pribadi</h3>
+                    <div class="text-sm text-gray-700 space-y-1">
+                        <p><span class="font-medium">NIK:</span> {{ $pasien->nik }}</p>
+                        <p><span class="font-medium">Tanggal Lahir:</span> {{ $pasien->tanggal_lahir }}</p>
+                        <p><span class="font-medium">Jenis Kelamin:</span> {{ $pasien->jenis_kelamin }}</p>
+                        <p><span class="font-medium">Tanggal Registrasi:</span> {{ $pasien->created_at?->format('d-m-Y') ?? '-' }}</p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Kontak & Alamat -->
-            <div class="bg-gray-50 rounded-xl p-4">
-                <h3 class="font-semibold mb-2 text-gray-800">Kontak & Alamat</h3>
-                <div class="text-sm text-gray-700 space-y-1">
-                    <p><span class="font-medium">No. Telepon:</span> {{ $pasien->no_telepon }}</p>
-                    <p><span class="font-medium">Email:</span> {{ $pasien->email }}</p>
-                    <p><span class="font-medium">Alamat:</span> {{ $pasien->alamat }}</p>
+                <!-- Kontak & Alamat -->
+                <div class="bg-gray-50 rounded-xl p-4">
+                    <h3 class="font-semibold mb-2 text-gray-800">Kontak & Alamat</h3>
+                    <div class="text-sm text-gray-700 space-y-1">
+                        <p><span class="font-medium">No. Telepon:</span> {{ $pasien->no_telepon }}</p>
+                        <p><span class="font-medium">Email:</span> {{ $pasien->email }}</p>
+                        <p><span class="font-medium">Alamat:</span> {{ $pasien->alamat }}</p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Kontak Darurat -->
-            <div class="bg-gray-50 rounded-xl p-4">
-                <h3 class="font-semibold mb-2 text-gray-800">Kontak Darurat</h3>
-                <div class="text-sm text-gray-700 space-y-1">
-                    <p><span class="font-medium">Nama:</span> {{ $pasien->kontak_darurat_nama ?? '-' }}</p>
-                    <p><span class="font-medium">Hubungan:</span> {{ $pasien->kontak_darurat_hubungan ?? '-' }}</p>
-                    <p><span class="font-medium">No. Telepon:</span> {{ $pasien->kontak_darurat_no_telepon ?? '-' }}</p>
+                <!-- Kontak Darurat -->
+                <div class="bg-gray-50 rounded-xl p-4">
+                    <h3 class="font-semibold mb-2 text-gray-800">Kontak Darurat</h3>
+                    <div class="text-sm text-gray-700 space-y-1">
+                        <p><span class="font-medium">Nama:</span> {{ $pasien->kontak_darurat_nama ?? '-' }}</p>
+                        <p><span class="font-medium">Hubungan:</span> {{ $pasien->kontak_darurat_hubungan ?? '-' }}</p>
+                        <p><span class="font-medium">No. Telepon:</span> {{ $pasien->kontak_darurat_no_telepon ?? '-' }}</p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Informasi Medis -->
-            <div class="bg-gray-50 rounded-xl p-4">
-                <h3 class="font-semibold mb-2 text-gray-800">Informasi Medis</h3>
-                <div class="bg-white rounded-lg p-3 flex flex-wrap gap-2 border border-gray-200">
-                    @if (!empty($pasien->riwayat_penyakit) && count($pasien->riwayat_penyakit) > 0)
+                <!-- Informasi Medis -->
+                <div class="bg-gray-50 rounded-xl p-4">
+                    <h3 class="font-semibold mb-2 text-gray-800">Informasi Medis</h3>
+                    <div class="bg-white rounded-lg p-3 flex flex-wrap gap-2 border border-gray-200">
+                        @if (!empty($pasien->riwayat_penyakit) && count($pasien->riwayat_penyakit) > 0)
                         @foreach ($pasien->riwayat_penyakit as $penyakit)
-                            <span class="px-3 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">{{ $penyakit }}</span>
+                        <span class="px-3 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">{{ $penyakit }}</span>
                         @endforeach
-                    @else
+                        @else
                         <p class="text-gray-500 text-sm">Tidak ada riwayat penyakit</p>
-                    @endif
+                        @endif
+                    </div>
                 </div>
             </div>
+
+
+            <!-- Hasil Lab (Dummy) -->
+            <div class="bg-gray-50 rounded-xl p-4">
+                <h3 class="font-semibold mb-4 text-gray-800">Hasil Pemeriksaan Lab</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm border border-gray-300 rounded-lg overflow-hidden">
+                        <thead class="bg-gray-200 text-gray-700">
+                            <tr>
+                                <th class="px-4 py-2 text-left">Pemeriksaan</th>
+                                <th class="px-4 py-2 text-left">Hasil</th>
+                                <th class="px-4 py-2 text-left">Nilai Normal</th>
+                                <th class="px-4 py-2 text-left">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y">
+                            <tr>
+                                <td class="px-4 py-2">Hemoglobin</td>
+                                <td class="px-4 py-2">14.2 g/dL</td>
+                                <td class="px-4 py-2">13.0 - 17.0 g/dL</td>
+                                <td class="px-4 py-2 text-green-600 font-semibold">Normal</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2">Leukosit</td>
+                                <td class="px-4 py-2">12.000 /µL</td>
+                                <td class="px-4 py-2">4.000 - 11.000 /µL</td>
+                                <td class="px-4 py-2 text-yellow-600 font-semibold">Sedikit Tinggi</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Resep & Obat (Dummy) -->
+            <div class="bg-gray-50 rounded-xl p-4">
+                <h3 class="font-semibold mb-4 text-gray-800">Resep dan Obat</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm border border-gray-300 rounded-lg overflow-hidden">
+                        <thead class="bg-gray-200 text-gray-700">
+                            <tr>
+                                <th class="px-4 py-2 text-left">Nama Obat</th>
+                                <th class="px-4 py-2 text-left">Dosis</th>
+                                <th class="px-4 py-2 text-left">Frekuensi</th>
+                                <th class="px-4 py-2 text-left">Kuantitas & Harga</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y">
+                            <tr>
+                                <td class="px-4 py-2">Paracetamol</td>
+                                <td class="px-4 py-2">500 mg</td>
+                                <td class="px-4 py-2">3x sehari (Pagi, Siang, Malam)</td>
+                                <td class="px-4 py-2">10 tablet - Rp 15.000</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2">Amoxicillin</td>
+                                <td class="px-4 py-2">500 mg</td>
+                                <td class="px-4 py-2">3x sehari</td>
+                                <td class="px-4 py-2">12 kapsul - Rp 18.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
 
         <!-- Tombol Edit -->
