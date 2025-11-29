@@ -46,7 +46,7 @@
                         <button
                             x-show="!editing"
                             @click="editing = true"
-                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium w-full py-2 rounded-lg transition"
+                            class="bg-blue-100 hover:bg-blue-200 text-gray-600 font-medium w-full py-2 rounded-lg transition"
                         >
                             Edit Keterangan
                         </button>

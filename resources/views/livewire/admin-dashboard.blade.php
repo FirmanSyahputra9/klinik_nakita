@@ -9,14 +9,17 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5.121 17.804A9 9 0 1112 21a9 9 0 01-6.879-3.196z" />
+                            d="M12 12a4 4 0 100-8 4 4 0 000 8z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 20a6 6 0 1112 0H6z" />
                     </svg>
                 </div>
                 <div>
                     <h2 class="text-gray-800 font-bold text-lg">Akun Pasien</h2>
-                    <p class="text-gray-500 text-sm">{{ $totalPengguna?? '0' }}</p>
+                    <p class="text-gray-500 text-sm">{{ $totalPengguna ?? '0' }}</p>
                 </div>
             </div>
+        
             <div class="text-gray-500 text-sm">
                 <p>Pasien Hari Ini: {{ $penggunaHariIni?? '0' }}</p>
                 <p>30 Hari Terakhir: {{ $penggunaBaru?? '0' }}</p>
@@ -107,7 +110,7 @@
 
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm border border-gray-300 rounded-lg overflow-hidden">
-                        <thead class="bg-gray-200 text-gray-700">
+                        <thead class="bg-blue-50 text-gray-700">
                             <tr>
                                 <th class="px-4 py-2 text-left">Nama Lengkap</th>
                                 <th class="px-4 py-2 text-left">Spesialisasi</th>

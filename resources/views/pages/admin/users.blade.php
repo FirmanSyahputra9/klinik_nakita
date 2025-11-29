@@ -20,10 +20,10 @@
         <!-- Table Container -->
         <div class="overflow-x-auto bg-white rounded-lg shadow border border-gray-100">
             <table class="min-w-full text-left border-collapse overflow-x-auto whitespace-nowrap">
-                <thead class="bg-pink-50">
+                <thead class="text-base">
                     <tr>
                         <template x-if="tab === 'pasien'">
-                            <th colspan="7" class="py-2 px-4 text-gray-700 font-semibold text-sm">Data Pasien</th>
+                            <th class="py-2 px-4 text-gray-700 font-semibold text-sm">Data Pasien</th>
                         </template>
                         <template x-if="tab === 'dokter'">
                             <th colspan="7" class="py-2 px-4 text-gray-700 font-semibold text-sm">Data Dokter</th>
@@ -33,7 +33,7 @@
                         </template>
                     </tr>
                     <template x-if="tab === 'pasien'">
-                        <tr class="bg-gray-100">
+                        <tr class="bg-blue-50">
                             <th class="py-3 px-4 text-sm font-medium text-gray-700">NO</th>
                             <th class="py-3 px-4 text-sm font-medium text-gray-700">RM</th>
                             <th class="py-3 px-4 text-sm font-medium text-gray-700">Nama</th>
@@ -49,7 +49,7 @@
 
                     <!-- Untuk Dokter -->
                     <template x-if="tab === 'dokter'">
-                        <tr class="bg-gray-100">
+                        <tr class="bg-blue-50">
                             <th class="py-3 px-4 text-sm font-medium text-gray-700">NO</th>
                             <th class="py-3 px-4 text-sm font-medium text-gray-700">Nama Lengkap</th>
                             <th class="py-3 px-4 text-sm font-medium text-gray-700">Spesialis</th>
@@ -63,7 +63,7 @@
 
                     <!-- Untuk Admin -->
                     <template x-if="tab === 'admin'">
-                        <tr class="bg-gray-100">
+                        <tr class="bg-blue-50">
                             <th class="py-3 px-4 text-sm font-medium text-gray-700">NO</th>
                             <th class="py-3 px-4 text-sm font-medium text-gray-700">Nama</th>
                             <th class="py-3 px-4 text-sm font-medium text-gray-700">Email</th>
@@ -72,21 +72,21 @@
                         </tr>
                     </template>
                 </thead>
-                <tbody x-show="tab === 'pasien'" class=" text-[10px]">
+                <tbody x-show="tab === 'pasien'" class=" text-[14px]">
                     @forelse ($pasiens as $pasien)
                         <tr class="border-b hover:bg-gray-50">
                             <td class="py-2 px-4 text-gray-500">{{ $loop->iteration }}</td>
                             <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->no_rm }}</td>
-                            <td class="py-2 px-4 text-gray-500 max-w-30 overflow-auto thin-scroll">
+                            <td class="py-2 px-4 text-gray-500">
                                 {{ $pasien->pasien->name }}</td>
                             <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->nik }}</td>
-                            <td class="py-2 px-4 text-gray-500 max-w-28 overflow-auto thin-scroll">{{ $pasien->email }}
+                            <td class="py-2 px-4 text-gray-500">{{ $pasien->email }}
                             </td>
                             <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->gender_label }}</td>
                             <td class="py-2 px-4 text-gray-500">{{ $pasien->pasien->umur }}</td>
-                            <td class="py-2 px-4 text-gray-500 max-w-20 overflow-auto thin-scroll">
+                            <td class="py-2 px-4 text-gray-500">
                                 {{ $pasien->pasien->alamat }}</td>
-                            <td class="py-2 px-4 text-gray-500">restdgvftyhfg{{ $pasien->pasien->phone }}</td>
+                            <td class="py-2 px-4 text-gray-500 ">restdgvftyhfg{{ $pasien->pasien->phone }}</td>
                             <td class="py-2 px-4 whitespace-nowrap">
                                 <a href="{{ route('users.show', $pasien->id) }}"
                                     class="text-blue-600 hover:text-blue-800">
@@ -137,7 +137,7 @@
                         </tr>
                     @endforelse
                 </tbody>
-                <tbody x-show="tab === 'dokter'" class=" text-[10px]">
+                <tbody x-show="tab === 'dokter'" class=" text-[14px]">
                     @forelse ($dokters as $dokter)
                         <tr class="border-b hover:bg-gray-50">
                             <td class="py-2 px-4 text-gray-500">{{ $loop->iteration }}</td>
@@ -171,7 +171,7 @@
                 </tbody>
 
                 <!-- ADMIN -->
-                <tbody x-show="tab === 'admin'" class=" text-[10px]">
+                <tbody x-show="tab === 'admin'" class=" text-[14px]">
                     @forelse ($admins as $admin)
                         <tr class="border-b hover:bg-gray-50">
                             <td class="py-2 px-4 text-gray-500">{{ $loop->iteration }}</td>
