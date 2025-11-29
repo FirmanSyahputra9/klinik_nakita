@@ -17,6 +17,95 @@
 
         </div>
 
+<!-- Search + Filter -->
+<div class="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+
+    <!-- Search -->
+    <form method="GET" class="w-full sm:w-auto">
+        <input type="hidden" name="tab" :value="tab">
+        <div class="relative w-full sm:w-64">
+            <input type="text" name="search" value="{{ request('search') }}"
+                placeholder="Cari data..."
+                class="w-full px-4 py-2 border rounded-lg text-sm focus:ring focus:ring-blue-200">
+
+            <button type="submit" class="absolute right-3 top-2.5 text-gray-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="size-5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m21 21-4.35-4.35m0 0a7.5 7.5 0 1 0-10.607-10.607 7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+            </button>
+        </div>
+    </form>
+
+    <!-- FILTER UI (no logic) -->
+    <!-- FILTER UI (No Logic) -->
+<div class="flex gap-3">
+
+    <!-- Filter PASIEN -->
+    <template x-if="tab === 'pasien'">
+        <div class="flex gap-3">
+            <!-- Gender -->
+            <select class="px-3 py-2 border rounded-lg text-sm text-gray-700 focus:ring focus:ring-blue-200">
+                <option>Semua Gender</option>
+                <option>Laki-Laki</option>
+                <option>Perempuan</option>
+            </select>
+
+            <!-- Rentang Umur -->
+            <select class="px-3 py-2 border rounded-lg text-sm text-gray-700 focus:ring focus:ring-blue-200">
+                <option>Semua Umur</option>
+                <option>0-12</option>
+                <option>13-18</option>
+                <option>19-35</option>
+                <option>36-60</option>
+                <option>60+</option>
+            </select>
+
+        </div>
+    </template>
+
+    <!-- Filter DOKTER -->
+    <template x-if="tab === 'dokter'">
+        <div class="flex gap-3">
+            <!-- Spesialis -->
+            <select class="px-3 py-2 border rounded-lg text-sm text-gray-700 focus:ring focus:ring-blue-200">
+                <option>Semua Spesialis</option>
+                <option>Umum</option>
+                <option>Gigi</option>
+                <option>Anak</option>
+                <option>Kandungan</option>
+                <option>THT</option>
+            </select>
+
+            <!-- Status -->
+            <select class="px-3 py-2 border rounded-lg text-sm text-gray-700 focus:ring focus:ring-blue-200">
+                <option>Semua Status</option>
+                <option>Aktif</option>
+                <option>Nonaktif</option>
+            </select>
+        </div>
+    </template>
+
+    <!-- Filter ADMIN -->
+    <template x-if="tab === 'admin'">
+        <div class="flex gap-3">
+            <!-- Role Admin -->
+            <select class="px-3 py-2 border rounded-lg text-sm text-gray-700 focus:ring focus:ring-blue-200">
+                <option>Semua Role</option>
+                <option>Admin</option>
+                <option>Super Admin</option>
+            </select>
+
+        </div>
+    </template>
+
+</div>
+
+</div>
+
+
+
         <!-- Table Container -->
         <div class="overflow-x-auto bg-white rounded-lg shadow border border-gray-100">
             <table class="min-w-full text-left border-collapse overflow-x-auto whitespace-nowrap">

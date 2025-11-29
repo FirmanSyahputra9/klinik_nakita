@@ -30,10 +30,40 @@
             </a>
         </div>
         <!-- Search -->
-        <div class="mb-4">
-            <input type="text" placeholder="Cari nama atau spesialisasi..."
-                class="w-full sm:w-1/3 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <div class="mb-4 flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
+
+            <!-- Search -->
+            <div class="w-full sm:w-1/3">
+                <input type="text" placeholder="Cari nama atau spesialisasi..."
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg
+                        focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            </div>
+
+            <!-- Filters -->
+            <div class="flex flex-col sm:flex-row gap-3">
+
+                <!-- Filter Spesialisasi -->
+                <select
+                    class="px-3 py-2 border rounded-lg text-gray-700
+                        focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <option>Semua Spesialisasi</option>
+                    <option>Umum</option>
+                    <option>Anak</option>
+                    <option>Gigi</option>
+                </select>
+
+                <!-- Filter Status -->
+                <select
+                    class="px-3 py-2 border rounded-lg text-gray-700
+                        focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <option>Semua Status</option>
+                    <option>Aktif</option>
+                    <option>Tidak Aktif</option>
+                </select>
+
+            </div>
         </div>
+
 
         <!-- Table -->
         <div class="bg-white rounded-lg shadow overflow-x-auto">

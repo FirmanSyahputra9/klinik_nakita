@@ -8,6 +8,8 @@
                 <h2 class="font-semibold text-lg">Data Pasien</h2>
                 <input type="text" placeholder="Cari Pasien..."
                     class="border border-gray-300 rounded-md px-3 py-2 w-64 focus:outline-none focus:ring focus:ring-blue-200" />
+                <input type="date"
+                     class="border border-gray-300 rounded-md px-3 py-2 w-48 focus:outline-none focus:ring focus:ring-blue-200" />
             </div>
 
             <div class="overflow-x-auto">
