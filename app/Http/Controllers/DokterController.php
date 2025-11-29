@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dokter;
+use App\Models\DokterAktif;
 use App\Models\Obat;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -74,6 +76,10 @@ class DokterController extends Controller
                 'nik' => $request->nik
             ]);
 
+            DokterAktif::create([
+                'dokter_id' => $user->dokter->id
+            ]);
+
             DB::commit();
 
             return redirect()
@@ -91,8 +97,24 @@ class DokterController extends Controller
      */
     public function show(Dokter $dokter)
     {
-        //
+        $dokterId = $dokter->id;
+
+        $dokter = User::with('dokter', 'dokter.jadwals')
+            ->whereHas('dokter', function ($q) use ($dokterId) {
+                $q->where('id', $dokterId);
+            })->first();
+
+        if ($dokter && $dokter->dokter && $dokter->dokter->jadwals) {
+            foreach ($dokter->dokter->jadwals as $jadwal) {
+                // Properti baru untuk jam saja
+                $jadwal->mulai_aktif = date('H:i', strtotime($jadwal->aktif_mulai));
+                $jadwal->selesai_aktif = date('H:i', strtotime($jadwal->aktif_selesai));
+            }
+        }
+
+        return view('pages.admin.detail-dokter', compact('dokterId', 'dokter'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

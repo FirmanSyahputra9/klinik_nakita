@@ -53,7 +53,7 @@
                 <tbody>
                     @forelse ($dokters as $data)
                     <tr class="border-b hover:bg-gray-50">
-                        <td class="px-4 py-3 font-medium text-gray-800">{{ $data->dokter->name }}</td>
+                        <td class="px-4 py-3 font-medium text-gray-800"><a href="{{ route('dokter.show', $data->dokter->id) }}">{{ $data->dokter->name }}</a></td>
                         <td class="px-4 py-3">{{ $data->dokter->spesialisasi }}</td>
                         <td class="px-4 py-3">{{ $data->dokter->phone }}</td>
                         <td class="px-4 py-3">{{ $data->email }}</td>

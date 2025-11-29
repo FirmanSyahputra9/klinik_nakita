@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminDokterJadwalController;
 use App\Http\Controllers\AdminUser as AdminUser;
 use App\Http\Controllers\AlergiController;
 use App\Http\Controllers\DokterController;
@@ -49,8 +50,7 @@ Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
 
     Route::resource('/stok-obat', ObatController::class);
     Route::resource('dokter', DokterController::class);
-    Route::view('/detail-dokter', 'pages.admin.detail-dokter')
-        ->name('admin.detaildokter');
+    Route::resource('dokter-jadwal', AdminDokterJadwalController::class);
 
     // Route::resource('pasien', PasienController::class);
 });
