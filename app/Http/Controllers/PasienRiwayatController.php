@@ -19,14 +19,15 @@ class PasienRiwayatController extends Controller
         $pasienId = Pasien::where('user_id', Auth::user()->id)->value('id');
         $riwayat = Antrian::where('pasien_id', $pasienId)->whereHas('kasir', function ($q) {
             $q->where('status', '!=', false);
-        })->where('status', true)->with(['registrasi', 'dokter', 'tindakan', 'data_pemeriksaan', 'kasir' => function ($q) {
+        })->where('status', true)->with(['registrasi','resep', 'dokter', 'tindakan', 'data_pemeriksaan', 'kasir' => function ($q) {
             $q->where('status', '!=', false);
         }])->get()->map(function ($item) {
             if ($item->registrasi && $item->registrasi->tanggal_kunjungan) {
                 $item->registrasi->tanggal_kunjungan = \Carbon\Carbon::parse($item->registrasi->tanggal_kunjungan)->format('d M Y');
                 if ($item->created_at) {
-                    $item->created_at = \Carbon\Carbon::parse($item->created_at)->format('h:i:s');
+                    $item->jam_dibuat = \Carbon\Carbon::parse($item->created_at)->format('h:i:s');
                 }
+            
             }
             return $item;
         });

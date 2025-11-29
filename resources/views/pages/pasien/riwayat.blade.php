@@ -27,7 +27,7 @@
 
                             <!-- Info -->
                             <div class="text-left">
-                                <h3 class="font-semibold text-lg text-gray-900">Kontrol Rutin</h3>
+                                <h3 class="font-semibold text-lg text-gray-900">{{ $item->tindakan->nama_tindakan }}</h3>
 
                                 <div class="flex items-center gap-4 mt-2 text-sm text-gray-600">
                                     <div class="flex items-center gap-1">
@@ -35,7 +35,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                         </svg>
-                                        <span>{{ $item->tanggal }}</span>
+                                        <span>{{ $item->registrasi->tanggal_kunjungan }}</span>
                                     </div>
 
                                     <div class="flex items-center gap-1">
@@ -51,7 +51,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                         </svg>
-                                        <span>{{ $item->dokter }}</span>
+                                        <span>{{ $item->dokter->name?? '-' }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -72,32 +72,32 @@
                         <div class="grid grid-cols-2 gap-4 text-sm py-4">
                             <div>
                                 <p class="text-gray-500">Jenis Tindakan</p>
-                                <p class="font-medium text-gray-600">{{ $item->tindakan }}</p>
+                                <p class="font-medium text-gray-600">{{ $item->tindakan->jenis_tindakan??'-' }}</p>
                             </div>
 
                             <div>
                                 <p class="text-gray-500">Keluhan Utama</p>
-                                <p class="font-medium text-gray-500">{{ $item->keluhan }}</p>
+                                <p class="font-medium text-gray-500">{{ $item->registrasi->keluhan??'-' }}</p>
                             </div>
 
                             <div>
                                 <p class="text-gray-500">Diagnosa</p>
-                                <p class="font-medium text-gray-500">{{ $item->diagnosa }}</p>
+                                <p class="font-medium text-gray-500">{{ $item->data_pemeriksaan->diagnosa??'-' }}</p>
                             </div>
 
                             <div>
                                 <p class="text-gray-500">Catatan</p>
-                                <p class="font-medium text-gray-500">{{ $item->catatan }}</p>
+                                <p class="font-medium text-gray-500">{{ $item->tindakan->catatan??'-' }}</p>
                             </div>
 
                             <div>
                                 <p class="text-gray-500">Alergi</p>
-                                <p class="font-medium text-gray-600">{{ $item->alergi }}</p>
+                                <p class="font-medium text-gray-600">{{ $item->alergi->alergi??'-' }}</p>
                             </div>
 
                             <div>
                                 <p class="text-gray-500">Reaksi</p>
-                                <p class="font-medium text-gray-600">{{ $item->reaksi }}</p>
+                                <p class="font-medium text-gray-600">{{ $item->alergi->reaksi }}</p>
                             </div>
                         </div>
 
