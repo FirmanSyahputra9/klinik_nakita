@@ -49,6 +49,9 @@ Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
 
     Route::resource('/stok-obat', ObatController::class);
     Route::resource('dokter', DokterController::class);
+    Route::view('/detail-dokter', 'pages.admin.detail-dokter')
+        ->name('admin.detaildokter');
+
     // Route::resource('pasien', PasienController::class);
 });
 
