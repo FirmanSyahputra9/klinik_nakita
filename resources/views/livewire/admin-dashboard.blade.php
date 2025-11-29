@@ -196,7 +196,7 @@
                 <a href="#"
                     class="block bg-blue-100 hover:bg-blue-200 transition rounded-xl p-4 shadow border border-blue-200">
                     <h3 class="text-blue-900 font-semibold text-md">Lihat User</h3>
-                    <p class="text-blue-700 text-sm mt-1">Kelola akun pasien dan pengguna sistem.</p>
+                    <p class="text-blue-700 text-sm mt-1">Kelola Data Pasien</p>
                 </a>
 
                 <!-- Card 2 -->
