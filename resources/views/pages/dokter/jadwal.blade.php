@@ -142,7 +142,7 @@
                             <!-- Status -->
                             <td class="py-4 px-4">
                                 @if ($dokter->aktif)
-                                <span class="inline-flex px-3 py-1 rounded-full font-medium 
+                                <span class="inline-flex px-3 py-1 rounded-full font-medium
                                         {{ $dokter->aktif->aktif == 1 ? 'bg-green-800 text-white' : 'bg-red-800 text-white' }}">
                                     {{ $dokter->aktif->aktif == 1 ? 'Online' : 'Offline' }}
                                 </span>

@@ -8,7 +8,7 @@
             <div class="flex flex-col items-start space-y-6">
                 <div>
                     <p class="text-sm font-medium text-gray-600 uppercase tracking-wider">Tanggal Bergabung</p>
-                    <p class="text-lg font-semibold text-gray-800 mt-1">{{ $dokter->approved_at->format('d F Y') }}</p>
+                    <p class="text-lg font-semibold text-gray-800 mt-1">{{ $dokter->approved_at->format('d F Y')??'' }}</p>
                 </div>
                 <div class="flex flex-col space-y-4 w-full">
                     <a href="mailto:nabilahdaa@gmail.com"
@@ -35,14 +35,14 @@
                             </svg>
                         </div>
                         <span
-                            class="ml-3 text-blue-800 font-medium text-sm md:text-base">{{ $dokter->dokter->phone }}</span>
+                            class="ml-3 text-blue-800 font-medium text-sm md:text-base">{{ $dokter->dokter->phone??'-' }}</span>
                     </a>
                 </div>
             </div>
 
             <div
                 class="col-span-1 md:col-span-1 lg:col-span-1 flex flex-col items-center text-center md:items-start md:text-left">
-                <h2 class="text-3xl lg:text-4xl font-extrabold text-[#1F75BF] leading-tight">{{ $dokter->dokter->name }}
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-[#1F75BF] leading-tight">{{ $dokter->dokter->name??'-' }}
                 </h2>
                 <div>
                     @livewire('dokter-aktif')
@@ -51,7 +51,7 @@
 
                 <div
                     class="mt-4 inline-block bg-[#E2ECF6] p-1 px-3 text-sm rounded-full text-blue-700 font-semibold shadow-inner">
-                    {{ $dokter->dokter->spesialisasi }}
+                    {{ $dokter->dokter->spesialisasi??'-' }}
                 </div>
 
             </div>
@@ -113,7 +113,7 @@
                     <p class="text-[10px] sm:text-sm font-semibold text-yellow-600 mb-1 uppercase tracking-wider">
                         Menunggu
                     </p>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900">{{ $janji->where('status', false)->count() }}</h2>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900">{{ $janji->where('status', false)->count()??'0' }}</h2>
                 </div>
                 <svg class="w-5 h-5 sm:w-8 sm:h-8 text-yellow-500 opacity-75" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
@@ -132,7 +132,7 @@
                     <p class="text-[10px] sm:text-sm font-semibold text-red-600 mb-1 uppercase tracking-wider">
                         Antrian
                     </p>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900">{{ $janji->where('status', true)->count() }}</h2>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900">{{ $janji->where('status', true)->count()??'0' }}</h2>
                 </div>
                 <svg class="w-5 h-5 sm:w-8 sm:h-8 text-red-500 opacity-75" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
@@ -171,12 +171,12 @@
                         <tr class="hover:bg-blue-50 border-b">
                             <td class="px-4 py-3 flex items-center space-x-2">
                                 <div class="w-6 h-6 rounded-full bg-blue-100 border border-blue-300"></div>
-                                <span class="font-medium truncate">{{ $item->dokters->name }}</span>
+                                <span class="font-medium truncate">{{ $item->dokters->name }}??'-'</span>
                             </td>
-                            <td class="px-4 py-3 truncate">{{ $item->pasiens->name }}</td>
-                            <td class="px-4 py-3">{{ $item->tanggal_kunjungan }}</td>
-                            <td class="px-4 py-3">{{ $item->jam_berobat }}</td>
-                            <td class="px-4 py-3 truncate">{{ $item->keluhan }}</td>
+                            <td class="px-4 py-3 truncate">{{ $item->pasiens->name??'-' }}</td>
+                            <td class="px-4 py-3">{{ $item->tanggal_kunjungan??'-' }}</td>
+                            <td class="px-4 py-3">{{ $item->jam_berobat??'-' }}</td>
+                            <td class="px-4 py-3 truncate">{{ $item->keluhan??'-' }}</td>
                             <td class="px-4 py-3 text-center">
                                 <span class="bg-blue-200 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">
                                     Antrian

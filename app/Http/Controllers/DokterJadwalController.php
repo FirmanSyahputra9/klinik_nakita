@@ -19,6 +19,7 @@ class DokterJadwalController extends Controller
             $dokterJadwals = new Dokter();
             $dokterJadwals->setRelation('jadwals', collect());
         }
+
         return view('pages.dokter.jadwal', compact('dokterJadwals'));
     }
 

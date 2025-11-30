@@ -69,7 +69,7 @@ Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
 });
 
 
-Route::middleware(['auth'])->prefix('dokter')->group(function () {
+Route::middleware(['auth', 'is.dokter'])->prefix('dokter')->group(function () {
     Route::get('/', [DokterDashboardController::class, 'index'])->name('dashboarddokter');
     Route::resource('janji', DokterJanjiController::class);
     Route::resource('resep', ResepController::class);

@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Antrian;
 use App\Models\Dokter;
+use App\Models\JenisPemeriksaan;
 use App\Models\Pasien;
+use App\Models\Registrasi;
 use Carbon\Carbon;
 
 
@@ -17,28 +20,7 @@ class AdminUser extends Controller
      */
     public function index()
     {
-        $pasiens = User::whereHas('pasien')
-            ->join('pasiens', 'pasiens.user_id', '=', 'users.id')
-            ->with('pasien')
-            ->orderBy('pasiens.no_rm', 'asc')
-            ->orderBy('users.created_at', 'desc')
-            ->select('users.*')
-            ->paginate(10)
-            ->appends(request()->query());
-
-        $admins = User::whereHas('admin')->with(['admin'])->paginate(10)->appends(request()->query());;
-        $dokters = User::whereHas('dokter')->with(['dokter'])->paginate(10)->appends(request()->query());;
-        $pasiens->getCollection()->transform(function ($user) {
-            if ($user->pasien) {
-                $birthDate = Carbon::parse($user->pasien->birth_date);
-                $user->pasien->birth_date_formatted = Carbon::parse($user->pasien->birth_date)->format('d-m-Y');
-                $user->pasien->gender_label = $user->pasien->gender === 'female' ? 'Perempuan' : 'Laki-laki';
-                $user->pasien->umur = $birthDate->age . ' tahun';
-            }
-            return $user;
-        });
-
-        return view('pages.admin.users', compact('pasiens', 'admins', 'dokters'));
+        return view('pages.admin.users');
     }
 
     public function approve($id)
@@ -51,7 +33,7 @@ class AdminUser extends Controller
 
         if ($user->pasien) {
             if (empty($user->pasien->no_rm)) {
-                $lastRm = \App\Models\Pasien::orderBy('no_rm', 'desc')->value('no_rm');
+                $lastRm = Pasien::orderBy('no_rm', 'desc')->value('no_rm');
 
                 $lastNumber = $lastRm ? intval(substr($lastRm, 2)) : 0;
 
@@ -89,21 +71,54 @@ class AdminUser extends Controller
      */
     public function show(string $id)
     {
-        $pasien = (object) [
-            'id' => $id,
-            'nama' => 'Nama Pasien',
-            'jenis_kelamin' => 'L',
-            'usia' => 25,
-            'gol_darah' => 'O',
-            'tanggal_lahir' => '9 Agustus 2004',
-            'alamat' => "Jl. Contoh No. 10",
-            'no_telepon' => '08123456789',
-            'email' => 'pasien@example.com',
-            'nik' => '12710308000402',
-            'created_at' => Carbon::parse("2024-11-09"),
-        ];
+        $userId = User::findOrFail($id);
 
-        return view('pages.admin.detail-pasien', compact('pasien'));
+        $user = User::where('id', $userId->id)->whereHas('pasien')->with('pasien')->first();
+
+        if ($user) {
+            if ($user->pasien->gender) {
+                $user->pasien->gender_label = $user->pasien->gender == 'male' ? 'Laki-laki' : 'Perempuan';
+            }
+            $user->pasien->umur = Carbon::parse($user->pasien->birth_date)->age;
+            if ($user->pasien->birth_date) {
+                $user->pasien->tanggal_lahir = Carbon::parse($user->pasien->birth_date)->format('d M Y');
+            }
+            if ($user->created_at) {
+                $user->create_at = Carbon::parse($user->created_at)->translatedFormat('d F Y');
+            }
+        }
+
+        $pasienId = Pasien::where('user_id', $user->id)->value('id');
+
+        // riwayat
+        $riwayat = Antrian::where('pasien_id', $pasienId)->whereHas('kasir', function ($q) {
+            $q->where('status', '!=', false);
+        })->where('status', true)->with(['registrasi', 'resep', 'dokter', 'tindakan', 'data_pemeriksaan', 'kasir' => function ($q) {
+            $q->where('status', '!=', false);
+        }])->get()->map(function ($item) {
+            if ($item->registrasi && $item->registrasi->tanggal_kunjungan) {
+                $item->registrasi->tanggal_kunjungan = Carbon::parse($item->registrasi->tanggal_kunjungan)->format('d M Y');
+                if ($item->created_at) {
+                    $item->jam_dibuat = Carbon::parse($item->created_at)->format('h:i:s');
+                }
+            }
+            return $item;
+        });
+        $riwayat = $riwayat ?? collect();
+
+        // Hasil Lab
+        $hasil = Antrian::where('pasien_id', $pasienId)->where('status', true)->whereHas('lab')->whereHas('data_pemeriksaan')->whereHas('tindakan')->with('registrasi', 'dokter', 'tindakan', 'data_pemeriksaan', 'lab', 'lab.jenis')->get()->map(function ($item) {
+            if ($item->registrasi->tanggal_kunjungan) {
+                $item->registrasi->tanggal_kunjungan = Carbon::parse($item->registrasi->tanggal_kunjungan)->format('d M Y');
+                if ($item->created_at) {
+                    $item->created_at = Carbon::parse($item->created_at)->format('h:i:s');
+                }
+            }
+            return $item;
+        });
+        $hasil = $hasil ?? collect();
+
+        return view('pages.admin.detail-pasien', compact('user', 'riwayat', 'hasil'));
     }
 
     /**
