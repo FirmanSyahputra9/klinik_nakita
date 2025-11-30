@@ -31,7 +31,7 @@
 
                                 <table
                                     class="table-fixed w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
-                                    <thead class="bg-gray-100 text-gray-700">
+                                    <thead class="bg-blue-50 text-gray-700">
                                         <tr>
                                             <th class="px-4 py-2">Pemeriksaan</th>
                                             <th class="px-4 py-2">Hasil</th>

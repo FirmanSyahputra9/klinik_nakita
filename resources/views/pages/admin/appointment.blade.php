@@ -27,7 +27,7 @@
         <!-- Tabel -->
         <div class="overflow-x-auto bg-white shadow rounded-lg">
             <table class="w-full border border-gray-200 whitespace-nowrap">
-                <thead class="bg-gray-100 text-gray-700">
+                <thead class="bg-blue-50 text-gray-700">
                     <tr>
                         <th class="px-4 py-2 text-left">Kode</th>
                         <th class="px-4 py-2 text-left">Tanggal</th>

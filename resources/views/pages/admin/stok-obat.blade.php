@@ -28,6 +28,8 @@
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-semibold text-gray-800">Stok Obat</h1>
 
+
+
             <a href="{{ route('stok-obat.create') }}"
                 class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
@@ -39,10 +41,54 @@
             </a>
         </div>
 
+        <!-- Search & Filter -->
+        <div class="mb-4 flex flex-col sm:flex-row gap-3 justify-between items-start sm:items-center">
+
+            <!-- Search -->
+            <form method="GET" class="flex items-center gap-3 w-full sm:w-auto">
+                <div class="relative w-full sm:w-64">
+                    <input type="text" name="search"
+                        value="{{ request('search') }}"
+                        placeholder="Cari kode, nama, satuan..."
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+
+                    <button type="submit" class="absolute right-3 top-2.5 text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                            class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m21 21-4.35-4.35m0 0a7.5 7.5 0 1 0-10.607-10.607 7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Filter Satuan -->
+                <select name="satuan" onchange="this.form.submit()"
+                    class="px-3 py-2 border rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500">
+                    <option value="">Semua Satuan</option>
+                    @foreach($obats->pluck('satuan')->unique() as $s)
+                        <option value="{{ $s }}" {{ request('satuan') == $s ? 'selected' : '' }}>
+                            {{ ucfirst($s) }}
+                        </option>
+                    @endforeach
+                </select>
+
+                <!-- Filter Stok -->
+                <select name="stok_filter" onchange="this.form.submit()"
+                    class="px-3 py-2 border rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500">
+                    <option value="">Semua Stok</option>
+                    <option value="low" {{ request('stok_filter')=='low' ? 'selected' : '' }}>Stok Menipis (≤ 10)</option>
+                    <option value="safe" {{ request('stok_filter')=='safe' ? 'selected' : '' }}>Stok Aman (> 10)</option>
+                </select>
+            </form>
+
+        </div>
+
+
         <!-- Table -->
         <div class="bg-white rounded-lg shadow overflow-x-auto">
             <table class="min-w-full text-sm text-left text-gray-600">
-                <thead class="bg-gray-100 text-gray-700 uppercase text-xs font-semibold">
+                <thead class="bg-blue-50 text-gray-700 uppercase text-xs font-semibold">
                     <tr>
                         <th class="px-4 py-3">Kode</th>
                         <th class="px-4 py-3">Nama Obat</th>
