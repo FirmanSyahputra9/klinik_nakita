@@ -16,38 +16,38 @@
 
             <tbody class="text-gray-700">
                 @forelse ($appointment as $item)
-                    <tr class="bg-white shadow rounded-lg text-sm hover:bg-gray-50">
-                        <td class="px-2 py-2">{{ $item->appointment_code }}</td>
-                        <td class="px-2 py-2">{{ $item->tanggal_kunjungan }}</td>
-                        <td class="px-2 py-2">{{ $item->pasiens->name }}</td>
-                        <td class="px-2 py-2">{{ $item->dokters->name }}</td>
-                        <td class="px-2 py-2">{{ $item->keluhan }}</td>
-                        <td
-                            class="px-2 py-2
-                             @if ($item->status && $item->antrians->kasir->status)
+                <tr class="bg-white shadow rounded-lg text-sm hover:bg-gray-50">
+                    <td class="px-2 py-2">{{ $item->appointment_code }}</td>
+                    <td class="px-2 py-2">{{ $item->tanggal_kunjungan }}</td>
+                    <td class="px-2 py-2">{{ $item->pasiens->name }}</td>
+                    <td class="px-2 py-2">{{ $item->dokters->name }}</td>
+                    <td class="px-2 py-2">{{ $item->keluhan }}</td>
+                    <td
+                        class="px-2 py-2
+                             @if ($item->status?? '' && $item->antrians->kasir->status?? '')
                                 bg-gray-50 text-gray-600
-                            @elseif ($item->status && !$item->antrians->kasir->status)
+                            @elseif ($item->status?? '' && !$item->antrians->kasir->status?? '')
                                 bg-green-50 text-green-600
                             @else
                                 bg-yellow-50 text-yellow-600
                             @endif
                             ">
-                            @if ($item->status && $item->antrians->kasir->status)
-                                Selesai
-                            @elseif ($item->status && !$item->antrians->kasir->status)
-                                Acc
-                            @else
-                                Antrian
-                            @endif
-                        </td>
+                        @if ($item->status?? '' && $item->antrians->kasir->status?? '')
+                        Selesai
+                        @elseif ($item->status?? '' && !$item->antrians->kasir->status?? '')
+                        Acc
+                        @else
+                        Antrian
+                        @endif
+                    </td>
 
-                    </tr>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="6" class="text-center py-6 text-gray-400">
-                            Belum ada data pendaftaran
-                        </td>
-                    </tr>
+                <tr>
+                    <td colspan="6" class="text-center py-6 text-gray-400">
+                        Belum ada data pendaftaran
+                    </td>
+                </tr>
                 @endforelse
             </tbody>
         </table>

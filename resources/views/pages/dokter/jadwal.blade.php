@@ -1,70 +1,196 @@
 <x-layouts.app :title="__('Jadwal')">
-    <div class="p-6">
+    <div class="flex-1 space-y-6">
+
         <!-- Header -->
-        <div class="flex justify-between items-center mb-6">
-            <div>
-                <h1 class="text-2xl font-bold text-gray-800">Jadwal Praktek</h1>
-            </div>
+        <div>
+            <h2 class="text-2xl font-bold">Jadwal Praktik Dokter</h2>
         </div>
 
-        <!-- Card Container -->
-        <div class="bg-white border rounded-xl shadow-sm p-5">
-            <h2 class="text-lg font-semibold text-gray-700 mb-4">Jadwal Praktek</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                @forelse ($dokterJadwals->jadwals as $jadwal)
-                    <div
-                        x-data="{ editing: false, ket: '{{ $jadwal->keterangan }}' }"
-                        class="border rounded-xl p-4 shadow-sm hover:shadow-md transition"
-                    >
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="text-lg font-semibold text-gray-800">{{ $jadwal->hari }}</h3>
-                            <!-- <span class="bg-green-100 text-green-700 text-sm px-3 py-1 rounded-full font-medium">
-                                Aktif
-                            </span> -->
-                        </div>
+        <!-- Content Card -->
+        <div
+            class="bg-white rounded-lg shadow p-6"
+            x-data="jadwalFilter()">
 
-                        <!-- Waktu -->
-                        <p class="text-gray-600">
-                            {{ $jadwal->aktif_mulai->format('H:i') }} - {{ $jadwal->aktif_selesai->format('H:i') }}
-                        </p>
+            <!-- FILTER SECTION -->
+            <div class="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
 
-                        <!-- Keterangan -->
-                        <div class="text-gray-600 mb-4">
-                            <!-- Mode view -->
-                            <p x-show="!editing" x-text="ket"></p>
+                <!-- Search -->
+                <div>
+                    <label class="text-xs font-semibold text-gray-600">Cari Dokter</label>
+                    <input
+                        type="text"
+                        x-model="search"
+                        placeholder="Cari nama dokter..."
+                        class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-green-200 focus:outline-none">
+                </div>
 
-                            <!-- Mode edit -->
-                            <input
-                                x-show="editing"
-                                x-model="ket"
-                                type="text"
-                                class="border px-3 py-1 rounded-lg w-full"
-                            >
-                        </div>
+                <!-- Filter Spesialisasi -->
+                <div>
+                    <label class="text-xs font-semibold text-gray-600">Spesialisasi</label>
+                    <select
+                        x-model="spesialis"
+                        class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-green-200 focus:outline-none">
+                        <option value="">Semua Spesialisasi</option>
 
-                        <!-- Tombol -->
-                        <button
-                            x-show="!editing"
-                            @click="editing = true"
-                            class="bg-blue-100 hover:bg-blue-200 text-gray-600 font-medium w-full py-2 rounded-lg transition"
-                        >
-                            Edit Keterangan
-                        </button>
+                        @php
+                        $uniqueSpesialis = $dokters->pluck('spesialisasi')->unique();
+                        @endphp
 
-                        <button
-                            x-show="editing"
-                            @click="editing = false"
-                            class="bg-green-600 hover:bg-green-700 text-white font-medium w-full py-2 rounded-lg transition"
-                        >
-                            Konfirmasi
-                        </button>
-                    </div>
+                        @foreach ($uniqueSpesialis as $s)
+                        <option value="{{ $s }}">{{ $s }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-                @empty
-                    <p class="text-center py-6 text-gray-400">Belum ada jadwal praktek</p>
-                @endforelse
+                <!-- Filter Status -->
+                <div>
+                    <label class="text-xs font-semibold text-gray-600">Status</label>
+                    <select
+                        x-model="status"
+                        class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-green-200 focus:outline-none">
+                        <option value="">Semua Status</option>
+                        <option value="online">Online</option>
+                        <option value="offline">Offline</option>
+                    </select>
+                </div>
             </div>
 
+            <!-- TABLE -->
+            <div class="overflow-x-auto">
+                <table class="w-full whitespace-nowrap text-xs">
+                    <thead>
+                        <tr class="border-b border-gray-200">
+                            <th class="text-left py-3 px-4 font-semibold text-gray-700 md:max-w-20 md:min-w-10">Nama</th>
+                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Dokter</th>
+                            <th class="text-left py-3 px-4 font-semibold text-gray-700 hidden md:block">Jadwal</th>
+                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Status</th>
+                            <th class="py-3 px-4 font-semibold text-gray-700 hidden md:flex justify-center items-center text-center">Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach ($dokters as $dokter)
+                        <tr
+                            class="border-b border-gray-100 hover:bg-gray-50"
+                            x-show="matched({
+                                name: '{{ strtolower($dokter->name) }}',
+                                spesialis: '{{ strtolower($dokter->spesialisasi) }}',
+                                status: '{{ $dokter->aktif && $dokter->aktif->aktif == 1 ? 'online' : 'offline' }}'
+                            })">
+                            <!-- Nama -->
+                            <td class="py-4 px-4 text-gray-900 md:max-w-20 md:min-w-10">
+                                <div class="flex inline-flex">
+                                    <div class="flex md:hidden">
+                                        <a href="{{ route('registrasi.index', $dokter->id) }}"
+                                            class="inline-flex items-center gap-2 px-2 mx-2 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                            <span class="hidden md:flex">Registrasi</span>
+                                        </a>
+                                    </div>
+                                    {{ $dokter->name }}
+                                </div>
+
+                                <!-- Mobile Jadwal -->
+                                <div class="flex flex-col gap-1 block md:hidden mt-2">
+                                    @foreach ($dokter->grouped_jadwals as $jadwalGroup)
+                                    @php
+                                    $hariTampil =
+                                    $jadwalGroup['hari_mulai'] === $jadwalGroup['hari_selesai']
+                                    ? $jadwalGroup['hari_mulai']
+                                    : $jadwalGroup['hari_mulai'].' – '.$jadwalGroup['hari_selesai'];
+                                    @endphp
+
+                                    <div class="flex items-center flex-wrap gap-1">
+                                        <span class="font-semibold text-gray-800">{{ $hariTampil }}</span>
+                                        <span class="text-gray-500">•</span>
+                                        <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded-md">
+                                            {{ $jadwalGroup['mulai'] }} - {{ $jadwalGroup['selesai'] }}
+                                        </span>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </td>
+
+                            <!-- Spesialisasi -->
+                            <td class="py-4 px-4 text-gray-700">{{ $dokter->spesialisasi }}</td>
+
+                            <!-- Jadwal desktop -->
+                            <td class="py-4 px-4 text-gray-700 hidden md:block">
+                                <div class="flex flex-col gap-1">
+                                    @foreach ($dokter->grouped_jadwals as $jadwalGroup)
+                                    @php
+                                    $hariTampil =
+                                    $jadwalGroup['hari_mulai'] === $jadwalGroup['hari_selesai']
+                                    ? $jadwalGroup['hari_mulai']
+                                    : $jadwalGroup['hari_mulai'].' – '.$jadwalGroup['hari_selesai'];
+                                    @endphp
+
+                                    <div class="flex items-center flex-wrap gap-1">
+                                        <span class="font-semibold text-gray-800">{{ $hariTampil }}</span>
+                                        <span class="text-gray-500">•</span>
+                                        <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded-md">
+                                            {{ $jadwalGroup['mulai'] }} - {{ $jadwalGroup['selesai'] }}
+                                        </span>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </td>
+
+                            <!-- Status -->
+                            <td class="py-4 px-4">
+                                @if ($dokter->aktif)
+                                <span class="inline-flex px-3 py-1 rounded-full font-medium 
+                                        {{ $dokter->aktif->aktif == 1 ? 'bg-green-800 text-white' : 'bg-red-800 text-white' }}">
+                                    {{ $dokter->aktif->aktif == 1 ? 'Online' : 'Offline' }}
+                                </span>
+                                @else
+                                <span class="inline-flex px-3 py-1 rounded-full font-medium text-gray-700 bg-gray-100">
+                                    Tidak Ada Data
+                                </span>
+                                @endif
+                            </td>
+
+                            <!-- Aksi -->
+                            <td class="py-4 px-4 hidden md:flex justify-center">
+                                <a href="{{ route('registrasi.index', $dokter->id) }}"
+                                    class="inline-flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                    <span>Registrasi</span>
+                                </a>
+                            </td>
+
+                        </tr>
+                        @endforeach
+                    </tbody>
+
+                </table>
+            </div>
         </div>
     </div>
+
+    <!-- ALPINE FILTER SCRIPT -->
+    <script>
+        function jadwalFilter() {
+            return {
+                search: "",
+                spesialis: "",
+                status: "",
+
+                matched(d) {
+                    let nameMatch = d.name.includes(this.search.toLowerCase());
+                    let spesMatch = this.spesialis === "" || d.spesialis === this.spesialis.toLowerCase();
+                    let statMatch = this.status === "" || d.status === this.status;
+
+                    return nameMatch && spesMatch && statMatch;
+                }
+            }
+        }
+    </script>
+
 </x-layouts.app>
