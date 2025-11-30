@@ -27,7 +27,7 @@ class PasienRiwayatController extends Controller
                 if ($item->created_at) {
                     $item->jam_dibuat = \Carbon\Carbon::parse($item->created_at)->format('h:i:s');
                 }
-            
+
             }
             return $item;
         });

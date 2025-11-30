@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Antrian;
 use App\Models\Appointment;
+use App\Models\Kasir;
 use App\Models\Registrasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,12 +18,30 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $registrasi = Registrasi::with(['pasiens', 'dokters', 'dokter_jadwals'])->orderBy('status', 'asc')->get()->map(function ($item) {
-            if ($item->tanggal_kunjungan) {
-                $item->tanggal_kunjungan = \Carbon\Carbon::parse($item->tanggal_kunjungan)->format('d M Y');
-            }
-            return $item;
-        });
+        $registrasi = Registrasi::with([
+            'pasiens',
+            'dokters',
+            'dokter_jadwals',
+            'antrians.kasir'
+        ])
+            ->orderBy(
+                Kasir::select('status')
+                    ->whereIn(
+                        'kasirs.antrian_id',
+                        Antrian::select('id')
+                            ->whereColumn('antrians.registrasi_id', 'registrasis.id')
+                    )
+                    ->limit(1),
+                'asc'
+            )
+            ->orderBy('tanggal_kunjungan', 'asc')->paginate(10, ['*'], 'appointment-page')->tap(function ($paginator) {
+                $paginator->getCollection()->transform(function ($item) {
+                    if ($item->tanggal_kunjungan) {
+                        $item->tanggal_kunjungan = Carbon::parse($item->tanggal_kunjungan)->format('d M Y');
+                    }
+                    return $item;
+                });
+            });
         return view('pages.admin.appointment', compact('registrasi'));
     }
 

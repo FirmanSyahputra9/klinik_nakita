@@ -77,10 +77,15 @@ class KasirController extends Controller
         //
     }
 
-    public function konfirmasi($id){
-        $kasir = Kasir::where('id', $id)->first();
-        $kasir->status = true;
-        $kasir->save();
+    public function konfirmasi(Request $request, $id)
+    {
+        $request->validate([
+            'biaya_layanan' => 'required',
+        ]);
+        Kasir::where('id', $id)->first()->update([
+            'biaya_layanan' => $request->biaya_layanan,
+            'status' => true,
+        ]);
         return redirect()->route('kasir.index')->with('success', 'Kasir berhasil dikonfirmasi');
     }
 }

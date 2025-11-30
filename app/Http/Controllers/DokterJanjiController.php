@@ -17,27 +17,8 @@ class DokterJanjiController extends Controller
      */
     public function index()
     {
-        $today = date('Y-m-d');
-        $dokterId = Dokter::where('user_id', Auth::id())->value('id');
-
-        $janji = Antrian::with(['pasien', 'registrasi', 'dokter'])
-            ->where('dokter_id', $dokterId)
-            ->whereHas('registrasi', function ($q) use ($today) {
-                $q->whereDate('tanggal_kunjungan', $today);
-            })
-            ->orderBy('status', 'asc')
-            ->paginate(10)->through(function ($item) {
-                if ($item->registrasi && $item->registrasi->tanggal_kunjungan) {
-                    $item->registrasi->tanggal_kunjungan = \Carbon\Carbon::parse($item->registrasi->tanggal_kunjungan)
-                        ->format('d M Y');
-                }
-                return $item;
-            });
-
-        return view('pages.dokter.janji', compact('janji'));
+        return view('pages.dokter.janji');
     }
-
-
 
     /**
      * Show the form for creating a new resource.

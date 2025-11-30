@@ -23,8 +23,23 @@
                         <td class="px-2 py-2">{{ $item->dokters->name }}</td>
                         <td class="px-2 py-2">{{ $item->keluhan }}</td>
                         <td
-                            class="px-2 py-2 {{ $item->status ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600' }}">
-                            {{ $item->status ? 'Check-In' : 'Belum' }}</td>
+                            class="px-2 py-2
+                             @if ($item->status && $item->antrians->kasir->status)
+                                bg-gray-50 text-gray-600
+                            @elseif ($item->status && !$item->antrians->kasir->status)
+                                bg-green-50 text-green-600
+                            @else
+                                bg-yellow-50 text-yellow-600
+                            @endif
+                            ">
+                            @if ($item->status && $item->antrians->kasir->status)
+                                Selesai
+                            @elseif ($item->status && !$item->antrians->kasir->status)
+                                Acc
+                            @else
+                                Antrian
+                            @endif
+                        </td>
                     </tr>
                 @empty
                     <tr>

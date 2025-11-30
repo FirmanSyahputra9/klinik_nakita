@@ -20,14 +20,10 @@
             this.confirmId = id;
             this.showConfirm = true;
         }
-    }">
+    }" x-cloak>
 
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-semibold text-gray-800">Kasir</h1>
-
-            <a href="{{ route('kasir.create') }}" class="bg-blue-500 rounded-sm p-2 text-white">
-                Tambah
-            </a>
         </div>
 
         <div class="bg-white p-6 rounded-xl shadow-md">
@@ -50,8 +46,8 @@
 
                     @forelse ($kasir as $item)
                         <tr>
-                            <td class="px-4 py-2">{{ $item->antrian->tanggal?? '-' }}</td>
-                            <td class="px-4 py-2">{{ $item->total_harga?? '-' }}</td>
+                            <td class="px-4 py-2">{{ $item->antrian->tanggal ?? '-' }}</td>
+                            <td class="px-4 py-2">{{ $item->total_harga ?? '-' }}</td>
 
                             <td class="px-4 py-2">
                                 <span
@@ -61,20 +57,26 @@
                                 </span>
                             </td>
 
-                            <td class="px-4 py-2">{{ $item->nama_pasien?? '-' }}</td>
+                            <td class="px-4 py-2">{{ $item->nama_pasien ?? '-' }}</td>
 
                             <td class="px-4 py-2 flex items-center justify-center gap-3">
 
                                 @php
                                     $viewData = [
-                                        'id' => $item->id?? '-',
-                                        'tanggal' => $item->antrian->tanggal?? '-',
-                                        'jumlah' => $item->total_harga?? '-',
-                                        'obat' => $item->antrian->resep->obat->nama ?? '-',
-                                        'kuantitas' => $item->antrian->resep->kuantitas ?? '-',
+                                        'id' => $item->id ?? '-',
+                                        'tanggal' => $item->antrian->tanggal ?? '-',
+                                        'jumlah' => $item->total_harga ?? '-',
+                                        'obat' =>
+                                            $item->antrian->resep->obat->nama .
+                                            ' x ' .
+                                            $item->antrian->resep->kuantitas .
+                                            ' ' .
+                                            $item->antrian->resep->obat->satuan,
                                         'status' => $item->status ? 'Lunas' : 'Belum Lunas',
-                                        'pasien' => $item->nama_pasien?? '-',
+                                        'pasien' => $item->nama_pasien ?? '-',
+                                        'biaya_layanan' => 0,
                                     ];
+
                                 @endphp
 
                                 <button class="text-blue-600 hover:text-blue-800"
@@ -131,10 +133,7 @@
                         <span class="text-gray-800" x-text="viewData.obat"></span>
                     </div>
 
-                    <div class="flex justify-between">
-                        <span class="font-medium text-gray-600">Kuantitas</span>
-                        <span class="text-gray-800" x-text="viewData.kuantitas"></span>
-                    </div>
+
 
                     <div class="flex justify-between">
                         <span class="font-medium text-gray-600">Status</span>
@@ -151,7 +150,11 @@
                         <span class="font-medium text-gray-600">Pasien</span>
                         <span class="text-gray-800" x-text="viewData.pasien"></span>
                     </div>
-
+                    <div class="flex justify-between mt-4">
+                        <span class="font-medium text-gray-600">Biaya Layanan</span>
+                        <input type="number" min="0" class="border rounded-lg px-2 py-1 w-28 text-right"
+                            x-model="viewData.biaya_layanan">
+                    </div>
                 </div>
 
                 <div class="flex justify-end gap-3 mt-6">
@@ -160,21 +163,30 @@
                         Tutup
                     </button>
 
-                    @if (!empty($item->id))
-                        <form action="{{ route('kasir.konfirmasi', $item->id?? '#') }}" method="POST">
+                    @if (!empty($item->id) && $item->status == '0')
+                        <form x-bind:action="'{{ route('kasir.konfirmasi', $item->id) }}'" method="POST">
                             @csrf
+
+                            <input type="hidden" name="biaya_layanan" x-model="viewData.biaya_layanan" min="1"
+                                required>
+
                             <button type="submit"
-                                class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg flex items-center gap-2">
+                                x-bind:disabled="!viewData.biaya_layanan || viewData.biaya_layanan <= 0"
+                                :class="{
+                                    'bg-blue-500 hover:bg-blue-600 text-white': viewData.biaya_layanan > 0,
+                                    'bg-gray-300 text-gray-500 opacity-50 cursor-not-allowed': !viewData
+                                        .biaya_layanan || viewData.biaya_layanan <= 0
+                                }"
+                                class="px-4 py-2 rounded-lg flex items-center gap-2 transition duration-150 ease-in-out">
                                 Konfirmasi Pembayaran
                             </button>
                         </form>
                     @else
                         <button disabled
                             class="px-4 py-2 bg-gray-300 text-gray-500 rounded-lg opacity-50 cursor-not-allowed">
-                            ID Tidak Valid
+                            Konfirmasi Pembayaran
                         </button>
                     @endif
-
                 </div>
 
             </div>

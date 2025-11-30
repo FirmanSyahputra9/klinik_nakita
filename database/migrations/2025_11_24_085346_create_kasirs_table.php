@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('antrian_id')->constrained()->onDelete('cascade');
             $table->boolean('status')->default(false);
+            $table->string('biaya_layanan')->nullable();
             $table->timestamps();
         });
     }

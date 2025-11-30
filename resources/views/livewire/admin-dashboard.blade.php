@@ -103,46 +103,7 @@
 
             <!-- Short Table: Dokter Aktif -->
             <div class="bg-white rounded-xl shadow p-6 border border-gray-200 mt-10">
-                <h2 class="text-lg font-bold text-gray-800 mb-4">Dokter Aktif</h2>
-
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm border border-gray-300 rounded-lg overflow-hidden">
-                        <thead class="bg-gray-200 text-gray-700">
-                            <tr>
-                                <th class="px-4 py-2 text-left">Nama Lengkap</th>
-                                <th class="px-4 py-2 text-left">Spesialisasi</th>
-                                <th class="px-4 py-2 text-left">No. Telepon</th>
-                                <th class="px-4 py-2 text-left">Email</th>
-                                <th class="px-4 py-2 text-left">Jadwal</th>
-                            </tr>
-                        </thead>
-
-                        <tbody class="bg-white divide-y">
-                            <!-- Dummy Rows (Tetap, tidak mempengaruhi backend) -->
-                            <tr>
-                                <td class="px-4 py-2">Dr. Nadya Putri</td>
-                                <td class="px-4 py-2">Dokter Anak</td>
-                                <td class="px-4 py-2">0812-3344-5566</td>
-                                <td class="px-4 py-2">nadya@example.com</td>
-                                <td class="px-4 py-2">Senin - Jumat (08:00 - 14:00)</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-2">Dr. Ahmad Yasin</td>
-                                <td class="px-4 py-2">Dokter Umum</td>
-                                <td class="px-4 py-2">0857-8899-1122</td>
-                                <td class="px-4 py-2">ahmad@example.com</td>
-                                <td class="px-4 py-2">Senin - Sabtu (09:00 - 16:00)</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-2">Dr. Sinta Wibowo</td>
-                                <td class="px-4 py-2">Gigi</td>
-                                <td class="px-4 py-2">0821-4455-7788</td>
-                                <td class="px-4 py-2">sinta@example.com</td>
-                                <td class="px-4 py-2">Selasa, Kamis (10:00 - 15:00)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                @livewire('pages.short.dokter-aktif')
             </div>
 
         </div>
@@ -193,24 +154,24 @@
             <div class="w-full space-y-4">
 
                 <!-- Card 1 -->
-                <a href="#"
+                <a href="{{ route('users.index') }}"
                     class="block bg-blue-100 hover:bg-blue-200 transition rounded-xl p-4 shadow border border-blue-200">
                     <h3 class="text-blue-900 font-semibold text-md">Lihat User</h3>
-                    <p class="text-blue-700 text-sm mt-1">Kelola Data Pasien</p>
+                    <p class="hover:underline text-blue-700 text-sm mt-1">Kelola Data Pasien</p>
                 </a>
 
                 <!-- Card 2 -->
-                <a href="#"
+                <a href="{{ route('kasir.index') }}"
                     class="block bg-pink-100 hover:bg-pink-200 transition rounded-xl p-4 shadow border border-pink-200">
                     <h3 class="text-pink-900 font-semibold text-md">Cek Riwayat Pembayaran</h3>
-                    <p class="text-pink-700 text-sm mt-1">Pantau transaksi dan pembayaran pasien.</p>
+                    <p class="hover:underline text-pink-700 text-sm mt-1">Pantau transaksi dan pembayaran pasien.</p>
                 </a>
 
                 <!-- Card 3 -->
-                <a href="#"
+                <a href="{{ route('stok-obat.index') }}"
                     class="block bg-yellow-100 hover:bg-yellow-200 transition rounded-xl p-4 shadow border border-yellow-200">
                     <h3 class="text-yellow-900 font-semibold text-md">Cek Stok Obat</h3>
-                    <p class="text-yellow-700 text-sm mt-1">Lihat jumlah stok obat dan status ketersediaan.</p>
+                    <p class="hover:underline text-yellow-700 text-sm mt-1">Lihat jumlah stok obat dan status ketersediaan.</p>
                 </a>
 
             </div>

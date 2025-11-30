@@ -11,6 +11,7 @@ class Kasir extends Model
     protected $fillable = [
         'antrian_id',
         'status',
+        'biaya_layanan',
     ];
     protected $casts = [
         'status' => 'boolean',
