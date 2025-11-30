@@ -22,7 +22,6 @@
                         <td class="px-2 py-2">{{ $item->pasiens->name }}</td>
                         <td class="px-2 py-2">{{ $item->dokters->name }}</td>
                         <td class="px-2 py-2">{{ $item->keluhan }}</td>
-<<<<<<< HEAD
                         <td
                             class="px-2 py-2
                              @if ($item->status && $item->antrians->kasir->status)
