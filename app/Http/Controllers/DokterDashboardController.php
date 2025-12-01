@@ -18,31 +18,39 @@ class DokterDashboardController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::User()->id;
+        $user_id = Auth::user()->id;
         $dokter = User::whereHas('dokter')->with(['dokter'])->where('id', $user_id)->first();
 
-        $query = Registrasi::where('status', true)->whereHas(
-            'antrians',
-            function ($query) {
+        // Query untuk janji yang aktif dan sesuai dengan dokter
+        $janji = Registrasi::where('status', true)
+            ->whereHas('antrians', function ($query) {
                 $query->where('status', true);
-            }
-        )
+            })
             ->whereHas('dokters', function ($query) {
                 $query->where('user_id', Auth::id());
-            })->with(['pasiens', 'dokters'])->orderBy('tanggal_kunjungan', 'desc');
+            })
+            ->with(['pasiens', 'dokters'])
+            ->orderBy('tanggal_kunjungan', 'desc');
 
-        $janji_selesai = $query->whereHas('antrians.kasir', function ($query) {
-            $query->where('status', true);
-        })->count();
+        // Hitung jumlah janji yang selesai
+        $janji_selesai = Registrasi::where('status', true)
+            ->whereHas('antrians', function ($query) {
+                $query->where('status', true);
+            })
+            ->whereHas('dokters', function ($query) {
+                $query->where('user_id', Auth::id());
+            })
+            ->whereHas('antrians.kasir', function ($query) {
+                $query->where('status', true);
+            })
+            ->count();
 
-        $janji = $query->paginate(4);
-
-        // $janji_belum = $janji->whereHas('kasir', function ($query) {
-        //     $query->where('status', false);
-        // })->count();
+        // Paginasi untuk janji yang ada
+        $janji = $janji->paginate(4);
 
 
-        return view('pages.dokter.dashboard', compact('dokter', 'janji'));
+
+        return view('pages.dokter.dashboard', compact('dokter', 'janji', 'janji_selesai', ));
     }
 
     /**

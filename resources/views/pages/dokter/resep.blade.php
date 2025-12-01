@@ -11,11 +11,11 @@
                 <label class="block text-gray-700 font-medium mb-2">Pilih Antrian</label>
                 <select name="antrian_id" id="antrianSelect" class="w-full border border-gray-300 rounded-lg px-4 py-2">
                     <option value="">-- Pilih Antrian --</option>
-                    @foreach ($antrian as $a)
-                        <option value="{{ $a->id }}" data-nama="{{ $a->pasien->name }}"
-                            data-umur="{{ $a->pasien->umur }}" data-jenis="{{ $a->pasien->gender_label }}"
-                            data-diagnosa="{{ $a->data_pemeriksaan->diagnosa }}">
-                            {{ $a->pasien->name }} - ({{ $a->kode_antrian }})
+                    @foreach ($antrian??[] as $a)
+                        <option value="{{ $a->id }}" data-nama="{{ $a->pasien->name??'-' }}"
+                            data-umur="{{ $a->pasien->umur??'-' }}" data-jenis="{{ $a->pasien->gender_label??'-' }}"
+                            data-diagnosa="{{ $a->data_pemeriksaan->diagnosa??'-' }}">
+                            {{ $a->pasien->name??'-' }} - ({{ $a->kode_antrian??'-' }})
                         </option>
                     @endforeach
                 </select>
