@@ -19,7 +19,7 @@ class IsAdmin
         $user = Auth::user();
 
         if (!$user || !in_array($user->role, ['admin', 'superadmin'])) {
-            abort(403, 'Akses ditolak. Anda bukan admin.');
+            return redirect()->route('error.404');
         }
 
         return $next($request);

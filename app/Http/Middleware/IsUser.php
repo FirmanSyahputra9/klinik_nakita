@@ -19,7 +19,7 @@ class IsUser
         $user = Auth::user();
 
         if (!$user || !in_array($user->role, ['user'])) {
-            abort(403, 'Akses ditolak.');
+            return redirect()->route('error.404');
         }
 
         return $next($request);

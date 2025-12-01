@@ -3,11 +3,11 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
-class IsDokter
+use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
+class CheckRouteExists
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,10 @@ class IsDokter
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = Auth::user();
+        $routeName = $request->route()->getName();
 
-        if (!$user || !in_array($user->role, ['doctor'])) {
-           return redirect()->route('error.404');
+        if (!Route::has($routeName)) {
+            return redirect()->route('error.404');
         }
 
         return $next($request);

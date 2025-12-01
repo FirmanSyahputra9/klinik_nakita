@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsDokter
+class IsLogin
 {
     /**
      * Handle an incoming request.
@@ -18,8 +18,8 @@ class IsDokter
     {
         $user = Auth::user();
 
-        if (!$user || !in_array($user->role, ['doctor'])) {
-           return redirect()->route('error.404');
+        if (!$user) {
+            return redirect()->route('error.404');
         }
 
         return $next($request);

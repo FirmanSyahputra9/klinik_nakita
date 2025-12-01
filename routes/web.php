@@ -32,57 +32,68 @@ Route::get('/', function () {
     return view('index');
 })->name('home');
 
-Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
-    Route::view('/', 'pages.admin.dashboard')
-        ->name('dashboard');
-    Route::resource('users', AdminUser::class);
-    Route::post('users/approve/{id}', [AdminUser::class, 'approve'])
-        ->name('users.approve');
-    Route::resource('appointment', AppointmentController::class);
-    Route::post('/appointment/{id}/konfirmasi', [AppointmentController::class, 'konfirmasi'])->name('appointment.konfirmasi');
-    Route::post('/appointment/{id}/selesai', [AppointmentController::class, 'selesai'])->name('appointment.selesai');
-    Route::post('/appointment/{id}/batalkan', [AppointmentController::class, 'batalkan'])->name('appointment.batalkan');
-    Route::resource('kasir', KasirController::class);
-    Route::post('/kasir/{id}/konfirmasi', [KasirController::class, 'konfirmasi'])->name('kasir.konfirmasi');
-    Route::view('/tambah-kas', 'pages.admin.tambah-kas')
-        ->name('tambahkas');
-    Route::get('/kasir/create', [KasirController::class, 'create'])->name('kasir.create');
+Route::middleware(['auth', 'is.login', 'check.route.exists'])->group(function () {
 
-    Route::resource('/stok-obat', ObatController::class);
-    Route::resource('dokter', DokterController::class);
-    Route::resource('dokter-jadwal', AdminDokterJadwalController::class);
 
-    // Route::resource('pasien', PasienController::class);
+    Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
+        Route::view('/', 'pages.admin.dashboard')
+            ->name('dashboard');
+        Route::resource('users', AdminUser::class);
+        Route::post('users/approve/{id}', [AdminUser::class, 'approve'])
+            ->name('users.approve');
+        Route::resource('appointment', AppointmentController::class);
+        Route::post('/appointment/{id}/konfirmasi', [AppointmentController::class, 'konfirmasi'])->name('appointment.konfirmasi');
+        Route::post('/appointment/{id}/selesai', [AppointmentController::class, 'selesai'])->name('appointment.selesai');
+        Route::post('/appointment/{id}/batalkan', [AppointmentController::class, 'batalkan'])->name('appointment.batalkan');
+        Route::resource('kasir', KasirController::class);
+        Route::post('/kasir/{id}/konfirmasi', [KasirController::class, 'konfirmasi'])->name('kasir.konfirmasi');
+        Route::view('/tambah-kas', 'pages.admin.tambah-kas')
+            ->name('tambahkas');
+        Route::get('/kasir/create', [KasirController::class, 'create'])->name('kasir.create');
+
+        Route::resource('/stok-obat', ObatController::class);
+        Route::resource('dokter', DokterController::class);
+        Route::resource('dokter-jadwal', AdminDokterJadwalController::class);
+
+        // Route::resource('pasien', PasienController::class);
+    });
+
+    Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
+        Route::get('/', [PasienDashboardController::class, 'index'])
+            ->name('dashboarduser');
+        Route::resource('jadwaldokter', UserJadwalDokter::class);
+        Route::view('/riwayat', 'pages.pasien.riwayat')
+            ->name('riwayatuser');
+        Route::resource('riwayat', PasienRiwayatController::class);
+        Route::resource('hasil', PasienHasilController::class);
+        Route::resource('obat', PasienObatController::class);
+        Route::get('registrasi/{id}', [RegistrasiController::class, 'index'])->name('registrasi.index');
+        Route::resource('registrasi', RegistrasiController::class)->except(['index']);
+    });
+
+
+    Route::middleware(['auth', 'is.dokter'])->prefix('dokter')->group(function () {
+        Route::get('/', [DokterDashboardController::class, 'index'])->name('dashboarddokter');
+        Route::resource('janji', DokterJanjiController::class);
+        Route::resource('resep', ResepController::class);
+        Route::post('/janji/{id}/konfirmasi', [DokterJanjiController::class, 'konfirmasi'])->name('janji.konfirmasi');
+        Route::post('/janji/{id}/selesai', [DokterJanjiController::class, 'selesai'])->name('janji.selesai');
+        Route::resource('jadwal', DokterJadwalController::class);
+        Route::resource('data', PasienController::class);
+        Route::resource('data-pasien', DataPasienController::class);
+        Route::resource('jenis-pemeriksaan', JenisPemeriksaanController::class);
+        Route::resource('data-pemeriksaan', DataPemeriksaanController::class);
+        Route::resource('pemeriksaan-lab', PemeriksaanLaboratoriumController::class);
+    });
 });
+Route::view('/error/403', 'errors.403')
+    ->name('error.403');
 
-Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
-    Route::get('/', [PasienDashboardController::class, 'index'])
-        ->name('dashboarduser');
-    Route::resource('jadwaldokter', UserJadwalDokter::class);
-    Route::view('/riwayat', 'pages.pasien.riwayat')
-        ->name('riwayatuser');
-    Route::resource('riwayat', PasienRiwayatController::class);
-    Route::resource('hasil', PasienHasilController::class);
-    Route::resource('obat', PasienObatController::class);
-    Route::get('registrasi/{id}', [RegistrasiController::class, 'index'])->name('registrasi.index');
-    Route::resource('registrasi', RegistrasiController::class)->except(['index']);
-});
+Route::view('/error/404', 'errors.404')
+    ->name('error.404');
 
-
-Route::middleware(['auth', 'is.dokter'])->prefix('dokter')->group(function () {
-    Route::get('/', [DokterDashboardController::class, 'index'])->name('dashboarddokter');
-    Route::resource('janji', DokterJanjiController::class);
-    Route::resource('resep', ResepController::class);
-    Route::post('/janji/{id}/konfirmasi', [DokterJanjiController::class, 'konfirmasi'])->name('janji.konfirmasi');
-    Route::post('/janji/{id}/selesai', [DokterJanjiController::class, 'selesai'])->name('janji.selesai');
-    Route::resource('jadwal', DokterJadwalController::class);
-    Route::resource('data', PasienController::class);
-    Route::resource('data-pasien', DataPasienController::class);
-    Route::resource('jenis-pemeriksaan', JenisPemeriksaanController::class);
-    Route::resource('data-pemeriksaan', DataPemeriksaanController::class);
-    Route::resource('pemeriksaan-lab', PemeriksaanLaboratoriumController::class);
-});
-
+Route::view('/error/500', 'errors.500')
+    ->name('error.500');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

@@ -11,7 +11,6 @@ class LoginResponseController implements LoginResponseContract
 {
     public function toResponse($request)
     {
-        // redirect berdasarkan role
         $user = $request->user();
 
         if ($user->approved === false) {
@@ -27,6 +26,6 @@ class LoginResponseController implements LoginResponseContract
             return redirect('/user');
         }
 
-        return redirect('/'); // default
+        return redirect('/');
     }
 }

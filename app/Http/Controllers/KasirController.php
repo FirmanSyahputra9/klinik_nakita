@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Antrian;
 use App\Models\Kasir;
 use App\Models\Resep;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KasirController extends Controller
 {
@@ -22,11 +24,56 @@ class KasirController extends Controller
             return $item;
         });
 
+        $hargaObat = Resep::join('obats', 'reseps.obat_id', '=', 'obats.id')
+            ->selectRaw('SUM(reseps.kuantitas * obats.harga_jual) as total_harga')
+            ->first()
+            ->total_harga;
+
+        $pendapatanHariIni = Antrian::join('reseps', 'antrians.id', '=', 'reseps.antrian_id')
+            ->join('obats', 'reseps.obat_id', '=', 'obats.id')
+            ->join('kasirs', 'kasirs.antrian_id', '=', 'antrians.id')
+            ->whereDate('antrians.created_at', Carbon::today())
+            ->sum(DB::raw('(reseps.kuantitas * obats.harga_jual) + kasirs.biaya_layanan'));
+
+        $pendapatanHariIni = $pendapatanHariIni ?? 0;
+        $pendapatanHariIni = 'Rp' . number_format($pendapatanHariIni, 0, ',', '.') . ',00';
+
+        $pendapatanMingguIni = Antrian::join('reseps', 'antrians.id', '=', 'reseps.antrian_id')
+            ->join('obats', 'reseps.obat_id', '=', 'obats.id')
+            ->join('kasirs', 'kasirs.antrian_id', '=', 'antrians.id')
+            ->whereBetween('antrians.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+            ->sum(DB::raw('(reseps.kuantitas * obats.harga_jual) + kasirs.biaya_layanan'));
+
+        $pendapatanMingguIni = $pendapatanMingguIni ?? 0;
+        $pendapatanMingguIni = 'Rp' . number_format($pendapatanMingguIni, 0, ',', '.') . ',00';
+
+        $pendapatanBulanIni = Antrian::join('reseps', 'antrians.id', '=', 'reseps.antrian_id')
+            ->join('obats', 'reseps.obat_id', '=', 'obats.id')
+            ->join('kasirs', 'kasirs.antrian_id', '=', 'antrians.id')
+            ->whereBetween('antrians.created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])
+            ->sum(DB::raw('(reseps.kuantitas * obats.harga_jual) + kasirs.biaya_layanan'));
+
+        $pendapatanBulanIni = $pendapatanBulanIni ?? 0;
+        $pendapatanBulanIni = 'Rp' . number_format($pendapatanBulanIni, 0, ',', '.') . ',00';
+
+        $totalTransaksi = Kasir::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count('status', true);
+        $totalTransaksi = $totalTransaksi ?? 0;
+        $totalTransaksi = $totalTransaksi . ' Transaksi';
+
+        $totalObatTerjual = Resep::join('obats', 'reseps.obat_id', '=', 'obats.id')
+            ->whereBetween('reseps.created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])
+            ->sum('reseps.kuantitas');
+
+        $totalObatTerjual = $totalObatTerjual ?? 0;
+        $totalObatTerjual = $totalObatTerjual . ' Obat';
+
+
+
 
 
 
         $kasir = $kasir ?? collect();
-        return view('pages.admin.kasir', compact('kasir'));
+        return view('pages.admin.kasir', compact('kasir', 'pendapatanHariIni', 'hargaObat', 'pendapatanMingguIni', 'pendapatanBulanIni', 'totalTransaksi', 'totalObatTerjual'));
     }
 
     /**

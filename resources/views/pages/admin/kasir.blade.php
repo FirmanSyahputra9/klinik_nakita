@@ -225,27 +225,27 @@
                     <!-- Dummy Data -->
                     <div class="flex justify-between">
                         <span>Pendapatan Hari Ini</span>
-                        <span class="font-semibold">Rp 1.250.000</span>
+                        <span class="font-semibold">{{ $pendapatanHariIni }}</span>
                     </div>
 
                     <div class="flex justify-between">
                         <span>Pendapatan Minggu Ini</span>
-                        <span class="font-semibold">Rp 6.870.000</span>
+                        <span class="font-semibold">{{ $pendapatanMingguIni }}</span>
                     </div>
 
                     <div class="flex justify-between">
                         <span>Pendapatan Bulan Ini</span>
-                        <span class="font-semibold">Rp 28.400.000</span>
+                        <span class="font-semibold">{{ $pendapatanBulanIni }}</span>
                     </div>
 
                     <div class="flex justify-between">
                         <span>Total Transaksi</span>
-                        <span class="font-semibold">32 transaksi</span>
+                        <span class="font-semibold">{{ $totalTransaksi }}</span>
                     </div>
 
                     <div class="flex justify-between">
                         <span>Total Obat Terjual</span>
-                        <span class="font-semibold">83 item</span>
+                        <span class="font-semibold">{{ $totalObatTerjual }}</span>
                     </div>
                 </div>
 

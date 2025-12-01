@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Middleware\CheckRouteExists;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsUser;
 use App\Http\Middleware\IsDokter;
+use App\Http\Middleware\IsLogin;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -15,9 +17,11 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
+            'check.route.exists' => CheckRouteExists::class,
             'is.admin' => IsAdmin::class,
             'is.user' => IsUser::class,
             'is.dokter' => IsDokter::class,
+            'is.login' => IsLogin::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
