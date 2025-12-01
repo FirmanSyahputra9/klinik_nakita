@@ -59,9 +59,9 @@
                         <select name="obat[0][obat_id]" id="obatSelect"
                             class="border border-gray-300 rounded-lg px-3 py-2">
                             <option value="">Pilih Obat...</option>
-                            @foreach ($obats as $obat)
-                                <option value="{{ $obat->id }}" obat-harga="{{ $obat->harga }}">
-                                    {{ $obat->nama }}
+                            @foreach ($obats??[] as $obat)
+                                <option value="{{ $obat->id??"-" }}" obat-harga="{{ $obat->harga??"-" }}">
+                                    {{ $obat->nama??"-" }}
                                 </option>
                             @endforeach
                         </select>
