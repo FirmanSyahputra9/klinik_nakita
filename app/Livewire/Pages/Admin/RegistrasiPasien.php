@@ -11,6 +11,28 @@ class RegistrasiPasien extends Component
     public $nama = '';
     public $selectedPasienId = null;
     public $pasienData = [];
+    public $tanggal_kunjungan = null;
+    public $hariKunjungan = null;
+
+
+    public function updatedTanggalKunjungan($value)
+    {
+        $this->tanggal_kunjungan = $value;
+
+        $hari = \Carbon\Carbon::parse($value)->format('l');
+
+        $mapHari = [
+            'Monday' => 'Senin',
+            'Tuesday' => 'Selasa',
+            'Wednesday' => 'Rabu',
+            'Thursday' => 'Kamis',
+            'Friday' => 'Jumat',
+            'Saturday' => 'Sabtu',
+            'Sunday' => 'Minggu',
+        ];
+
+        $this->hariKunjungan = $mapHari[$hari] ?? null;
+    }
 
     public function updatedSelectedPasienId($value)
     {
@@ -26,13 +48,26 @@ class RegistrasiPasien extends Component
         }
     }
 
+
+    public function mount()
+    {
+        $this->tanggal_kunjungan = date('Y-m-d');
+    }
+
     public function render()
     {
         $pasien = User::whereHas('pasien', function ($query) {
             $query->where('name', 'like', '%' . $this->nama . '%');
         })->with(['pasien'])->get();
 
-        $dokter = Dokter::with(['jadwals'])->get();
+        $dokter = Dokter::with(['jadwals'])
+            ->when($this->hariKunjungan, function ($query) {
+                $query->whereHas('jadwals', function ($q) {
+                    $q->where('hari', $this->hariKunjungan);
+                });
+            })
+            ->get();
+
 
         $dayOrder = ['Senin' => 1, 'Selasa' => 2, 'Rabu' => 3, 'Kamis' => 4, 'Jumat' => 5, 'Sabtu' => 6, 'Minggu' => 7];
 

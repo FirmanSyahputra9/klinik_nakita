@@ -22,7 +22,7 @@ class RegistrasiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+        public function index($id)
     {
         $pasien = User::whereHas('pasien')->with(['pasien'])->where('id', Auth::User()->id)->first();
         $dokter = Dokter::with(['jadwals', 'aktif'])->where('id', $id)->first();

@@ -7,7 +7,7 @@
 
             <!-- Form Card -->
             <div class="bg-white rounded-lg shadow p-6">
-                <form action="{{ route('registrasi.store') }}" method="POST" class="">
+                <form action="{{ route('admin-create.store') }}" method="POST" class="">
                     @csrf
 
                     <div class="grid grid-cols-2 gap-6">
@@ -16,7 +16,7 @@
                             <label class="block text-sm font-medium text-gray-700 mb-2">
                                 Nama Lengkap
                             </label>
-                            <select wire:model.live="selectedPasienId"
+                            <select wire:model.live="selectedPasienId" name="pasien"
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400">
                                 <option value="" readonly>Pilih Pasien</option>
                                 @forelse ($pasien as $item)
@@ -61,41 +61,17 @@
                             </select>
 
                         </div>
-
-                        <div x-data="{
-                            tanggal: '{{ old('tanggal_kunjungan') }}' || '{{ now()->format('Y-m-d') }}',
-                            jam: '{{ old('jam_berobat', now()->format('H:i')) }}',
-                            today: '{{ now()->format('Y-m-d') }}',
-                            nowTime() {
-                                return new Date().toISOString().slice(11, 16);
-                            }
-                        }"
-                            x-effect="
-                            if (tanggal === today && jam < nowTime()) {
-                                jam = nowTime();
-                            }
-                        ">
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Tanggal Kunjungan
-                                </label>
-                                <input type="date" name="tanggal_kunjungan" x-model="tanggal"
-                                    value="{{ old('tanggal_kunjungan') }}" min="{{ now()->format('Y-m-d') }}"
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400"
-                                    required>
-                            </div>
-
-                            {{-- <div class="mt-4">
+                        <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Jam Berobat
+                                Tanggal Kunjungan
                             </label>
-                            <input type="time" name="jam_berobat" x-model="jam" value="{{ old('jam_berobat') }}"
+                            <input type="date" name="tanggal_kunjungan" wire:model.live="tanggal_kunjungan"
+                                min="{{ now()->format('Y-m-d') }}"
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400"
                                 required>
-                        </div> --}}
                         </div>
-
+                    </div>
+                    <div>
                         <div x-data="{ keluhan: '{{ old('keluhan') }}', max: 255 }" class="w-full">
 
                             <div class="flex justify-between items-center mb-1">
