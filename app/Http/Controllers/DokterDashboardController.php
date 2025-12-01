@@ -19,10 +19,11 @@ class DokterDashboardController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
+        $today = date('Y-m-d');
         $dokter = User::whereHas('dokter')->with(['dokter'])->where('id', $user_id)->first();
 
-        // Query untuk janji yang aktif dan sesuai dengan dokter
         $janji = Registrasi::where('status', true)
+        ->where('tanggal_kunjungan', '>=', $today)
             ->whereHas('antrians', function ($query) {
                 $query->where('status', true);
             })
@@ -32,7 +33,6 @@ class DokterDashboardController extends Controller
             ->with(['pasiens', 'dokters'])
             ->orderBy('tanggal_kunjungan', 'desc');
 
-        // Hitung jumlah janji yang selesai
         $janji_selesai = Registrasi::where('status', true)
             ->whereHas('antrians', function ($query) {
                 $query->where('status', true);
@@ -45,7 +45,6 @@ class DokterDashboardController extends Controller
             })
             ->count();
 
-        // Paginasi untuk janji yang ada
         $janji = $janji->paginate(4);
 
 

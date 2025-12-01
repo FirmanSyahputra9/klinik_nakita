@@ -16,23 +16,7 @@ class DataPasienController extends Controller
      */
     public function index()
     {
-        $dokterId = Dokter::where('user_id', Auth::id())->value('id');
-        $antrian = Antrian::where('status', true)->with(['pasien', 'dokter', 'registrasi'])
-            ->where('dokter_id', $dokterId)
-            ->get()
-            ->map(function ($item) {
-                $item->pasien->umur = Carbon::parse($item->pasien->birth_date)->age;
-                $item->pasien->gender_label = $item->pasien->gender == 'female' ? 'Perempuan' : 'Laki-laki';
-
-                if ($item->registrasi->tanggal_kunjungan) {
-                    $item->registrasi->tanggal_kunjungan = Carbon::parse($item->registrasi->tanggal_kunjungan)->locale('id')->translatedFormat('d F Y');
-                }
-
-                return $item;
-            });
-
-
-        return view('pages.dokter.data', compact('antrian'));
+        return view('pages.dokter.data');
     }
 
     /**

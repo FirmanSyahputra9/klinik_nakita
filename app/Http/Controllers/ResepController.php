@@ -18,7 +18,7 @@ class ResepController extends Controller
      */
     public function index()
     {
-        $antrian = Antrian::where('status', true)
+        $antrian = Antrian::where('status', true)->whereHas('data_pemeriksaan')->whereDoesntHave('kasir')
             ->with(['pasien', 'dokter', 'registrasi', 'data_pemeriksaan'])
             ->get()->map(function ($item) {
                 $item->pasien->umur = Carbon::parse($item->pasien->birth_date)->age . ' tahun';
