@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Antrian;
 use App\Models\Dokter;
 use App\Models\DokterDashboard;
 use App\Models\Registrasi;
@@ -20,9 +21,25 @@ class DokterDashboardController extends Controller
         $user_id = Auth::User()->id;
         $dokter = User::whereHas('dokter')->with(['dokter'])->where('id', $user_id)->first();
 
-        $janji = Registrasi::whereHas('dokters', function ($query) {
-            $query->where('user_id', Auth::id());
-        })->with(['pasiens', 'dokters'])->get();
+        $query = Registrasi::where('status', true)->whereHas(
+            'antrians',
+            function ($query) {
+                $query->where('status', true);
+            }
+        )
+            ->whereHas('dokters', function ($query) {
+                $query->where('user_id', Auth::id());
+            })->with(['pasiens', 'dokters'])->orderBy('tanggal_kunjungan', 'desc');
+
+        $janji_selesai = $query->whereHas('antrians.kasir', function ($query) {
+            $query->where('status', true);
+        })->count();
+
+        $janji = $query->paginate(4);
+
+        // $janji_belum = $janji->whereHas('kasir', function ($query) {
+        //     $query->where('status', false);
+        // })->count();
 
 
         return view('pages.dokter.dashboard', compact('dokter', 'janji'));

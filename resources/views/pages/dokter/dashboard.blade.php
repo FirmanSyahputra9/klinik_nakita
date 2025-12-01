@@ -75,7 +75,7 @@
                     <p class="text-[10px] sm:text-sm font-semibold text-blue-600 mb-1 uppercase tracking-wider">
                         Pasien Hari Ini
                     </p>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900">12</h2>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900">{{ $janji->count() }}</h2>
                 </div>
                 <svg class="w-5 h-5 sm:w-8 sm:h-8 text-blue-500 opacity-75" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
