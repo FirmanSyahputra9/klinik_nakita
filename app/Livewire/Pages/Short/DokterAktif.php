@@ -23,7 +23,7 @@ class DokterAktif extends Component
 
         $jadwals = DokterJadwal::where('hari', $hariIni)->whereHas('dokter')->with('dokter', 'dokter.user')->paginate(4, ['*'], 'DokterJadwal-short')
             ->tap(function ($jadwals) {
-                foreach ($jadwals as $jadwal) {
+                foreach ($jadwals?? [] as $jadwal) {
                     $jadwal->mulai_aktif = date('H:i', strtotime($jadwal->aktif_mulai));
                     $jadwal->selesai_aktif = date('H:i', strtotime($jadwal->aktif_selesai));
                 }

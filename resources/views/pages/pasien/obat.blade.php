@@ -7,7 +7,7 @@
         </div>
 
         @if ($obat ?? 'Belum ada')
-            @foreach ($obat as $item)
+            @foreach ($obat?? [] as $item)
                 <!-- Resep Card -->
                 <div class="bg-white rounded-lg shadow overflow-hidden">
                     <!-- Header Card -->

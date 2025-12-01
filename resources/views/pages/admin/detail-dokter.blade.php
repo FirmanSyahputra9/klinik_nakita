@@ -78,7 +78,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y">
-                            @foreach ($allDays as $day)
+                            @foreach ($allDays?? [] as $day)
                                 @php
                                     $item = $jadwalMap->get($day);
                                 @endphp

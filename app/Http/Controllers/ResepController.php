@@ -90,7 +90,7 @@ class ResepController extends Controller
                 ]);
             }
 
-            foreach ($request->obat as $item) {
+            foreach ($request->obat??[] as $item) {
                 if (!empty($item['obat_id'])) {
                     $kuantitas = $item['kuantitas'] ?? 0;
 

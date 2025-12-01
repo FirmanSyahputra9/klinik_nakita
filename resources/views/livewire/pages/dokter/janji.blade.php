@@ -37,7 +37,7 @@
                     <select
                         class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option>Semua Status</option>
-                        @foreach ($status as $item)
+                        @foreach ($status??[] as $item)
                             <option value="{{ $item }}">{{ $item? 'Terkonfirmasi' : 'Menunggu' }}</option>
                         @endforeach
                     </select>
@@ -59,7 +59,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($janji as $item)
+                        @foreach ($janji??[] as $item)
                             <tr class="border-b border-gray-100 hover:bg-gray-50">
                                 <td class="py-4 px-4">
                                     <span class="text-sm font-medium text-gray-900">{{ $item->kode_antrian }}</span>

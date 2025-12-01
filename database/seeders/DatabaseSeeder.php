@@ -73,7 +73,7 @@ class DatabaseSeeder extends Seeder
 
         $users = User::factory(30)->create();
 
-        foreach ($users as $user) {
+        foreach ($users??[] as $user) {
             switch ($user->role) {
                 case 'user':
                     Pasien::factory()->create(['user_id' => $user->id]);

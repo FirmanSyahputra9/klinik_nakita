@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminDokterJadwalController;
+use App\Http\Controllers\AdminRegistrasiPasienController;
 use App\Http\Controllers\AdminUser as AdminUser;
 use App\Http\Controllers\AlergiController;
 use App\Http\Controllers\DokterController;
@@ -42,6 +43,7 @@ Route::middleware(['auth', 'is.login', 'check.route.exists'])->group(function ()
         Route::post('users/approve/{id}', [AdminUser::class, 'approve'])
             ->name('users.approve');
         Route::resource('appointment', AppointmentController::class);
+        Route::resource('admin-create', AdminRegistrasiPasienController::class);
         Route::post('/appointment/{id}/konfirmasi', [AppointmentController::class, 'konfirmasi'])->name('appointment.konfirmasi');
         Route::post('/appointment/{id}/selesai', [AppointmentController::class, 'selesai'])->name('appointment.selesai');
         Route::post('/appointment/{id}/batalkan', [AppointmentController::class, 'batalkan'])->name('appointment.batalkan');
@@ -50,7 +52,6 @@ Route::middleware(['auth', 'is.login', 'check.route.exists'])->group(function ()
         Route::view('/tambah-kas', 'pages.admin.tambah-kas')
             ->name('tambahkas');
         Route::get('/kasir/create', [KasirController::class, 'create'])->name('kasir.create');
-
         Route::resource('/stok-obat', ObatController::class);
         Route::resource('dokter', DokterController::class);
         Route::resource('dokter-jadwal', AdminDokterJadwalController::class);

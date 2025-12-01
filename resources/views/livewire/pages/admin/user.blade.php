@@ -77,7 +77,7 @@
                         <select wire:model.live="filterSpesialis"
                             class="px-3 py-2 border rounded-lg text-sm text-gray-700 focus:ring focus:ring-blue-200">
                             <option value="">Semua Spesialis</option>
-                            @foreach ($spesialis as $item)
+                            @foreach ($spesialis??[] as $item)
                                 <option value="{{ $item }}">{{ $item }}</option>
                             @endforeach
                         </select>

@@ -18,8 +18,8 @@ class DokterJadwalSeeder extends Seeder
 
         $dokters = Dokter::all();
 
-        foreach ($dokters as $dokter) {
-            foreach ($hariKerja as $hari) {
+        foreach ($dokters??[] as $dokter) {
+            foreach ($hariKerja??[] as $hari) {
                 DokterJadwal::create([
                     'dokter_id'     => $dokter->id,
                     'hari'          => $hari,

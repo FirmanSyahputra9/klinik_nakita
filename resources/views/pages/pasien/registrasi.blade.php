@@ -53,7 +53,7 @@
                             <p class="font-semibold text-gray-900">Poliklinik: Poli Gigi (tergantung dokter)</p>
                             <p class="text-gray-700">Dokter: {{ $dokter->name }}</p>
                             <p class="text-gray-700">Jadwal Praktik:
-                                @foreach ($groupedJadwals as $jadwalGroup)
+                                @foreach ($groupedJadwals??[] as $jadwalGroup)
                                     @php
                                         $hariTampil =
                                             $jadwalGroup['hari_mulai'] === $jadwalGroup['hari_selesai']

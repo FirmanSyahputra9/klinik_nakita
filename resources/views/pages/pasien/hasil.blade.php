@@ -11,7 +11,7 @@
             <!-- ================================= -->
             <!--            HEMATOLOGI             -->
             <!-- ================================= -->
-            @foreach ($hasil as $item)
+            @foreach ($hasil??[] as $item)
                 <div>
                     <h3 class="text-lg font-semibold text-gray-700 mb-1">
                         {{ $item->lab->first()->jenis->jenis_pemeriksaan ?? '-' }}
@@ -24,7 +24,7 @@
                     <table class="table-fixed w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
 
                         <tbody class="divide-y divide-gray-200">
-                            @foreach ($item->lab->groupBy('jenis.jenis_pemeriksaan') as $kategori => $details)
+                            @foreach ($item->lab->groupBy('jenis.jenis_pemeriksaan')??[] as $kategori => $details)
                                 <h3 class="text-lg font-semibold text-gray-700 mb-1">
                                     {{-- {{ $kategori }} --}}
                                 </h3>
@@ -42,7 +42,7 @@
 
                                     <tbody class="divide-y divide-gray-200 text-center">
 
-                                        @foreach ($details as $detail)
+                                        @foreach ($details??[] as $detail)
                                             <tr>
                                                 <td class="px-4 py-2">{{ $detail->jenis->jenis_pemeriksaan }}</td>
                                                 <td class="px-4 py-2"><span class=" @if ($detail->nilai < $detail->jenis->normal_min) text-red-600

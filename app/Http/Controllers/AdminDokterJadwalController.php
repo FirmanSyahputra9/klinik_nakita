@@ -56,7 +56,7 @@ class AdminDokterJadwalController extends Controller
     {
         $jadwals = $request->input('jadwals', []);
 
-        foreach ($jadwals as $jadwalId => $data) {
+        foreach ($jadwals?? [] as $jadwalId => $data) {
             $isChecked = isset($data['aktif']); // checkbox dicentang atau tidak
 
             if (str_starts_with($jadwalId, 'new_')) {

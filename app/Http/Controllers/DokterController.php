@@ -104,7 +104,7 @@ class DokterController extends Controller
             })->first();
 
         if ($dokter && $dokter->dokter && $dokter->dokter->jadwals) {
-            foreach ($dokter->dokter->jadwals as $jadwal) {
+            foreach ($dokter->dokter->jadwals?? [] as $jadwal) {
                 // Properti baru untuk jam saja
                 $jadwal->mulai_aktif = date('H:i', strtotime($jadwal->aktif_mulai));
                 $jadwal->selesai_aktif = date('H:i', strtotime($jadwal->aktif_selesai));

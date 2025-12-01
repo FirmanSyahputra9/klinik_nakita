@@ -26,7 +26,7 @@
                         class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-green-200 focus:outline-none">
                         <option value="">Semua Spesialisasi</option>
 
-                        @foreach ($spesialisai as $sp)
+                        @foreach ($spesialisai??[] as $sp)
                             <option value="{{ $sp }}">{{ $sp }}</option>
                         @endforeach
                     </select>
@@ -38,7 +38,7 @@
                     <select  wire:model.live.debounce.500ms="filterStatus"
                         class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-green-200 focus:outline-none">
                         <option value="">Semua Status</option>
-                        @foreach ($status as $st)
+                        @foreach ($status??[] as $st)
                             <option value="{{ $st }}">
                                 {{ $st == 1 ? 'online' : 'offline' }}</option>
                         @endforeach
@@ -63,7 +63,7 @@
                     </thead>
 
                     <tbody>
-                        @foreach ($dokters as $dokter)
+                        @foreach ($dokters??[] as $dokter)
                             <tr class="border-b border-gray-100 hover:bg-gray-50"
                                 x-show="matched({
                                 name: '{{ strtolower($dokter->name) }}',
@@ -90,7 +90,7 @@
 
                                     <!-- Mobile Jadwal -->
                                     <div class="flex flex-col gap-1 block md:hidden mt-2">
-                                        @foreach ($dokter->grouped_jadwals as $jadwalGroup)
+                                        @foreach ($dokter->grouped_jadwals??[] as $jadwalGroup)
                                             @php
                                                 $hariTampil =
                                                     $jadwalGroup['hari_mulai'] === $jadwalGroup['hari_selesai']
@@ -117,7 +117,7 @@
                                 <!-- Jadwal desktop -->
                                 <td class="py-4 px-4 text-gray-700 hidden md:block">
                                     <div class="flex flex-col gap-1">
-                                        @foreach ($dokter->grouped_jadwals as $jadwalGroup)
+                                        @foreach ($dokter->grouped_jadwals??[] as $jadwalGroup)
                                             @php
                                                 $hariTampil =
                                                     $jadwalGroup['hari_mulai'] === $jadwalGroup['hari_selesai']

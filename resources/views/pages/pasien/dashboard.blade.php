@@ -59,7 +59,7 @@
             @if ($antrian_registrasi)
             <section class="bg-white rounded-xl shadow p-6">
                 <h3 class="font-semibold text-lg mb-4 text-gray-800">Nomor Registrasi</h3>
-                @foreach ($antrian_registrasi as $ar)
+                @foreach ($antrian_registrasi??[] as $ar)
                 <div class="grid grid-cols-3 gap-4 mb-4">
                     <div class="bg-pink-50 rounded-lg p-4 text-center shadow">
                         <p class="text-xs text-gray-500">Nomor Antrian Registrasi</p>
@@ -83,7 +83,7 @@
             @if ($janjinow)
             <section class="bg-white rounded-xl shadow p-6">
                 <h3 class="font-semibold text-lg mb-4 text-gray-800">Nomor Antrian Anda</h3>
-                @foreach ($janjinow as $item)
+                @foreach ($janjinow??[] as $item)
                 <div class="mb-4">
                     <span>dokter : {{ $item->dokter->name }}</span>
                     <div class="grid grid-cols-3 gap-4">

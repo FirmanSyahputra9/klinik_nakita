@@ -116,7 +116,7 @@ new class extends Component {
                         role="list"
                         aria-label="Recovery codes"
                     >
-                        @foreach($recoveryCodes as $code)
+                        @foreach($recoveryCodes??[] as $code)
                             <div
                                 role="listitem"
                                 class="select-text"
