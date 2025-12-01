@@ -26,7 +26,7 @@
                         <tbody class="divide-y divide-gray-200">
                             @foreach ($item->lab->groupBy('jenis.jenis_pemeriksaan') as $kategori => $details)
                                 <h3 class="text-lg font-semibold text-gray-700 mb-1">
-                                    {{ $kategori }}
+                                    {{-- {{ $kategori }} --}}
                                 </h3>
 
                                 <table
