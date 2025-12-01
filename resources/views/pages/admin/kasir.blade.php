@@ -1,30 +1,43 @@
 <x-layouts.app :title="__('Kasir')">
 
     <div class="p-6" x-data="{
-        // modal view
-        showView: false,
-        viewData: {},
+    // modal view
+    showView: false,
+    viewData: {},
 
-        openView(data) {
-            this.viewData = data;
-            this.showView = true;
-        },
+    openView(data) {
+        this.viewData = data;
+        this.showView = true;
+    },
 
-        // modal konfirmasi
-        showConfirm: false,
-        confirmType: '',
-        confirmId: null,
+    // modal konfirmasi
+    showConfirm: false,
+    confirmType: '',
+    confirmId: null,
 
-        openConfirm(type, id) {
-            this.confirmType = type;
-            this.confirmId = id;
-            this.showConfirm = true;
-        }
-    }" x-cloak>
+    openConfirm(type, id) {
+        this.confirmType = type;
+        this.confirmId = id;
+        this.showConfirm = true;
+    },
+
+    // modal pendapatan
+    showPendapatan: false,
+}" x-cloak>
+
 
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-semibold text-gray-800">Kasir</h1>
+
+            <button
+                @click="showPendapatan = true"
+                class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">
+                Lihat Pendapatan
+            </button>
         </div>
+
+
+
 
         <div class="bg-white p-6 rounded-xl shadow-md">
 
@@ -45,58 +58,58 @@
                 <tbody class="divide-y divide-gray-200">
 
                     @forelse ($kasir as $item)
-                        <tr>
-                            <td class="px-4 py-2">{{ $item->antrian->tanggal ?? '-' }}</td>
-                            <td class="px-4 py-2">{{ $item->total_harga ?? '-' }}</td>
+                    <tr>
+                        <td class="px-4 py-2">{{ $item->antrian->tanggal ?? '-' }}</td>
+                        <td class="px-4 py-2">{{ $item->total_harga ?? '-' }}</td>
 
-                            <td class="px-4 py-2">
-                                <span
-                                    class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                        <td class="px-4 py-2">
+                            <span
+                                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
                                     {{ $item->status ? 'text-green-700 bg-green-50' : 'text-red-700 bg-red-50' }}">
-                                    {{ $item->status ? 'Lunas' : 'Belum Lunas' }}
-                                </span>
-                            </td>
+                                {{ $item->status ? 'Lunas' : 'Belum Lunas' }}
+                            </span>
+                        </td>
 
-                            <td class="px-4 py-2">{{ $item->nama_pasien ?? '-' }}</td>
+                        <td class="px-4 py-2">{{ $item->nama_pasien ?? '-' }}</td>
 
-                            <td class="px-4 py-2 flex items-center justify-center gap-3">
+                        <td class="px-4 py-2 flex items-center justify-center gap-3">
 
-                                @php
-                                    $viewData = [
-                                        'id' => $item->id ?? '-',
-                                        'tanggal' => $item->antrian->tanggal ?? '-',
-                                        'jumlah' => $item->total_harga ?? '-',
-                                        'obat' =>
-                                            $item->antrian->resep->obat->nama .
-                                            ' x ' .
-                                            $item->antrian->resep->kuantitas .
-                                            ' ' .
-                                            $item->antrian->resep->obat->satuan,
-                                        'status' => $item->status ? 'Lunas' : 'Belum Lunas',
-                                        'pasien' => $item->nama_pasien ?? '-',
-                                        'biaya_layanan' => 0,
-                                    ];
+                            @php
+                            $viewData = [
+                            'id' => $item->id ?? '-',
+                            'tanggal' => $item->antrian->tanggal ?? '-',
+                            'jumlah' => $item->total_harga ?? '-',
+                            'obat' =>
+                            $item->antrian->resep->obat->nama .
+                            ' x ' .
+                            $item->antrian->resep->kuantitas .
+                            ' ' .
+                            $item->antrian->resep->obat->satuan,
+                            'status' => $item->status ? 'Lunas' : 'Belum Lunas',
+                            'pasien' => $item->nama_pasien ?? '-',
+                            'biaya_layanan' => 0,
+                            ];
 
-                                @endphp
+                            @endphp
 
-                                <button class="text-blue-600 hover:text-blue-800"
-                                    x-on:click="openView(@js($viewData))">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                                            d="M2.25 12s3.75-7.5 9.75-7.5 9.75 7.5 9.75 7.5-3.75 7.5-9.75 7.5S2.25 12 2.25 12z" />
-                                        <circle cx="12" cy="12" r="3" stroke-width="1.8" />
-                                    </svg>
-                                </button>
+                            <button class="text-blue-600 hover:text-blue-800"
+                                x-on:click="openView(@js($viewData))">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                        d="M2.25 12s3.75-7.5 9.75-7.5 9.75 7.5 9.75 7.5-3.75 7.5-9.75 7.5S2.25 12 2.25 12z" />
+                                    <circle cx="12" cy="12" r="3" stroke-width="1.8" />
+                                </svg>
+                            </button>
 
-                            </td>
-                        </tr>
+                        </td>
+                    </tr>
                     @empty
-                        <tr>
-                            <td colspan="5" class="text-center py-6 text-gray-400">
-                                Belum ada data transaksi
-                            </td>
-                        </tr>
+                    <tr>
+                        <td colspan="5" class="text-center py-6 text-gray-400">
+                            Belum ada data transaksi
+                        </td>
+                    </tr>
                     @endforelse
 
 
@@ -164,33 +177,88 @@
                     </button>
 
                     @if (!empty($item->id) && $item->status == '0')
-                        <form x-bind:action="'{{ route('kasir.konfirmasi', $item->id) }}'" method="POST">
-                            @csrf
+                    <form x-bind:action="'{{ route('kasir.konfirmasi', $item->id) }}'" method="POST">
+                        @csrf
 
-                            <input type="hidden" name="biaya_layanan" x-model="viewData.biaya_layanan" min="1"
-                                required>
+                        <input type="hidden" name="biaya_layanan" x-model="viewData.biaya_layanan" min="1"
+                            required>
 
-                            <button type="submit"
-                                x-bind:disabled="!viewData.biaya_layanan || viewData.biaya_layanan <= 0"
-                                :class="{
+                        <button type="submit"
+                            x-bind:disabled="!viewData.biaya_layanan || viewData.biaya_layanan <= 0"
+                            :class="{
                                     'bg-blue-500 hover:bg-blue-600 text-white': viewData.biaya_layanan > 0,
                                     'bg-gray-300 text-gray-500 opacity-50 cursor-not-allowed': !viewData
                                         .biaya_layanan || viewData.biaya_layanan <= 0
                                 }"
-                                class="px-4 py-2 rounded-lg flex items-center gap-2 transition duration-150 ease-in-out">
-                                Konfirmasi Pembayaran
-                            </button>
-                        </form>
-                    @else
-                        <button disabled
-                            class="px-4 py-2 bg-gray-300 text-gray-500 rounded-lg opacity-50 cursor-not-allowed">
+                            class="px-4 py-2 rounded-lg flex items-center gap-2 transition duration-150 ease-in-out">
                             Konfirmasi Pembayaran
                         </button>
+                    </form>
+                    @else
+                    <button disabled
+                        class="px-4 py-2 bg-gray-300 text-gray-500 rounded-lg opacity-50 cursor-not-allowed">
+                        Konfirmasi Pembayaran
+                    </button>
                     @endif
                 </div>
 
             </div>
         </div>
+
+        <!-- MODAL PENDAPATAN -->
+        <div x-show="showPendapatan" x-transition.opacity
+            class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+            x-cloak>
+
+            <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl p-6" x-transition.scale>
+
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-gray-800">💰 Pendapatan Klinik</h2>
+
+                    <button class="text-gray-500 hover:text-red-500" @click="showPendapatan = false">
+                        ✕
+                    </button>
+                </div>
+
+                <div class="space-y-4 text-gray-700">
+
+                    <!-- Dummy Data -->
+                    <div class="flex justify-between">
+                        <span>Pendapatan Hari Ini</span>
+                        <span class="font-semibold">Rp 1.250.000</span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span>Pendapatan Minggu Ini</span>
+                        <span class="font-semibold">Rp 6.870.000</span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span>Pendapatan Bulan Ini</span>
+                        <span class="font-semibold">Rp 28.400.000</span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span>Total Transaksi</span>
+                        <span class="font-semibold">32 transaksi</span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span>Total Obat Terjual</span>
+                        <span class="font-semibold">83 item</span>
+                    </div>
+                </div>
+
+                <div class="mt-6 text-right">
+                    <button @click="showPendapatan = false"
+                        class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">
+                        Tutup
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
 
     </div>
 
