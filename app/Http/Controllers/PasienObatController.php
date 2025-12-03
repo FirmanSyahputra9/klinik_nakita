@@ -20,9 +20,7 @@ class PasienObatController extends Controller
         $antrian_id = Antrian::where('pasien_id', $pasienId)->value('id');
         $obat = Antrian::where('pasien_id', $pasienId)->whereHas('kasir', function ($q) {
             $q->where('status', '!=', false);
-        })->where('status', true)->with(['registrasi', 'resep', 'dokter', 'tindakan', 'data_pemeriksaan', 'kasir' => function ($q) {
-            $q->where('status', '!=', false);
-        }])->get()->map(function ($item) {
+        })->where('status', true)->with(['registrasi', 'resep', 'dokter', 'tindakan', 'data_pemeriksaan', 'kasir'])->get()->map(function ($item) {
             if ($item->registrasi->tanggal_kunjungan) {
                 $item->registrasi->tanggal_kunjungan = \Carbon\Carbon::parse($item->registrasi->tanggal_kunjungan)->format('d M Y');
                 if ($item->created_at) {
@@ -34,10 +32,10 @@ class PasienObatController extends Controller
 
         $tindakanIds = $obat->flatMap(function ($antrian) {
             return $antrian->tindakan->pluck('id');
-        })->unique()->toArray();
+        })->toArray();
 
 
-        $resep = Resep::where('antrian_id', $antrian_id)->whereHas('antrian.tindakan', function ($q) use ($tindakanIds) {
+        $resep = Resep::whereHas('antrian.tindakan', function ($q) use ($tindakanIds) {
             $q->where('id', $tindakanIds);
         })->with('obat')->get();
 

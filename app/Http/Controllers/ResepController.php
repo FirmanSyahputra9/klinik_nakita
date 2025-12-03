@@ -64,24 +64,6 @@ class ResepController extends Controller
         $antrian = Antrian::findOrFail($request->antrian_id);
         $kasir = Kasir::where('antrian_id', $request->antrian_id)->first();
         DB::transaction(function () use ($request, $antrian, $kasir) {
-            if ($antrian->data_pemeriksaan) {
-                $updated = $antrian->data_pemeriksaan->update([
-                    'diagnosa' => $request->diagnosa,
-                ]);
-
-                if (!$updated) {
-                    throw new \Exception("Gagal update diagnosa!");
-                }
-            } else {
-                $created = $antrian->data_pemeriksaan()->create([
-                    'diagnosa' => $request->diagnosa,
-                ]);
-
-                if (!$created) {
-                    throw new \Exception("Gagal membuat diagnosa baru!");
-                }
-            }
-
             if ($kasir > 0) {
                 throw new \Exception("Error Internal");
             } else {

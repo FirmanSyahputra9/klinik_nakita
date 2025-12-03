@@ -7,7 +7,6 @@
             <p class="text-gray-500 text-sm mt-1">Pantau Resep dan Obat Anda</p>
         </div>
 
-        @if ($obat ?? 'Belum ada')
         @foreach ($obat?? [] as $item)
 
         <!-- Resep Card -->
@@ -143,7 +142,6 @@
         </div>
 
         @endforeach
-        @endif
 
     </div>
 </x-layouts.app>

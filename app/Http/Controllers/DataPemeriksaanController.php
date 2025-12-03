@@ -31,6 +31,7 @@ class DataPemeriksaanController extends Controller
      */
     public function store(Request $request)
     {
+
         $isUpdate = false;
         $validated = $request->validate([
             'antrian_id' => 'required|integer|exists:antrians,id',
