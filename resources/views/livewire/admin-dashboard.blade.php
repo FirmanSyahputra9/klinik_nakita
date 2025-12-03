@@ -3,9 +3,9 @@
     <!-- TOP CARDS -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         <!-- Total Pasien -->
-        <div class="bg-white rounded-xl shadow p-4 border border-gray-200">
-            <div class="flex items-center mb-4">
-                <div class="bg-blue-100 p-3 rounded-full mr-3">
+        <div class="card bg-white rounded-xl shadow p-4 border border-gray-200">
+            <div class="card flex items-center mb-4">
+                <div class="bg-blue-200 p-3 rounded-full mr-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -15,20 +15,20 @@
                     </svg>
                 </div>
                 <div>
-                    <h2 class="text-gray-800 font-bold text-lg">Akun Pasien</h2>
-                    <p class="text-gray-500 text-sm">{{ $totalPengguna ?? '0' }}</p>
+                    <h2 class="card text-gray-800 font-bold text-lg">Akun Pasien</h2>
+                    <p class="card text-gray-500 text-sm">{{ $totalPengguna ?? '0' }}</p>
                 </div>
             </div>
 
-            <div class="text-gray-500 text-sm">
+            <div class="card text-gray-500 text-sm">
                 <p>Pasien Hari Ini: {{ $penggunaHariIni?? '0' }}</p>
                 <p>30 Hari Terakhir: {{ $penggunaBaru?? '0' }}</p>
             </div>
         </div>
 
         <!-- Total Dokter -->
-        <div class="bg-pink-100 rounded-xl shadow p-4 border border-gray-200">
-            <div class="flex items-center mb-4">
+        <div class="card bg-pink-100 rounded-xl shadow p-4 border border-gray-200">
+            <div class="card flex items-center mb-4">
                 <div class="bg-pink-200 p-3 rounded-full mr-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -39,19 +39,19 @@
                     </svg>
                 </div>
                 <div>
-                    <h2 class="text-gray-800 font-bold text-lg">Total Dokter</h2>
-                    <p class="text-gray-500 text-sm">{{ $totalDokter?? '0' }}</p>
+                    <h2 class="card text-gray-800 font-bold text-lg">Total Dokter</h2>
+                    <p class="card text-gray-500 text-sm">{{ $totalDokter?? '0' }}</p>
                 </div>
             </div>
-            <div class="text-gray-500 text-sm">
+            <div class="card text-gray-500 text-sm">
                 <p>Spesialis: {{ $dokterSpesialis?? '0' }}</p>
                 <p>Umum: {{ $dokterUmum?? '0' }}</p>
             </div>
         </div>
 
         <!-- Total Janji -->
-        <div class="bg-white rounded-xl shadow p-4 border border-gray-200">
-            <div class="flex items-center mb-4">
+        <div class="card bg-white rounded-xl shadow p-4 border border-gray-200">
+            <div class="card flex items-center mb-4">
                 <div class="bg-blue-100 p-3 rounded-full mr-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
@@ -60,20 +60,20 @@
                     </svg>
                 </div>
                 <div>
-                    <h2 class="text-gray-800 font-bold text-lg">Total Janji</h2>
-                    <p class="text-gray-500 text-sm">{{ $totalJanji??'0' }}</p>
+                    <h2 class="card text-gray-800 font-bold text-lg">Total Janji</h2>
+                    <p class="card text-gray-500 text-sm">{{ $totalJanji??'0' }}</p>
                 </div>
             </div>
-            <div class="text-gray-500 text-sm">
+            <div class="card text-gray-500 text-sm">
                 <p>Registrasi Hari Ini: {{ $totalJanjiHariIni??'0' }}</p>
                 <p>30 Hari Terakhir: {{ $totalJanjiBaru??'0' }}</p>
             </div>
         </div>
 
         <!-- Stok Obat -->
-        <div class="bg-pink-100 rounded-xl shadow p-4 border border-gray-200">
-            <div class="flex items-center mb-4">
-                <div class="bg-pink-200 p-3 rounded-full mr-3">
+        <div class="card bg-pink-100 rounded-xl shadow p-4 border border-gray-200">
+            <div class="card flex items-center mb-4">
+                <div class="bg-pink-100 p-3 rounded-full mr-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -83,10 +83,10 @@
                     </svg>
                 </div>
                 <div>
-                    <h2 class="text-gray-800 font-bold text-lg">Stok Obat</h2>
-                    <p class="text-gray-500 text-sm">Total: {{ $totalObat?? '0' }}</p>
-                    <p class="text-gray-500 text-sm">Sedikit: {{ $obatSisaSedikit?? '0' }}</p>
-                    <p class="text-gray-500 text-sm">Habis: {{ $obatHabis?? '0' }}</p>
+                    <h2 class="card text-gray-800 font-bold text-lg">Stok Obat</h2>
+                    <p class="card text-gray-500 text-sm">Total: {{ $totalObat?? '0' }}</p>
+                    <p class="card text-gray-500 text-sm">Sedikit: {{ $obatSisaSedikit?? '0' }}</p>
+                    <p class="card text-gray-500 text-sm">Habis: {{ $obatHabis?? '0' }}</p>
                 </div>
             </div>
         </div>
@@ -100,41 +100,40 @@
         <div class="lg:col-span-2 space-y-10">
 
             <!-- TABLE APPOINTMENTS -->
-            <div class="bg-white rounded-xl shadow p-6 border border-gray-200">
+            <div class="card bg-white rounded-xl shadow p-6 border border-gray-200">
                 @livewire('appointment-short')
             </div>
 
             <!-- Short Table: Dokter Aktif -->
-            <div class="bg-white rounded-xl shadow p-6 border border-gray-200 mt-10">
+            <div class="card bg-white rounded-xl shadow p-6 border border-gray-200 mt-10">
                 @livewire('pages.short.dokter-aktif')
             </div>
 
         </div>
 
         <!-- RIGHT SIDE -->
-        <div class="bg-white rounded-xl shadow p-6 border border-gray-200 flex flex-col items-center justify-start self-start space-y-6">
+        <div class="card bg-white rounded-xl shadow p-6 border border-gray-200 flex flex-col items-center justify-start self-start space-y-6">
 
             <!-- CLOCK -->
-            <div class="w-full text-center">
-                <h2 class="text-lg font-bold text-gray-800 mb-3">Jam Sekarang</h2>
+            <div class="card w-full text-center">
+                <h2 class="card text-lg font-bold text-gray-800 mb-3">Jam Sekarang</h2>
 
-                <div class="flex items-center gap-2 bg-gradient-to-br from-blue-100 to-blue-200 p-3 rounded-lg shadow-inner justify-center">
+                <div class="card flex items-center gap-2 bg-blue-200 p-3 rounded-lg shadow-inner justify-center border border-gray-200">
                     <div id="h"
-                        class="px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 min-w-[70px] text-center">
+                        class="card px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 min-w-[70px] text-center">
                         00
                     </div>
 
-                    <span class="text-3xl font-bold text-blue-700 pb-1">:</span>
+                    <span class="card text-3xl font-bold text-blue-700 pb-1">:</span>
 
                     <div id="m"
-                        class="px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 min-w-[70px] text-center">
+                        class="card px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 min-w-[70px] text-center">
                         00
                     </div>
 
-                    <span class="text-3xl font-bold text-blue-700 pb-1">:</span>
-
+                    <span class="card text-3xl font-bold text-blue-700 pb-1">:</span>
                     <div id="s"
-                        class="px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 min-w-[70px] text-center">
+                        class="card px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 min-w-[70px] text-center">
                         00
                     </div>
                 </div>
@@ -158,9 +157,9 @@
 
                 <!-- Card 1 -->
                 <a href="{{ route('users.index') }}"
-                    class="block bg-blue-100 hover:bg-blue-200 transition rounded-xl p-4 shadow border border-blue-200">
-                    <h3 class="text-blue-900 font-semibold text-md">Lihat User</h3>
-                    <p class="hover:underline text-blue-700 text-sm mt-1">Kelola Data Pasien</p>
+                    class="card block bg-blue-100 hover:bg-blue-200 transition rounded-xl p-4 shadow border border-blue-200">
+                    <h3 class="card text-blue-900 font-semibold text-md">Lihat User</h3>
+                    <p class="card hover:underline text-blue-700 text-sm mt-1">Kelola Data Pasien</p>
                 </a>
 
                 <!-- Card 2 -->

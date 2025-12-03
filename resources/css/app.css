@@ -77,6 +77,32 @@ select:focus[data-flux-control] {
     background: transparent;
 }
 
+/* Dark Mode Global Fix */
+.dark {
+    --card-bg: #1f2937; /* gray-800 */
+    --card-border: #374151; /* gray-700 */
+    --text-default: #e5e7eb; /* gray-200 */
+    --text-muted: #9ca3af; /* gray-400 */
+    --table-bg: #111827; /* gray-900 */
+    --table-row: #1f2937;
+    --input-bg: #374151;
+}
+
+/* Map ke element kamu */
+.dark .card,
+.dark .table,
+.dark .input {
+    background-color: var(--card-bg) !important;
+    color: var(--text-default) !important;
+    border-color: var(--card-border) !important;
+}
+
+.dark td,
+.dark th {
+    background-color: var(--table-row) !important;
+    color: var(--text-default) !important;
+}
+
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */

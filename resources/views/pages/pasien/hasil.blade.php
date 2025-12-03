@@ -2,15 +2,15 @@
 
     <div class="p-6" x-data="labResult">
 
-        <h1 class="text-2xl font-semibold text-gray-800 mb-6">
+        <h1 class="text-2xl font-semibold text-gray-400 mb-6">
             Hasil Pemeriksaan Laboratorium
         </h1>
 
-        <div class="bg-white p-6 rounded-xl shadow-md space-y-10">
+        <div class="card bg-white p-6 rounded-xl shadow-md space-y-10">
 
             @foreach ($hasil ?? [] as $item)
 
-            <div class="space-y-4">
+            <div class="card space-y-4">
 
                 <!-- Judul Jenis Pemeriksaan -->
                 <div>
@@ -23,7 +23,7 @@
                                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
 
-                        <p class="text-sm text-gray-600">
+                        <p class="card text-sm text-gray-600">
                             {{ $item->created_at->format('d F Y') }}
                         </p>
                     </div>
@@ -33,13 +33,13 @@
                 <!-- LOOP KATEGORI -->
                 @foreach ($item->lab->groupBy('jenis.jenis_pemeriksaan') ?? [] as $kategori => $details)
 
-                <div class="space-y-2">
+                <div class="card space-y-2">
 
                     <!-- Nama Kategori (Jika Mau Dipakai) -->
                     {{-- <h4 class="text-md font-semibold text-gray-700">{{ $kategori }}</h4> --}}
 
                     <!-- WRAPPER RESPONSIVE -->
-                    <div class="overflow-x-auto rounded-lg border border-gray-200">
+                    <div class="card overflow-x-auto rounded-lg border border-gray-200">
 
                         <table class="min-w-full text-sm">
 
