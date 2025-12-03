@@ -3,7 +3,7 @@
     <!-- TOP CARDS -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         <!-- Total Pasien -->
-        <div class="card bg-white rounded-xl shadow p-4 border border-gray-200">
+        <div class="card bg-white dark:bg-gray-900 rounded-xl shadow p-4 border border-gray-200">
             <div class="card flex items-center mb-4">
                 <div class="bg-blue-200 p-3 rounded-full mr-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24"
@@ -15,7 +15,7 @@
                     </svg>
                 </div>
                 <div>
-                    <h2 class="card text-gray-800 font-bold text-lg">Akun Pasien</h2>
+                    <h2 class="card text-gray-800 dark:text-gray-100 font-bold text-lg">Akun Pasien</h2>
                     <p class="card text-gray-500 text-sm">{{ $totalPengguna ?? '0' }}</p>
                 </div>
             </div>
@@ -27,7 +27,7 @@
         </div>
 
         <!-- Total Dokter -->
-        <div class="card bg-pink-100 rounded-xl shadow p-4 border border-gray-200">
+        <div class="card bg-pink-100 dark:bg-gray-800 rounded-xl shadow p-4 border border-gray-200">
             <div class="card flex items-center mb-4">
                 <div class="bg-pink-200 p-3 rounded-full mr-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24"
@@ -39,7 +39,7 @@
                     </svg>
                 </div>
                 <div>
-                    <h2 class="card text-gray-800 font-bold text-lg">Total Dokter</h2>
+                    <h2 class="card text-gray-800 dark:text-gray-100 font-bold text-lg">Total Dokter</h2>
                     <p class="card text-gray-500 text-sm">{{ $totalDokter?? '0' }}</p>
                 </div>
             </div>
@@ -50,7 +50,7 @@
         </div>
 
         <!-- Total Janji -->
-        <div class="card bg-white rounded-xl shadow p-4 border border-gray-200">
+        <div class="card bg-white dark:bg-gray-900 rounded-xl shadow p-4 border border-gray-200">
             <div class="card flex items-center mb-4">
                 <div class="bg-blue-100 p-3 rounded-full mr-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none"
@@ -60,7 +60,7 @@
                     </svg>
                 </div>
                 <div>
-                    <h2 class="card text-gray-800 font-bold text-lg">Total Janji</h2>
+                    <h2 class="card text-gray-800 dark:text-gray-100 font-bold text-lg">Total Janji</h2>
                     <p class="card text-gray-500 text-sm">{{ $totalJanji??'0' }}</p>
                 </div>
             </div>
@@ -71,7 +71,7 @@
         </div>
 
         <!-- Stok Obat -->
-        <div class="card bg-pink-100 rounded-xl shadow p-4 border border-gray-200">
+        <div class="card bg-pink-100 dark:bg-gray-800 rounded-xl shadow p-4 border border-gray-200">
             <div class="card flex items-center mb-4">
                 <div class="bg-pink-100 p-3 rounded-full mr-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none"
@@ -83,7 +83,7 @@
                     </svg>
                 </div>
                 <div>
-                    <h2 class="card text-gray-800 font-bold text-lg">Stok Obat</h2>
+                    <h2 class="card text-gray-800 dark:text-gray-100 font-bold text-lg">Stok Obat</h2>
                     <p class="card text-gray-500 text-sm">Total: {{ $totalObat?? '0' }}</p>
                     <p class="card text-gray-500 text-sm">Sedikit: {{ $obatSisaSedikit?? '0' }}</p>
                     <p class="card text-gray-500 text-sm">Habis: {{ $obatHabis?? '0' }}</p>
@@ -100,40 +100,40 @@
         <div class="lg:col-span-2 space-y-10">
 
             <!-- TABLE APPOINTMENTS -->
-            <div class="card bg-white rounded-xl shadow p-6 border border-gray-200">
+            <div class="card bg-white dark:bg-gray-800 rounded-xl shadow p-6 border border-gray-200">
                 @livewire('appointment-short')
             </div>
 
             <!-- Short Table: Dokter Aktif -->
-            <div class="card bg-white rounded-xl shadow p-6 border border-gray-200 mt-10">
+            <div class="card bg-white dark:bg-gray-800 rounded-xl shadow p-6 border border-gray-200 mt-10">
                 @livewire('pages.short.dokter-aktif')
             </div>
 
         </div>
 
         <!-- RIGHT SIDE -->
-        <div class="card bg-white rounded-xl shadow p-6 border border-gray-200 flex flex-col items-center justify-start self-start space-y-6">
+        <div class="card bg-white dark:bg-gray-800 rounded-xl shadow p-6 border border-gray-200 flex flex-col items-center justify-start self-start space-y-6">
 
             <!-- CLOCK -->
-            <div class="card w-full text-center">
-                <h2 class="card text-lg font-bold text-gray-800 mb-3">Jam Sekarang</h2>
+            <div class="card w-full text-centerc ">
+                <h2 class="card text-lg font-bold text-gray-800 dark:text-white mb-3">Jam Sekarang</h2>
 
-                <div class="card flex items-center gap-2 bg-blue-200 p-3 rounded-lg shadow-inner justify-center border border-gray-200">
+                <div class="card flex items-center gap-2 bg-blue-200 dark:bg-gray-900 p-3 rounded-lg shadow-inner justify-center border border-gray-200">
                     <div id="h"
-                        class="card px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 min-w-[70px] text-center">
+                        class="card px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 dark:text-gray-800 min-w-[70px] text-center">
                         00
                     </div>
 
                     <span class="card text-3xl font-bold text-blue-700 pb-1">:</span>
 
                     <div id="m"
-                        class="card px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 min-w-[70px] text-center">
+                        class="card px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 dark:text-gray-800 min-w-[70px] text-center">
                         00
                     </div>
 
                     <span class="card text-3xl font-bold text-blue-700 pb-1">:</span>
                     <div id="s"
-                        class="card px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 min-w-[70px] text-center">
+                        class="card px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 dark:text-gray-800 min-w-[70px] text-center">
                         00
                     </div>
                 </div>
@@ -157,23 +157,23 @@
 
                 <!-- Card 1 -->
                 <a href="{{ route('users.index') }}"
-                    class="card block bg-blue-100 hover:bg-blue-200 transition rounded-xl p-4 shadow border border-blue-200">
-                    <h3 class="card text-blue-900 font-semibold text-md">Lihat User</h3>
-                    <p class="card hover:underline text-blue-700 text-sm mt-1">Kelola Data Pasien</p>
+                    class="card block bg-blue-100 dark:bg-gray-600 hover:bg-blue-200 dark:hover:bg-gray-700 transition rounded-xl p-4 shadow border border-blue-200">
+                    <h3 class="card text-blue-900 dark:text-white font-semibold text-md">Lihat User</h3>
+                    <p class="card hover:underline text-blue-700 dark:text-white text-sm mt-1">Kelola Data Pasien</p>
                 </a>
 
                 <!-- Card 2 -->
                 <a href="{{ route('kasir.index') }}"
-                    class="block bg-pink-100 hover:bg-pink-200 transition rounded-xl p-4 shadow border border-pink-200">
-                    <h3 class="text-pink-900 font-semibold text-md">Cek Riwayat Pembayaran</h3>
-                    <p class="hover:underline text-pink-700 text-sm mt-1">Pantau transaksi dan pembayaran pasien.</p>
+                    class="block bg-pink-100 dark:bg-gray-600 hover:bg-pink-200 dark:hover:bg-gray-700 transition rounded-xl p-4 shadow border border-pink-200">
+                    <h3 class="text-pink-900 dark:text-white font-semibold text-md">Cek Riwayat Pembayaran</h3>
+                    <p class="hover:underline text-pink-700 dark:text-white text-sm mt-1">Pantau transaksi dan pembayaran pasien.</p>
                 </a>
 
                 <!-- Card 3 -->
                 <a href="{{ route('stok-obat.index') }}"
-                    class="block bg-yellow-100 hover:bg-yellow-200 transition rounded-xl p-4 shadow border border-yellow-200">
-                    <h3 class="text-yellow-900 font-semibold text-md">Cek Stok Obat</h3>
-                    <p class="hover:underline text-yellow-700 text-sm mt-1">Lihat jumlah stok obat dan status ketersediaan.</p>
+                    class="block bg-yellow-100 dark:bg-gray-600 hover:bg-yellow-200 dark:hover:bg-gray-700 transition rounded-xl p-4 shadow border border-yellow-200">
+                    <h3 class="text-yellow-900 dark:text-white font-semibold text-md">Cek Stok Obat</h3>
+                    <p class="hover:underline text-yellow-700 dark:text-white text-sm mt-1">Lihat jumlah stok obat dan status ketersediaan.</p>
                 </a>
 
             </div>

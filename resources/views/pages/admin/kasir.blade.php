@@ -27,7 +27,7 @@
 
 
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-semibold text-gray-800">Kasir</h1>
+            <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">Kasir</h1>
 
             <button
                 @click="showPendapatan = true"
@@ -39,13 +39,13 @@
 
 
 
-        <div class="bg-white p-6 rounded-xl shadow-md">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
 
-            <h3 class="text-lg font-semibold text-gray-700 mb-4">Daftar Transaksi</h3>
+            <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-100 mb-4">Daftar Transaksi</h3>
 
             <!-- RATA TENGAH UNTUK SEMUA KOLUMN -->
             <table class="min-w-full text-sm border border-gray-200 rounded-lg overflow-hidden text-center">
-                <thead class="bg-blue-50 text-gray-700">
+                <thead class="bg-blue-50 text-gray-700 dark:text-white dark:bg-gray-600 dark:border-y">
                     <tr>
                         <th class="px-4 py-2">Tanggal</th>
                         <th class="px-4 py-2">Total</th>

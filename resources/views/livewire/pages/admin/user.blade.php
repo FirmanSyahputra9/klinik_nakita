@@ -134,7 +134,7 @@
                         </template>
                     </tr>
                     <template x-if="tab === 'pasien'">
-                        <tr class="bg-blue-50 text-gray-700 dark:text-white dark:bg-gray-950 dark:border-y   ">
+                        <tr class="bg-blue-50 text-gray-700 dark:text-white dark:bg-gray-600 dark:border-y   ">
                             <th class="py-3 px-4 text-sm font-medium">RM</th>
                             <th class="py-3 px-4 text-sm font-medium">Nama</th>
                             <th class="py-3 px-4 text-sm font-medium">NIK</th>
@@ -149,7 +149,7 @@
 
                     <!-- Untuk Dokter -->
                     <template x-if="tab === 'dokter'">
-                        <tr class="bg-blue-50 text-gray-700 dark:text-white dark:bg-gray-950 dark:border-y">
+                        <tr class="bg-blue-50 text-gray-700 dark:text-white dark:bg-gray-600 dark:border-y">
                             <th class="py-3 px-4 text-sm font-medium ">NO</th>
                             <th class="py-3 px-4 text-sm font-medium ">Nama Lengkap</th>
                             <th class="py-3 px-4 text-sm font-medium ">Spesialis</th>
@@ -163,7 +163,7 @@
 
                     <!-- Untuk Admin -->
                     <template x-if="tab === 'admin'">
-                        <tr class="bg-blue-50 text-gray-700 dark:text-white dark:bg-gray-950 dark:border-y">
+                        <tr class="bg-blue-50 text-gray-700 dark:text-white dark:bg-gray-600 dark:border-y">
                             <th class="py-3 px-4 text-sm font-medium ">NO</th>
                             <th class="py-3 px-4 text-sm font-medium ">Nama</th>
                             <th class="py-3 px-4 text-sm font-medium ">Email</th>
@@ -174,7 +174,7 @@
                 </thead>
                 <tbody x-show="tab === 'pasien'" class=" text-[14px]">
                     @forelse ($pasiens as $item)
-                        <tr class="border-b text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <tr class="border-b text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white">
                             <td class="py-2 px-4 ">{{ $item->pasien->no_rm ?? '-' }}</td>
                             <td class="py-2 px-4  min-w-32 max-w-32 overflow-x-auto thin-scroll">
                                 {{ $item->pasien->name ?? '-' }}</td>
@@ -244,7 +244,7 @@
                 </tbody>
                 <tbody x-show="tab === 'dokter'" class=" text-[14px]">
                     @forelse ($dokters as $dokter)
-                        <tr class="border-b text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <tr class="border-b text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white">
                             <td class="py-2 px-4 ">{{ $loop->iteration }}</td>
                             <td class="py-2 px-4 ">{{ $dokter->dokter->name }}</td>
                             <td class="py-2 px-4 ">{{ $dokter->dokter->spesialisasi }}</td>
@@ -278,7 +278,7 @@
                 <!-- ADMIN -->
                 <tbody x-show="tab === 'admin'" class=" text-[14px]">
                     @forelse ($admins as $admin)
-                        <tr class="border-b text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <tr class="border-b text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white">
                             <td class="py-2 px-4 ">{{ $loop->iteration }}</td>
                             <td class="py-2 px-4 ">{{ $admin->admin->name }}</td>
                             <td class="py-2 px-4 ">{{ $admin->email }}</td>

@@ -7,7 +7,7 @@
         </div>
 
         <!-- Content Card -->
-        <div class="card bg-white rounded-lg shadow p-6" x-data="jadwalFilter()">
+        <div class="card bg-white dark:bg-gray-800 rounded-lg shadow p-6" x-data="jadwalFilter()">
 
             <!-- FILTER SECTION -->
             <div class="card mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -23,7 +23,7 @@
                 <div>
                     <label class="card text-xs font-semibold text-gray-600">Spesialisasi</label>
                     <select wire:model.live.debounce.500ms="filterSpesialisasi"
-                        class="card mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-green-200 focus:outline-none">
+                        class="card mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-green-200 focus:outline-none dark:focus:bg-gray-700 dark:text-white dark:focus:ring-gray-200">
                         <option value="">Semua Spesialisasi</option>
 
                         @foreach ($spesialisai??[] as $sp)
@@ -36,7 +36,7 @@
                 <div>
                     <label class="card text-xs font-semibold text-gray-600">Status</label>
                     <select wire:model.live.debounce.500ms="filterStatus"
-                        class="card mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-green-200 focus:outline-none">
+                        class="card mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-green-200 focus:outline-none dark:focus:bg-gray-700 dark:text-white dark:focus:ring-gray-200">
                         <option value="">Semua Status</option>
                         @foreach ($status??[] as $st)
                         <option value="{{ $st }}">
@@ -49,23 +49,23 @@
 
             <!-- TABLE -->
             <div class="card overflow-x-auto">
-                <table class="card w-full whitespace-nowrap text-xs">
+                <table class="card w-full whitespace-nowrap text-xs dark:border">
                     <thead>
-                        <tr class="card border-b border-gray-200">
-                            <th class="text-left py-3 px-4 font-semibold text-gray-700 md:max-w-20 md:min-w-10">Nama
+                        <tr class="card border-b border-gray-200  dark:text-white dark:bg-gray-600 dark:border-y">
+                            <th class="text-left py-3 px-4 font-semibold  md:max-w-20 md:min-w-10">Nama
                             </th>
-                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Dokter</th>
-                            <th class="text-left py-3 px-4 font-semibold text-gray-700 hidden md:block">Jadwal</th>
-                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Status</th>
+                            <th class="text-left py-3 px-4 font-semibold ">Dokter</th>
+                            <th class="text-left py-3 px-4 font-semibold hidden md:block">Jadwal</th>
+                            <th class="text-left py-3 px-4 font-semibold ">Status</th>
                             <th
-                                class="py-3 px-4 font-semibold text-gray-700 hidden md:flex justify-center items-center text-center">
+                                class="py-3 px-4 font-semibold  hidden md:flex justify-center items-center text-center">
                                 Aksi</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         @foreach ($dokters??[] as $dokter)
-                        <tr class="card border-b border-gray-100 hover:bg-gray-50"
+                        <tr class="card border-b border-gray-100 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
                             x-show="matched({
                                 name: '{{ strtolower($dokter->name) }}',
                                 spesialis: '{{ strtolower($dokter->spesialisasi) }}',
@@ -73,7 +73,7 @@
                             })">
                             <!-- Nama -->
                             <td
-                                class="py-4 px-4 text-gray-900 md:max-w-20 md:min-w-10 overflow-x-auto overflow-y-auto thin-scroll">
+                                class="py-4 px-4  md:max-w-20 md:min-w-10 overflow-x-auto overflow-y-auto thin-scroll">
                                 <div class="flex inline-flex">
                                     <div class="flex md:hidden">
                                         <a href="{{ route('registrasi.index', $dokter->id) }}"
@@ -113,10 +113,10 @@
                             </td>
 
                             <!-- Spesialisasi -->
-                            <td class="py-4 px-4 text-gray-700">{{ $dokter->spesialisasi }}</td>
+                            <td class="py-4 px-4 ">{{ $dokter->spesialisasi }}</td>
 
                             <!-- Jadwal desktop -->
-                            <td class="py-4 px-4 text-gray-700 hidden md:block">
+                            <td class="py-4 px-4 hidden md:block">
                                 <div class="card flex flex-col gap-1">
                                     @foreach ($dokter->grouped_jadwals??[] as $jadwalGroup)
                                     @php
@@ -129,7 +129,7 @@
                                     @endphp
 
                                     <div class="flex items-center flex-wrap gap-1">
-                                        <span class="card font-semibold text-gray-800">{{ $hariTampil }}</span>
+                                        <span class="card font-semibold ">{{ $hariTampil }}</span>
                                         <span class="card text-gray-500">•</span>
                                         <span class="card bg-gray-100 text-gray-700 px-2 py-1 rounded-md">
                                             {{ $jadwalGroup['mulai'] }} - {{ $jadwalGroup['selesai'] }}

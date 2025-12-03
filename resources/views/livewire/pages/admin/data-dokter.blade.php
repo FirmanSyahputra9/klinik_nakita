@@ -20,7 +20,7 @@
     }">
 
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-semibold text-gray-800">Data Dokter</h1>
+            <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">Data Dokter</h1>
 
             <a href="{{ route('dokter.create') }}"
                 class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
@@ -38,10 +38,10 @@
         </div>
 
         <!-- Table -->
-        <div class="bg-white rounded-lg shadow overflow-x-auto">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-x-auto">
             <table class="min-w-full text-sm text-left text-gray-600 whitespace-nowrap">
-                <thead class="bg-gray-100 text-gray-700 uppercase text-xs font-semibold">
-                    <tr>
+                <thead class="bg-gray-100  uppercase text-xs font-semibold">
+                    <tr class="bg-blue-50 text-gray-700 dark:text-white dark:bg-gray-600 dark:border-y">
                         <th class="px-4 py-3">Nama Lengkap</th>
                         <th class="px-4 py-3">Spesialisasi</th>
                         <th class="px-4 py-3">No. Telepon</th>
@@ -54,9 +54,9 @@
                 </thead>
                 <tbody>
                     @forelse ($dokters as $data)
-                    <tr class="border-b hover:bg-gray-50">
+                    <tr class="border-b hover:bg-gray-50 dark:text-gray-300  dark:hover:bg-gray-700 dark:hover:text-white">
                         <td
-                            class="px-4 py-3 font-medium text-gray-800 min-w-32 max-w-32 overflow-x-auto thin-scroll">
+                            class="px-4 py-3 font-medium min-w-32 max-w-32 overflow-x-auto thin-scroll">
                             <a href="{{ route('dokter.show', $data->dokter->id) }}">
                                 {{ $data->dokter->name }}
                             </a>

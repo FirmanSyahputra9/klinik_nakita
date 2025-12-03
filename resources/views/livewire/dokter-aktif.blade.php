@@ -1,5 +1,5 @@
-<div class="p-4 rounded-xlshadow-lg dark:bg-gray-200">
-    <div class="text-lg lg:text-base font-medium text-gray-600 dark:text-gray-800">
+<div class="p-4 rounded-xl  dark:bg-gray-900">
+    <div class="text-lg lg:text-base font-medium text-gray-600 dark:text-gray-100">
         Status Ketersediaan:
 >
         <div class="flex items-center gap-6 mt-3" wire:change="updateStatus">

@@ -2,7 +2,7 @@
     <div x-data="stokFilter()">
 
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-semibold text-gray-800">Stok Obat</h1>
+            <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">Stok Obat</h1>
 
             <a href="{{ route('stok-obat.create') }}"
                 class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
@@ -28,7 +28,7 @@
 
                 <!-- Filter Satuan -->
                 <select  wire:model.live="filterSatuan"
-                    class="px-3 py-2 border rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500">
+                    class="px-3 py-2 border rounded-lg text-sm text-gray-700 dark:focus:bg-gray-700 dark:text-white focus:ring focus:ring-blue-200 dark:focus:ring-gray-200">
                     <option value="">Semua Satuan</option>
                     @foreach ($satuan??[] as $s)
                         <option value="{{ $s }}">{{ $s }}</option>
@@ -37,7 +37,7 @@
 
                 <!-- Filter Stok -->
                 <select x-model="filterStok"
-                    class="px-3 py-2 border rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500">
+                    class="px-3 py-2 border rounded-lg text-sm text-gray-700 dark:focus:bg-gray-700 dark:text-white focus:ring focus:ring-blue-200 dark:focus:ring-gray-200">
                     <option value="">Semua Stok</option>
                     <option value="low">Stok Menipis (≤ 10)</option>
                     <option value="safe">Stok Aman (> 10)</option>
@@ -48,9 +48,9 @@
         </div>
 
         <!-- TABLE -->
-        <div class="bg-white rounded-lg shadow overflow-x-auto">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-x-auto">
             <table class="min-w-full text-sm text-left text-gray-600">
-                <thead class="bg-blue-50 text-gray-700 uppercase text-xs font-semibold">
+                <thead class="bg-blue-50 text-gray-700 uppercase text-xs font-semibold dark:text-white dark:bg-gray-600 dark:border-y">
                     <tr>
                         <th class="px-4 py-3">Kode</th>
                         <th class="px-4 py-3">Nama Obat</th>
@@ -66,14 +66,14 @@
                 <tbody>
 
                     @forelse ($obats??[] as $obat)
-                        <tr class="border-b hover:bg-gray-50"
+                        <tr class="border-b hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
                             x-show="match({
                             kode: '{{ strtolower($obat->kode) }}',
                             nama: '{{ strtolower($obat->nama) }}',
                             satuan: '{{ strtolower($obat->satuan) }}',
                             stok: {{ $obat->stok }}
                         })">
-                            <td class="px-4 py-3 font-medium text-gray-800">{{ $obat->kode }}</td>
+                            <td class="px-4 py-3 font-medium">{{ $obat->kode }}</td>
                             <td class="px-4 py-3">{{ $obat->nama }}</td>
                             <td class="px-4 py-3">{{ $obat->stok }}</td>
                             <td class="px-4 py-3">{{ $obat->satuan }}</td>

@@ -2,19 +2,19 @@
     <!-- Stats -->
 
     <div
-        class="relative w-full max-w-6xl mx-auto rounded-xl overflow-hidden bg-linear-to-r from-white to-[#EFF4FA] p-5 py-10 mb-10 mt-8">
+        class="relative w-full max-w-6xl mx-auto rounded-xl overflow-hidden bg-linear-to-r from-white to-[#EFF4FA] dark:bg-none dark:bg-gray-800 p-5 py-10 mb-10 mt-8">
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 items-start">
             <div class="flex flex-col items-start space-y-6">
                 <div>
-                    <p class="text-sm font-medium text-gray-600 uppercase tracking-wider">Tanggal Bergabung</p>
-                    <p class="text-lg font-semibold text-gray-800 mt-1">{{ $dokter->approved_at->format('d F Y')??'' }}</p>
+                    <p class="text-sm font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">Tanggal Bergabung</p>
+                    <p class="text-lg font-semibold text-gray-800 dark:text-gray-100 mt-1">{{ $dokter->approved_at->format('d F Y')??'' }}</p>
                 </div>
                 <div class="flex flex-col space-y-4 w-full">
                     <a href="mailto:nabilahdaa@gmail.com"
-                        class="flex items-center bg-blue-50 border border-blue-200 rounded-full pr-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer w-full max-w-[280px]">
-                        <div class="p-3 bg-blue-200 rounded-l-full">
-                            <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        class="flex items-center bg-blue-50  border border-blue-200 rounded-full pr-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer w-full max-w-[280px]">
+                        <div class="p-3 bg-blue-200 dark:bg-blue-900 rounded-l-full">
+                            <svg class="w-5 h-5 text-blue-700 dark:text-blue-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 4v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7"></path>
@@ -26,8 +26,8 @@
 
                     <a href="tel:+6282160455334"
                         class="flex items-center bg-blue-50 border border-blue-200 rounded-full pr-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer w-full max-w-[280px]">
-                        <div class="p-3 bg-blue-200 rounded-l-full">
-                            <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        <div class="p-3 bg-blue-200 dark:bg-blue-900 rounded-l-full">
+                            <svg class="w-5 h-5 text-blue-700 dark:text-blue-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
@@ -42,7 +42,7 @@
 
             <div
                 class="col-span-1 md:col-span-1 lg:col-span-1 flex flex-col items-center text-center md:items-start md:text-left">
-                <h2 class="text-3xl lg:text-4xl font-extrabold text-[#1F75BF] leading-tight">{{ $dokter->dokter->name??'-' }}
+                <h2 class="mb-2 text-3xl lg:text-4xl font-extrabold text-[#1F75BF] dark:text-gray-100 leading-tight">{{ $dokter->dokter->name??'-' }}
                 </h2>
                 <div>
                     @livewire('dokter-aktif')
@@ -146,15 +146,15 @@
     </div>
 
 
-    <div class="w-full mt-8 py-2 bg-white rounded-xl">
-        <h2 class="text-xl font-bold text-gray-800 mb-4">Janji Temu Berikutnya</h2>
+    <div class="w-full mt-8 py-2 bg-white dark:bg-gray-800 rounded-xl">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Janji Temu Berikutnya</h2>
 
         <!-- Bikin scroll horizontal di HP -->
         <div class="overflow-x-auto border border-gray-200 rounded-lg">
             <table class="min-w-max w-full text-sm text-gray-700">
 
                 <!-- Header -->
-                <thead class="bg-gray-50 text-gray-600 font-semibold border-b">
+                <thead class="bg-gray-50 text-gray-600 font-semibold border-b dark:text-white dark:bg-gray-600 dark:border-y">
                     <tr>
                         <th class="px-4 py-3 text-left">Dokter</th>
                         <th class="px-4 py-3 text-left">Nama Pasien</th>
@@ -168,7 +168,7 @@
                 <!-- Body -->
                 <tbody>
                     @forelse ( $janji->where('status', true) as $item)
-                        <tr class="hover:bg-blue-50 border-b">
+                        <tr class="hover:bg-blue-50 border-b dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
                             <td class="px-4 py-3 flex items-center space-x-2">
                                 <div class="w-6 h-6 rounded-full bg-blue-100 border border-blue-300"></div>
                                 <span class="font-medium truncate">{{ $item->dokters->name }}??'-'</span>

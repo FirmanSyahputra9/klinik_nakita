@@ -31,9 +31,9 @@
         </div>
 
         <!-- Tabel -->
-        <div class="overflow-x-auto bg-white shadow rounded-lg">
+        <div class="overflow-x-auto dark:bg-gray-800  shadow rounded-lg">
             <table class="w-full border border-gray-200 whitespace-nowrap">
-                <thead class="bg-blue-50 text-gray-700">
+                <thead class="bg-blue-50 uppercase text-xs font-semibold text-gray-700 dark:text-white dark:bg-gray-600 dark:border-y">
                     <tr>
                         <th class="px-4 py-2 text-left">Kode</th>
                         <th class="px-4 py-2 text-left">Tanggal</th>
@@ -46,13 +46,13 @@
                 </thead>
                 <tbody class="divide-y divide-gray-200 text-gray-700">
                     @forelse ($registrasi as $reg)
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="py-2 px-4 text-gray-500">{{ $reg->appointment_code }}</td>
-                            <td class="py-2 px-4 text-gray-500">{{ $reg->tanggal_kunjungan }}</td>
-                            <td class="py-2 px-4 text-gray-500">{{ $reg->pasiens->name }}</td>
-                            <td class="py-2 px-4 text-gray-500">{{ $reg->dokters->name }}</td>
-                            <td class="py-2 px-4 text-gray-500">{{ $reg->keluhan }}</td>
-                            <td class="py-2 px-4 text-gray-500">
+                        <tr class="border-b dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <td class="py-2 px-4 ">{{ $reg->appointment_code }}</td>
+                            <td class="py-2 px-4 ">{{ $reg->tanggal_kunjungan }}</td>
+                            <td class="py-2 px-4 ">{{ $reg->pasiens->name }}</td>
+                            <td class="py-2 px-4 ">{{ $reg->dokters->name }}</td>
+                            <td class="py-2 px-4 ">{{ $reg->keluhan }}</td>
+                            <td class="py-2 px-4 ">
                                 <span
                                     class="{{ $reg->status == 1 ? 'text-blue-600 bg-blue-100' : 'text-yellow-600 bg-yellow-100' }} px-2 py-1 rounded text-sm">{{ $reg->status == 1 ? 'Acc' : 'Belum' }}
                                 </span>
