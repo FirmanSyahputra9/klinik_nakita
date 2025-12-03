@@ -3,3 +3,4 @@
     <rect width="24" height="24" fill="none" />
     <path d="M17.5,13.5h-4v4h-3v-4h-4v-3h4v-4h3v4h4ZM12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Z" />
 </svg>
+

@@ -4,19 +4,19 @@
         <!-- Tabs -->
         <div class="flex gap-3 mb-4">
             <button @click="$wire.set('tab','pasien')"
-                :class="tab === 'pasien' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'"
+                :class="tab === 'pasien' ? 'bg-blue-600 dark:bg-gray-800 dark:border  text-white' : 'bg-gray-100 text-gray-700'"
                 class="px-4 py-2 rounded-lg font-medium transition">
                 Pasien
             </button>
 
             <button @click="$wire.set('tab','dokter')"
-                :class="tab === 'dokter' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'"
+                :class="tab === 'dokter' ? 'bg-blue-600 dark:bg-gray-800 dark:border text-white' : 'bg-gray-100 text-gray-700'"
                 class="px-4 py-2 rounded-lg font-medium transition">
                 Dokter
             </button>
 
             <button @click="$wire.set('tab','admin')"
-                :class="tab === 'admin' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'"
+                :class="tab === 'admin' ? 'bg-blue-600 dark:bg-gray-800 dark:border text-white' : 'bg-gray-100 text-gray-700'"
                 class="px-4 py-2 rounded-lg font-medium transition">
                 Admin
             </button>
@@ -50,7 +50,7 @@
                     <div class="flex gap-3">
                         <!-- Gender -->
                         <select wire:model.live="filterGender"
-                            class="px-3 py-2 border rounded-lg text-sm text-gray-700 focus:ring focus:ring-blue-200">
+                            class="px-3 py-2 border rounded-lg text-sm text-gray-700 dark:focus:bg-gray-700 dark:text-white focus:ring focus:ring-blue-200 dark:focus:ring-gray-200 ">
                             <option value="">Semua Gender</option>
                             <option value="male">Laki-Laki</option>
                             <option value="female">Perempuan</option>
@@ -58,7 +58,7 @@
 
                         <!-- Rentang Umur -->
                         <select wire:model.live="filterUmur"
-                            class="px-3 py-2 border rounded-lg text-sm text-gray-700 focus:ring focus:ring-blue-200">
+                            class="px-3 py-2 border rounded-lg text-sm text-gray-700 dark:focus:bg-gray-700 dark:text-white focus:ring focus:ring-blue-200 dark:focus:ring-gray-200">
                             <option>Semua Umur</option>
                             <option value="0-12">0-12</option>
                             <option value="12-18">13-18</option>
@@ -75,7 +75,7 @@
                     <div class="flex gap-3">
                         <!-- Spesialis -->
                         <select wire:model.live="filterSpesialis"
-                            class="px-3 py-2 border rounded-lg text-sm text-gray-700 focus:ring focus:ring-blue-200">
+                            class="px-3 py-2 border rounded-lg text-sm text-gray-700 dark:focus:bg-gray-700 dark:text-white focus:ring focus:ring-blue-200 dark:focus:ring-gray-200">
                             <option value="">Semua Spesialis</option>
                             @foreach ($spesialis??[] as $item)
                                 <option value="{{ $item }}">{{ $item }}</option>
@@ -84,7 +84,7 @@
 
                         <!-- Status -->
                         <select wire:model.live="filterStatus"
-                            class="px-3 py-2 border rounded-lg text-sm text-gray-700 focus:ring focus:ring-blue-200">
+                            class="px-3 py-2 border rounded-lg text-sm text-gray-700 dark:focus:bg-gray-700 dark:text-white focus:ring focus:ring-blue-200 dark:focus:ring-gray-200">
                             <option>Semua Status</option>
                             @forelse ($aktif as $item)
                                 <option value="{{ $item }}" >{{ $item == 'aktif' ? 'Aktif' : 'Tidak Aktif' }}
@@ -101,7 +101,7 @@
                     <div class="flex gap-3">
                          @if (Auth::user()->role == 'superadmin')
                             <select
-                            class="px-3 py-2 border rounded-lg text-sm text-gray-700 focus:ring focus:ring-blue-200">
+                            class="px-3 py-2 border rounded-lg text-sm text-gray-700 dark:focus:bg-gray-700 dark:text-white focus:ring focus:ring-blue-200 dark:focus:ring-gray-200">
                             <option>Semua Role</option>
                             @forelse ($role as $item)
                                 <option value="{{ $item }}">{{ $item }}</option>
@@ -119,77 +119,77 @@
         </div>
 
         <!-- Table Container -->
-        <div class="overflow-x-auto bg-white rounded-lg shadow border border-gray-100">
+        <div class="overflow-x-auto bg-white dark:bg-gray-800  rounded-lg shadow border border-gray-100">
             <table class="min-w-full text-left border-collapse overflow-x-auto whitespace-nowrap">
                 <thead class="text-base">
-                    <tr>
-                        <template x-if="tab === 'pasien'">
-                            <th class="py-2 px-4 text-gray-700 font-semibold text-sm">Data Pasien</th>
+                    <tr class="text-gray-700 dark:text-white">
+                        <template x-if="tab === 'pasien'" >
+                            <th class="py-2 px-4 dark:text-white  font-semibold text-sm">Data Pasien</th>
                         </template>
                         <template x-if="tab === 'dokter'">
-                            <th colspan="7" class="py-2 px-4 text-gray-700 font-semibold text-sm">Data Dokter</th>
+                            <th colspan="7" class="py-2 px-4  font-semibold text-sm">Data Dokter</th>
                         </template>
                         <template x-if="tab === 'admin'">
-                            <th colspan="7" class="py-2 px-4 text-gray-700 font-semibold text-sm">Data Admin</th>
+                            <th colspan="7" class="py-2 px-4 font-semibold text-sm">Data Admin</th>
                         </template>
                     </tr>
                     <template x-if="tab === 'pasien'">
-                        <tr class="bg-blue-50">
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">RM</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Nama</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">NIK</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Email</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Gender</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Umur</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Alamat</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Telepon</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Aksi</th>
+                        <tr class="bg-blue-50 text-gray-700 dark:text-white dark:bg-gray-950 dark:border-y   ">
+                            <th class="py-3 px-4 text-sm font-medium">RM</th>
+                            <th class="py-3 px-4 text-sm font-medium">Nama</th>
+                            <th class="py-3 px-4 text-sm font-medium">NIK</th>
+                            <th class="py-3 px-4 text-sm font-medium">Email</th>
+                            <th class="py-3 px-4 text-sm font-medium">Gender</th>
+                            <th class="py-3 px-4 text-sm font-medium">Umur</th>
+                            <th class="py-3 px-4 text-sm font-medium">Alamat</th>
+                            <th class="py-3 px-4 text-sm font-medium">Telepon</th>
+                            <th class="py-3 px-4 text-sm font-medium">Aksi</th>
                         </tr>
                     </template>
 
                     <!-- Untuk Dokter -->
                     <template x-if="tab === 'dokter'">
-                        <tr class="bg-blue-50">
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">NO</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Nama Lengkap</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Spesialis</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Email</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Telepon</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Alamat</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Status</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Aksi</th>
+                        <tr class="bg-blue-50 text-gray-700 dark:text-white dark:bg-gray-950 dark:border-y">
+                            <th class="py-3 px-4 text-sm font-medium ">NO</th>
+                            <th class="py-3 px-4 text-sm font-medium ">Nama Lengkap</th>
+                            <th class="py-3 px-4 text-sm font-medium ">Spesialis</th>
+                            <th class="py-3 px-4 text-sm font-medium ">Email</th>
+                            <th class="py-3 px-4 text-sm font-medium ">Telepon</th>
+                            <th class="py-3 px-4 text-sm font-medium ">Alamat</th>
+                            <th class="py-3 px-4 text-sm font-medium ">Status</th>
+                            <th class="py-3 px-4 text-sm font-medium ">Aksi</th>
                         </tr>
                     </template>
 
                     <!-- Untuk Admin -->
                     <template x-if="tab === 'admin'">
-                        <tr class="bg-blue-50">
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">NO</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Nama</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Email</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Role</th>
-                            <th class="py-3 px-4 text-sm font-medium text-gray-700">Aksi</th>
+                        <tr class="bg-blue-50 text-gray-700 dark:text-white dark:bg-gray-950 dark:border-y">
+                            <th class="py-3 px-4 text-sm font-medium ">NO</th>
+                            <th class="py-3 px-4 text-sm font-medium ">Nama</th>
+                            <th class="py-3 px-4 text-sm font-medium ">Email</th>
+                            <th class="py-3 px-4 text-sm font-medium ">Role</th>
+                            <th class="py-3 px-4 text-sm font-medium ">Aksi</th>
                         </tr>
                     </template>
                 </thead>
                 <tbody x-show="tab === 'pasien'" class=" text-[14px]">
                     @forelse ($pasiens as $item)
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="py-2 px-4 text-gray-500">{{ $item->pasien->no_rm ?? '-' }}</td>
-                            <td class="py-2 px-4 text-gray-500 min-w-32 max-w-32 overflow-x-auto thin-scroll">
+                        <tr class="border-b text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <td class="py-2 px-4 ">{{ $item->pasien->no_rm ?? '-' }}</td>
+                            <td class="py-2 px-4  min-w-32 max-w-32 overflow-x-auto thin-scroll">
                                 {{ $item->pasien->name ?? '-' }}</td>
-                            <td class="py-2 px-4 text-gray-500 min-w-32 max-w-32 overflow-x-auto thin-scroll">
+                            <td class="py-2 px-4  min-w-32 max-w-32 overflow-x-auto thin-scroll">
                                 {{ $item->pasien->nik ?? '-' }}</td>
-                            <td class="py-2 px-4 text-gray-500 min-w-32 max-w-32 overflow-x-auto thin-scroll">
+                            <td class="py-2 px-4  min-w-32 max-w-32 overflow-x-auto thin-scroll">
                                 {{ $item->email ?? '-' }}
                             </td>
-                            <td class="py-2 px-4 text-gray-500 min-w-32 max-w-32 overflow-x-auto thin-scroll">
+                            <td class="py-2 px-4  min-w-32 max-w-32 overflow-x-auto thin-scroll">
                                 {{ $item->pasien->gender_label ?? '-' }}</td>
-                            <td class="py-2 px-4 text-gray-500 min-w-32 max-w-32 overflow-x-auto thin-scroll">
+                            <td class="py-2 px-4  min-w-32 max-w-32 overflow-x-auto thin-scroll">
                                 {{ $item->pasien->umur ?? '-' }}</td>
-                            <td class="py-2 px-4 text-gray-500">
+                            <td class="py-2 px-4 ">
                                 {{ $item->pasien->alamat ?? '-' }}</td>
-                            <td class="py-2 px-4 text-gray-500 ">restdgvftyhfg{{ $item->pasien->phone ?? '-' }}</td>
+                            <td class="py-2 px-4  ">restdgvftyhfg{{ $item->pasien->phone ?? '-' }}</td>
                             <td class="py-2 px-4 whitespace-nowrap">
                                 <a href="{{ route('users.show', $item->id) }}"
                                     class="text-blue-600 hover:text-blue-800">
@@ -244,14 +244,14 @@
                 </tbody>
                 <tbody x-show="tab === 'dokter'" class=" text-[14px]">
                     @forelse ($dokters as $dokter)
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="py-2 px-4 text-gray-500">{{ $loop->iteration }}</td>
-                            <td class="py-2 px-4 text-gray-500">{{ $dokter->dokter->name }}</td>
-                            <td class="py-2 px-4 text-gray-500">{{ $dokter->dokter->spesialisasi }}</td>
-                            <td class="py-2 px-4 text-gray-500">{{ $dokter->email }}</td>
-                            <td class="py-2 px-4 text-gray-500">{{ $dokter->dokter->phone }}</td>
-                            <td class="py-2 px-4 text-gray-500">{{ $dokter->dokter->alamat }}</td>
-                            <td class="py-2 px-4 text-gray-500">{{ $dokter->dokter->status }}</td>
+                        <tr class="border-b text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <td class="py-2 px-4 ">{{ $loop->iteration }}</td>
+                            <td class="py-2 px-4 ">{{ $dokter->dokter->name }}</td>
+                            <td class="py-2 px-4 ">{{ $dokter->dokter->spesialisasi }}</td>
+                            <td class="py-2 px-4 ">{{ $dokter->email }}</td>
+                            <td class="py-2 px-4 ">{{ $dokter->dokter->phone }}</td>
+                            <td class="py-2 px-4 ">{{ $dokter->dokter->alamat }}</td>
+                            <td class="py-2 px-4 ">{{ $dokter->dokter->status }}</td>
                             <td class="py-2 px-4">
                                 <a href="{{ route('users.show', $dokter->id) }}"
                                     class="text-blue-600 hover:text-blue-800">
@@ -278,11 +278,11 @@
                 <!-- ADMIN -->
                 <tbody x-show="tab === 'admin'" class=" text-[14px]">
                     @forelse ($admins as $admin)
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="py-2 px-4 text-gray-500">{{ $loop->iteration }}</td>
-                            <td class="py-2 px-4 text-gray-500">{{ $admin->admin->name }}</td>
-                            <td class="py-2 px-4 text-gray-500">{{ $admin->email }}</td>
-                            <td class="py-2 px-4 text-gray-500">Admin</td>
+                        <tr class="border-b text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <td class="py-2 px-4 ">{{ $loop->iteration }}</td>
+                            <td class="py-2 px-4 ">{{ $admin->admin->name }}</td>
+                            <td class="py-2 px-4 ">{{ $admin->email }}</td>
+                            <td class="py-2 px-4 ">Admin</td>
                             <td class="py-2 px-4">
                                 <a href="{{ route('users.show', $admin->id) }}"
                                     class="text-blue-600 hover:text-blue-800">

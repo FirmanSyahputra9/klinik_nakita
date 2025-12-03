@@ -61,6 +61,7 @@
                         icon: "/icon-success.png"
                     });
                 }
+                
             @endif
 
             @if (session('error'))
