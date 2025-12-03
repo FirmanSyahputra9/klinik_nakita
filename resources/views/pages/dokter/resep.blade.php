@@ -10,7 +10,7 @@
             <div class="mb-4">
                 <label class="block text-gray-700 font-medium mb-2">Pilih Antrian</label>
                 <select name="antrian_id" id="antrianSelect" class="w-full border border-gray-300 rounded-lg px-4 py-2">
-                    <option value="" disabled>-- Pilih Antrian --</option>
+                    <option value="" class="!important text-gray-400 bg-transparent hover:bg-none">-- Pilih Antrian --</option>
                     @foreach ($antrian??[] as $a)
                         <option value="{{ $a->id }}" data-nama="{{ $a->pasien->name??'-' }}"
                             data-umur="{{ $a->pasien->umur??'-' }}" data-jenis="{{ $a->pasien->gender_label??'-' }}"

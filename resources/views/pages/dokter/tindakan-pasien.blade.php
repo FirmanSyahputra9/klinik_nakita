@@ -51,7 +51,7 @@
                     <input list="listPemeriksaan" name="new_pemeriksaan" class="w-full border rounded px-3 py-2"
                         placeholder="Pilih atau ketik...">
                     <datalist id="listPemeriksaan">
-                        @foreach ($jenisPemeriksaans??[] as $jenis)
+                        @foreach ($jenisPemeriksaans ?? [] as $jenis)
                             <option value="{{ $jenis->jenis_pemeriksaan }}">
                         @endforeach
                     </datalist>
@@ -129,7 +129,7 @@
                         value="{{ $antrian->tindakan->nama_tindakan ?? '' }}"
                         placeholder="Pilih atau ketik nama tindakan...">
                     <datalist id="listNamaTindakan">
-                        @foreach ($jenisPemeriksaans??[] as $jp)
+                        @foreach ($jenisPemeriksaans ?? [] as $jp)
                             <option value="{{ $jp->jenis_pemeriksaan }}">
                         @endforeach
                     </datalist>
@@ -176,7 +176,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($jenisPemeriksaans??[] as $jenis)
+                        @foreach ($jenisPemeriksaans ?? [] as $jenis)
                             @php
 
                                 $hasil = $antrian->lab->firstWhere('jenis_pemeriksaan_id', $jenis->id);
@@ -269,7 +269,12 @@
                 </table>
             </div>
         </div>
-
     </div>
+    @if (session('refresh'))
+        <script>
+            window.location.reload();
+        </script>
+    @endif
+
 
 </x-layouts.app>

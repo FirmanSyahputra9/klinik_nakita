@@ -63,7 +63,7 @@ class PasienController extends Controller
 
         $jenisPemeriksaans = JenisPemeriksaan::all();
 
-        return view('pages.dokter.tindakan-pasien', compact('data', 'antrian', 'jenisPemeriksaans'));
+        return view('pages.dokter.tindakan-pasien', compact('data', 'antrian', 'jenisPemeriksaans'))->with('refresh', true);
     }
 
     /**
