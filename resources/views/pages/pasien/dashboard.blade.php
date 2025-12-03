@@ -16,7 +16,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <!-- Card 1 -->
                 <article class="card bg-white dark:bg-gray-900 rounded-xl shadow-md p-5 flex flex-col gap-3 border border-gray-100 hover:shadow-lg transition">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-700">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-gray-400 rounded-lg flex items-center justify-center text-blue-700 dark:text-gray-800">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M8 7V3m8 4V3m-9 8h10m-1 5H6a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2z" />
@@ -27,12 +27,12 @@
                         <p class="card text-sm text-gray-500">Lihat jadwal konsultasi dan janji temu Anda.</p>
                     </div>
                     <a href="{{ route('jadwaldokter.index') }}"
-                        class="text-blue-600 font-medium text-sm hover:underline mt-auto">Lihat Jadwal →</a>
+                        class="text-blue-600 dark:text-gray-400 font-medium text-sm hover:underline mt-auto">Lihat Jadwal →</a>
                 </article>
 
                 <!-- Card 2 -->
                 <article class="card bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 flex flex-col gap-3 border border-gray-100 hover:shadow-lg transition">
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-700">
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-gray-400 rounded-lg flex items-center justify-center text-purple-700 dark:text-gray-800">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 8c.778 0 1.469-.297 2-.781M12 8c-.778 0-1.469-.297-2-.781M12 8v8m0 0c.778 0 1.469.297 2 .781M12 16c-.778 0-1.469.297-2 .781M8 5h8a2 2 0 012 2v12l-6-3-6 3V7a2 2 0 012-2z" />
@@ -43,12 +43,12 @@
                         <p class="card text-sm text-gray-500">Lihat rekam medis lengkap termasuk diagnosis dan resep.</p>
                     </div>
                     <a href="{{ route('riwayat.index') }}"
-                        class="text-purple-600 font-medium text-sm hover:underline mt-auto">Lihat Riwayat →</a>
+                        class="text-purple-600 dark:text-gray-400 font-medium text-sm hover:underline mt-auto">Lihat Riwayat →</a>
                 </article>
 
                 <!-- Card 3 -->
                 <article class="card bg-white dark:bg-gray-900 rounded-xl shadow-md p-5 flex flex-col gap-3 border border-gray-100 hover:shadow-lg transition">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-700">
+                    <div class="w-12 h-12  dark:bg-gray-400 rounded-lg flex items-center justify-center text-green-700 dark:text-gray-800">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M9 17v-6m6 6V7m4-3H5a2 2 0 00-2 2v14l4-2 5 3 5-3 4 2V6a2 2 0 00-2-2z" />
@@ -59,7 +59,7 @@
                         <p class="card text-sm text-gray-500">Akses hasil pemeriksaan Lab kapan saja.</p>
                     </div>
                     <a href="{{ route('hasil.index') }}"
-                        class="text-green-600 font-medium text-sm hover:underline mt-auto">Lihat Hasil Lab →</a>
+                        class="text-green-600 dark:text-gray-400 font-medium text-sm hover:underline mt-auto">Lihat Hasil Lab →</a>
                 </article>
             </div>
 
@@ -71,16 +71,16 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                     <div class="bg-pink-50 dark:bg-gray-900 rounded-lg p-4 text-center shadow">
                         <p class="card text-sm text-gray-500 dark:text-gray-300">Nomor Antrian Registrasi</p>
-                        <p class="card text-2xl font-bold text-pink-600 dark:text-blue-300">{{ $ar->appointment_code }}</p>
+                        <p class="card text-2xl font-bold text-pink-600 dark:text-gray-100">{{ $ar->appointment_code }}</p>
                         <p class="card text-sm text-gray-400 dark:text-gray-300 mt-1">{{ $ar->create_at }}</p>
                     </div>
                     <div class="bg-blue-50 dark:bg-gray-900 rounded-lg p-4 text-center shadow">
                         <p class="card text-sm text-gray-500 dark:text-gray-300">Dokter Pilihan</p>
-                        <p class="card text-2xl font-bold text-blue-600 dark:text-blue-300">{{ $ar->nama_dokter }}</p>
+                        <p class="card text-2xl font-bold text-blue-600 dark:text-gray-100">{{ $ar->nama_dokter }}</p>
                     </div>
                     <div class="bg-green-50 dark:bg-gray-900 rounded-lg p-4 text-center shadow">
                         <p class="card text-sm text-gray-500 dark:text-gray-300">Antrian pada tanggal {{ $ar->tanggal_kunjungan }}</p>
-                        <p class="card text-2xl font-bold text-green-600 dark:text-blue-300">{{ $ar->antrian_registrasi }}</p>
+                        <p class="card text-2xl font-bold text-green-600 dark:text-gray-100">{{ $ar->antrian_registrasi }}</p>
                     </div>
                 </div>
                 @endforeach
@@ -89,27 +89,27 @@
 
             <!-- Nomor Antrian Pasien -->
             @if ($janjinow)
-            <section class="card bg-white rounded-xl shadow p-6">
-                <h3 class="font-semibold text-lg mb-4 text-gray-800 card">Nomor Antrian Anda</h3>
+            <section class="card bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+                <h3 class="font-semibold text-lg mb-3 text-gray-800 dark:text-gray-100 card">Nomor Antrian Anda</h3>
                 @foreach ($janjinow ?? [] as $item)
                 <div class="mb-4">
                     <span class="block text-sm mb-2">Dokter : {{ $item->dokter->name }}</span>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="card bg-pink-50 rounded-lg p-4 text-center shadow border border-gray-200">
-                            <p class="card text-xs text-gray-500">Nomor Antrian</p>
-                            <p class="card text-xl font-bold text-pink-600">{{ $item->kode_antrian }}</p>
+                        <div class="card bg-pink-50 dark:bg-gray-900 rounded-lg p-4 text-center shadow border border-gray-200">
+                            <p class="card text-xs text-gray-500 dark:text-gray-300">Nomor Antrian</p>
+                            <p class="card text-xl font-bold text-pink-600 dark:text-gray-100">{{ $item->kode_antrian }}</p>
                             <p class="card text-xs text-gray-400 mt-1">
                                 Dokter Aktif {{ $item->registrasi->hari_kunjungan }}<br>
                                 {{ $item->jadwal_dokter_now->awal_aktif }}
                             </p>
                         </div>
-                        <div class="card bg-blue-50 rounded-lg p-4 text-center shadow border border-gray-200">
-                            <p class="card text-xs text-gray-500">Antrian Sekarang</p>
-                            <p class="card text-2xl font-bold text-blue-600 mt-4">{{ $item->antrian_sekarang }}</p>
+                        <div class="card bg-blue-50 dark:bg-gray-900 rounded-lg p-4 text-center shadow border border-gray-200">
+                            <p class="card text-xs text-gray-500 dark:text-gray-300">Antrian Sekarang</p>
+                            <p class="card text-2xl font-bold text-blue-600 dark:text-gray-100 mt-4">{{ $item->antrian_sekarang }}</p>
                         </div>
-                        <div class="card bg-green-50 rounded-lg p-4 text-center shadow border border-gray-200">
-                            <p class="card text-xs text-gray-500">Sisa Antrian</p>
-                            <p class="card text-2xl font-bold text-green-600 mt-4">{{ $item->sisa_antrian }}</p>
+                        <div class="card bg-green-50 dark:bg-gray-900 rounded-lg p-4 text-center shadow border border-gray-200">
+                            <p class="card text-xs text-gray-500 dark:text-gray-300">Sisa Antrian</p>
+                            <p class="card text-2xl font-bold text-green-600 dark:text-gray-100 mt-4">{{ $item->sisa_antrian }}</p>
                         </div>
                     </div>
                 </div>
@@ -193,7 +193,7 @@
         <!-- Content -->
         <article class="card bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
             <div class="card flex items-start gap-3 mb-3">
-                <div class="w-10 h-10 bg-sky-100 rounded-lg flex items-center justify-center text-xl">💊</div>
+                <div class="w-10 h-10 bg-sky-100 dark:bg-gray-400 rounded-lg flex items-center justify-center text-xl">💊</div>
 
                 <div>
                     <h5 class="card font-semibold text-gray-900 dark:text-gray-100">Doxycycline 100 mg</h5>

@@ -31,7 +31,7 @@
 
             <button
                 @click="showPendapatan = true"
-                class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">
+                class="px-4 py-2 bg-green-600 dark:bg-gray-800  text-white rounded-lg shadow hover:bg-green-700 dark:hover:bg-gray-900 transition">
                 Lihat Pendapatan
             </button>
         </div>
@@ -39,14 +39,14 @@
 
 
 
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md ">
 
             <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-100 mb-4">Daftar Transaksi</h3>
 
             <!-- RATA TENGAH UNTUK SEMUA KOLUMN -->
-            <table class="min-w-full text-sm border border-gray-200 rounded-lg overflow-hidden text-center">
-                <thead class="bg-blue-50 text-gray-700 dark:text-white dark:bg-gray-600 dark:border-y">
-                    <tr>
+            <table class="min-w-full text-sm border border-gray-200 rounded-lg overflow-hidden text-center ">
+                <thead class=" dark:border">
+                    <tr class="bg-blue-50 text-gray-700 dark:text-white dark:bg-gray-600 ">
                         <th class="px-4 py-2">Tanggal</th>
                         <th class="px-4 py-2">Total</th>
                         <th class="px-4 py-2">Status</th>
@@ -55,17 +55,17 @@
                     </tr>
                 </thead>
 
-                <tbody class="divide-y divide-gray-200">
+                <tbody class="divide-y divide-gray-200 ">
 
                     @forelse ($kasir as $item)
-                    <tr>
+                    <tr class="dark:text-gray-300 dark:border dark:hover:bg-gray-700 dark:hover:text-white">
                         <td class="px-4 py-2">{{ $item->antrian->tanggal ?? '-' }}</td>
                         <td class="px-4 py-2">{{ $item->total_harga ?? '-' }}</td>
 
                         <td class="px-4 py-2">
                             <span
                                 class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
-                                    {{ $item->status ? 'text-green-700 bg-green-50' : 'text-red-700 bg-red-50' }}">
+                                    {{ $item->status ? 'text-green-700 dark:text-gray-900 bg-green-50 dark:bg-gray-400' : 'text-red-700 dark:text-gray-900 bg-red-50 dark:bg-gray-400' }}">
                                 {{ $item->status ? 'Lunas' : 'Belum Lunas' }}
                             </span>
                         </td>
@@ -92,7 +92,7 @@
 
                             @endphp
 
-                            <button class="text-blue-600 hover:text-blue-800"
+                            <button class="text-blue-600 dark:hover:text-gray-900 hover:text-blue-800 dark:text-white"
                                 x-on:click="openView(@js($viewData))">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
@@ -121,10 +121,10 @@
         <div x-show="showView" x-transition.opacity
             class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
 
-            <div class="bg-white w-full max-w-md rounded-2xl shadow-xl p-6" x-transition.scale>
+            <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-2xl shadow-xl p-6" x-transition.scale>
 
                 <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-bold text-gray-800">🧾 Struk Pembayaran</h2>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100">🧾 Struk Pembayaran</h2>
 
                     <button class="text-gray-500 hover:text-red-500 transition" @click="showView = false">✕</button>
                 </div>
@@ -132,39 +132,39 @@
                 <div class="border-t border-gray-200 pt-4 space-y-3">
 
                     <div class="flex justify-between">
-                        <span class="font-medium text-gray-600">Tanggal</span>
-                        <span class="text-gray-800" x-text="viewData.tanggal"></span>
+                        <span class="font-medium text-gray-600 dark:text-gray-100">Tanggal</span>
+                        <span class="text-gray-800 dark:text-gray-100" x-text="viewData.tanggal"></span>
                     </div>
 
                     <div class="flex justify-between">
-                        <span class="font-medium text-gray-600">Jumlah</span>
-                        <span class="text-gray-800"> <span x-text="viewData.jumlah"></span></span>
+                        <span class="font-medium text-gray-600 dark:text-gray-100">Jumlah</span>
+                        <span class="text-gray-800 dark:text-gray-100"> <span x-text="viewData.jumlah"></span></span>
                     </div>
 
                     <div class="flex justify-between">
-                        <span class="font-medium text-gray-600">Obat</span>
-                        <span class="text-gray-800" x-text="viewData.obat"></span>
+                        <span class="font-medium text-gray-600 dark:text-gray-100">Obat</span>
+                        <span class="text-gray-800 dark:text-gray-100" x-text="viewData.obat"></span>
                     </div>
 
 
 
                     <div class="flex justify-between">
-                        <span class="font-medium text-gray-600">Status</span>
+                        <span class="font-medium text-gray-600 dark:text-gray-100">Status</span>
                         <span class="px-2.5 py-1 rounded-full text-xs font-semibold"
                             :class="{
-                                'bg-green-100 text-green-700': viewData.status === 'Lunas',
-                                'bg-red-100 text-red-700': viewData.status !== 'Lunas'
+                                'bg-green-100 dark:bg-gray-400 text-green-700 dark:text-gray-900': viewData.status === 'Lunas',
+                                'bg-red-100 dark:bg-gray-400 text-red-700 dark:text-gray-900': viewData.status !== 'Lunas'
                             }"
                             x-text="viewData.status">
                         </span>
                     </div>
 
                     <div class="flex justify-between">
-                        <span class="font-medium text-gray-600">Pasien</span>
-                        <span class="text-gray-800" x-text="viewData.pasien"></span>
+                        <span class="font-medium text-gray-600 dark:text-gray-100">Pasien</span>
+                        <span class="text-gray-800 dark:text-gray-100" x-text="viewData.pasien"></span>
                     </div>
                     <div class="flex justify-between mt-4">
-                        <span class="font-medium text-gray-600">Biaya Layanan</span>
+                        <span class="font-medium text-gray-600 dark:text-gray-100">Biaya Layanan</span>
                         <input type="number" min="0" class="border rounded-lg px-2 py-1 w-28 text-right"
                             x-model="viewData.biaya_layanan">
                     </div>
@@ -186,7 +186,7 @@
                         <button type="submit"
                             x-bind:disabled="!viewData.biaya_layanan || viewData.biaya_layanan <= 0"
                             :class="{
-                                    'bg-blue-500 hover:bg-blue-600 text-white': viewData.biaya_layanan > 0,
+                                    'bg-blue-500 dark:bg-gray-600 dark:text-gray-900 hover:bg-blue-600 dark:hover:bg-gray-100 text-white': viewData.biaya_layanan > 0,
                                     'bg-gray-300 text-gray-500 opacity-50 cursor-not-allowed': !viewData
                                         .biaya_layanan || viewData.biaya_layanan <= 0
                                 }"
@@ -196,7 +196,7 @@
                     </form>
                     @else
                     <button disabled
-                        class="px-4 py-2 bg-gray-300 text-gray-500 rounded-lg opacity-50 cursor-not-allowed">
+                        class="px-4 py-2 bg-gray-300 text-gray-500 dark:text-gray-900 rounded-lg opacity-50 cursor-not-allowed">
                         Konfirmasi Pembayaran
                     </button>
                     @endif
@@ -210,17 +210,17 @@
             class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
             x-cloak>
 
-            <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl p-6" x-transition.scale>
+            <div class="bg-white dark:bg-gray-800 w-full max-w-lg rounded-2xl shadow-xl p-6" x-transition.scale>
 
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold text-gray-800">💰 Pendapatan Klinik</h2>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100">💰 Pendapatan Klinik</h2>
 
                     <button class="text-gray-500 hover:text-red-500" @click="showPendapatan = false">
                         ✕
                     </button>
                 </div>
 
-                <div class="space-y-4 text-gray-700">
+                <div class="space-y-4 text-gray-700 dark:text-gray-100">
 
                     <!-- Dummy Data -->
                     <div class="flex justify-between">
@@ -251,7 +251,7 @@
 
                 <div class="mt-6 text-right">
                     <button @click="showPendapatan = false"
-                        class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">
+                        class="px-4 py-2 bg-gray-300 dark:text-gray-900 rounded-lg hover:bg-gray-400">
                         Tutup
                     </button>
                 </div>

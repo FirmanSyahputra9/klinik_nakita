@@ -5,8 +5,8 @@
         <!-- Total Pasien -->
         <div class="card bg-white dark:bg-gray-900 rounded-xl shadow p-4 border border-gray-200">
             <div class="card flex items-center mb-4">
-                <div class="bg-blue-200 p-3 rounded-full mr-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24"
+                <div class="bg-blue-200 dark:bg-gray-600 p-3 rounded-full mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500 dark:text-gray-100" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 12a4 4 0 100-8 4 4 0 000 8z" />
@@ -29,8 +29,8 @@
         <!-- Total Dokter -->
         <div class="card bg-pink-100 dark:bg-gray-800 rounded-xl shadow p-4 border border-gray-200">
             <div class="card flex items-center mb-4">
-                <div class="bg-pink-200 p-3 rounded-full mr-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24"
+                <div class="bg-pink-200 dark:bg-gray-600 p-3 rounded-full mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500 dark:text-gray-100" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 14l9-5-9-5-9 5 9 5z" />
@@ -52,8 +52,8 @@
         <!-- Total Janji -->
         <div class="card bg-white dark:bg-gray-900 rounded-xl shadow p-4 border border-gray-200">
             <div class="card flex items-center mb-4">
-                <div class="bg-blue-100 p-3 rounded-full mr-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none"
+                <div class="bg-blue-100 dark:bg-gray-600 p-3 rounded-full mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500 dark:text-gray-100" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M8 7V3M16 7V3M3 11h18M5 11v10h14V11" />
@@ -73,8 +73,8 @@
         <!-- Stok Obat -->
         <div class="card bg-pink-100 dark:bg-gray-800 rounded-xl shadow p-4 border border-gray-200">
             <div class="card flex items-center mb-4">
-                <div class="bg-pink-100 p-3 rounded-full mr-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none"
+                <div class="bg-pink-100 dark:bg-gray-900 p-3 rounded-full mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500 dark:text-gray-100" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M20 13V7a2 2 0 00-2-2H6a2 2 0 00-2 2v6" />
@@ -124,14 +124,14 @@
                         00
                     </div>
 
-                    <span class="card text-3xl font-bold text-blue-700 pb-1">:</span>
+                    <span class="card text-3xl font-bold text-blue-700 dark:text-gray-100 pb-1">:</span>
 
                     <div id="m"
                         class="card px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 dark:text-gray-800 min-w-[70px] text-center">
                         00
                     </div>
 
-                    <span class="card text-3xl font-bold text-blue-700 pb-1">:</span>
+                    <span class="card text-3xl font-bold text-blue-700 dark:text-gray-100 pb-1">:</span>
                     <div id="s"
                         class="card px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 dark:text-gray-800 min-w-[70px] text-center">
                         00
@@ -157,21 +157,21 @@
 
                 <!-- Card 1 -->
                 <a href="{{ route('users.index') }}"
-                    class="card block bg-blue-100 dark:bg-gray-600 hover:bg-blue-200 dark:hover:bg-gray-700 transition rounded-xl p-4 shadow border border-blue-200">
+                    class="card block bg-blue-100 dark:bg-gray-600 hover:bg-blue-200 dark:hover:bg-gray-700 transition rounded-xl p-4 shadow border border-blue-200 dark:border-gray-100">
                     <h3 class="card text-blue-900 dark:text-white font-semibold text-md">Lihat User</h3>
                     <p class="card hover:underline text-blue-700 dark:text-white text-sm mt-1">Kelola Data Pasien</p>
                 </a>
 
                 <!-- Card 2 -->
                 <a href="{{ route('kasir.index') }}"
-                    class="block bg-pink-100 dark:bg-gray-600 hover:bg-pink-200 dark:hover:bg-gray-700 transition rounded-xl p-4 shadow border border-pink-200">
+                    class="block bg-pink-100 dark:bg-gray-600 hover:bg-pink-200 dark:hover:bg-gray-700 transition rounded-xl p-4 shadow border border-pink-200 dark:border-gray-100">
                     <h3 class="text-pink-900 dark:text-white font-semibold text-md">Cek Riwayat Pembayaran</h3>
                     <p class="hover:underline text-pink-700 dark:text-white text-sm mt-1">Pantau transaksi dan pembayaran pasien.</p>
                 </a>
 
                 <!-- Card 3 -->
                 <a href="{{ route('stok-obat.index') }}"
-                    class="block bg-yellow-100 dark:bg-gray-600 hover:bg-yellow-200 dark:hover:bg-gray-700 transition rounded-xl p-4 shadow border border-yellow-200">
+                    class="block bg-yellow-100 dark:bg-gray-600 hover:bg-yellow-200 dark:hover:bg-gray-700 transition rounded-xl p-4 shadow border border-yellow-200 dark:border-gray-100">
                     <h3 class="text-yellow-900 dark:text-white font-semibold text-md">Cek Stok Obat</h3>
                     <p class="hover:underline text-yellow-700 dark:text-white text-sm mt-1">Lihat jumlah stok obat dan status ketersediaan.</p>
                 </a>

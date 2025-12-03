@@ -3,7 +3,7 @@
         <h1 class="text-2xl font-bold mb-2">Data Pasien </h1>
 
 
-        <div class="bg-white shadow-md rounded-lg p-6">
+        <div class="bg-white  dark:bg-gray-800 shadow-md rounded-lg p-6">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="font-semibold text-lg">Data Pasien</h2>
                 <input type="text" wire:model.live.debounce.500ms="search" placeholder="Cari nama, No. Rm, atau telepon..."
@@ -13,9 +13,9 @@
             </div>
 
             <div class="overflow-x-auto">
-                <table class="min-w-full border-separate border-spacing-y-2">
+                <table class="min-w-full dark:border border-spacing-y-2">
                     <thead>
-                        <tr class="bg-gray-100 text-gray-700 text-sm">
+                        <tr class="bg-blue-50 text-gray-700 text-sm dark:text-white dark:bg-gray-600 dark:border-y">
                             <th class="text-left px-4 py-2">Nama</th>
                             <th class="text-left px-4 py-2">Umur</th>
                             <th class="text-left px-4 py-2">Jenis Kelamin</th>
@@ -26,7 +26,7 @@
                     </thead>
                     <tbody class="text-sm text-gray-800">
                         @forelse ($antrian as $item)
-                            <tr class="bg-white hover:bg-gray-50 rounded-lg shadow-sm">
+                            <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 rounded-lg shadow-sm dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
                                 <td class="px-4 py-3">
                                     <div class="font-semibold">{{ $item->pasien->name }}</div>
                                     <div class="text-gray-500 text-xs">{{ $item->pasien->phone }}</div>
@@ -41,7 +41,7 @@
 
                                     <!-- Tombol Edit (Pencil Square) -->
                                     <a href="{{ route('data.show', $item->id) }}"
-                                        class="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md transition">
+                                        class="p-2 bg-blue-500 dark:bg-gray-600 hover:bg-blue-600 dark:hover:bg-gray-800 text-white rounded-md transition">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke="currentColor" class="w-5 h-5">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

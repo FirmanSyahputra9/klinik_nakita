@@ -23,10 +23,10 @@
         </div>
 
         <!-- Content Card -->
-        <div class="bg-white rounded-lg shadow p-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
             <!-- Filter Section -->
             <div class="flex items-center justify-between mb-6">
-                <h2 class="text-xl font-bold text-gray-900">Daftar Janji Temu</h2>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">Daftar Janji Temu</h2>
 
                 <div class="flex items-center gap-3">
                     <!-- Date Filter -->
@@ -35,7 +35,7 @@
 
                     <!-- Status Filter -->
                     <select
-                        class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:bg-gray-700 dark:focus:ring-gray-200 dark:text-white ">
                         <option>Semua Status</option>
                         @foreach ($status??[] as $item)
                             <option value="{{ $item }}">{{ $item? 'Terkonfirmasi' : 'Menunggu' }}</option>
@@ -45,48 +45,48 @@
             </div>
 
             <!-- Table -->
-            <div class="overflow-x-auto">
+            <div class="overflow-x-auto ">
                 <table class="w-full">
-                    <thead>
-                        <tr class="border-b border-gray-200">
-                            <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Kode</th>
-                            <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Tanggal</th>
-                            <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Nama Pasien</th>
-                            <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Dokter</th>
-                            <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Keluhan</th>
-                            <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Status</th>
-                            <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Aksi</th>
+                    <thead class="bg-blue-50 text-gray-700 dark:text-white dark:bg-gray-600 ">
+                        <tr class="border border-gray-200 dark:border">
+                            <th class="text-left py-4 px-4 text-sm font-semibold ">Kode</th>
+                            <th class="text-left py-4 px-4 text-sm font-semibold ">Tanggal</th>
+                            <th class="text-left py-4 px-4 text-sm font-semibold ">Nama Pasien</th>
+                            <th class="text-left py-4 px-4 text-sm font-semibold ">Dokter</th>
+                            <th class="text-left py-4 px-4 text-sm font-semibold ">Keluhan</th>
+                            <th class="text-left py-4 px-4 text-sm font-semibold ">Status</th>
+                            <th class="text-left py-4 px-4 text-sm font-semibold ">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($janji??[] as $item)
-                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <tr class="border-b dark:border border-gray-100 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
                                 <td class="py-4 px-4">
-                                    <span class="text-sm font-medium text-gray-900">{{ $item->kode_antrian }}</span>
+                                    <span class="text-sm font-medium ">{{ $item->kode_antrian }}</span>
                                 </td>
 
                                 <td class="py-4 px-4">
                                     <span
-                                        class="text-sm font-medium text-gray-900">{{ $item->registrasi->tanggal_kunjungan }}</span>
+                                        class="text-sm font-medium">{{ $item->registrasi->tanggal_kunjungan }}</span>
                                 </td>
 
                                 <td class="py-4 px-4">
                                     <div>
-                                        <p class="text-sm font-semibold text-gray-900">{{ $item->pasien->name }}</p>
-                                        <p class="text-sm text-gray-600">{{ $item->pasien->phone }}</p>
+                                        <p class="text-sm font-semibold">{{ $item->pasien->name }}</p>
+                                        <p class="text-sm">{{ $item->pasien->phone }}</p>
                                     </div>
                                 </td>
                                 <td class="py-4 px-4">
-                                    <span class="text-sm text-gray-700">{{ $item->dokter->name }}</span>
+                                    <span class="text-sm">{{ $item->dokter->name }}</span>
                                 </td>
 
                                 <td class="py-4 px-4">
-                                    <span class="text-sm text-gray-700">{{ $item->registrasi->keluhan }}</span>
+                                    <span class="text-sm ">{{ $item->registrasi->keluhan }}</span>
                                 </td>
 
                                 <td class="py-4 px-4">
                                     <span
-                                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium {{ $item->status == 0 ? 'bg-blue-600' : 'bg-green-600' }}">
+                                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium {{ $item->status == 0 ? 'bg-blue-600  dark:bg-gray-600' : 'bg-green-600 dark:bg-gray-600' }}">
                                         {{ $item->status == 0 ? 'Menunggu' : 'Terkonfirmasi' }}
                                     </span>
                                 </td>
@@ -96,7 +96,7 @@
                                             <div class="flex-1">
                                                 <button
                                                     @click="open('Konfirmasi janji?', '{{ route('janji.konfirmasi', $item->id) }}')"
-                                                    class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 text-xs">
+                                                    class="bg-blue-500 dark:bg-gray-600  text-white px-2 py-1 rounded hover:bg-blue-600 dark:hover:bg-gray-900 text-xs">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                         class="size-6">

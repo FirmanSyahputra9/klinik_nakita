@@ -23,7 +23,7 @@
             <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">Data Dokter</h1>
 
             <a href="{{ route('dokter.create') }}"
-                class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                class="flex items-center gap-2 bg-blue-600 dark:bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-blue-700 dark:hover:bg-gray-900 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -38,10 +38,10 @@
         </div>
 
         <!-- Table -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-x-auto">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-x-auto dark:border">
             <table class="min-w-full text-sm text-left text-gray-600 whitespace-nowrap">
                 <thead class="bg-gray-100  uppercase text-xs font-semibold">
-                    <tr class="bg-blue-50 text-gray-700 dark:text-white dark:bg-gray-600 dark:border-y">
+                    <tr class="bg-blue-50 text-gray-700 dark:text-white dark:bg-gray-600 ">
                         <th class="px-4 py-3">Nama Lengkap</th>
                         <th class="px-4 py-3">Spesialisasi</th>
                         <th class="px-4 py-3">No. Telepon</th>

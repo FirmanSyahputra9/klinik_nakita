@@ -24,16 +24,16 @@
             </div>
             <div>
                 <a href="{{ route('admin-create.index') }}"
-                    class="px-6 py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition">
+                    class="px-6 py-3 bg-blue-500 dark:bg-gray-800 text-white dark:text-gray-100 rounded-lg font-medium hover:bg-blue-600 dark:hover:bg-gray-900 transition">
                     Tambah Jadwal
                 </a>
             </div>
         </div>
 
         <!-- Tabel -->
-        <div class="overflow-x-auto dark:bg-gray-800  shadow rounded-lg">
-            <table class="w-full border border-gray-200 whitespace-nowrap">
-                <thead class="bg-blue-50 uppercase text-xs font-semibold text-gray-700 dark:text-white dark:bg-gray-600 dark:border-y">
+        <div class="overflow-x-auto dark:bg-gray-800  shadow rounded-lg dark:border">
+            <table class="w-full border border-gray-200 dark:border whitespace-nowrap">
+                <thead class="bg-blue-50 uppercase text-xs font-semibold text-gray-700 dark:text-white dark:bg-gray-600 ">
                     <tr>
                         <th class="px-4 py-2 text-left">Kode</th>
                         <th class="px-4 py-2 text-left">Tanggal</th>
@@ -54,7 +54,7 @@
                             <td class="py-2 px-4 ">{{ $reg->keluhan }}</td>
                             <td class="py-2 px-4 ">
                                 <span
-                                    class="{{ $reg->status == 1 ? 'text-blue-600 bg-blue-100' : 'text-yellow-600 bg-yellow-100' }} px-2 py-1 rounded text-sm">{{ $reg->status == 1 ? 'Acc' : 'Belum' }}
+                                    class="{{ $reg->status == 1 ? 'text-blue-600 dark:text-gray-100 bg-blue-100 dark:bg-gray-600 ' : 'text-yellow-600 dark:text-gray-100 bg-yellow-100 dark:bg-gray-600' }} px-2 py-1 rounded text-sm">{{ $reg->status == 1 ? 'Acc' : 'Belum' }}
                                 </span>
                             </td>
                             <!-- Tombol Aksi -->
@@ -64,7 +64,7 @@
                                         <div class="flex-1">
                                             <button
                                                 @click="open('Konfirmasi janji?', '{{ route('appointment.konfirmasi', $reg->id) }}')"
-                                                class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 text-xs">
+                                                class="bg-blue-500 dark:bg-gray-700 text-white px-2 py-1 rounded hover:bg-blue-600 text-xs">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                     class="size-6">

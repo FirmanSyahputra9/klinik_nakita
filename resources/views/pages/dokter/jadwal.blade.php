@@ -3,13 +3,13 @@
         <!-- Header -->
         <div class="flex justify-between items-center mb-6">
             <div>
-                <h1 class="text-2xl font-bold text-gray-800">Jadwal Praktek</h1>
+                <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Jadwal Praktek</h1>
             </div>
         </div>
 
         <!-- Card Container -->
-        <div class="bg-white border rounded-xl shadow-sm p-5">
-            <h2 class="text-lg font-semibold text-gray-700 mb-4">Jadwal Praktek</h2>
+        <div class="bg-white dark:bg-gray-800 border rounded-xl shadow-sm p-5">
+            <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-100 mb-4">Jadwal Praktek</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 @forelse ($dokterJadwals->jadwals as $jadwal)
                     <div
@@ -17,19 +17,19 @@
                         class="border rounded-xl p-4 shadow-sm hover:shadow-md transition"
                     >
                         <div class="flex justify-between items-center mb-2">
-                            <h3 class="text-lg font-semibold text-gray-800">{{ $jadwal->hari }}</h3>
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ $jadwal->hari }}</h3>
                             <!-- <span class="bg-green-100 text-green-700 text-sm px-3 py-1 rounded-full font-medium">
                                 Aktif
                             </span> -->
                         </div>
 
                         <!-- Waktu -->
-                        <p class="text-gray-600">
+                        <p class="text-gray-600 dark:text-gray-300">
                             {{ $jadwal->aktif_mulai->format('H:i') }} - {{ $jadwal->aktif_selesai->format('H:i') }}
                         </p>
 
                         <!-- Keterangan -->
-                        <div class="text-gray-600 mb-4">
+                        <div class="text-gray-600 dark:text-gray-300 mb-4">
                             <!-- Mode view -->
                             <p x-show="!editing" x-text="ket"></p>
 
@@ -46,7 +46,7 @@
                         <button
                             x-show="!editing"
                             @click="editing = true"
-                            class="bg-blue-100 hover:bg-blue-200 text-gray-600 font-medium w-full py-2 rounded-lg transition"
+                            class="bg-blue-100 dark:bg-gray-600 hover:bg-blue-200 dark:hover:bg-gray-900 text-gray-600 dark:text-gray-100 font-medium w-full py-2 rounded-lg transition"
                         >
                             Edit Keterangan
                         </button>

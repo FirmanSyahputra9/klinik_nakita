@@ -1,6 +1,6 @@
 <x-layouts.app :title="__('Resep')">
 
-    <div class="max-w-4xl mx-auto bg-white p-6 rounded-2xl shadow">
+    <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-2xl shadow">
         <h1 class="text-2xl font-semibold text-gray-800 mb-6">Tulis Resep Baru</h1>
 
         <form method="POST" action="{{ route('resep.store') }}">
@@ -8,8 +8,8 @@
 
             <!-- PILIH ANTRIAN -->
             <div class="mb-4">
-                <label class="block text-gray-700 font-medium mb-2">Pilih Antrian</label>
-                <select name="antrian_id" id="antrianSelect" class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                <label class="block text-gray-700 dark:text-gray-100 font-medium mb-2">Pilih Antrian</label>
+                <select name="antrian_id" id="antrianSelect" class="w-full border border-gray-300 rounded-lg px-4 py-2 dark:focus:bg-gray-700 dark:text-white dark:focus:ring-gray-200">
                     <option value="" class="!important text-gray-400 bg-transparent hover:bg-none">-- Pilih Antrian --</option>
                     @foreach ($antrian??[] as $a)
                         <option value="{{ $a->id }}" data-nama="{{ $a->pasien->name??'-' }}"
@@ -23,41 +23,41 @@
 
             <!-- Nama Pasien -->
             <div class="mb-4">
-                <label class="block text-gray-700 font-medium mb-2">Nama Pasien</label>
+                <label class="block text-gray-700 dark:text-gray-100 font-medium mb-2">Nama Pasien</label>
                 <input id="namaPasien" type="text"
-                    class="w-full border bg-gray-100 border-gray-300 rounded-lg px-4 py-2" readonly>
+                    class="w-full border bg-gray-100 dark:bg-gray-400 dark:text-gray-900 border-gray-300 rounded-lg px-4 py-2" readonly>
             </div>
 
             <!-- Umur -->
             <div class="mb-4">
-                <label class="block text-gray-700 font-medium mb-2">Umur</label>
+                <label class="block text-gray-700 dark:text-gray-100 font-medium mb-2">Umur</label>
                 <input id="umurPasien" type="text"
-                    class="w-full border bg-gray-100 border-gray-300 rounded-lg px-4 py-2" readonly>
+                    class="w-full border bg-gray-100 dark:bg-gray-400 dark:text-gray-900 border-gray-300 rounded-lg px-4 py-2" readonly>
             </div>
 
             <!-- Jenis Kelamin -->
             <div class="mb-4">
-                <label class="block text-gray-700 font-medium mb-2">Jenis Kelamin</label>
+                <label class="block text-gray-700 dark:text-gray-100 font-medium mb-2">Jenis Kelamin</label>
                 <input id="jenisPasien" type="text"
-                    class="w-full border bg-gray-100 border-gray-300 rounded-lg px-4 py-2" readonly>
+                    class="w-full border bg-gray-100 dark:bg-gray-400 dark:text-gray-900 border-gray-300 rounded-lg px-4 py-2" readonly>
             </div>
 
             <!-- Diagnosa -->
             <div class="mb-4">
-                <label class="block text-gray-700 font-medium mb-2">Diagnosa</label>
+                <label class="block text-gray-700  dark:text-gray-100 font-medium mb-2">Diagnosa</label>
                 <input id="diagnosa" type="text"
-                    class="w-full border bg-gray-100 border-gray-300 rounded-lg px-4 py-2" readonly>
+                    class="w-full border bg-gray-100 dark:bg-gray-400 dark:text-gray-900 border-gray-300 rounded-lg px-4 py-2" readonly>
             </div>
 
             <!-- RESEP OBAT -->
             <div class="mb-4">
-                <label class="block text-gray-700 font-medium mb-2">Resep Obat</label>
+                <label class="block text-gray-700 dark:text-gray-100 font-medium mb-2">Resep Obat</label>
 
                 <div id="obat-list" class="space-y-4">
                     <div class="grid grid-cols-6 gap-3 text-xs">
 
                         <select name="obat[0][obat_id]" id="obatSelect"
-                            class="border border-gray-300 rounded-lg px-3 py-2">
+                            class="border border-gray-300 rounded-lg px-3 py-2 dark:focus:bg-gray-700 dark:text-white focus:ring focus:ring-blue-200 dark:focus:ring-gray-200">
                             <option value="">Pilih Obat...</option>
                             @foreach ($obats??[] as $obat)
                                 <option value="{{ $obat->id??"-" }}" obat-harga="{{ $obat->harga??"-" }}">
@@ -81,19 +81,19 @@
                         <input type="number" name="obat[0][kuantitas]" placeholder="Kuantitas"
                             class="border border-gray-300 rounded-lg px-3 py-2">
                         <input type="text" id="obatHarga" name="obat[0][harga]" placeholder="Harga (Auto)"
-                            class="border border-gray-300 rounded-lg px-3 py-2 bg-gray-100" readonly>
+                            class="border border-gray-300 rounded-lg px-3 py-2 bg-gray-100 dark:bg-gray-400 dark:text-gray-950" readonly>
                     </div>
                 </div>
 
                 <button type="button" id="tambah-obat"
-                    class="mt-3 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium">
+                    class="mt-3 bg-green-500 dark:bg-gray-600 hover:bg-green-600 dark:hover:bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium">
                     + Tambah Obat
                 </button>
             </div>
 
             <div class="flex justify-end">
                 <button type="submit"
-                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg shadow">
+                    class="bg-blue-600 dark:bg-gray-600 hover:bg-blue-700 dark:hover:bg-gray-900 text-white font-semibold px-6 py-2 rounded-lg shadow">
                     Simpan Resep
                 </button>
             </div>
@@ -150,7 +150,7 @@
                 <input type="text" name="obat[${obatIndex}][frekuensi]" placeholder="Frekuensi" class="border border-gray-300 rounded-lg px-3 py-2">
                 ${waktuHTML}
                 <input type="number" name="obat[${obatIndex}][kuantitas]" placeholder="Kuantitas" class="border border-gray-300 rounded-lg px-3 py-2">
-                <input type="text" name="obat[${obatIndex}][harga]" placeholder="Harga (Auto)" class="border border-gray-300 rounded-lg px-3 py-2 bg-gray-100" readonly>
+                <input type="text" name="obat[${obatIndex}][harga]" placeholder="Harga (Auto)" class="border border-gray-300 rounded-lg px-3 py-2 bg-gray-100 " readonly>
             `;
 
             container.appendChild(row);

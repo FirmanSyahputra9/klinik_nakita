@@ -1,7 +1,7 @@
 <x-layouts.app :title="__('Tambah Obat')">
 
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-semibold text-gray-800">Tambah Obat Baru</h1>
+        <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">Tambah Obat Baru</h1>
 
         <a href="{{ route('stok-obat.index') }}"
             class="flex items-center gap-2 bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition">
@@ -13,7 +13,7 @@
     </div>
 
     <!-- Form Card -->
-    <div class="bg-white rounded-lg shadow p-6">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
 
         <!-- Alert Error -->
         @if ($errors->any())
@@ -47,7 +47,7 @@
 
                 <!-- Nama Obat -->
                 <div>
-                    <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                         Nama Obat <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="nama" id="nama" value="{{ old('nama') }}"
@@ -60,7 +60,7 @@
 
                 <!-- Stok -->
                 <div>
-                    <label for="stok" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="stok" class="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                         Stok <span class="text-red-500">*</span>
                     </label>
                     <input type="number" name="stok" id="stok" value="{{ old('stok') }}"
@@ -73,11 +73,11 @@
 
                 <!-- Satuan -->
                 <div>
-                    <label for="satuan" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="satuan" class="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                         Satuan <span class="text-red-500">*</span>
                     </label>
                     <select name="satuan" id="satuan"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('satuan') border-red-500 @enderror"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:bg-gray-700 dark:text-white dark:focus:ring-gray-200 @error('satuan')@enderror"
                         required>
                         <option value="">Pilih Satuan</option>
                         <option value="Strip" {{ old('satuan') == 'Strip' ? 'selected' : '' }}>Strip</option>
@@ -95,7 +95,7 @@
 
                 <!-- Harga Beli -->
                 <div>
-                    <label for="harga_beli" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="harga_beli" class="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                         Harga Beli <span class="text-red-500">*</span>
                     </label>
                     <div class="relative">
@@ -111,7 +111,7 @@
 
                 <!-- Harga Jual -->
                 <div>
-                    <label for="harga_jual" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="harga_jual" class="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                         Harga Jual <span class="text-red-500">*</span>
                     </label>
                     <div class="relative">
@@ -127,7 +127,7 @@
 
                 <!-- Tanggal Kadaluwarsa -->
                 <div>
-                    <label for="tanggal_kadaluwarsa" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="tanggal_kadaluwarsa" class="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                         Tanggal Kadaluwarsa <span class="text-red-500">*</span>
                     </label>
                     <input type="date" name="tanggal_kadaluwarsa" id="tanggal_kadaluwarsa"
@@ -143,7 +143,7 @@
 
             <!-- Deskripsi (Optional) -->
             <div class="mt-6">
-                <label for="deskripsi" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="deskripsi" class="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                     Deskripsi (Opsional)
                 </label>
                 <textarea name="deskripsi" id="deskripsi" rows="4"
@@ -161,7 +161,7 @@
                     Batal
                 </a>
                 <button type="submit"
-                    class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                    class="px-6 py-2 bg-blue-600 dark:bg-gray-600 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-gray-900 transition">
                     Simpan Obat
                 </button>
             </div>

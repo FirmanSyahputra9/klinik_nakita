@@ -77,7 +77,7 @@
                                 <div class="flex inline-flex">
                                     <div class="flex md:hidden">
                                         <a href="{{ route('registrasi.index', $dokter->id) }}"
-                                            class="inline-flex items-center gap-2 px-2 mx-2 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                                            class="inline-flex items-center gap-2 px-2 mx-2 py-2 bg-green-500 dark:bg-gray-600 text-white dark:text-gray-300 rounded-lg hover:bg-green-600 transition">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     stroke-width="2"
@@ -104,7 +104,7 @@
                                     <div class="flex items-center flex-wrap gap-1">
                                         <span class="card font-semibold text-gray-800">{{ $hariTampil }}</span>
                                         <span class="card text-gray-500">•</span>
-                                        <span class="card bg-gray-100 text-gray-700 px-2 py-1 rounded-md">
+                                        <span class="card bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-md">
                                             {{ $jadwalGroup['mulai'] }} - {{ $jadwalGroup['selesai'] }}
                                         </span>
                                     </div>
@@ -131,7 +131,7 @@
                                     <div class="flex items-center flex-wrap gap-1">
                                         <span class="card font-semibold ">{{ $hariTampil }}</span>
                                         <span class="card text-gray-500">•</span>
-                                        <span class="card bg-gray-100 text-gray-700 px-2 py-1 rounded-md">
+                                        <span class="card bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-md">
                                             {{ $jadwalGroup['mulai'] }} - {{ $jadwalGroup['selesai'] }}
                                         </span>
                                     </div>
@@ -144,7 +144,7 @@
                                 @if ($dokter->aktif)
                                 <span
                                     class="inline-flex px-3 py-1 rounded-full font-medium
-                                        {{ $dokter->aktif->aktif == 1 ? 'bg-green-800 text-white' : 'bg-red-800 text-white' }}">
+                                        {{ $dokter->aktif->aktif == 1 ? 'bg-green-800 dark:bg-gray-600 text-white' : 'bg-red-800 dark:bg-gray-600 text-white' }}">
                                     {{ $dokter->aktif->aktif == 1 ? 'Online' : 'Offline' }}
                                 </span>
                                 @else
@@ -158,7 +158,7 @@
                             <!-- Aksi -->
                             <td class="py-4 px-4 hidden md:flex justify-center">
                                 <a href="{{ route('registrasi.index', $dokter->id) }}"
-                                    class="inline-flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                                    class="inline-flex items-center gap-2 px-4 py-2 bg-green-500 dark:bg-gray-600 text-white dark:text-gray-300  rounded-lg hover:bg-green-600 dark:hover:bg-gray-900 transition">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />

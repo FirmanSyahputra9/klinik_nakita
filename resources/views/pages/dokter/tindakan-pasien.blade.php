@@ -2,26 +2,26 @@
 
     <!-- Header -->
     <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-800">Data Pasien</h1>
-        <p class="text-gray-600 mt-1">Selamat Datang, dr. Aditya Hutagalung</p>
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100">Data Pasien</h1>
+        <p class="text-gray-600  mt-1">Selamat Datang, dr. Aditya Hutagalung</p>
     </div>
 
     <!-- Main Card -->
-    <div class="bg-white rounded-xl shadow-sm p-6">
-        <h2 class="text-xl font-semibold text-gray-800 mb-6">Data Pasien</h2>
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-6">Data Pasien</h2>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
             <!-- Left card -->
             <div class="lg:col-span-1">
-                <div class="bg-gradient-to-br from-green-600 to-green-700 rounded-2xl p-6 text-white shadow-lg">
+                <div class="bg-gradient-to-br from-green-600 to-green-700 dark:bg-none dark:bg-gray-800 rounded-2xl p-6 text-white shadow-lg">
                     <div class="space-y-3">
                         <div>
                             <h3 class="text-2xl font-bold">{{ $data->pasiens->no_rm }}</h3>
                             <p class="text-xl font-semibold mt-1">{{ $data->pasiens->name }}</p>
                         </div>
 
-                        <div class="space-y-2 text-sm pt-4 border-t border-green-500">
+                        <div class="space-y-2 text-sm pt-4 border-t border-green-500 dark:border-gray-100 ">
                             <p><span class="font-medium">Tgl Bergabung:</span> {{ $data->pasiens->create_at }}</p>
                             <p><span class="font-medium">NIK:</span> {{ $data->pasiens->nik }}</p>
                             <p><span class="font-medium">JK:</span> {{ $data->pasiens->gender_label }}</p>
@@ -36,9 +36,9 @@
                 </div>
             </div>
 
-            <div class="border rounded mb-4 p-4 bg-white shadow">
+            <div class="border rounded mb-4 p-4 bg-white dark:bg-gray-800 shadow">
 
-                <h3 class="font-semibold text-lg text-gray-800">
+                <h3 class="font-semibold text-lg text-gray-800  dark:text-gray-100">
                     Tambah Pemeriksaan
                 </h3>
 
@@ -47,7 +47,7 @@
 
                 <form action="{{ route('jenis-pemeriksaan.store') }}" method="POST">
                     @csrf
-                    <label class="font-medium text-gray-700">Nama Pemeriksaan</label>
+                    <label class="font-medium text-gray-700 dark:text-gray-100">Nama Pemeriksaan</label>
                     <input list="listPemeriksaan" name="new_pemeriksaan" class="w-full border rounded px-3 py-2"
                         placeholder="Pilih atau ketik...">
                     <datalist id="listPemeriksaan">
@@ -59,19 +59,19 @@
                     <div class="grid grid-cols-2 gap-4">
 
                         <div class="mb-3">
-                            <label class="font-medium text-gray-700">Nilai Normal Minimal</label>
+                            <label class="font-medium text-gray-700 dark:text-gray-100">Nilai Normal Minimal</label>
                             <input type="text" name="normal_min" class="w-full border rounded px-3 py-2"
                                 placeholder="Masukkan nilai...">
                         </div>
 
                         <div class="mb-3">
-                            <label class="font-medium text-gray-700">Nilai Normal Maksimal</label>
+                            <label class="font-medium text-gray-700 dark:text-gray-100">Nilai Normal Maksimal</label>
                             <input type="text" name="normal_max" class="w-full border rounded px-3 py-2"
                                 placeholder="Masukkan nilai...">
                         </div>
                     </div>
 
-                    <label class="font-medium text-gray-700">Satuan</label>
+                    <label class="font-medium text-gray-700 dark:text-gray-100">Satuan</label>
                     <input list="listSatuan" name="new_satuan" class="w-full border rounded px-3 py-2"
                         placeholder="Pilih atau ketik...">
 
@@ -84,7 +84,7 @@
                         <option value="Negatif">
                     </datalist>
 
-                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
+                    <button type="submit" class="mt-2 bg-blue-600 dark:bg-gray-600 text-white  px-4 py-2 rounded dark:hover:bg-gray-900">
                         Simpan
                     </button>
 
@@ -102,7 +102,7 @@
 
                 <!-- Form Alergi -->
                 <div class="mt-10">
-                    <h2 class="text-xl font-bold text-gray-900 mb-6">Form Alergi</h2>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">Form Alergi</h2>
 
                     <textarea name="alergi" rows="3" class="w-full border rounded p-3"
                         placeholder="Tulis alergi pasien (jika ada)...">{{ $antrian->alergi->alergi ?? '' }}</textarea>
@@ -112,7 +112,7 @@
 
                 <!-- Keluhan & Diagnosis -->
                 <div class="mt-10">
-                    <h2 class="text-xl font-bold">Keluhan Utama</h2>
+                    <h2 class="text-xl font-bold mb-1">Keluhan Utama</h2>
 
                     <textarea name="keluhan" rows="3" class="w-full border rounded p-3" readonly>{{ $data->keluhan ?? '' }}</textarea>
 
@@ -122,7 +122,7 @@
 
                 <!-- Tindakan -->
                 <div class="mt-10">
-                    <h2 class="text-xl font-bold">Tindakan</h2>
+                    <h2 class="text-xl font-bold mb-1">Tindakan</h2>
 
                     <!-- Combo box nama tindakan -->
                     <input list="listNamaTindakan" name="nama_tindakan" class="w-full border rounded p-3"
@@ -154,25 +154,25 @@
             </div>
 
             <div class="flex justify-end gap-3 mt-8 pt-6 border-t">
-                <button type="submit" class="px-8 py-2 bg-blue-600 text-white rounded-lg">
+                <button type="submit" class="px-8 py-2 bg-blue-600 dark:bg-gray-600 text-white rounded-lg dark:hover:bg-gray-900">
                     Simpan Hasil
                 </button>
             </div>
         </form>
 
 
-        <div class="mt-10">
-            <h2 class="text-xl font-bold text-gray-900 mb-6">Pemeriksaan Laboratorium</h2>
+        <div class="mt-10 ">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">Pemeriksaan Laboratorium</h2>
 
-            <div class="overflow-x-auto bg-white rounded-xl shadow">
+            <div class="overflow-x-auto bg-white dark:bg-gray-800 rounded-xl shadow">
                 <table class="min-w-full border border-gray-200">
-                    <thead class="bg-gray-100">
+                    <thead class="bg-gray-100 text-gray-700 dark:text-white dark:bg-gray-600">
                         <tr>
-                            <th class="px-4 py-3 border text-left text-gray-700 font-semibold">Pemeriksaan</th>
-                            <th class="px-4 py-3 border text-left text-gray-700 font-semibold">Nilai Normal</th>
-                            <th class="px-4 py-3 border text-left text-gray-700 font-semibold">Input Nilai</th>
-                            <th class="px-4 py-3 border text-left text-gray-700 font-semibold">Catatan</th>
-                            <th class="px-4 py-3 border text-center text-gray-700 font-semibold w-32">Aksi</th>
+                            <th class="px-4 py-3 border text-left  font-semibold">Pemeriksaan</th>
+                            <th class="px-4 py-3 border text-left  font-semibold">Nilai Normal</th>
+                            <th class="px-4 py-3 border text-left  font-semibold">Input Nilai</th>
+                            <th class="px-4 py-3 border text-left font-semibold">Catatan</th>
+                            <th class="px-4 py-3 border text-center font-semibold w-32">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -182,13 +182,13 @@
                                 $hasil = $antrian->lab->firstWhere('jenis_pemeriksaan_id', $jenis->id);
                             @endphp
 
-                            <tr class="border">
+                            <tr class="border text-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
 
                                 <td class="px-4 py-3 border">
                                     {{ $jenis->jenis_pemeriksaan }}
                                 </td>
 
-                                <td class="px-4 py-3 border font-medium text-gray-700">
+                                <td class="px-4 py-3 border font-medium ">
                                     {{ $jenis->normal_min }} ~ {{ $jenis->normal_max }} {{ $jenis->satuan }}
                                 </td>
 
@@ -256,7 +256,7 @@
 
                                     <td class="px-4 py-3 border text-center">
                                         <button type="submit"
-                                            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                                            class="bg-blue-600 dark:bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 dark:hover:bg-gray-800">
                                             Simpan
                                         </button>
                                     </td>

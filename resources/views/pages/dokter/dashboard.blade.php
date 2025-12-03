@@ -12,22 +12,22 @@
                 </div>
                 <div class="flex flex-col space-y-4 w-full">
                     <a href="mailto:nabilahdaa@gmail.com"
-                        class="flex items-center bg-blue-50  border border-blue-200 rounded-full pr-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer w-full max-w-[280px]">
-                        <div class="p-3 bg-blue-200 dark:bg-blue-900 rounded-l-full">
-                            <svg class="w-5 h-5 text-blue-700 dark:text-blue-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        class="flex items-center bg-blue-50  border border-blue-200 dark:border-white rounded-full pr-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer w-full max-w-[280px]">
+                        <div class="p-3 bg-blue-200 dark:bg-gray-600 rounded-l-full">
+                            <svg class="w-5 h-5 text-blue-700 dark:text-gray-900 " fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 4v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7"></path>
                             </svg>
                         </div>
                         <span
-                            class="ml-3 text-blue-800 font-medium text-sm md:text-base truncate">{{ $dokter->email }}</span>
+                            class="ml-3 text-blue-800 dark:text-gray-900 font-medium text-sm md:text-base truncate">{{ $dokter->email }}</span>
                     </a>
 
                     <a href="tel:+6282160455334"
-                        class="flex items-center bg-blue-50 border border-blue-200 rounded-full pr-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer w-full max-w-[280px]">
-                        <div class="p-3 bg-blue-200 dark:bg-blue-900 rounded-l-full">
-                            <svg class="w-5 h-5 text-blue-700 dark:text-blue-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        class="flex items-center bg-blue-50 border border-blue-200 dark:border-white rounded-full pr-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer w-full max-w-[280px]">
+                        <div class="p-3 bg-blue-200 dark:bg-gray-600 rounded-l-full">
+                            <svg class="w-5 h-5 text-blue-700 dark:text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
@@ -35,7 +35,7 @@
                             </svg>
                         </div>
                         <span
-                            class="ml-3 text-blue-800 font-medium text-sm md:text-base">{{ $dokter->dokter->phone??'-' }}</span>
+                            class="ml-3 text-blue-800 dark:text-gray-900 font-medium text-sm md:text-base">{{ $dokter->dokter->phone??'-' }}</span>
                     </a>
                 </div>
             </div>
@@ -50,7 +50,7 @@
 
 
                 <div
-                    class="mt-4 inline-block bg-[#E2ECF6] p-1 px-3 text-sm rounded-full text-blue-700 font-semibold shadow-inner">
+                    class="mt-4 inline-block bg-[#E2ECF6] dark:bg-gray-600 p-1 px-3 text-sm rounded-full text-blue-700 dark:text-gray-900 font-semibold shadow-inner">
                     {{ $dokter->dokter->spesialisasi??'-' }}
                 </div>
 
@@ -69,15 +69,15 @@
 
         {{-- Kartu 1 --}}
         <div
-            class="bg-white p-3 sm:p-6 rounded-xl shadow-lg border-l-4 border-blue-500 transition duration-300 hover:shadow-xl">
+            class="bg-white p-3 sm:p-6 rounded-xl shadow-lg border-l-4 border-blue-500 dark:border-gray-500  transition duration-300 hover:shadow-xl">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-[10px] sm:text-sm font-semibold text-blue-600 mb-1 uppercase tracking-wider">
+                    <p class="text-[10px] sm:text-sm font-semibold text-blue-600 dark:text-gray-900 mb-1 uppercase tracking-wider">
                         Pasien Hari Ini
                     </p>
                     <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900">{{ $janji->count() }}</h2>
                 </div>
-                <svg class="w-5 h-5 sm:w-8 sm:h-8 text-blue-500 opacity-75" fill="none" stroke="currentColor"
+                <svg class="w-5 h-5 sm:w-8 sm:h-8 text-blue-500 dark:text-gray-900 opacity-75" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 4.354a4 4 0 110 5.292M12 20.948h.001M12 11.291c1.5 0 3.12 0 4 0s3 0 4 0a3 3 0 013 3v2a3 3 0 01-3 3h-8a3 3 0 01-3-3v-2a3 3 0 013-3h8a3 3 0 013 3v2a3 3 0 01-3 3H12">
@@ -88,15 +88,15 @@
 
         {{-- Kartu 2 --}}
         <div
-            class="bg-white p-3 sm:p-6 rounded-xl shadow-lg border-l-4 border-green-500 transition duration-300 hover:shadow-xl">
+            class="bg-white p-3 sm:p-6 rounded-xl shadow-lg border-l-4 border-green-500 dark:border-gray-500 transition duration-300 hover:shadow-xl">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-[10px] sm:text-sm font-semibold text-green-600 mb-1 uppercase tracking-wider">
+                    <p class="text-[10px] sm:text-sm font-semibold text-green-600 dark:text-gray-900 mb-1 uppercase tracking-wider">
                         Konsultasi Selesai
                     </p>
                     <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900">{{ $janji_selesai }}</h2>
                 </div>
-                <svg class="w-5 h-5 sm:w-8 sm:h-8 text-green-500 opacity-75" fill="none" stroke="currentColor"
+                <svg class="w-5 h-5 sm:w-8 sm:h-8 text-green-500 dark:text-gray-900 opacity-75" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z">
@@ -107,15 +107,15 @@
 
         {{-- Kartu 3 --}}
         <div
-            class="bg-white p-3 sm:p-6 rounded-xl shadow-lg border-l-4 border-yellow-500 transition duration-300 hover:shadow-xl">
+            class="bg-white p-3 sm:p-6 rounded-xl shadow-lg border-l-4 border-yellow-500 dark:border-gray-500 transition duration-300 hover:shadow-xl">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-[10px] sm:text-sm font-semibold text-yellow-600 mb-1 uppercase tracking-wider">
+                    <p class="text-[10px] sm:text-sm font-semibold text-yellow-600 dark:text-gray-900 mb-1 uppercase tracking-wider">
                         Menunggu
                     </p>
                     <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900">{{ $janji->where('status', false)->count()??'0' }}</h2>
                 </div>
-                <svg class="w-5 h-5 sm:w-8 sm:h-8 text-yellow-500 opacity-75" fill="none" stroke="currentColor"
+                <svg class="w-5 h-5 sm:w-8 sm:h-8 text-yellow-500 dark:text-gray-900 opacity-75" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
@@ -126,15 +126,15 @@
 
         {{-- Kartu 4 --}}
         <div
-            class="bg-white p-3 sm:p-6 rounded-xl shadow-lg border-l-4 border-red-500 transition duration-300 hover:shadow-xl">
+            class="bg-white p-3 sm:p-6 rounded-xl shadow-lg border-l-4 border-red-500 dark:border-gray-500 transition duration-300 hover:shadow-xl">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-[10px] sm:text-sm font-semibold text-red-600 mb-1 uppercase tracking-wider">
+                    <p class="text-[10px] sm:text-sm font-semibold text-red-600 dark:text-gray-900 mb-1 uppercase tracking-wider">
                         Antrian
                     </p>
                     <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900">{{ $janji->where('status', true)->count()??'0' }}</h2>
                 </div>
-                <svg class="w-5 h-5 sm:w-8 sm:h-8 text-red-500 opacity-75" fill="none" stroke="currentColor"
+                <svg class="w-5 h-5 sm:w-8 sm:h-8 text-red-500 dark:text-gray-900 opacity-75" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z">
@@ -170,7 +170,7 @@
                     @forelse ( $janji->where('status', true) as $item)
                         <tr class="hover:bg-blue-50 border-b dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
                             <td class="px-4 py-3 flex items-center space-x-2">
-                                <div class="w-6 h-6 rounded-full bg-blue-100 border border-blue-300"></div>
+                                <div class="w-6 h-6 rounded-full bg-blue-100 dark:bg-gray-400 border border-blue-300"></div>
                                 <span class="font-medium truncate">{{ $item->dokters->name }}??'-'</span>
                             </td>
                             <td class="px-4 py-3 truncate">{{ $item->pasiens->name??'-' }}</td>
@@ -178,7 +178,7 @@
                             <td class="px-4 py-3">{{ $item->jam_berobat??'-' }}</td>
                             <td class="px-4 py-3 truncate">{{ $item->keluhan??'-' }}</td>
                             <td class="px-4 py-3 text-center">
-                                <span class="bg-blue-200 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">
+                                <span class="bg-blue-200 dark:bg-gray-400 text-blue-800 dark:text-gray-900 text-xs font-semibold px-3 py-1 rounded-full">
                                     Antrian
                                 </span>
                             </td>

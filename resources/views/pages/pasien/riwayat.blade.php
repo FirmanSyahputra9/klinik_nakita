@@ -9,15 +9,15 @@
         <!-- List Riwayat -->
         @forelse ($riwayat as $item)
         <div class="space-y-4">
-            <div class="card bg-white rounded-lg shadow hover:shadow-md transition p-4">
+            <div class="card bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition p-4">
 
                 <!-- Tombol -->
                 <button class="card w-full flex items-start justify-between" onclick="toggleDetail('{{ $item->id }}')">
                     <div class="card flex items-start gap-4">
 
                         <!-- Icon -->
-                        <div class="card w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
-                            <svg class="card w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="card w-10 h-10 bg-blue-100 dark:bg-gray-400 rounded-lg flex items-center justify-center shrink-0">
+                            <svg class="card w-6 h-6 text-blue-600 dark:text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
@@ -25,11 +25,11 @@
 
                         <!-- Info -->
                         <div class="text-left">
-                            <h3 class="card font-semibold text-lg text-gray-900">
+                            <h3 class="card font-semibold text-lg text-gray-900 dark:text-gray-100">
                                 {{ $item->tindakan->nama_tindakan }}
                             </h3>
 
-                            <div class="card flex flex-wrap items-center gap-4 mt-2 text-sm text-gray-600">
+                            <div class="card flex flex-wrap items-center gap-4 mt-2 text-sm text-gray-600 dark:text-gray-100">
 
                                 <div class="card flex items-center gap-1">
                                     <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,32 +74,32 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm py-4">
 
                         <div>
-                            <p class="card text-gray-500">Jenis Tindakan</p>
-                            <p class="card font-medium text-gray-600">{{ $item->tindakan->jenis_tindakan ?? '-' }}</p>
+                            <p class="card text-gray-500 dark:text-gray-100">Jenis Tindakan</p>
+                            <p class="card font-medium text-gray-600 dark:text-gray-500">{{ $item->tindakan->jenis_tindakan ?? '-' }}</p>
                         </div>
 
                         <div>
-                            <p class="card text-gray-500">Keluhan Utama</p>
+                            <p class="card text-gray-500 dark:text-gray-100">Keluhan Utama</p>
                             <p class="card font-medium text-gray-500">{{ $item->registrasi->keluhan ?? '-' }}</p>
                         </div>
 
                         <div>
-                            <p class="card text-gray-500">Diagnosa</p>
+                            <p class="card text-gray-500 dark:text-gray-100">Diagnosa</p>
                             <p class="card font-medium text-gray-500">{{ $item->data_pemeriksaan->diagnosa ?? '-' }}</p>
                         </div>
 
                         <div>
-                            <p class="card text-gray-500">Catatan</p>
+                            <p class="card text-gray-500 dark:text-gray-100">Catatan</p>
                             <p class="card font-medium text-gray-500">{{ $item->tindakan->catatan ?? '-' }}</p>
                         </div>
 
                         <div>
-                            <p class="card text-gray-500">Alergi</p>
+                            <p class="card text-gray-500 dark:text-gray-100">Alergi</p>
                             <p class="card font-medium text-gray-600">{{ $item->alergi->alergi ?? '-' }}</p>
                         </div>
 
                         <div>
-                            <p class="card text-gray-500">Reaksi</p>
+                            <p class="card text-gray-500 dark:text-gray-100">Reaksi</p>
                             <p class="card font-medium text-gray-600">{{ $item->alergi->reaksi }}</p>
                         </div>
 

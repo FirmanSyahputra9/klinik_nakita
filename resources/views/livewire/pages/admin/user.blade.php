@@ -4,19 +4,19 @@
         <!-- Tabs -->
         <div class="flex gap-3 mb-4">
             <button @click="$wire.set('tab','pasien')"
-                :class="tab === 'pasien' ? 'bg-blue-600 dark:bg-gray-800 dark:border  text-white' : 'bg-gray-100 text-gray-700'"
+                :class="tab === 'pasien' ? 'bg-blue-600 dark:bg-gray-800 dark:border  text-white' : 'bg-gray-100 dark:bg-gray-300 text-gray-700'"
                 class="px-4 py-2 rounded-lg font-medium transition">
                 Pasien
             </button>
 
             <button @click="$wire.set('tab','dokter')"
-                :class="tab === 'dokter' ? 'bg-blue-600 dark:bg-gray-800 dark:border text-white' : 'bg-gray-100 text-gray-700'"
+                :class="tab === 'dokter' ? 'bg-blue-600 dark:bg-gray-800 dark:border text-white' : 'bg-gray-100 dark:bg-gray-300 text-gray-700'"
                 class="px-4 py-2 rounded-lg font-medium transition">
                 Dokter
             </button>
 
             <button @click="$wire.set('tab','admin')"
-                :class="tab === 'admin' ? 'bg-blue-600 dark:bg-gray-800 dark:border text-white' : 'bg-gray-100 text-gray-700'"
+                :class="tab === 'admin' ? 'bg-blue-600 dark:bg-gray-800 dark:border text-white' : 'bg-gray-100 dark:bg-gray-300 text-gray-700'"
                 class="px-4 py-2 rounded-lg font-medium transition">
                 Admin
             </button>
@@ -50,7 +50,7 @@
                     <div class="flex gap-3">
                         <!-- Gender -->
                         <select wire:model.live="filterGender"
-                            class="px-3 py-2 border rounded-lg text-sm text-gray-700 dark:focus:bg-gray-700 dark:text-white focus:ring focus:ring-blue-200 dark:focus:ring-gray-200 ">
+                            class="px-3 py-2 border rounded-lg text-sm text-gray-700 dark:focus:bg-gray-700 dark:focus:ring-gray-200 dark:text-white  focus:ring focus:ring-blue-200  ">
                             <option value="">Semua Gender</option>
                             <option value="male">Laki-Laki</option>
                             <option value="female">Perempuan</option>
