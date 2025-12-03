@@ -128,7 +128,7 @@
 
                         <div>
                             <p class="text-sm font-semibold text-gray-700 mb-1">Harga:</p>
-                            <p class="text-sm text-gray-600">Satu Miliar</p>
+                            <p class="text-sm text-gray-600">{{ $resep->obat->harga }}</p>
                         </div>
 
                     </div>

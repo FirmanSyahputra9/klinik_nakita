@@ -37,7 +37,10 @@ class PasienObatController extends Controller
 
         $resep = Resep::whereHas('antrian.tindakan', function ($q) use ($tindakanIds) {
             $q->where('id', $tindakanIds);
-        })->with('obat')->get();
+        })->with('obat', 'antrian.kasir')->get()->map(function ($item) {
+            $item->obat->harga = 'Rp. ' . number_format($item->obat->harga_jual + $item->antrian->kasir->biaya_layanan, 0, ',', '.');
+            return $item;
+        });
 
 
         return view('pages.pasien.obat', compact('obat', 'resep'));
