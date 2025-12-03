@@ -41,7 +41,8 @@ class PasienDashboardController extends Controller
         ])
             ->where('pasien_id', $pasienId)
             ->whereHas('registrasi', function ($q) use ($today) {
-                $q->whereDate('tanggal_kunjungan', $today)
+                $q
+                // ->whereDate('tanggal_kunjungan', $today)
                     ->where('status', true);
             })
             ->get()->map(function ($item) use ($hari) {
@@ -64,7 +65,7 @@ class PasienDashboardController extends Controller
                         Carbon::parse($item->jadwal_dokter_now->aktif_mulai)->format('H:i');
                 }
 
-                
+
 
                 $item->registrasi->hari_kunjungan =
                     Carbon::parse($item->registrasi->tanggal_kunjungan)
