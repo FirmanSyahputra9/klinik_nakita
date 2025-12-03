@@ -7,104 +7,110 @@
         </div>
 
         <!-- List Riwayat -->
-        @forelse  ($riwayat as $item)
-            <div class="space-y-4">
-                <div class="bg-white rounded-lg shadow hover:shadow-md transition p-4">
+        @forelse ($riwayat as $item)
+        <div class="space-y-4">
+            <div class="bg-white rounded-lg shadow hover:shadow-md transition p-4">
 
-                    <!-- Tombol -->
-                    <button class="w-full flex items-start justify-between" onclick="toggleDetail('{{ $item->id }}')">
-                        <div class="flex items-start gap-4">
-                            <!-- Icon -->
-                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
-                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                            </div>
+                <!-- Tombol -->
+                <button class="w-full flex items-start justify-between" onclick="toggleDetail('{{ $item->id }}')">
+                    <div class="flex items-start gap-4">
 
-                            <!-- Info -->
-                            <div class="text-left">
-                                <h3 class="font-semibold text-lg text-gray-900">{{ $item->tindakan->nama_tindakan }}
-                                </h3>
-
-                                <div class="flex items-center gap-4 mt-2 text-sm text-gray-600">
-                                    <div class="flex items-center gap-1">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                        <span>{{ $item->registrasi->tanggal_kunjungan }}</span>
-                                    </div>
-
-                                    <div class="flex items-center gap-1">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                        <span>{{ $item->harga ?? '0' }}</span>
-                                    </div>
-
-                                    <div class="flex items-center gap-1">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                        </svg>
-                                        <span>{{ $item->dokter->name ?? '-' }}</span>
-                                    </div>
-                                </div>
-                            </div>
+                        <!-- Icon -->
+                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
                         </div>
 
-                        <!-- Chevron -->
-                        <svg class="w-6 h-6 text-gray-400 transform transition-transform"
-                            id="chevron-{{ $item->id }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
+                        <!-- Info -->
+                        <div class="text-left">
+                            <h3 class="font-semibold text-lg text-gray-900">
+                                {{ $item->tindakan->nama_tindakan }}
+                            </h3>
 
-                    </button>
+                            <div class="flex flex-wrap items-center gap-4 mt-2 text-sm text-gray-600">
 
-                    <!-- Detail (Hidden) -->
-                    <div id="detail-{{ $item->id }}"
-                        class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out mt-4 pt-0 border-t border-gray-200 opacity-0">
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    <span>{{ $item->registrasi->tanggal_kunjungan }}</span>
+                                </div>
 
-                        <div class="grid grid-cols-2 gap-4 text-sm py-4">
-                            <div>
-                                <p class="text-gray-500">Jenis Tindakan</p>
-                                <p class="font-medium text-gray-600">{{ $item->tindakan->jenis_tindakan ?? '-' }}</p>
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span>{{ $item->harga ?? '0' }}</span>
+                                </div>
+
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                    <span>{{ $item->dokter->name ?? '-' }}</span>
+                                </div>
+
                             </div>
+                        </div>
+                    </div>
 
-                            <div>
-                                <p class="text-gray-500">Keluhan Utama</p>
-                                <p class="font-medium text-gray-500">{{ $item->registrasi->keluhan ?? '-' }}</p>
-                            </div>
+                    <!-- Chevron -->
+                    <svg class="w-6 h-6 text-gray-400 transform transition-transform"
+                        id="chevron-{{ $item->id }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
 
-                            <div>
-                                <p class="text-gray-500">Diagnosa</p>
-                                <p class="font-medium text-gray-500">{{ $item->data_pemeriksaan->diagnosa ?? '-' }}</p>
-                            </div>
+                </button>
 
-                            <div>
-                                <p class="text-gray-500">Catatan</p>
-                                <p class="font-medium text-gray-500">{{ $item->tindakan->catatan ?? '-' }}</p>
-                            </div>
+                <!-- Detail (Hidden) -->
+                <div id="detail-{{ $item->id }}"
+                    class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out mt-4 pt-0 border-t border-gray-200 opacity-0">
 
-                            <div>
-                                <p class="text-gray-500">Alergi</p>
-                                <p class="font-medium text-gray-600">{{ $item->alergi->alergi ?? '-' }}</p>
-                            </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm py-4">
 
-                            <div>
-                                <p class="text-gray-500">Reaksi</p>
-                                <p class="font-medium text-gray-600">{{ $item->alergi->reaksi }}</p>
-                            </div>
+                        <div>
+                            <p class="text-gray-500">Jenis Tindakan</p>
+                            <p class="font-medium text-gray-600">{{ $item->tindakan->jenis_tindakan ?? '-' }}</p>
+                        </div>
+
+                        <div>
+                            <p class="text-gray-500">Keluhan Utama</p>
+                            <p class="font-medium text-gray-500">{{ $item->registrasi->keluhan ?? '-' }}</p>
+                        </div>
+
+                        <div>
+                            <p class="text-gray-500">Diagnosa</p>
+                            <p class="font-medium text-gray-500">{{ $item->data_pemeriksaan->diagnosa ?? '-' }}</p>
+                        </div>
+
+                        <div>
+                            <p class="text-gray-500">Catatan</p>
+                            <p class="font-medium text-gray-500">{{ $item->tindakan->catatan ?? '-' }}</p>
+                        </div>
+
+                        <div>
+                            <p class="text-gray-500">Alergi</p>
+                            <p class="font-medium text-gray-600">{{ $item->alergi->alergi ?? '-' }}</p>
+                        </div>
+
+                        <div>
+                            <p class="text-gray-500">Reaksi</p>
+                            <p class="font-medium text-gray-600">{{ $item->alergi->reaksi }}</p>
                         </div>
 
                     </div>
+
                 </div>
+
             </div>
+        </div>
         @empty
-            <p class="text-center py-6 text-gray-400">Belum ada riwayat konsultasi</p>
+        <p class="text-center py-6 text-gray-400">Belum ada riwayat konsultasi</p>
         @endforelse
 
     </div>
