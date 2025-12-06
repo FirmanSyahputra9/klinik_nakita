@@ -1,5 +1,5 @@
 <div>
-    <div x-data="{ tab: @entangle('tab').live }"" class="!mt-0 !p-0">
+    <div x-data="{ tab: @entangle('tab').live }"" class=" !mt-0 !p-0">
 
         <!-- Tabs -->
         <div class="flex gap-3 mb-4">
@@ -78,7 +78,7 @@
                             class="px-3 py-2 border rounded-lg text-sm text-gray-700 dark:focus:bg-gray-700 dark:text-white focus:ring focus:ring-blue-200 dark:focus:ring-gray-200">
                             <option value="">Semua Spesialis</option>
                             @foreach ($spesialis??[] as $item)
-                                <option value="{{ $item }}">{{ $item }}</option>
+                            <option value="{{ $item }}">{{ $item }}</option>
                             @endforeach
                         </select>
 
@@ -87,10 +87,10 @@
                             class="px-3 py-2 border rounded-lg text-sm text-gray-700 dark:focus:bg-gray-700 dark:text-white focus:ring focus:ring-blue-200 dark:focus:ring-gray-200">
                             <option>Semua Status</option>
                             @forelse ($aktif as $item)
-                                <option value="{{ $item }}" >{{ $item == 'aktif' ? 'Aktif' : 'Tidak Aktif' }}
-                                </option>
+                            <option value="{{ $item }}">{{ $item == 'aktif' ? 'Aktif' : 'Tidak Aktif' }}
+                            </option>
                             @empty
-                                <option value="" disabled>Belum Ada</option>
+                            <option value="" disabled>Belum Ada</option>
                             @endforelse
                         </select>
                     </div>
@@ -99,17 +99,17 @@
                 <!-- Filter ADMIN -->
                 <template x-if="tab === 'admin'">
                     <div class="flex gap-3">
-                         @if (Auth::user()->role == 'superadmin')
-                            <select
+                        @if (Auth::user()->role == 'superadmin')
+                        <select
                             class="px-3 py-2 border rounded-lg text-sm text-gray-700 dark:focus:bg-gray-700 dark:text-white focus:ring focus:ring-blue-200 dark:focus:ring-gray-200">
                             <option>Semua Role</option>
                             @forelse ($role as $item)
-                                <option value="{{ $item }}">{{ $item }}</option>
+                            <option value="{{ $item }}">{{ $item }}</option>
                             @empty
-                                <option value="" disabled>Belum Ada</option>
+                            <option value="" disabled>Belum Ada</option>
                             @endforelse
                         </select>
-                         @endif
+                        @endif
 
                     </div>
                 </template>
@@ -123,7 +123,7 @@
             <table class="min-w-full text-left border-collapse overflow-x-auto whitespace-nowrap">
                 <thead class="text-base">
                     <tr class="text-gray-700 dark:text-white">
-                        <template x-if="tab === 'pasien'" >
+                        <template x-if="tab === 'pasien'">
                             <th class="py-2 px-4 dark:text-white  font-semibold text-sm">Data Pasien</th>
                         </template>
                         <template x-if="tab === 'dokter'">
@@ -174,128 +174,133 @@
                 </thead>
                 <tbody x-show="tab === 'pasien'" class=" text-[14px]">
                     @forelse ($pasiens as $item)
-                        <tr class="border-b text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <td class="py-2 px-4 ">{{ $item->pasien->no_rm ?? '-' }}</td>
-                            <td class="py-2 px-4  min-w-32 max-w-32 overflow-x-auto thin-scroll">
-                                {{ $item->pasien->name ?? '-' }}</td>
-                            <td class="py-2 px-4  min-w-32 max-w-32 overflow-x-auto thin-scroll">
-                                {{ $item->pasien->nik ?? '-' }}</td>
-                            <td class="py-2 px-4  min-w-32 max-w-32 overflow-x-auto thin-scroll">
-                                {{ $item->email ?? '-' }}
-                            </td>
-                            <td class="py-2 px-4  min-w-32 max-w-32 overflow-x-auto thin-scroll">
-                                {{ $item->pasien->gender_label ?? '-' }}</td>
-                            <td class="py-2 px-4  min-w-32 max-w-32 overflow-x-auto thin-scroll">
-                                {{ $item->pasien->umur ?? '-' }}</td>
-                            <td class="py-2 px-4 ">
-                                {{ $item->pasien->alamat ?? '-' }}</td>
-                            <td class="py-2 px-4  ">restdgvftyhfg{{ $item->pasien->phone ?? '-' }}</td>
-                            <td class="py-2 px-4 whitespace-nowrap">
-                                <a href="{{ route('users.show', $item->id) }}"
-                                    class="text-blue-600 hover:text-blue-800">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <tr class="border-b text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <td class="py-2 px-4 ">{{ $item->pasien->no_rm ?? '-' }}</td>
+                        <td class="py-2 px-4  min-w-32 max-w-32 overflow-x-auto thin-scroll">
+                            {{ $item->pasien->name ?? '-' }}
+                        </td>
+                        <td class="py-2 px-4  min-w-32 max-w-32 overflow-x-auto thin-scroll">
+                            {{ $item->pasien->nik ?? '-' }}
+                        </td>
+                        <td class="py-2 px-4  min-w-32 max-w-32 overflow-x-auto thin-scroll">
+                            {{ $item->email ?? '-' }}
+                        </td>
+                        <td class="py-2 px-4  min-w-32 max-w-32 overflow-x-auto thin-scroll">
+                            {{ $item->pasien->gender_label ?? '-' }}
+                        </td>
+                        <td class="py-2 px-4  min-w-32 max-w-32 overflow-x-auto thin-scroll">
+                            {{ $item->pasien->umur ?? '-' }}
+                        </td>
+                        <td class="py-2 px-4 ">
+                            {{ $item->pasien->alamat ?? '-' }}
+                        </td>
+                        <td class="py-2 px-4  ">restdgvftyhfg{{ $item->pasien->phone ?? '-' }}</td>
+                        <td class="py-2 px-4 whitespace-nowrap">
+                            <a href="{{ route('users.show', $item->id) }}"
+                                class="text-blue-600 hover:text-blue-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                            </a>
+
+
+                            @if (!$item->approved && !$item->pasien->no_rm)
+                            <form id="approve-form-{{ $item->id }}"
+                                action="{{ route('users.approve', $item->id) }}" method="POST"
+                                class="inline">
+                                @csrf
+                                <button type="button"
+                                    @click="$dispatch('open-approve', { id: {{ $item->id }} })"
+                                    class="text-green-600 hover:text-green-800 cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                        class="size-3">
                                         <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                            d="m4.5 12.75 6 6 9-13.5" />
                                     </svg>
-                                </a>
+                                </button>
 
 
-                                @if (!$item->approved && !$item->pasien->no_rm)
-                                    <form id="approve-form-{{ $item->id }}"
-                                        action="{{ route('users.approve', $item->id) }}" method="POST"
-                                        class="inline">
-                                        @csrf
-                                        <button type="button"
-                                            @click="$dispatch('open-approve', { id: {{ $item->id }} })"
-                                            class="text-green-600 hover:text-green-800 cursor-pointer">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                class="size-3">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m4.5 12.75 6 6 9-13.5" />
-                                            </svg>
-                                        </button>
-
-
-                                    </form>
-                                    <form>
-                                        <button type="submit" class="text-red-600 hover:text-red-800 cursor-pointer">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                class="size-3">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M6 18 18 6M6 6l12 12" />
-                                            </svg>
-                                        </button>
-                                    </form>
-                                @endif
-                            </td>
-                        </tr>
+                            </form>
+                            <form>
+                                <button type="submit" class="text-red-600 hover:text-red-800 cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                        class="size-3">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M6 18 18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </form>
+                            @endif
+                        </td>
+                    </tr>
                     @empty
-                        <tr>
-                            <td colspan="9" class="text-center py-6 text-gray-400">
-                                Belum ada data pasien
-                            </td>
-                        </tr>
+                    <tr>
+                        <td colspan="9" class="text-center py-6 text-gray-400">
+                            Belum ada data pasien
+                        </td>
+                    </tr>
                     @endforelse
                 </tbody>
                 <tbody x-show="tab === 'dokter'" class=" text-[14px]">
                     @forelse ($dokters as $dokter)
-                        <tr class="border-b text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <td class="py-2 px-4 ">{{ $loop->iteration }}</td>
-                            <td class="py-2 px-4 ">{{ $dokter->dokter->name }}</td>
-                            <td class="py-2 px-4 ">{{ $dokter->dokter->spesialisasi }}</td>
-                            <td class="py-2 px-4 ">{{ $dokter->email }}</td>
-                            <td class="py-2 px-4 ">{{ $dokter->dokter->phone }}</td>
-                            <td class="py-2 px-4 ">{{ $dokter->dokter->alamat }}</td>
-                            <td class="py-2 px-4 ">{{ $dokter->dokter->status }}</td>
-                            <td class="py-2 px-4">
-                                <a href="{{ route('users.show', $dokter->id) }}"
-                                    class="text-blue-600 hover:text-blue-800">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                    </svg>
-                                </a>
+                    <tr class="border-b text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <td class="py-2 px-4 ">{{ $loop->iteration }}</td>
+                        <td class="py-2 px-4 ">{{ $dokter->dokter->name }}</td>
+                        <td class="py-2 px-4 ">{{ $dokter->dokter->spesialisasi }}</td>
+                        <td class="py-2 px-4 ">{{ $dokter->email }}</td>
+                        <td class="py-2 px-4 ">{{ $dokter->dokter->phone }}</td>
+                        <td class="py-2 px-4 ">{{ $dokter->dokter->alamat }}</td>
+                        <td class="py-2 px-4 ">{{ $dokter->dokter->status }}</td>
+                        <td class="py-2 px-4">
+                            <a href="{{ route('users.show', $dokter->id) }}"
+                                class="text-blue-600 hover:text-blue-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                            </a>
 
-                            </td>
-                        </tr>
+                        </td>
+                    </tr>
                     @empty
-                        <tr>
-                            <td colspan="9" class="text-center py-6 text-gray-400">
-                                Belum ada data dokter
-                            </td>
-                        </tr>
+                    <tr>
+                        <td colspan="9" class="text-center py-6 text-gray-400">
+                            Belum ada data dokter
+                        </td>
+                    </tr>
                     @endforelse
                 </tbody>
 
                 <!-- ADMIN -->
                 <tbody x-show="tab === 'admin'" class=" text-[14px]">
                     @forelse ($admins as $admin)
-                        <tr class="border-b text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <td class="py-2 px-4 ">{{ $loop->iteration }}</td>
-                            <td class="py-2 px-4 ">{{ $admin->admin->name }}</td>
-                            <td class="py-2 px-4 ">{{ $admin->email }}</td>
-                            <td class="py-2 px-4 ">Admin</td>
-                            <td class="py-2 px-4">
-                                <a href="{{ route('users.show', $admin->id) }}"
-                                    class="text-blue-600 hover:text-blue-800">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                            </td>
-                        </tr>
+                    <tr class="border-b text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <td class="py-2 px-4 ">{{ $loop->iteration }}</td>
+                        <td class="py-2 px-4 ">{{ $admin->admin->name }}</td>
+                        <td class="py-2 px-4 ">{{ $admin->email }}</td>
+                        <td class="py-2 px-4 ">Admin</td>
+                        <td class="py-2 px-4">
+                            <a href="{{ route('users.show', $admin->id) }}"
+                                class="text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
                     @empty
-                        <tr>
-                            <td colspan="9" class="text-center py-6 text-gray-400">
-                                Belum ada data admin
-                            </td>
-                        </tr>
+                    <tr>
+                        <td colspan="9" class="text-center py-6 text-gray-400">
+                            Belum ada data admin
+                        </td>
+                    </tr>
                     @endforelse
                 </tbody>
 

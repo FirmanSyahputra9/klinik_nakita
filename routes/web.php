@@ -55,6 +55,9 @@ Route::middleware(['auth', 'is.login', 'check.route.exists'])->group(function ()
         Route::resource('/stok-obat', ObatController::class);
         Route::resource('dokter', DokterController::class);
         Route::resource('dokter-jadwal', AdminDokterJadwalController::class);
+        Route::get('/admin/register-pasien-non', function () {
+            return view('pages.admin.registrasi-pasien-non');
+        })->name('admin.registrasi-pasien-non');
 
         // Route::resource('pasien', PasienController::class);
     });
