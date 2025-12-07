@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Fortify\PasswordValidationRules;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Admin;
@@ -11,10 +12,13 @@ use App\Models\JenisPemeriksaan;
 use App\Models\Pasien;
 use App\Models\Registrasi;
 use Carbon\Carbon;
-
+use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminUser extends Controller
 {
+    use PasswordValidationRules;
     /**
      * Display a listing of the resource.
      */
@@ -55,7 +59,7 @@ class AdminUser extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.registrasi-pasien-non');
     }
 
     /**
@@ -63,7 +67,58 @@ class AdminUser extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'username' => ['required', 'string', 'max:255', 'unique:users,username'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => $this->passwordRules(),
+            'name' => ['required', 'string', 'max:255'],
+            'gol_darah' => ['nullable', 'string', 'max:255'],
+            'alamat' => ['required', 'string', 'max:255', 'unique:pasiens,alamat'],
+            'nik' => ['required', 'string', 'max:255', 'unique:pasiens,nik'],
+            'birth_date' => ['nullable', 'date'],
+            'gender' => ['nullable', 'in:male,female'],
+            'phone' => ['required', 'string', 'max:255'],
+
+        ]);
+
+
+        $user = User::create([
+            'username' => $validated['username'],
+            'email' => $validated['email'],
+            'approved' => true,
+            'approved_at' => now(),
+            'email_verified_at' => now(),
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        $formatPhone = trim(chunk_split(preg_replace('/\D/', '', $validated['phone']), 4, ' '));
+        Pasien::create([
+            'user_id' => $user->id,
+            'name' => $validated['name'],
+            'gol_darah' => $validated['gol_darah'] ?? null,
+            'alamat' => $validated['alamat'],
+            'nik' => $validated['nik'],
+            'birth_date' => $validated['birth_date'] ?? null,
+            'gender' => $validated['gender'] ?? null,
+            'phone' => $formatPhone,
+            'no_rm' => null
+        ]);
+        if ($user->pasien) {
+            if (empty($user->pasien->no_rm)) {
+                $lastRm = Pasien::orderBy('no_rm', 'desc')->value('no_rm');
+
+                $lastNumber = $lastRm ? intval(substr($lastRm, 2)) : 0;
+
+                $newNumber = $lastNumber + 1;
+
+                $newRm = 'RM' . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+
+                $user->pasien->update(['no_rm' => $newRm]);
+            }
+        }
+
+
+        return redirect()->route('users.index')->with('success', 'User berhasil disetujui dan nomor rekam medis telah dibuat.');
     }
 
     /**

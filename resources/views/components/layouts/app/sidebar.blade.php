@@ -32,7 +32,7 @@
                     </flux:navlist.item>
 
                     <flux:navlist.item class="mb-2" icon="home" :href="route('appointment.index')"
-                        :current="request()->routeIs('appointment.*')" wire:navigate>
+                        :current="request()->routeIs('appointment.*') || request()->routeIs('admin-create.*')" wire:navigate>
                         {{ __('Appointments') }}
                     </flux:navlist.item>
 

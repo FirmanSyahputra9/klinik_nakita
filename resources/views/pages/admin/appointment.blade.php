@@ -4,7 +4,7 @@
         show: false,
         message: '',
         action: '',
-    
+
         open(msg, act) {
             this.message = msg;
             this.action = act;

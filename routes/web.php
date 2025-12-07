@@ -34,8 +34,6 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'is.login', 'check.route.exists'])->group(function () {
-
-
     Route::middleware(['auth', 'is.admin'])->prefix('admin')->group(function () {
         Route::view('/', 'pages.admin.dashboard')
             ->name('dashboard');
@@ -62,20 +60,6 @@ Route::middleware(['auth', 'is.login', 'check.route.exists'])->group(function ()
         // Route::resource('pasien', PasienController::class);
     });
 
-    Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
-        Route::get('/', [PasienDashboardController::class, 'index'])
-            ->name('dashboarduser');
-        Route::resource('jadwaldokter', UserJadwalDokter::class);
-        Route::view('/riwayat', 'pages.pasien.riwayat')
-            ->name('riwayatuser');
-        Route::resource('riwayat', PasienRiwayatController::class);
-        Route::resource('hasil', PasienHasilController::class);
-        Route::resource('obat', PasienObatController::class);
-        Route::get('registrasi/{id}', [RegistrasiController::class, 'index'])->name('registrasi.index');
-        Route::resource('registrasi', RegistrasiController::class)->except(['index']);
-    });
-
-
     Route::middleware(['auth', 'is.dokter'])->prefix('dokter')->group(function () {
         Route::get('/', [DokterDashboardController::class, 'index'])->name('dashboarddokter');
         Route::resource('janji', DokterJanjiController::class);
@@ -88,6 +72,19 @@ Route::middleware(['auth', 'is.login', 'check.route.exists'])->group(function ()
         Route::resource('jenis-pemeriksaan', JenisPemeriksaanController::class);
         Route::resource('data-pemeriksaan', DataPemeriksaanController::class);
         Route::resource('pemeriksaan-lab', PemeriksaanLaboratoriumController::class);
+    });
+
+    Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {
+        Route::get('/', [PasienDashboardController::class, 'index'])
+            ->name('dashboarduser');
+        Route::resource('jadwaldokter', UserJadwalDokter::class);
+        Route::view('/riwayat', 'pages.pasien.riwayat')
+            ->name('riwayatuser');
+        Route::resource('riwayat', PasienRiwayatController::class);
+        Route::resource('hasil', PasienHasilController::class);
+        Route::resource('obat', PasienObatController::class);
+        Route::get('registrasi/{id}', [RegistrasiController::class, 'index'])->name('registrasi.index');
+        Route::resource('registrasi', RegistrasiController::class)->except(['index']);
     });
 });
 Route::view('/error/403', 'errors.403')

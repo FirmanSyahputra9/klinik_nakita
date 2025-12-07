@@ -76,7 +76,8 @@ class DokterController extends Controller
             ]);
 
             DokterAktif::create([
-                'dokter_id' => $user->dokter->id
+                'dokter_id' => $user->dokter->id,
+                'aktif' => true,
             ]);
 
             DB::commit();

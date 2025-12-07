@@ -59,6 +59,11 @@ class DatabaseSeeder extends Seeder
             'nik'          => '1271070719040000',
         ]);
 
+        DokterAktif::create([
+            'dokter_id' => $dokterAdit->dokter->id,
+            'aktif'     => true,
+        ]);
+
 
         $doctorUser = User::factory()->create([
             'username'    => 'doctor',
