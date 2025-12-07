@@ -93,14 +93,14 @@
                 <h3 class="font-semibold text-lg mb-3 text-gray-800 dark:text-gray-100 card">Nomor Antrian Anda</h3>
                 @foreach ($janjinow ?? [] as $item)
                 <div class="mb-4">
-                    <span class="block text-sm mb-2">Dokter : {{ $item->dokter->name }}</span>
+                    <span class="block text-sm mb-2">Dokter : {{ $item->dokter->name?? '' }}</span>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="card bg-pink-50 dark:bg-gray-900 rounded-lg p-4 text-center shadow border border-gray-200">
                             <p class="card text-xs text-gray-500 dark:text-gray-300">Nomor Antrian</p>
                             <p class="card text-xl font-bold text-pink-600 dark:text-gray-100">{{ $item->kode_antrian }}</p>
                             <p class="card text-xs text-gray-400 mt-1">
                                 Dokter Aktif {{ $item->registrasi->hari_kunjungan }}<br>
-                                {{ $item->jadwal_dokter_now->awal_aktif }}
+                                {{ $item->jadwal_dokter_now->awal_aktif?? '' }}
                             </p>
                         </div>
                         <div class="card bg-blue-50 dark:bg-gray-900 rounded-lg p-4 text-center shadow border border-gray-200">

@@ -27,11 +27,11 @@
             <div class="flex gap-3">
 
                 <!-- Filter Satuan -->
-                <select  wire:model.live="filterSatuan"
+                <select wire:model.live="filterSatuan"
                     class="px-3 py-2 border rounded-lg text-sm text-gray-700 dark:focus:bg-gray-700 dark:text-white focus:ring focus:ring-blue-200 dark:focus:ring-gray-200">
                     <option value="">Semua Satuan</option>
                     @foreach ($satuan??[] as $s)
-                        <option value="{{ $s }}">{{ $s }}</option>
+                    <option value="{{ $s }}">{{ $s }}</option>
                     @endforeach
                 </select>
 
@@ -66,28 +66,28 @@
                 <tbody>
 
                     @forelse ($obats??[] as $obat)
-                        <tr class="border-b hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
-                            x-show="match({
+                    <tr class="border-b hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+                        x-show="match({
                             kode: '{{ strtolower($obat->kode) }}',
                             nama: '{{ strtolower($obat->nama) }}',
                             satuan: '{{ strtolower($obat->satuan) }}',
                             stok: {{ $obat->stok }}
                         })">
-                            <td class="px-4 py-3 font-medium">{{ $obat->kode }}</td>
-                            <td class="px-4 py-3">{{ $obat->nama }}</td>
-                            <td class="px-4 py-3">{{ $obat->stok }}</td>
-                            <td class="px-4 py-3">{{ $obat->satuan }}</td>
-                            <td class="px-4 py-3">Rp {{ number_format($obat->harga_beli, 0, ',', '.') }}</td>
-                            <td class="px-4 py-3">Rp {{ number_format($obat->harga_jual, 0, ',', '.') }}</td>
-                            <td class="px-4 py-3">
-                                {{ \Carbon\Carbon::parse($obat->tanggal_kadaluwarsa)->format('d M Y') }}
-                            </td>
+                        <td class="px-4 py-3 font-medium">{{ $obat->kode }}</td>
+                        <td class="px-4 py-3">{{ $obat->nama }}</td>
+                        <td class="px-4 py-3">{{ $obat->stok }}</td>
+                        <td class="px-4 py-3">{{ $obat->satuan }}</td>
+                        <td class="px-4 py-3">Rp {{ number_format($obat->harga_beli, 0, ',', '.') }}</td>
+                        <td class="px-4 py-3">Rp {{ number_format($obat->harga_jual, 0, ',', '.') }}</td>
+                        <td class="px-4 py-3">
+                            {{ \Carbon\Carbon::parse($obat->tanggal_kadaluwarsa)->format('d M Y') }}
+                        </td>
 
-                            <td class="px-4 py-3 text-center flex justify-center gap-2">
+                        <td class="px-4 py-3 text-center flex justify-center gap-2">
 
-                                <!-- EDIT BUTTON -->
-                                <button class="p-2 bg-green-500 dark:bg-gray-600 text-white rounded hover:bg-green-600 dark:hover:bg-gray-800 transition"
-                                    x-on:click="
+                            <!-- EDIT BUTTON -->
+                            <button class="p-2 bg-green-500 dark:bg-gray-600 text-white rounded hover:bg-green-600 dark:hover:bg-gray-800 transition"
+                                x-on:click="
                                     openEdit({
                                         id: '{{ $obat->id }}',
                                         kode: '{{ $obat->kode }}',
@@ -99,44 +99,44 @@
                                         tanggal_kadaluwarsa: '{{ $obat->tanggal_kadaluwarsa }}'
                                     })
                                 ">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="size-3">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875
                                         0 1 1 2.652 2.652L6.832 19.82a4.5 4.5
                                         0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5
                                         4.5 0 0 1 1.13-1.897L16.863 4.487Z" />
-                                    </svg>
-                                </button>
+                                </svg>
+                            </button>
 
-                                <!-- DELETE BUTTON -->
-                                <form action="{{ route('stok-obat.destroy', $obat->id) }}" method="POST"
-                                    onsubmit="return confirm('Hapus obat ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        class="p-2 bg-red-500 dark:bg-gray-600 text-white rounded hover:bg-red-600 dark:hover:bg-gray-800 transition">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="size-3">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788
+                            <!-- DELETE BUTTON -->
+                            <form action="{{ route('stok-obat.destroy', $obat->id) }}" method="POST"
+                                onsubmit="return confirm('Hapus obat ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="p-2 bg-red-500 dark:bg-gray-600 text-white rounded hover:bg-red-600 dark:hover:bg-gray-800 transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788
                                             0L9.26 9m9.968-3.21c.342.052.682.107
                                             1.022.166M4.772 5.79a48.11
                                             48.11 0 0 1 3.478-.397m7.5
                                             0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964
                                             51.964 0 0 0-3.32 0c-1.18.037-2.09
                                             1.022-2.09 2.201v.916" />
-                                        </svg>
-                                    </button>
-                                </form>
+                                    </svg>
+                                </button>
+                            </form>
 
-                            </td>
-                        </tr>
+                        </td>
+                    </tr>
 
                     @empty
-                        <tr>
-                            <td colspan="8" class="text-center py-6 text-gray-400">
-                                Tidak ada data obat
-                            </td>
-                        </tr>
+                    <tr>
+                        <td colspan="8" class="text-center py-6 text-gray-400">
+                            Tidak ada data obat
+                        </td>
+                    </tr>
                     @endforelse
 
                 </tbody>
@@ -149,8 +149,10 @@
 
 
         <!-- EDIT MODAL -->
-        <div x-show="showEdit" x-transition class="fixed inset-0 bg-black/40 flex items-center justify-center p-4">
-            <div class="bg-white rounded-lg p-6 w-full max-w-lg">
+        <div x-show="showEdit" x-transition
+            class="fixed inset-0 bg-black/40 dark:bg-black/60 flex items-center justify-center p-4">
+
+            <div class="bg-white dark:bg-gray-800 dark:text-gray-100 rounded-lg p-6 w-full max-w-lg shadow-lg">
 
                 <h2 class="text-xl font-semibold mb-4">Edit Obat</h2>
 
@@ -159,59 +161,76 @@
                     @method('PUT')
 
                     <div class="grid grid-cols-2 gap-4">
+
                         <div>
-                            <label class="text-sm font-medium">Kode</label>
-                            <input type="text" class="w-full border rounded p-2" x-model="kode" name="kode">
+                            <label class="text-sm font-medium dark:text-gray-200">Kode</label>
+                            <input type="text"
+                                class="w-full border rounded p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
+                                x-model="kode" name="kode">
                         </div>
 
                         <div>
-                            <label class="text-sm font-medium">Nama</label>
-                            <input type="text" class="w-full border rounded p-2" x-model="nama" name="nama">
+                            <label class="text-sm font-medium dark:text-gray-200">Nama</label>
+                            <input type="text"
+                                class="w-full border rounded p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
+                                x-model="nama" name="nama">
                         </div>
 
                         <div>
-                            <label class="text-sm font-medium">Stok</label>
-                            <input type="number" class="w-full border rounded p-2" x-model="stok" name="stok">
+                            <label class="text-sm font-medium dark:text-gray-200">Stok</label>
+                            <input type="number"
+                                class="w-full border rounded p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
+                                x-model="stok" name="stok">
                         </div>
 
                         <div>
-                            <label class="text-sm font-medium">Satuan</label>
-                            <input type="text" class="w-full border rounded p-2" x-model="satuan" name="satuan">
+                            <label class="text-sm font-medium dark:text-gray-200">Satuan</label>
+                            <input type="text"
+                                class="w-full border rounded p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
+                                x-model="satuan" name="satuan">
                         </div>
 
                         <div>
-                            <label class="text-sm font-medium">Harga Beli</label>
-                            <input type="number" class="w-full border rounded p-2" x-model="harga_beli"
-                                name="harga_beli">
+                            <label class="text-sm font-medium dark:text-gray-200">Harga Beli</label>
+                            <input type="number"
+                                class="w-full border rounded p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
+                                x-model="harga_beli" name="harga_beli">
                         </div>
 
                         <div>
-                            <label class="text-sm font-medium">Harga Jual</label>
-                            <input type="number" class="w-full border rounded p-2" x-model="harga_jual"
-                                name="harga_jual">
+                            <label class="text-sm font-medium dark:text-gray-200">Harga Jual</label>
+                            <input type="number"
+                                class="w-full border rounded p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
+                                x-model="harga_jual" name="harga_jual">
                         </div>
 
                         <div class="col-span-2">
-                            <label class="text-sm font-medium">Tanggal Kadaluwarsa</label>
-                            <input type="date" class="w-full border rounded p-2" x-model="tgl"
-                                name="tanggal_kadaluwarsa">
+                            <label class="text-sm font-medium dark:text-gray-200">Tanggal Kadaluwarsa</label>
+                            <input type="date"
+                                class="w-full border rounded p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
+                                x-model="tgl" name="tanggal_kadaluwarsa">
                         </div>
+
                     </div>
 
                     <div class="flex justify-end mt-6 gap-2">
-                        <button type="button" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                        <button type="button"
+                            class="px-4 py-2 bg-gray-300 dark:bg-gray-600 dark:text-gray-100 rounded hover:bg-gray-400 dark:hover:bg-gray-500"
                             x-on:click="showEdit = false">
                             Batal
                         </button>
 
-                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                        <button type="submit"
+                            class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800">
                             Simpan
                         </button>
                     </div>
+
                 </form>
 
             </div>
         </div>
+
 
     </div>
 
