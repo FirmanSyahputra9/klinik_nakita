@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\User;
+use App\Models\Pasien;
+use App\Models\Dokter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
@@ -28,9 +30,9 @@ new class extends Component {
         $user = User::find($id)->where('role', $role_label)->first();
         if ($role_label == 'doctor') {
             $role_label = 'dokter';
-        }elseif ($role_label == 'admin'|| $role_label == 'superadmin') {
+        } elseif ($role_label == 'admin' || $role_label == 'superadmin') {
             $role_label = 'admin';
-        }else {
+        } else {
             $role_label = 'pasien';
         }
 
@@ -44,7 +46,6 @@ new class extends Component {
         $this->birth_date = $user?->$role_label->birth_date ?? '';
         $this->birth_date = Carbon::parse($this->birth_date)->locale('id')->translatedFormat('d F Y');
         $this->email = $user?->email ?? '';
-
     }
 
     /**
@@ -57,9 +58,25 @@ new class extends Component {
         $validated = $this->validate([
             'username' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
-
-
         ]);
+
+        if (Auth::check() && Auth::user()->role == 'user') {
+            $pasienId = Pasien::where('user_id', $user->id)->value('id');
+            $validated_data = $this->validate([
+                'phone' => ['required', 'string', 'max:255'],
+                'alamat' => ['required', 'string', 'max:255'],
+            ]);
+
+            Pasien::where('id', $pasienId)->update($validated_data);
+        }
+        if (Auth::check() && Auth::user()->role == 'doctor') {
+            $dokterId = Dokter::where('user_id', $user->id)->value('id');
+            $validated_data = $this->validate([
+                'phone' => ['required', 'string', 'max:255'],
+                'alamat' => ['required', 'string', 'max:255'],
+            ]);
+            Dokter::where('id', $dokterId)->update($validated_data);
+        }
 
         $user->fill($validated);
 
@@ -97,21 +114,35 @@ new class extends Component {
     <x-settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
         <form wire:submit.prevent="updateProfileInformation" class="my-6 w-full space-y-6">
             <!-- Name -->
-            <flux:input wire:model="name" :label="__('Name')" value="{{ $this->name }}" type="text" required autofocus autocomplete="name"
-                readonly />
+            <flux:input wire:model="name" :label="__('Name')" value="{{ $this->name }}" type="text" required
+                autofocus autocomplete="name" readonly
+                class="bg-gray-200 text-gray-700 dark:bg-slate-950 dark:text-gray-700 cursor-not-allowed rounded-lg
+           [&_input]:focus:outline-none [&_input]:focus:ring-0 [&_input]:focus:border-transparent" />
 
             <!-- Username -->
-            <flux:input wire:model="username" :label="__('Username')" value="{{ $this->username }}" type="text" required autofocus autocomplete="username"  />
+            <flux:input wire:model="username" :label="__('Username')" value="{{ $this->username }}" type="text"
+                required autofocus autocomplete="username" />
 
             @if (Auth::user()->role !== 'admin')
-                <flux:input wire:model="alamat" label="Alamat" type="text" value="{{ $this->alamat }}" readonly />
-                <flux:input wire:model="nik" label="NIK" type="text" value="{{ $this->nik }}" readonly />
-                <flux:input wire:model="phone" label="Nomor Telepon" type="text" value="{{ $this->phone }}" readonly />
+                <flux:input wire:model="alamat" label="Alamat" type="text" value="{{ $this->alamat }}" />
+                <flux:input wire:model="nik" label="NIK" type="text" value="{{ $this->nik }}" readonly
+                    class="bg-gray-200 text-gray-700 dark:bg-slate-950 dark:text-gray-700 cursor-not-allowed rounded-lg
+           [&_input]:focus:outline-none [&_input]:focus:ring-0 [&_input]:focus:border-transparent" />
+                <flux:input wire:model="phone" label="Nomor Telepon" type="text" value="{{ $this->phone }}" />
 
                 @if (!in_array(Auth::user()->role, ['doctor', 'admin']))
-                    <flux:input wire:model="no_rm" label="No. Rekam Medis (MR No)" type="text" value="{{ $this->no_rm }}" readonly />
-                    <flux:input wire:model="gender" label="Jenis Kelamin" type="text" value="{{ $this->gender }}" readonly />
-                    <flux:input wire:model="birth_date" label="Tanggal Lahir" type="text" value="{{ $this->birth_date }}" readonly />
+                    <flux:input wire:model="no_rm" label="No. Rekam Medis (MR No)" type="text"
+                        value="{{ $this->no_rm }}" readonly
+                        class="bg-gray-200 text-gray-700 dark:bg-slate-950 dark:text-gray-700 cursor-not-allowed rounded-lg
+           [&_input]:focus:outline-none [&_input]:focus:ring-0 [&_input]:focus:border-transparent" />
+                    <flux:input wire:model="gender" label="Jenis Kelamin" type="text" value="{{ $this->gender }}"
+                        readonly
+                        class="bg-gray-200 text-gray-700 dark:bg-slate-950 dark:text-gray-700 cursor-not-allowed rounded-lg
+           [&_input]:focus:outline-none [&_input]:focus:ring-0 [&_input]:focus:border-transparent" />
+                    <flux:input wire:model="birth_date" label="Tanggal Lahir" type="text"
+                        value="{{ $this->birth_date }}" readonly
+                        class="bg-gray-200 text-gray-700 dark:bg-slate-950 dark:text-gray-700 cursor-not-allowed rounded-lg
+           [&_input]:focus:outline-none [&_input]:focus:ring-0 [&_input]:focus:border-transparent" />
                 @endif
             @endif
 

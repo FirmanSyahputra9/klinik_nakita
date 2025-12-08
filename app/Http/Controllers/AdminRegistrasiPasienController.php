@@ -55,7 +55,7 @@ class AdminRegistrasiPasienController extends Controller
                 ->first();
 
             if ($sudahAda) {
-                return redirect()->route('dashboarduser')
+                return redirect()->back()
                     ->with('error', 'Anda sudah mendaftar ke dokter ini di tanggal tersebut.');
             }
 
@@ -85,18 +85,21 @@ class AdminRegistrasiPasienController extends Controller
                 ->first();
 
             if (!$dokter_jadwal) {
-                return redirect()->route('registrasi.index', $request->dokter)
+                return redirect()->back()
                     ->withInput()
                     ->with('error', 'Dokter tidak praktik pada hari tersebut.');
             }
+            $nama_dokter = Dokter::where('id', $dokter_jadwal->dokter_id)->value('name');
 
             if ($validated['tanggal_kunjungan'] == now()->format('Y-m-d')) {
-                $now = now()->format('H:i:s');
+                $now = now();
+                $jamSelesai = Carbon::parse($dokter_jadwal->aktif_selesai);
 
-                if ($now > $dokter_jadwal->aktif_selesai) {
-                    return redirect()->route('registrasi.index', $request->dokter)
+
+                if ($now->greaterThan($jamSelesai)) {
+                    return redirect()->back()
                         ->withInput()
-                        ->with('error', 'Jadwal dokter hari ini sudah selesai.');
+                        ->with('error', "Jadwal dokter $nama_dokter hari ini sudah selesai.");
                 }
             }
 

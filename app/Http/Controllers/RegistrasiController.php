@@ -22,7 +22,7 @@ class RegistrasiController extends Controller
     /**
      * Display a listing of the resource.
      */
-        public function index($id)
+    public function index($id)
     {
         $pasien = User::whereHas('pasien')->with(['pasien'])->where('id', Auth::User()->id)->first();
         $dokter = Dokter::with(['jadwals', 'aktif'])->where('id', $id)->first();
@@ -129,7 +129,8 @@ class RegistrasiController extends Controller
             }
 
             if ($validated['tanggal_kunjungan'] == now()->format('Y-m-d')) {
-                $now = now()->format('H:i:s');
+                $now = now();
+                $jamSelesai = Carbon::parse($dokter_jadwal->aktif_selesai);
 
                 if ($now > $dokter_jadwal->aktif_selesai) {
                     return redirect()->route('registrasi.index', $request->dokter_id)

@@ -7,6 +7,7 @@ use App\Models\Dokter;
 use App\Models\DokterJadwal;
 use App\Models\Pasien;
 use App\Models\Registrasi;
+use App\Models\Resep;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -42,7 +43,7 @@ class PasienDashboardController extends Controller
             ->where('pasien_id', $pasienId)
             ->whereHas('registrasi', function ($q) use ($today) {
                 $q
-                // ->whereDate('tanggal_kunjungan', $today)
+                    // ->whereDate('tanggal_kunjungan', $today)
                     ->where('status', true);
             })
             ->get()->map(function ($item) use ($hari) {
@@ -149,6 +150,33 @@ class PasienDashboardController extends Controller
         }
 
 
-        return view('pages.pasien.dashboard', compact('janjinow', 'antrianjanji', 'antrian_registrasi', 'user', 'janjinext'));
+        // obat pasien
+        $pasienId = Pasien::where('user_id', Auth::user()->id)->value('id');
+        $antrian_id = Antrian::where('pasien_id', $pasienId)->value('id');
+        $obat = Antrian::where('pasien_id', $pasienId)->whereHas('kasir', function ($q) {
+            $q->where('status', '!=', false);
+        })->where('status', true)->with(['registrasi', 'resep', 'dokter', 'tindakan', 'data_pemeriksaan', 'kasir'])->first();
+
+        if ($obat) {
+            $obat->registrasi->tanggal_kunjungan = \Carbon\Carbon::parse($obat->registrasi->tanggal_kunjungan)->format('d M Y');
+            if ($obat->created_at) {
+                $obat->created_at = \Carbon\Carbon::parse($obat->created_at)->format('h:i:s');
+            }
+        }
+
+
+        $tindakanIds = $obat->tindakan->pluck('id');
+
+
+
+        $resep = Resep::whereHas('antrian.tindakan', function ($q) use ($tindakanIds) {
+            $q->where('id', $tindakanIds);
+        })->with('obat', 'antrian.kasir')->get()->map(function ($item) {
+            $item->obat->harga = 'Rp. ' . number_format($item->obat->harga_jual + $item->antrian->kasir->biaya_layanan, 0, ',', '.');
+            return $item;
+        });
+
+
+        return view('pages.pasien.dashboard', compact('janjinow', 'antrianjanji', 'antrian_registrasi', 'user', 'janjinext', 'obat', 'resep'));
     }
 }

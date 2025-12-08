@@ -17,18 +17,11 @@
                 </span>
                 {{ config('app.name', 'Laravel') }}
             </a>
-            <div class="absolute inset-0 z-0 text-blue-500 dark:text-blue-300">
-                <svg class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="grad" x1="0" x2="1">
-                            <stop offset="0%" stop-color="currentColor" stop-opacity="0.7" />
-                            <stop offset="100%" stop-color="currentColor" stop-opacity="0.3" />
-                        </linearGradient>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#grad)" />
-                </svg>
-            </div>
 
+            <div class="absolute inset-0 z-0">
+                <img src="{{ asset('storage/img/klinik.jpg') }}" class="w-full h-full object-cover"
+                    alt="Background Klinik">
+            </div>
 
 
             @php

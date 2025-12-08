@@ -41,7 +41,7 @@
     {{-- Main Section --}}
     {{-- UBAH DISINI: Tambahkan 'pt-24' (padding top) agar tulisan tidak ketutupan header yang fixed --}}
     <main class="flex-1 flex flex-col lg:flex-row items-center justify-center w-full max-w-5xl gap-10 px-6 mx-auto pt-24 lg:mt-0">
-        
+     
         {{-- Left Content --}}
         <div class="flex-1 text-center lg:text-left space-y-6">
             <h1 class="text-4xl lg:text-5xl font-semibold leading-tight">
