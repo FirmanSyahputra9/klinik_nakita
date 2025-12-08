@@ -1,79 +1,92 @@
-<div class="p-6">
+<div class="p-6 space-y-10">
 
-    <!-- TOP CARDS -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+    <!-- TOP CARDS (Stats) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Card Template -->
+        @php
+        $cardBase = 'rounded-xl shadow p-5 border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 space-y-3';
+        $titleBase = 'font-bold text-lg text-gray-800 dark:text-gray-100';
+        $valueBase = 'text-gray-500 text-sm dark:text-gray-300';
+        @endphp
+
         <!-- Total Pasien -->
-        <div class="card bg-white dark:bg-gray-900 rounded-xl shadow p-4 border border-gray-200">
-            <div class="card flex items-center mb-4">
-                <div class="bg-blue-200 dark:bg-gray-600 p-3 rounded-full mr-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500 dark:text-gray-100" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
+        <div class="{{ $cardBase }}">
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-200 dark:bg-gray-700 p-3 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 dark:text-gray-100" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 12a4 4 0 100-8 4 4 0 000 8z" />
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M6 20a6 6 0 1112 0H6z" />
                     </svg>
                 </div>
+
                 <div>
-                    <h2 class="card text-gray-800 dark:text-gray-100 font-bold text-lg">Akun Pasien</h2>
-                    <p class="card text-gray-500 text-sm">{{ $totalPengguna ?? '0' }}</p>
+                    <h2 class="{{ $titleBase }}">Akun Pasien</h2>
+                    <p class="{{ $valueBase }}">{{ $totalPengguna ?? '0' }}</p>
                 </div>
             </div>
 
-            <div class="card text-gray-500 text-sm">
-                <p>Pasien Hari Ini: {{ $penggunaHariIni?? '0' }}</p>
-                <p>30 Hari Terakhir: {{ $penggunaBaru?? '0' }}</p>
+            <div class="{{ $valueBase }}">
+                <p>Pasien Hari Ini: {{ $penggunaHariIni ?? '0' }}</p>
+                <p>30 Hari Terakhir: {{ $penggunaBaru ?? '0' }}</p>
             </div>
         </div>
 
         <!-- Total Dokter -->
-        <div class="card bg-pink-100 dark:bg-gray-800 rounded-xl shadow p-4 border border-gray-200">
-            <div class="card flex items-center mb-4">
-                <div class="bg-pink-200 dark:bg-gray-600 p-3 rounded-full mr-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500 dark:text-gray-100" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
+        <div class="{{ $cardBase }} bg-pink-50 dark:bg-gray-800">
+            <div class="flex items-center gap-3">
+                <div class="bg-pink-200 dark:bg-gray-700 p-3 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500 dark:text-gray-100" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 14l9-5-9-5-9 5 9 5z" />
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 14l6.16-3.422A12.083 12.083 0 0121 14.094M12 14v7.5" />
                     </svg>
                 </div>
+
                 <div>
-                    <h2 class="card text-gray-800 dark:text-gray-100 font-bold text-lg">Total Dokter</h2>
-                    <p class="card text-gray-500 text-sm">{{ $totalDokter?? '0' }}</p>
+                    <h2 class="{{ $titleBase }}">Total Dokter</h2>
+                    <p class="{{ $valueBase }}">{{ $totalDokter ?? '0' }}</p>
                 </div>
             </div>
-            <div class="card text-gray-500 text-sm">
-                <p>Spesialis: {{ $dokterSpesialis?? '0' }}</p>
-                <p>Umum: {{ $dokterUmum?? '0' }}</p>
+
+            <div class="{{ $valueBase }}">
+                <p>Spesialis: {{ $dokterSpesialis ?? '0' }}</p>
+                <p>Umum: {{ $dokterUmum ?? '0' }}</p>
             </div>
         </div>
 
         <!-- Total Janji -->
-        <div class="card bg-white dark:bg-gray-900 rounded-xl shadow p-4 border border-gray-200">
-            <div class="card flex items-center mb-4">
-                <div class="bg-blue-100 dark:bg-gray-600 p-3 rounded-full mr-3">
+        <div class="{{ $cardBase }}">
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-100 dark:bg-gray-700 p-3 rounded-full">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500 dark:text-gray-100" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M8 7V3M16 7V3M3 11h18M5 11v10h14V11" />
                     </svg>
                 </div>
+
                 <div>
-                    <h2 class="card text-gray-800 dark:text-gray-100 font-bold text-lg">Total Janji</h2>
-                    <p class="card text-gray-500 text-sm">{{ $totalJanji??'0' }}</p>
+                    <h2 class="{{ $titleBase }}">Total Janji</h2>
+                    <p class="{{ $valueBase }}">{{ $totalJanji ?? '0' }}</p>
                 </div>
             </div>
-            <div class="card text-gray-500 text-sm">
-                <p>Registrasi Hari Ini: {{ $totalJanjiHariIni??'0' }}</p>
-                <p>30 Hari Terakhir: {{ $totalJanjiBaru??'0' }}</p>
+
+            <div class="{{ $valueBase }}">
+                <p>Registrasi Hari Ini: {{ $totalJanjiHariIni ?? '0' }}</p>
+                <p>30 Hari Terakhir: {{ $totalJanjiBaru ?? '0' }}</p>
             </div>
         </div>
 
         <!-- Stok Obat -->
-        <div class="card bg-pink-100 dark:bg-gray-800 rounded-xl shadow p-4 border border-gray-200">
-            <div class="card flex items-center mb-4">
-                <div class="bg-pink-100 dark:bg-gray-900 p-3 rounded-full mr-3">
+        <div class="{{ $cardBase }} bg-pink-50 dark:bg-gray-800">
+            <div class="flex items-center gap-3">
+                <div class="bg-pink-100 dark:bg-gray-900 p-3 rounded-full">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500 dark:text-gray-100" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -82,58 +95,60 @@
                             d="M12 16v6m3-3H9" />
                     </svg>
                 </div>
+
                 <div>
-                    <h2 class="card text-gray-800 dark:text-gray-100 font-bold text-lg">Stok Obat</h2>
-                    <p class="card text-gray-500 text-sm">Total: {{ $totalObat?? '0' }}</p>
-                    <p class="card text-gray-500 text-sm">Sedikit: {{ $obatSisaSedikit?? '0' }}</p>
-                    <p class="card text-gray-500 text-sm">Habis: {{ $obatHabis?? '0' }}</p>
+                    <h2 class="{{ $titleBase }}">Stok Obat</h2>
+                    <p class="{{ $valueBase }}">Total: {{ $totalObat ?? '0' }}</p>
+                    <p class="{{ $valueBase }}">Sedikit: {{ $obatSisaSedikit ?? '0' }}</p>
+                    <p class="{{ $valueBase }}">Habis: {{ $obatHabis ?? '0' }}</p>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- MAIN CONTENT AREA -->
+    <!-- MAIN LAYOUT -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        <!-- LEFT SIDE (APPOINTMENTS + OBAT) -->
-        <div class="lg:col-span-2 space-y-10">
+        <!-- LEFT SIDE -->
+        <div class="space-y-10 lg:col-span-2">
 
-            <!-- TABLE APPOINTMENTS -->
-            <div class="card bg-white dark:bg-gray-800 rounded-xl shadow p-6 border border-gray-200">
+            <!-- Appointment Short Table -->
+            <div class="rounded-xl shadow p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                 @livewire('appointment-short')
             </div>
 
-            <!-- Short Table: Dokter Aktif -->
-            <div class="card bg-white dark:bg-gray-800 rounded-xl shadow p-6 border border-gray-200 mt-10">
+            <!-- Dokter Aktif -->
+            <div class="rounded-xl shadow p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                 @livewire('pages.short.dokter-aktif')
             </div>
 
         </div>
 
         <!-- RIGHT SIDE -->
-        <div class="card bg-white dark:bg-gray-800 rounded-xl shadow p-6 border border-gray-200 flex flex-col items-center justify-start self-start space-y-6">
+        <div class="rounded-xl shadow p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex flex-col items-center space-y-8">
 
-            <!-- CLOCK -->
-            <div class="card w-full text-centerc ">
-                <h2 class="card text-lg font-bold text-gray-800 dark:text-white mb-3">Jam Sekarang</h2>
+            <!-- Clock -->
+            <div class="w-full text-center">
+                <h2 class="font-bold text-lg text-gray-800 dark:text-white mb-3">Jam Sekarang</h2>
 
-                <div class="card flex items-center gap-2 bg-blue-200 dark:bg-gray-900 p-3 rounded-lg shadow-inner justify-center border border-gray-200">
+                <div class="flex items-center justify-center gap-2 bg-blue-200 dark:bg-gray-900 p-3 rounded-lg border shadow-inner">
                     <div id="h"
-                        class="card px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 dark:text-gray-800 min-w-[70px] text-center">
+                        class="px-4 py-2 bg-white dark:bg-gray-300 rounded-md shadow text-3xl font-bold text-blue-700 dark:text-gray-900 min-w-[70px] text-center">
                         00
                     </div>
 
-                    <span class="card text-3xl font-bold text-blue-700 dark:text-gray-100 pb-1">:</span>
+                    <span class="text-3xl font-bold text-blue-700 dark:text-gray-100">:</span>
 
                     <div id="m"
-                        class="card px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 dark:text-gray-800 min-w-[70px] text-center">
+                        class="px-4 py-2 bg-white dark:bg-gray-300 rounded-md shadow text-3xl font-bold text-blue-700 dark:text-gray-900 min-w-[70px] text-center">
                         00
                     </div>
 
-                    <span class="card text-3xl font-bold text-blue-700 dark:text-gray-100 pb-1">:</span>
+                    <span class="text-3xl font-bold text-blue-700 dark:text-gray-100">:</span>
+
                     <div id="s"
-                        class="card px-4 py-2 bg-white rounded-md shadow text-3xl font-bold text-blue-700 dark:text-gray-800 min-w-[70px] text-center">
+                        class="px-4 py-2 bg-white dark:bg-gray-300 rounded-md shadow text-3xl font-bold text-blue-700 dark:text-gray-900 min-w-[70px] text-center">
                         00
                     </div>
                 </div>
@@ -142,45 +157,36 @@
             <script>
                 setInterval(() => {
                     const now = new Date();
-
-                    document.getElementById('h').textContent =
-                        String(now.getHours()).padStart(2, '0');
-                    document.getElementById('m').textContent =
-                        String(now.getMinutes()).padStart(2, '0');
-                    document.getElementById('s').textContent =
-                        String(now.getSeconds()).padStart(2, '0');
+                    document.getElementById('h').textContent = String(now.getHours()).padStart(2, '0');
+                    document.getElementById('m').textContent = String(now.getMinutes()).padStart(2, '0');
+                    document.getElementById('s').textContent = String(now.getSeconds()).padStart(2, '0');
                 }, 1000);
             </script>
 
-            <!-- ACTION CARDS -->
+            <!-- Quick Links -->
             <div class="w-full space-y-4">
 
-                <!-- Card 1 -->
                 <a href="{{ route('users.index') }}"
-                    class="card block bg-blue-100 dark:bg-gray-600 hover:bg-blue-200 dark:hover:bg-gray-700 transition rounded-xl p-4 shadow border border-blue-200 dark:border-gray-100">
-                    <h3 class="card text-blue-900 dark:text-white font-semibold text-md">Lihat User</h3>
-                    <p class="card hover:underline text-blue-700 dark:text-white text-sm mt-1">Kelola Data Pasien</p>
+                    class="block rounded-xl p-4 bg-blue-100 dark:bg-gray-700 hover:bg-blue-200 dark:hover:bg-gray-600 transition shadow">
+                    <h3 class="font-semibold text-blue-900 dark:text-white">Lihat User</h3>
+                    <p class="text-sm text-blue-700 dark:text-gray-200 mt-1">Kelola Data Pasien</p>
                 </a>
 
-                <!-- Card 2 -->
                 <a href="{{ route('kasir.index') }}"
-                    class="block bg-pink-100 dark:bg-gray-600 hover:bg-pink-200 dark:hover:bg-gray-700 transition rounded-xl p-4 shadow border border-pink-200 dark:border-gray-100">
-                    <h3 class="text-pink-900 dark:text-white font-semibold text-md">Cek Riwayat Pembayaran</h3>
-                    <p class="hover:underline text-pink-700 dark:text-white text-sm mt-1">Pantau transaksi dan pembayaran pasien.</p>
+                    class="block rounded-xl p-4 bg-pink-100 dark:bg-gray-700 hover:bg-pink-200 dark:hover:bg-gray-600 transition shadow">
+                    <h3 class="font-semibold text-pink-900 dark:text-white">Cek Riwayat Pembayaran</h3>
+                    <p class="text-sm text-pink-700 dark:text-gray-200 mt-1">Pantau transaksi dan pembayaran pasien.</p>
                 </a>
 
-                <!-- Card 3 -->
                 <a href="{{ route('stok-obat.index') }}"
-                    class="block bg-yellow-100 dark:bg-gray-600 hover:bg-yellow-200 dark:hover:bg-gray-700 transition rounded-xl p-4 shadow border border-yellow-200 dark:border-gray-100">
-                    <h3 class="text-yellow-900 dark:text-white font-semibold text-md">Cek Stok Obat</h3>
-                    <p class="hover:underline text-yellow-700 dark:text-white text-sm mt-1">Lihat jumlah stok obat dan status ketersediaan.</p>
+                    class="block rounded-xl p-4 bg-yellow-100 dark:bg-gray-700 hover:bg-yellow-200 dark:hover:bg-gray-600 transition shadow">
+                    <h3 class="font-semibold text-yellow-900 dark:text-white">Cek Stok Obat</h3>
+                    <p class="text-sm text-yellow-700 dark:text-gray-200 mt-1">Lihat jumlah stok obat dan status ketersediaan.</p>
                 </a>
 
             </div>
 
         </div>
-
-
 
     </div>
 
