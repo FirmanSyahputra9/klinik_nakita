@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages\Admin;
 
 use App\Models\Dokter;
+use App\Models\Pasien;
 use App\Models\User;
 use Livewire\Component;
 
@@ -57,15 +58,16 @@ class RegistrasiPasien extends Component
     public function render()
     {
         $pasien = User::whereHas('pasien', function ($query) {
-            $query->where('name', 'like', '%' . $this->nama . '%');
-        })->with(['pasien'])->get();
+            $query->where('name', 'like', '%' . $this->nama . '%')->orderBy('name');
+        })->orderBy(Pasien::select('name')->whereColumn('user_id', 'users.id'))
+        ->with(['pasien'])->get();
 
         $dokter = Dokter::with(['jadwals'])
             ->when($this->hariKunjungan, function ($query) {
                 $query->whereHas('jadwals', function ($q) {
                     $q->where('hari', $this->hariKunjungan);
                 });
-            })
+            })->orderBy('name')
             ->get();
 
 

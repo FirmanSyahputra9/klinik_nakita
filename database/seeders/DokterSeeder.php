@@ -13,14 +13,13 @@ class DokterSeeder extends Seeder
      */
     public function run(): void
     {
-
-        Dokter::factory()->create([
-            'name' => 'Adit Muhammad Prasetya Hutagalung, MKM',
-            'nik' => '1234567890',
-            'spesialisasi' => 'Dokter Umum',
-            'no_telepon' => '08116150141',
-            'email' => 'amphutagalung@gmail.com',
-            'status' => 'aktif',
-        ]);
+        // Dokter::factory()->create([
+        //     'name' => 'Adit Muhammad Prasetya Hutagalung, MKM',
+        //     'nik' => '1234567890',
+        //     'spesialisasi' => 'Dokter Umum',
+        //     'no_telepon' => '08116150141',
+        //     'email' => 'amphutagalung@gmail.com',
+        //     'status' => 'aktif',
+        // ]);
     }
 }

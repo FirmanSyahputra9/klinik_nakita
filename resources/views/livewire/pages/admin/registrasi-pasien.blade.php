@@ -26,11 +26,11 @@
                             <option value="" readonly>Pilih Pasien</option>
 
                             @forelse ($pasien as $item)
-                            <option value="{{ $item->id }}">
-                                {{ $item->pasien->name }} - ({{ $item->pasien->nik }})
-                            </option>
+                                <option value="{{ $item->id }}">
+                                    {{ $item->pasien->name }} - ({{ $item->pasien->nik }})
+                                </option>
                             @empty
-                            <option value="" disabled>Tidak ada pasien</option>
+                                <option value="" disabled>Tidak ada pasien</option>
                             @endforelse
                         </select>
                     </div>
@@ -67,7 +67,7 @@
                             <option value="" readonly>Pilih Dokter</option>
 
                             @foreach ($dokter as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}">{{ $item->name }} ({{ $item->spesialisasi }})</option>
                             @endforeach
                         </select>
                     </div>
@@ -94,15 +94,12 @@
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-100">
                             Keluhan
                         </label>
-                        <span class="text-xs"
-                            :class="keluhan.length >= max ? 'text-red-600' : 'text-zinc-500'">
+                        <span class="text-xs" :class="keluhan.length >= max ? 'text-red-600' : 'text-zinc-500'">
                             <span x-text="keluhan.length"></span>/<span x-text="max"></span>
                         </span>
                     </div>
 
-                    <textarea name="keluhan" rows="4" maxlength="255"
-                        x-model="keluhan"
-                        placeholder="Tuliskan keluhan Anda..."
+                    <textarea name="keluhan" rows="4" maxlength="255" x-model="keluhan" placeholder="Tuliskan keluhan Anda..."
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none
                                focus:ring-2 focus:ring-blue-500 dark:focus:ring-gray-900
                                dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400"

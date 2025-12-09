@@ -64,6 +64,29 @@ class DatabaseSeeder extends Seeder
             'aktif'     => true,
         ]);
 
+        $dokterAlvita = User::factory()->create([
+            'username'    => 'Alvita Maghfirliami Pulungan',
+            'email'       => 'dokterdua@gmail.com',
+            'role'        => 'doctor',
+            'approved'    => true,
+            'approved_at' => now(),
+            'password'    => Hash::make('dokterdua'),
+        ]);
+
+        Dokter::factory()->create([
+            'user_id'      => $dokterAlvita->id,
+            'name'         => 'dr. Alvita Maghfirliami Pulungan',
+            'alamat'       => 'Jl. Kemenyan Raya No. 82 P. Simalingkar',
+            'spesialisasi' => 'Dokter Umum',
+            'phone'        => '082277441578',
+            'nik'          => '1471106904940000',
+        ]);
+
+        DokterAktif::create([
+            'dokter_id' => $dokterAlvita->dokter->id,
+            'aktif'     => true,
+        ]);
+
 
         $doctorUser = User::factory()->create([
             'username'    => 'doctor',
