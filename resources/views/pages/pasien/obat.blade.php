@@ -57,7 +57,7 @@
                                     <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     <span>{{ $item->dokter->name ?? '' }}</span>
                                 </div>
@@ -74,13 +74,10 @@
 
                     <h4 class="font-semibold text-lg mb-4">Daftar Obat</h4>
 
-                    @foreach ($resep ?? [] as $resep)
-                        <!-- Obat Item -->
+                    @foreach ($resep[$item->id] ?? [] as $resepItem)
                         <div class="card border border-gray-200 rounded-lg p-4 mb-4">
 
-                            <!-- Obat Header -->
                             <div class="card flex items-start gap-3 mb-4">
-
                                 <div
                                     class="card w-10 h-10 bg-blue-50 dark:bg-gray-400 rounded-lg flex items-center justify-center flex-shrink-0">
                                     <svg class="card w-6 h-6 text-blue-600 dark:text-gray-900" fill="none"
@@ -92,26 +89,28 @@
 
                                 <div class="flex-1">
                                     <h5 class="card font-semibold text-gray-900 dark:text-gray-100">
-                                        {{ $resep->obat->nama ?? '-' }}</h5>
+                                        {{ $resepItem->obat->nama ?? '-' }}
+                                    </h5>
+
                                     <p class="card text-sm text-gray-600 dark:text-gray-400">
-                                        {{ $resep->kuantitas ?? '-' }}
-                                        {{ $resep->obat->satuan ?? '-' }}
+                                        {{ $resepItem->kuantitas ?? '-' }}
+                                        {{ $resepItem->obat->satuan ?? '-' }}
                                     </p>
-                                    <p class="card text-sm text-gray-600 dark:text-gray-400">{{ $resep->dosis ?? '' }}
-                                        {{ $resep->obat->satuan ?? '-' }}
+
+                                    <p class="card text-sm text-gray-600 dark:text-gray-400">
+                                        {{ $resepItem->dosis ?? '' }}
+                                        {{ $resepItem->obat->satuan ?? '-' }}
                                     </p>
                                 </div>
-
                             </div>
 
-                            <!-- Detail Grid -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
 
                                 <div>
                                     <p class="card text-sm font-semibold text-gray-700 dark:text-gray-100 mb-1">
                                         Frekuensi:</p>
                                     <p class="card text-sm text-gray-600 dark:text-gray-400">
-                                        {{ $resep->frekuensi ?? '' }} {{ $resep->obat->satuan ?? '-' }}
+                                        {{ $resepItem->frekuensi ?? '' }} {{ $resepItem->obat->satuan ?? '-' }}
                                     </p>
                                 </div>
 
@@ -129,22 +128,23 @@
                                     @endphp
 
                                     <p class="text-sm text-gray-600 dark:text-gray-400">
-                                        {!! collect(explode(',', $resep->waktu_konsumsi ?? '-'))->map(fn($i) => "[<span class='" . ($colorMap[$i] ?? ' text-gray-600') . "'>$i</span>]")->implode(' ') !!}
+                                        {!! collect(explode(',', $resepItem->waktu_konsumsi ?? '-'))->map(fn($i) => "[<span class='" . ($colorMap[$i] ?? 'text-gray-600') . "'>$i</span>]")->implode(' ') !!}
                                     </p>
-
                                 </div>
 
                                 <div>
                                     <p class="card text-sm font-semibold text-gray-700 dark:text-gray-100 mb-1">Harga:
                                     </p>
                                     <p class="card text-sm text-gray-600 dark:text-gray-400">
-                                        {{ $resep->obat->harga ?? '' }}</p>
+                                        {{ $resepItem->obat->harga ?? '' }}
+                                    </p>
                                 </div>
 
                             </div>
 
                         </div>
                     @endforeach
+
 
                 </div>
 
