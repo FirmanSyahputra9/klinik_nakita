@@ -177,7 +177,7 @@ class PasienDashboardController extends Controller
             $resep->obat->harga = 'Rp. ' . number_format($resep->obat->harga_jual + $resep->antrian->kasir->biaya_layanan, 0, ',', '.');
         }
 
-        $resep = $resep ?: [];
+        $resep = $resep ?? '-';
 
 
 
