@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="mb-8">
         <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100">Data Pasien</h1>
-        <p class="text-gray-600 dark:text-gray-300 mt-1">Selamat Datang, dr. Aditya Hutagalung</p>
+        <p class="text-gray-600 dark:text-gray-300 mt-1">Selamat Datang, {{ Auth::user()->name?? '' }}</p>
     </div>
 
     <!-- MAIN CARD -->
@@ -217,7 +217,7 @@
                                         else { $status='normal'; }
                                         @endphp
 
-                                        <div class="mt-1 text-xs font-semibold 
+                                        <div class="mt-1 text-xs font-semibold
                                                 {{ $status === 'normal' ? 'text-green-600'
                                                 : ($status === 'rendah' ? 'text-orange-500' : 'text-red-600') }}">
                                             {{ strtoupper($status) }}

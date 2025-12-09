@@ -176,6 +176,11 @@ class PasienDashboardController extends Controller
             return $item;
         });
 
+        $resep = $resep ?: [];
+
+
+
+
 
         return view('pages.pasien.dashboard', compact('janjinow', 'antrianjanji', 'antrian_registrasi', 'user', 'janjinext', 'obat', 'resep'));
     }
