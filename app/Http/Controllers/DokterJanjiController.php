@@ -86,7 +86,7 @@ class DokterJanjiController extends Controller
             DB::commit();
 
             return redirect()
-                ->route('data.show', $janji->pasien)
+                ->route('data.show', $janji->id)
                 ->with('success', 'Registrasi berhasil diselesaikan');
         } catch (\Exception $e) {
             DB::rollBack();
