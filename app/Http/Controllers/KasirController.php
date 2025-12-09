@@ -19,11 +19,13 @@ class KasirController extends Controller
         $kasir = Kasir::with(['antrian', 'antrian.pasien', 'antrian.registrasi', 'antrian.data_pemeriksaan', 'antrian.resep.obat', 'antrian.resep'])->get()->map(function ($item) {
             $item->antrian->tanggal = Carbon::parse($item->antrian->registrasi->tanggal_kunjungan)->translatedFormat('d M y');
             $harga_resep = $item->antrian->resep->kuantitas * $item->antrian->resep->obat->harga_jual;
-            $item->total_harga = 'Rp ' . number_format($harga_resep, 0, ',', '.');
+            $total = $harga_resep + $item->biaya_layanan;
+            $item->harga_resep = 'Rp ' . number_format($harga_resep, 0, ',', '.');
+            $item->harga_layanan = 'Rp ' . number_format($item->biaya_layanan, 0, ',', '.');
+            $item->total_harga = 'Rp ' . number_format($total, 0, ',', '.');
             $item->nama_pasien = $item->antrian->pasien->name;
             return $item;
         });
-
         $hargaObat = Resep::join('obats', 'reseps.obat_id', '=', 'obats.id')
             ->selectRaw('SUM(reseps.kuantitas * obats.harga_jual) as total_harga')
             ->first()
