@@ -17,7 +17,7 @@ class PasienObatController extends Controller
     public function index()
     {
         $pasienId = Pasien::where('user_id', Auth::user()->id)->value('id');
-        $antrian_id = Antrian::where('pasien_id', $pasienId)->value('id');
+        $antrian_id = Antrian::where('pasien_id', $pasienId)->pluck('id');
         $obat = Antrian::where('pasien_id', $pasienId)->whereHas('kasir', function ($q) {
             $q->where('status', '!=', false);
         })->where('status', true)->with(['registrasi', 'resep', 'dokter', 'tindakan', 'data_pemeriksaan', 'kasir'])->get()->map(function ($item) {
@@ -35,7 +35,9 @@ class PasienObatController extends Controller
         })->toArray();
 
 
-        $resep = Resep::whereHas('antrian', function ($q) use ($antrian_id) { $q->where('id', $antrian_id); })->whereHas('antrian.tindakan', function ($q) use ($tindakanIds) {
+        $resep = Resep::whereHas('antrian', function ($q) use ($antrian_id) {
+            $q->whereIn('id', $antrian_id);
+        })->whereHas('antrian.tindakan', function ($q) use ($tindakanIds) {
             $q->where('id', $tindakanIds);
         })->with('obat', 'antrian.kasir')->get()->map(function ($item) {
             $item->obat->harga = 'Rp. ' . number_format($item->obat->harga_jual + $item->antrian->kasir->biaya_layanan, 0, ',', '.');
