@@ -241,8 +241,6 @@
             <div class="p-6">
 
                 <h4 class="font-semibold text-lg mb-4">Daftar Obat</h4>
-
-                @foreach ($resep ?? [] as $resep)
                     <!-- Obat Item -->
                     <div class="card border border-gray-200 rounded-lg p-4 mb-4">
 
@@ -312,7 +310,6 @@
                         </div>
 
                     </div>
-                @endforeach
 
             </div>
 

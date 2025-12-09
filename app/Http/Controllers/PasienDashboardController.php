@@ -171,10 +171,11 @@ class PasienDashboardController extends Controller
 
         $resep = Resep::whereHas('antrian.tindakan', function ($q) use ($tindakanIds) {
             $q->where('id', $tindakanIds);
-        })->with('obat', 'antrian.kasir')->get()->map(function ($item) {
-            $item->obat->harga = 'Rp. ' . number_format($item->obat->harga_jual + $item->antrian->kasir->biaya_layanan, 0, ',', '.');
-            return $item;
-        });
+        })->with('obat', 'antrian.kasir')->first();
+
+        if ($resep){
+            $resep->obat->harga = 'Rp. ' . number_format($resep->obat->harga_jual + $resep->antrian->kasir->biaya_layanan, 0, ',', '.');
+        }
 
         $resep = $resep ?: [];
 
