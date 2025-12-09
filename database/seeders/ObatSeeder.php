@@ -14,6 +14,6 @@ class ObatSeeder extends Seeder
      */
     public function run(): void
     {
-        Obat::factory(100)->create();
+        // Obat::factory(100)->create();
     }
 }
