@@ -165,15 +165,14 @@ class PasienDashboardController extends Controller
         }
 
 
-        $tindakanIds = $obat->tindakan->pluck('id');
-
+        $tindakanIds = $obat?->tindakan?->pluck('id') ?? [];
 
 
         $resep = Resep::whereHas('antrian.tindakan', function ($q) use ($tindakanIds) {
-            $q->where('id', $tindakanIds);
+            $q->whereIn('id', $tindakanIds);
         })->with('obat', 'antrian.kasir')->first();
 
-        if ($resep){
+        if ($resep) {
             $resep->obat->harga = 'Rp. ' . number_format($resep->obat->harga_jual + $resep->antrian->kasir->biaya_layanan, 0, ',', '.');
         }
 
