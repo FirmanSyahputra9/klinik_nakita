@@ -109,9 +109,9 @@
                 <!-- Alergi -->
                 <div>
                     <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">Alergi</h2>
-                    <textarea name="alergi" rows="3" class="w-full border rounded p-3 dark:bg-gray-700 dark:text-white">{{ $antrian->alergi->alergi ?? '' }}</textarea>
+                    <textarea name="alergi" placeholder="Alergi" rows="3" class="w-full border rounded p-3 dark:bg-gray-700 dark:text-white">{{ $antrian->alergi->alergi ?? '' }}</textarea>
 
-                    <textarea name="reaksi" rows="3" class="w-full border rounded p-3 mt-3 dark:bg-gray-700 dark:text-white">{{ $antrian->alergi->reaksi ?? '' }}</textarea>
+                    <textarea name="reaksi" placeholder="Reaksi Alergi" rows="3" class="w-full border rounded p-3 mt-3 dark:bg-gray-700 dark:text-white">{{ $antrian->alergi->reaksi ?? '' }}</textarea>
                 </div>
 
                 <!-- Keluhan & Diagnosis -->
@@ -120,7 +120,7 @@
                     <textarea name="keluhan" rows="3" readonly
                         class="w-full border rounded p-3 dark:bg-gray-700 dark:text-white">{{ $data->keluhan ?? '' }}</textarea>
 
-                    <textarea name="diagnosis" rows="3" class="w-full border rounded p-3 mt-3 dark:bg-gray-700 dark:text-white">{{ $antrian->data_pemeriksaan->diagnosa ?? '' }}</textarea>
+                    <textarea name="diagnosis" placeholder="Diagnosa" rows="3" class="w-full border rounded p-3 mt-3 dark:bg-gray-700 dark:text-white">{{ $antrian->data_pemeriksaan->diagnosa ?? '' }}</textarea>
                 </div>
 
                 <!-- Tindakan -->
