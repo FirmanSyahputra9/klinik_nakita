@@ -75,13 +75,13 @@
 
             <!-- Nomor Registrasi -->
             @if ($antrian_registrasi)
-            <section class="card bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+            <section class="card bg-white dark:bg-gray-800 rounded-xl shadow p-6 whitespace-nowrap">
                 <h3 class="card font-semibold text-lg mb-4 text-gray-800 dark:text-gray-100">Nomor Registrasi</h3>
                 @foreach ($antrian_registrasi ?? [] as $ar)
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                     <div class="bg-pink-50 dark:bg-gray-900 rounded-lg p-4 text-center shadow">
                         <p class="card text-sm text-gray-500 dark:text-gray-300">Nomor Antrian Registrasi</p>
-                        <p class="card text-2xl font-bold text-pink-600 dark:text-gray-100">
+                        <p class="card text-sm font-bold text-pink-600 dark:text-gray-100">
                             {{ $ar->appointment_code }}
                         </p>
                         <p class="card text-sm text-gray-400 dark:text-gray-300 mt-1">{{ $ar->create_at }}</p>
@@ -107,16 +107,16 @@
 
             <!-- Nomor Antrian Pasien -->
             @if ($janjinow)
-            <section class="card bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+            <section class="card bg-white dark:bg-gray-800 rounded-xl shadow p-6 whitespace-nowrap">
                 <h3 class="font-semibold text-lg mb-3 text-gray-800 dark:text-gray-100 card">Nomor Antrian Anda</h3>
                 @foreach ($janjinow ?? [] as $item)
                 <div class="mb-4">
                     <span class="block text-sm mb-2">Dokter : {{ $item->dokter->name ?? '' }}</span>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div
-                            class="card bg-pink-50 dark:bg-gray-900 rounded-lg p-4 text-center shadow border border-gray-200">
+                            class="card bg-pink-50 dark:bg-gray-900 rounded-lg p-4 text-center shadow border border-gray-200 text-center">
                             <p class="card text-xs text-gray-500 dark:text-gray-300">Nomor Antrian</p>
-                            <p class="card text-xl font-bold text-pink-600 dark:text-gray-100">
+                            <p class="card text-sm font-bold text-pink-600 dark:text-gray-100">
                                 {{ $item->kode_antrian }}
                             </p>
                             <p class="card text-xs text-gray-400 mt-1">
