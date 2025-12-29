@@ -105,7 +105,80 @@
 
                     </div>
 
+                    <!-- ========================= -->
+                    <!-- PEMERIKSAAN UMUM (DUMMY) -->
+                    <!-- ========================= -->
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+
+                        <h4 class="text-base font-semibold text-gray-800 dark:text-gray-100 mb-3">
+                            Pemeriksaan Umum
+                        </h4>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+
+                            <div>
+                                <p class="text-gray-500 dark:text-gray-100">Tekanan Darah</p>
+                                <p class="font-medium text-gray-600 dark:text-gray-400">
+                                    120/80 mmHg
+                                </p>
+                            </div>
+
+                            <div>
+                                <p class="text-gray-500 dark:text-gray-100">Nadi</p>
+                                <p class="font-medium text-gray-600 dark:text-gray-400">
+                                    80 x/menit
+                                </p>
+                            </div>
+
+                            <div>
+                                <p class="text-gray-500 dark:text-gray-100">Suhu</p>
+                                <p class="font-medium text-gray-600 dark:text-gray-400">
+                                    36.5 °C
+                                </p>
+                            </div>
+
+                            <div>
+                                <p class="text-gray-500 dark:text-gray-100">Respirasi</p>
+                                <p class="font-medium text-gray-600 dark:text-gray-400">
+                                    20 x/menit
+                                </p>
+                            </div>
+
+                            <div>
+                                <p class="text-gray-500 dark:text-gray-100">Berat Badan</p>
+                                <p class="font-medium text-gray-600 dark:text-gray-400">
+                                    60 kg
+                                </p>
+                            </div>
+
+                            <div>
+                                <p class="text-gray-500 dark:text-gray-100">Tinggi Badan</p>
+                                <p class="font-medium text-gray-600 dark:text-gray-400">
+                                    165 cm
+                                </p>
+                            </div>
+
+                            <div>
+                                <p class="text-gray-500 dark:text-gray-100">Kesadaran</p>
+                                <p class="font-medium text-gray-600 dark:text-gray-400">
+                                    Compos Mentis
+                                </p>
+                            </div>
+
+                            <div class="sm:col-span-2">
+                                <p class="text-gray-500 dark:text-gray-100">Keadaan Umum</p>
+                                <p class="font-medium text-gray-600 dark:text-gray-400">
+                                    Keadaan umum baik, tampak sakit ringan
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
                 </div>
+
 
             </div>
         </div>
