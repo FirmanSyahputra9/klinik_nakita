@@ -3,7 +3,11 @@
         show: false,
         message: '',
         action: '',
-        open(msg, act) { this.message = msg; this.action = act; this.show = true; },
+        open(msg, act) {
+            this.message = msg;
+            this.action = act;
+            this.show = true;
+        },
         close() { this.show = false; }
     }" x-cloak class="flex-1 space-y-6">
 
@@ -25,10 +29,11 @@
                         class="px-4 py-2 w-full sm:w-auto border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white" />
 
                     <!-- Status Filter -->
-                    <select class="px-4 py-2 w-full sm:w-auto border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                    <select
+                        class="px-4 py-2 w-full sm:w-auto border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
                         <option>Semua Status</option>
                         @foreach ($status ?? [] as $item)
-                        <option value="{{ $item }}">{{ $item ? 'Terkonfirmasi' : 'Menunggu' }}</option>
+                            <option value="{{ $item }}">{{ $item ? 'Terkonfirmasi' : 'Menunggu' }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -52,56 +57,64 @@
                     </thead>
 
                     <tbody>
-                        @foreach ($janji ?? [] as $item)
-                        <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 dark:text-gray-300">
+                        @forelse ($janji ?? [] as $item)
+                            <tr
+                                class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 dark:text-gray-300">
 
-                            <td class="py-3 px-4 text-sm font-medium">
-                                {{ $item->kode_antrian }}
-                            </td>
+                                <td class="py-3 px-4 text-sm font-medium">
+                                    {{ $item->kode_antrian }}
+                                </td>
 
-                            <td class="py-3 px-4 text-sm">
-                                {{ $item->registrasi->tanggal_kunjungan }}
-                            </td>
+                                <td class="py-3 px-4 text-sm">
+                                    {{ $item->registrasi->tanggal_kunjungan }}
+                                </td>
 
-                            <td class="py-3 px-4 text-sm">
-                                <p class="font-semibold">{{ $item->pasien->name }}</p>
-                                <p class="text-xs">{{ $item->pasien->phone }}</p>
-                            </td>
+                                <td class="py-3 px-4 text-sm">
+                                    <p class="font-semibold">{{ $item->pasien->name }}</p>
+                                    <p class="text-xs">{{ $item->pasien->phone }}</p>
+                                </td>
 
-                            <td class="py-3 px-4 text-sm">
-                                {{ $item->dokter->name }}
-                            </td>
+                                <td class="py-3 px-4 text-sm">
+                                    {{ $item->dokter->name }}
+                                </td>
 
-                            <td class="py-3 px-4 text-sm">
-                                {{ $item->registrasi->keluhan }}
-                            </td>
+                                <td class="py-3 px-4 text-sm">
+                                    {{ $item->registrasi->keluhan }}
+                                </td>
 
-                            <td class="py-3 px-4">
-                                <span class="px-3 py-1 rounded-full text-xs font-medium
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-3 py-1 rounded-full text-xs font-medium
                                         {{ $item->status == 0 ? 'bg-blue-600 text-white' : 'bg-green-600 text-white' }}">
-                                    {{ $item->status == 0 ? 'Menunggu' : 'Terkonfirmasi' }}
-                                </span>
-                            </td>
+                                        {{ $item->status == 0 ? 'Menunggu' : 'Terkonfirmasi' }}
+                                    </span>
+                                </td>
 
-                            <td class="py-3 px-4">
-                                <div class="flex gap-2 justify-left">
+                                <td class="py-3 px-4">
+                                    <div class="flex gap-2 justify-left">
 
-                                    @if ($item->status == 0)
-                                    <button
-                                        @click="open('Konfirmasi janji?', '{{ route('janji.konfirmasi', $item->id) }}')"
-                                        class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded text-xs dark:bg-gray-600 dark:hover:bg-gray-900">
-                                        ✔
-                                    </button>
-                                    @else
-                                    <button disabled class="bg-gray-300 text-gray-500 p-2 rounded text-xs">
-                                        ✔
-                                    </button>
-                                    @endif
+                                        @if ($item->status == 0)
+                                            <button
+                                                @click="open('Konfirmasi janji?', '{{ route('janji.konfirmasi', $item->id) }}')"
+                                                class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded text-xs dark:bg-gray-600 dark:hover:bg-gray-900">
+                                                ✔
+                                            </button>
+                                        @else
+                                            <button disabled class="bg-gray-300 text-gray-500 p-2 rounded text-xs">
+                                                ✔
+                                            </button>
+                                        @endif
 
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7">
+                                    <p class="text-center text-gray-500 py-6">Tidak ada janji temu</p>
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
 
@@ -116,42 +129,48 @@
             <div class="md:hidden space-y-4">
 
                 @forelse ($janji as $item)
-                <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 bg-white dark:bg-gray-800 shadow">
+                    <div
+                        class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 bg-white dark:bg-gray-800 shadow">
 
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-sm font-semibold text-gray-800 dark:text-gray-100">{{ $item->kode_antrian }}</span>
+                        <div class="flex justify-between items-center mb-3">
+                            <span
+                                class="text-sm font-semibold text-gray-800 dark:text-gray-100">{{ $item->kode_antrian }}</span>
 
-                        <span class="px-2 py-1 text-xs rounded-full font-medium
+                            <span
+                                class="px-2 py-1 text-xs rounded-full font-medium
                                 {{ $item->status == 0 ? 'bg-blue-600 text-white' : 'bg-green-600 text-white' }}">
-                            {{ $item->status == 0 ? 'Menunggu' : 'Terkonfirmasi' }}
-                        </span>
+                                {{ $item->status == 0 ? 'Menunggu' : 'Terkonfirmasi' }}
+                            </span>
+                        </div>
+
+                        <p class="text-sm text-gray-700 dark:text-gray-300"><strong>Tanggal:</strong>
+                            {{ $item->registrasi->tanggal_kunjungan }}</p>
+                        <p class="text-sm text-gray-700 dark:text-gray-300"><strong>Pasien:</strong>
+                            {{ $item->pasien->name }} ({{ $item->pasien->phone }})</p>
+                        <p class="text-sm text-gray-700 dark:text-gray-300"><strong>Dokter:</strong>
+                            {{ $item->dokter->name }}</p>
+                        <p class="text-sm text-gray-700 dark:text-gray-300"><strong>Keluhan:</strong>
+                            {{ $item->registrasi->keluhan }}</p>
+
+                        <div class="mt-4 flex gap-2">
+
+                            @if ($item->status == 0)
+                                <button
+                                    @click="open('Konfirmasi janji?', '{{ route('janji.konfirmasi', $item->id) }}')"
+                                    class="bg-blue-600 text-white rounded-lg py-2 px-4 w-full text-sm hover:bg-blue-700">
+                                    Konfirmasi
+                                </button>
+                            @else
+                                <button disabled class="bg-gray-300 text-gray-500 rounded-lg py-2 px-4 w-full text-sm">
+                                    Sudah ACC
+                                </button>
+                            @endif
+
+                        </div>
+
                     </div>
-
-                    <p class="text-sm text-gray-700 dark:text-gray-300"><strong>Tanggal:</strong> {{ $item->registrasi->tanggal_kunjungan }}</p>
-                    <p class="text-sm text-gray-700 dark:text-gray-300"><strong>Pasien:</strong> {{ $item->pasien->name }} ({{ $item->pasien->phone }})</p>
-                    <p class="text-sm text-gray-700 dark:text-gray-300"><strong>Dokter:</strong> {{ $item->dokter->name }}</p>
-                    <p class="text-sm text-gray-700 dark:text-gray-300"><strong>Keluhan:</strong> {{ $item->registrasi->keluhan }}</p>
-
-                    <div class="mt-4 flex gap-2">
-
-                        @if ($item->status == 0)
-                        <button
-                            @click="open('Konfirmasi janji?', '{{ route('janji.konfirmasi', $item->id) }}')"
-                            class="bg-blue-600 text-white rounded-lg py-2 px-4 w-full text-sm hover:bg-blue-700">
-                            Konfirmasi
-                        </button>
-                        @else
-                        <button disabled
-                            class="bg-gray-300 text-gray-500 rounded-lg py-2 px-4 w-full text-sm">
-                            Sudah ACC
-                        </button>
-                        @endif
-
-                    </div>
-
-                </div>
                 @empty
-                <p class="text-center text-gray-500 py-6">Tidak ada janji temu</p>
+                    <p class="text-center text-gray-500 py-6">Tidak ada janji temu</p>
                 @endforelse
 
                 <div class="mt-3">

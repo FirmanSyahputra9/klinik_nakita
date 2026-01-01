@@ -1,0 +1,87 @@
+{
+  "name": "Klinik Nakita",
+  "short_name": "Nakita",
+  "description": "Klinik Nakita – Klinik kesehatan modern, profesional, dan ramah keluarga.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#0d9488",
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "lang": "id-ID",
+
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+
+  "badge": "/icons/badge-96.png",
+
+  "shortcuts": [
+    {
+      "name": "Daftar Layanan",
+      "short_name": "Layanan",
+      "url": "/layanan",
+      "icons": [{ "src": "/icons/shortcut-layanan.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Kontak Darurat",
+      "short_name": "Darurat",
+      "url": "/kontak",
+      "icons": [{ "src": "/icons/shortcut-kontak.png", "sizes": "192x192" }]
+    }
+  ],
+
+  "categories": ["medical", "health", "clinic"],
+
+  "screenshots": [
+    {
+      "src": "/screenshots/home-light.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "label": "Beranda Klinik Nakita (Light Mode)"
+    },
+    {
+      "src": "/screenshots/home-dark.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "label": "Beranda Klinik Nakita (Dark Mode)"
+    }
+  ],
+
+  "permissions": {
+    "notifications": {
+      "description": "Klinik Nakita membutuhkan izin notifikasi untuk mengirimkan pengingat janji temu dan informasi penting kesehatan."
+    }
+  },
+
+  "notifications": {
+    "title": "Klinik Nakita",
+    "body": "Ada informasi kesehatan terbaru untuk Anda.",
+    "icon": "/icons/notification-icon.png",
+    "badge": "/icons/badge-96.png",
+    "vibrate": [100, 50, 100],
+    "actions": [
+      {
+        "action": "open-app",
+        "title": "Buka Aplikasi",
+        "icon": "/icons/open.png"
+      },
+      {
+        "action": "contact",
+        "title": "Hubungi Klinik",
+        "icon": "/icons/call.png"
+      }
+    ]
+  }
+}

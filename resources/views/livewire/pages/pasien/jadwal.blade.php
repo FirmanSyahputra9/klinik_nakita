@@ -14,15 +14,15 @@
 
                 <!-- Search -->
                 <div>
-                    <label class="card text-xs font-semibold text-gray-600">Cari Dokter</label>
-                    <input wire:model.live.debounce.500ms="search" type="text" placeholder="Cari nama dokter..."
+                    <label for="search" class="card text-xs font-semibold text-gray-600">Cari Dokter</label>
+                    <input id="search" wire:model.live.debounce.500ms="search" type="text" placeholder="Cari nama dokter..."
                         class="card mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-green-200 focus:outline-none">
                 </div>
 
                 <!-- Filter Spesialisasi -->
                 <div>
-                    <label class="card text-xs font-semibold text-gray-600">Spesialisasi</label>
-                    <select wire:model.live.debounce.500ms="filterSpesialisasi"
+                    <label for="spesialisasi" class="card text-xs font-semibold text-gray-600">Spesialisasi</label>
+                    <select id="spesialisasi" wire:model.live.debounce.500ms="filterSpesialisasi"
                         class="card mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-green-200 focus:outline-none dark:focus:bg-gray-700 dark:text-white dark:focus:ring-gray-200">
                         <option value="">Semua Spesialisasi</option>
 
@@ -34,8 +34,8 @@
 
                 <!-- Filter Status -->
                 <div>
-                    <label class="card text-xs font-semibold text-gray-600">Status</label>
-                    <select wire:model.live.debounce.500ms="filterStatus"
+                    <label for="status" class="card text-xs font-semibold text-gray-600">Status</label>
+                    <select id="status" wire:model.live.debounce.500ms="filterStatus"
                         class="card mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-green-200 focus:outline-none dark:focus:bg-gray-700 dark:text-white dark:focus:ring-gray-200">
                         <option value="">Semua Status</option>
                         @foreach ($status??[] as $st)

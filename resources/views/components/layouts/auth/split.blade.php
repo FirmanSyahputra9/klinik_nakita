@@ -19,8 +19,8 @@
             </a>
 
             <div class="absolute inset-0 z-0">
-                <img src="{{ asset('storage/img/klinik.jpg') }}" class="w-full h-full object-cover"
-                    alt="Background Klinik">
+                {{-- <img src="{{ asset('storage/img/klinik.jpg') }}" class="w-full h-full object-cover"
+                    alt="Background Klinik"> --}}
             </div>
 
 
@@ -56,31 +56,34 @@
     @fluxScripts
 
     <script>
-        const quotes = [
-            @foreach (\App\Support\Inspiring::quotes() as $quote)
-                @php [$message, $author] = str($quote)->explode('-'); @endphp {
-                    message: "{{ trim($message) }}",
-                    author: "{{ trim($author) }}"
-                },
-            @endforeach
-        ];
+        if (!window.__quote_script_initialized__) {
+            window.__quote_script_initialized__ = true;
 
-        const messageElement = document.getElementById('quote-message');
-        const authorElement = document.getElementById('quote-author');
-        let currentIndex = -1;
+            window.quotes = [
+                @foreach (\App\Support\Inspiring::quotes() as $quote)
+                    @php [$message, $author] = str($quote)->explode('-'); @endphp {
+                        message: "{{ trim($message) }}",
+                        author: "{{ trim($author) }}"
+                    },
+                @endforeach
+            ];
 
-        function updateQuote() {
-            const randomIndex = Math.floor(Math.random() * quotes.length);
-            const randomQuote = quotes[randomIndex];
+            const messageElement = document.getElementById('quote-message');
+            const authorElement = document.getElementById('quote-author');
 
-            messageElement.innerHTML = `&ldquo;${randomQuote.message}&rdquo;`;
-            authorElement.textContent = randomQuote.author;
+            function updateQuote() {
+                const randomIndex = Math.floor(Math.random() * window.quotes.length);
+                const randomQuote = window.quotes[randomIndex];
+
+                messageElement.innerHTML = `&ldquo;${randomQuote.message}&rdquo;`;
+                authorElement.textContent = randomQuote.author;
+            }
+
+            updateQuote();
+            setInterval(updateQuote, 5000);
         }
-
-        updateQuote();
-
-        setInterval(updateQuote, 5000);
     </script>
+
 </body>
 
 </html>

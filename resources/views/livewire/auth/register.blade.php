@@ -11,14 +11,14 @@
                 <!-- NIK -->
                 <div x-data="{ nik: '{{ old('nik') }}'.replace(/[^0-9]/g, '') }" class="w-full">
                     <div class="flex justify-between items-center mb-1">
-                        <label class="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                        <label for="nik" class="text-sm font-medium text-zinc-700 dark:text-zinc-300">
                             NIK
                         </label>
                         <span class="text-xs text-gray-400">
                             <span x-text="nik.length"></span>/16
                         </span>
                     </div>
-                    <flux:input name="nik" label="" type="text" x-model="nik" maxlength="16" required
+                    <flux:input id="nik" name="nik" label="" type="text" x-model="nik" maxlength="16" required
                         autocomplete="nik" :placeholder="'NIK'" x-on:input="nik = nik.replace(/[^0-9]/g, '')" />
 
                 </div>
@@ -84,14 +84,14 @@
                 <!-- Phone -->
                 <div x-data="{ phone: '{{ old('phone') }}'.replace(/[^0-9]/g, '') }" class="w-full">
                     <div class="flex justify-between items-center mb-1">
-                        <label class="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                        <label for="phone" class="text-sm font-medium text-zinc-700 dark:text-zinc-300">
                             Phone
                         </label>
                         <span class="text-xs text-gray-400">
                             <span x-text="phone.length"></span>/15
                         </span>
                     </div>
-                    <flux:input name="phone" label="" type="text" x-model="phone" maxlength="15" required
+                    <flux:input id="phone" name="phone" label="" type="text" x-model="phone" maxlength="15" required
                         autocomplete="phone" :placeholder="'Phone'"
                         x-on:input="phone = phone.replace(/[^0-9]/g, '')" />
                 </div>

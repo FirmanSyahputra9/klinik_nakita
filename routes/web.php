@@ -26,8 +26,11 @@ use App\Http\Controllers\PasienRiwayatController;
 use App\Http\Controllers\PemeriksaanLaboratoriumController;
 use App\Http\Controllers\ResepController;
 use App\Http\Controllers\UserJadwalDokter;
+use App\Http\Controllers\DataUmumPasienController;
 use App\Models\DataPasien;
+use App\Models\DataUmumPasien;
 use App\Models\PemeriksaanLaboratorium;
+
 
 Route::get('/', function () {
     return view('index');
@@ -72,6 +75,7 @@ Route::middleware(['auth', 'is.login', 'check.route.exists'])->group(function ()
         Route::resource('jenis-pemeriksaan', JenisPemeriksaanController::class);
         Route::resource('data-pemeriksaan', DataPemeriksaanController::class);
         Route::resource('pemeriksaan-lab', PemeriksaanLaboratoriumController::class);
+        Route::resource('pemeriksaan-umum', DataUmumPasienController::class);
     });
 
     Route::middleware(['auth', 'is.user'])->prefix('user')->group(function () {

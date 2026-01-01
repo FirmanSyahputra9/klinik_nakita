@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="mb-8">
         <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100">Data Pasien</h1>
-        <p class="text-gray-600 dark:text-gray-300 mt-1">Selamat Datang, {{ Auth::user()->name?? '' }}</p>
+        <p class="text-gray-600 dark:text-gray-300 mt-1">Selamat Datang, {{ Auth::user()->name ?? '' }}</p>
     </div>
 
     <!-- MAIN CARD -->
@@ -18,7 +18,8 @@
             <!-- 1. KARTU DATA PASIEN      -->
             <!-- ========================= -->
             <div class="lg:col-span-1">
-                <div class="bg-gradient-to-br from-green-800 to-green-900 dark:bg-gray-800 rounded-2xl p-6 text-white shadow-lg">
+                <div
+                    class="bg-gradient-to-br from-green-800 to-green-900 dark:bg-gray-800 rounded-2xl p-6 text-white shadow-lg">
 
                     <h3 class="text-2xl font-bold">{{ $data->pasiens->no_rm }}</h3>
                     <p class="text-xl font-semibold mt-1">{{ $data->pasiens->name }}</p>
@@ -27,7 +28,8 @@
                         <p><span class="font-medium">Tgl Bergabung:</span> {{ $data->pasiens->create_at }}</p>
                         <p><span class="font-medium">NIK:</span> {{ $data->pasiens->nik }}</p>
                         <p><span class="font-medium">JK:</span> {{ $data->pasiens->gender_label }}</p>
-                        <p><span class="font-medium">Tanggal Lahir:</span> {{ $data->pasiens->birth_date_formatted }}</p>
+                        <p><span class="font-medium">Tanggal Lahir:</span> {{ $data->pasiens->birth_date_formatted }}
+                        </p>
                         <p><span class="font-medium">Umur:</span> {{ $data->pasiens->umur }} Tahun</p>
                         <p><span class="font-medium">No. Telp:</span> {{ $data->pasiens->phone }}</p>
                         <p><span class="font-medium">Alamat:</span> {{ $data->pasiens->address }}</p>
@@ -57,8 +59,8 @@
 
                     <datalist id="listPemeriksaan">
                         @foreach ($jenisPemeriksaans ?? [] as $jenis)
-                        <option value="{{ $jenis->jenis_pemeriksaan }}">
-                            @endforeach
+                            <option value="{{ $jenis->jenis_pemeriksaan }}">
+                        @endforeach
                     </datalist>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
@@ -106,65 +108,68 @@
             <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-6">
                 Pemeriksaan Umum
             </h2>
+            <form action="{{ route('data-pemeriksaan.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="antrian_id" value="{{ $antrian->id }}">
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-                <div>
-                    <label class="font-medium">Tekanan Darah</label>
-                    <input type="text" placeholder="120/80 mmHg"
-                        class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
+                    <div>
+                        <label class="font-medium">Tekanan Darah</label>
+                        <input type="text" placeholder="120/80 mmHg"
+                            class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
+                    </div>
+
+                    <div>
+                        <label class="font-medium">Nadi</label>
+                        <input type="text" placeholder="80 x/menit"
+                            class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
+                    </div>
+
+                    <div>
+                        <label class="font-medium">Suhu</label>
+                        <input type="text" placeholder="36.5 °C"
+                            class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
+                    </div>
+
+                    <div>
+                        <label class="font-medium">Respirasi</label>
+                        <input type="text" placeholder="20 x/menit"
+                            class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
+                    </div>
+
+                    <div>
+                        <label class="font-medium">Berat Badan</label>
+                        <input type="text" placeholder="60 kg"
+                            class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
+                    </div>
+
+                    <div>
+                        <label class="font-medium">Tinggi Badan</label>
+                        <input type="text" placeholder="165 cm"
+                            class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
+                    </div>
+
+                    <div>
+                        <label class="font-medium">Kesadaran</label>
+                        <input type="text" placeholder="Compos Mentis"
+                            class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label class="font-medium">Keadaan Umum</label>
+                        <textarea rows="2" placeholder="Baik / Tampak sakit ringan / Lemah"
+                            class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white"></textarea>
+                    </div>
+
                 </div>
-
-                <div>
-                    <label class="font-medium">Nadi</label>
-                    <input type="text" placeholder="80 x/menit"
-                        class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
-                </div>
-
-                <div>
-                    <label class="font-medium">Suhu</label>
-                    <input type="text" placeholder="36.5 °C"
-                        class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
-                </div>
-
-                <div>
-                    <label class="font-medium">Respirasi</label>
-                    <input type="text" placeholder="20 x/menit"
-                        class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
-                </div>
-
-                <div>
-                    <label class="font-medium">Berat Badan</label>
-                    <input type="text" placeholder="60 kg"
-                        class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
-                </div>
-
-                <div>
-                    <label class="font-medium">Tinggi Badan</label>
-                    <input type="text" placeholder="165 cm"
-                        class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
-                </div>
-
-                <div>
-                    <label class="font-medium">Kesadaran</label>
-                    <input type="text" placeholder="Compos Mentis"
-                        class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
-                </div>
-
-                <div class="md:col-span-2">
-                    <label class="font-medium">Keadaan Umum</label>
-                    <textarea rows="2" placeholder="Baik / Tampak sakit ringan / Lemah"
-                        class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white"></textarea>
-                </div>
-
-            </div>
-
+            </form>
         </div>
 
         <!-- ================================================= -->
         <!-- FORM PEMERIKSAAN                                 -->
         <!-- ================================================= -->
-        <form action="{{ route('data-pemeriksaan.store') }}" method="POST">
+        <form action="{{ route('pemeriksaan-umum.store') }}" method="POST">
             @csrf
             <input type="hidden" name="antrian_id" value="{{ $antrian->id }}">
 
@@ -183,8 +188,7 @@
                 <!-- Keluhan -->
                 <div>
                     <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-gray-100">Keluhan Utama</h2>
-                    <textarea readonly rows="3"
-                        class="w-full border rounded p-3 dark:bg-gray-700 dark:text-white">{{ $data->keluhan ?? '' }}</textarea>
+                    <textarea readonly rows="3" class="w-full border rounded p-3 dark:bg-gray-700 dark:text-white">{{ $data->keluhan ?? '' }}</textarea>
                 </div>
 
                 <!-- Tindakan -->
@@ -193,19 +197,17 @@
 
                     <input list="listNamaTindakan" name="nama_tindakan"
                         class="w-full border rounded p-3 dark:bg-gray-700 dark:text-white"
-                        placeholder="Nama tindakan medis"
-                        value="{{ $antrian->tindakan->nama_tindakan ?? '' }}">
+                        placeholder="Nama tindakan medis" value="{{ $antrian->tindakan->nama_tindakan ?? '' }}">
 
                     <datalist id="listNamaTindakan">
                         @foreach ($jenisPemeriksaans ?? [] as $jp)
-                        <option value="{{ $jp->jenis_pemeriksaan }}">
-                            @endforeach
+                            <option value="{{ $jp->jenis_pemeriksaan }}">
+                        @endforeach
                     </datalist>
 
                     <input list="listJenisTindakan" name="jenis_tindakan"
                         class="w-full border rounded p-3 mt-3 dark:bg-gray-700 dark:text-white"
-                        placeholder="Jenis tindakan"
-                        value="{{ $antrian->tindakan->jenis_tindakan ?? '' }}">
+                        placeholder="Jenis tindakan" value="{{ $antrian->tindakan->jenis_tindakan ?? '' }}">
 
                     <datalist id="listJenisTindakan">
                         <option value="Rawat Jalan">
@@ -216,8 +218,7 @@
                         <option value="Radiologi">
                     </datalist>
 
-                    <textarea name="catatan_tindakan" rows="3"
-                        placeholder="Catatan tindakan"
+                    <textarea name="catatan_tindakan" rows="3" placeholder="Catatan tindakan"
                         class="w-full border rounded p-3 mt-3 dark:bg-gray-700 dark:text-white">{{ $antrian->tindakan->catatan ?? '' }}</textarea>
                 </div>
 
@@ -231,8 +232,7 @@
                     Diagnosis Sementara
                 </h2>
 
-                <textarea name="diagnosis" rows="3"
-                    placeholder="Diagnosis sementara berdasarkan anamnesis dan tindakan awal"
+                <textarea name="diagnosis" rows="3" placeholder="Diagnosis sementara berdasarkan anamnesis dan tindakan awal"
                     class="w-full border rounded p-3 dark:bg-gray-700 dark:text-white">{{ $antrian->data_pemeriksaan->diagnosa ?? '' }}</textarea>
             </div>
 
@@ -270,9 +270,9 @@
     </div>
 
     @if (session('refresh'))
-    <script>
-        window.location.reload();
-    </script>
+        <script>
+            window.location.reload();
+        </script>
     @endif
 
 </x-layouts.app>
