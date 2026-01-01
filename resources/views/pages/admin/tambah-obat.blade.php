@@ -72,26 +72,63 @@
                 </div>
 
                 <!-- Satuan -->
-                <div>
-                    <label for="satuan" class="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
+                <div x-data="{
+                    open: false,
+                    value: '{{ old('satuan') }}',
+                    search: '{{ old('satuan') }}',
+                    options: ['Strip', 'Box', 'Botol', 'Tube', 'Tablet', 'Kapsul', 'Pcs'],
+                    filtered() {
+                        return this.options.filter(o =>
+                            o.toLowerCase().includes(this.search.toLowerCase())
+                        )
+                    }
+                }" class="relative">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                         Satuan <span class="text-red-500">*</span>
                     </label>
-                    <select name="satuan" id="satuan"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:bg-gray-700 dark:text-white dark:focus:ring-gray-200 @error('satuan')@enderror"
-                        required>
-                        <option value="">Pilih Satuan</option>
-                        <option value="Strip" {{ old('satuan') == 'Strip' ? 'selected' : '' }}>Strip</option>
-                        <option value="Box" {{ old('satuan') == 'Box' ? 'selected' : '' }}>Box</option>
-                        <option value="Botol" {{ old('satuan') == 'Botol' ? 'selected' : '' }}>Botol</option>
-                        <option value="Tube" {{ old('satuan') == 'Tube' ? 'selected' : '' }}>Tube</option>
-                        <option value="Tablet" {{ old('satuan') == 'Tablet' ? 'selected' : '' }}>Tablet</option>
-                        <option value="Kapsul" {{ old('satuan') == 'Kapsul' ? 'selected' : '' }}>Kapsul</option>
-                        <option value="Pcs" {{ old('satuan') == 'Pcs' ? 'selected' : '' }}>Pcs</option>
-                    </select>
+
+                    <!-- hidden input (yang dikirim ke backend) -->
+                    <input type="hidden" name="satuan" x-model="value" required>
+
+                    <!-- SELECT LOOK -->
+                    <div @click="open = !open"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg cursor-pointer
+               bg-white dark:bg-gray-800 dark:text-white
+               focus-within:ring-2 focus-within:ring-blue-500
+               @error('satuan') border-red-500 @enderror">
+                        <span x-text="value || 'Pilih / Ketik Satuan'"></span>
+                    </div>
+
+                    <!-- DROPDOWN -->
+                    <div x-show="open" @click.outside="open = false"
+                        class="absolute z-10 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-300
+               dark:border-gray-600 rounded-lg shadow-lg">
+                        <!-- Search -->
+                        <input type="text" x-model="search" @input="value = search" placeholder="Ketik satuan..."
+                            class="w-full px-3 py-2 border-b border-gray-200 dark:border-gray-600
+                   bg-transparent focus:outline-none">
+
+                        <!-- Options -->
+                        <template x-for="option in filtered()" :key="option">
+                            <div @click="value = option; search = option; open = false"
+                                class="px-4 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
+                                x-text="option"></div>
+                        </template>
+
+                        <!-- Custom value -->
+                        <div x-show="search && !filtered().includes(search)" @click="value = search; open = false"
+                            class="px-4 py-2 cursor-pointer text-blue-600 hover:bg-blue-50 dark:hover:bg-gray-700">
+                            Gunakan "<span x-text="search"></span>"
+                        </div>
+                    </div>
+
                     @error('satuan')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
+
+
+
 
                 <!-- Harga Beli -->
                 <div>
@@ -127,7 +164,8 @@
 
                 <!-- Tanggal Kadaluwarsa -->
                 <div>
-                    <label for="tanggal_kadaluwarsa" class="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
+                    <label for="tanggal_kadaluwarsa"
+                        class="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                         Tanggal Kadaluwarsa <span class="text-red-500">*</span>
                     </label>
                     <input type="date" name="tanggal_kadaluwarsa" id="tanggal_kadaluwarsa"
