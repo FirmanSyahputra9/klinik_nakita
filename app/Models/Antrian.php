@@ -66,4 +66,9 @@ class Antrian extends Model
         return $this->hasOne(Kasir::class);
     }
 
+    public function nilai_du()
+    {
+        return $this->hasMany(NilaiDataUmumPasien::class);
+    }
+
 }

@@ -204,7 +204,7 @@
                     </div>
 
                     <div class="flex justify-between mt-4">
-                        @if ($item->status == '0')
+                        @if (empty($item->id) || $item->status == '0')
                             <span class="font-medium text-gray-600 dark:text-gray-100">Biaya Layanan</span>
                             <input type="number" min="0" class="border rounded-lg px-2 py-1 w-28 text-right"
                                 x-model="viewData.biaya_layanan">

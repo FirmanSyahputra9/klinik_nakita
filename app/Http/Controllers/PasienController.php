@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Antrian;
+use App\Models\DataUmumPasien;
 use App\Models\JenisPemeriksaan;
 use App\Models\Pasien;
 use App\Models\Registrasi;
@@ -38,7 +39,7 @@ class PasienController extends Controller
      */
     public function show($id)
     {
-        $antrian = Antrian::with('alergi', 'data_pemeriksaan', 'tindakan', 'lab')->find($id);
+        $antrian = Antrian::with('alergi', 'data_pemeriksaan', 'tindakan', 'lab', 'nilai_du.dataUmumPasien')->find($id);
 
         if (!$antrian) {
             return view('pages.dokter.data')->with('error', 'Antrian tidak ditemukan');

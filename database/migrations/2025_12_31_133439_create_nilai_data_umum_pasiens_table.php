@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('nilai_data_umum_pasiens', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('antrian_id')->constrained()->cascadeOnDelete();
             $table->foreignId('data_umum_pasien_id')->constrained()->cascadeOnDelete();
-            $table->string('nilai_atas');
-            $table->string('nilai_bawah');
+            $table->string('nilai')->nullable();
             $table->timestamps();
         });
     }

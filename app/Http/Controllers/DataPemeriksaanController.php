@@ -7,6 +7,9 @@ use App\Models\DataPemeriksaan;
 use App\Models\Tindakan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\DataUmumPasien;
+use App\Models\NilaiDataUmumPasien;
+
 
 class DataPemeriksaanController extends Controller
 {
@@ -41,7 +44,26 @@ class DataPemeriksaanController extends Controller
             'nama_tindakan' => 'nullable|string',
             'jenis_tindakan' => 'nullable|string',
             'catatan_tindakan' => 'nullable|string',
+
+
+            'tekanan_darah' => 'nullable|string',
+            'nadi'          => 'nullable|string',
+            'suhu'          => 'nullable|string',
+            'respirasi'     => 'nullable|string',
+            'berat_badan'   => 'nullable|string',
+            'tinggi_badan'  => 'nullable|string',
+            'kesadaran'     => 'nullable|string',
+            'keadaan_umum'  => 'nullable|string',
+
         ]);
+
+        if (!empty($validated['tekanan_darah']) && !str_contains($validated['tekanan_darah'], '/')) {
+            return redirect()->back()
+                ->with('error', 'Format tekanan darah harus angka/angka (contoh: 120/80)')
+                ->withInput();
+        }
+
+
 
         $antrian_id = $validated['antrian_id'];
 
@@ -97,6 +119,39 @@ class DataPemeriksaanController extends Controller
                 ]);
             }
         });
+
+        $dataUmum = [
+            'Tekanan Darah' => $validated['tekanan_darah'] ?? null,
+            'Nadi'          => $validated['nadi'] ?? null,
+            'Suhu Tubuh'    => $validated['suhu'] ?? null,
+            'Respirasi'     => $validated['respirasi'] ?? null,
+            'Berat Badan'   => $validated['berat_badan'] ?? null,
+            'Tinggi Badan'  => $validated['tinggi_badan'] ?? null,
+            'Kesadaran'     => $validated['kesadaran'] ?? null,
+            'Keadaan Umum'  => $validated['keadaan_umum'] ?? null,
+        ];
+
+        foreach ($dataUmum as $nama => $nilai) {
+            if ($nilai === null || $nilai === '') {
+                continue;
+            }
+
+            $dataUmumModel = DataUmumPasien::firstOrCreate([
+                'nama_du' => $nama
+            ]);
+
+            NilaiDataUmumPasien::updateOrCreate(
+                [
+                    'data_umum_pasien_id' => $dataUmumModel->id,
+                    'antrian_id'          => $antrian_id,
+                ],
+                [
+                    'nilai' => $nilai,
+                ]
+            );
+        }
+
+
         $message = $isUpdate
             ? 'Data berhasil diperbarui.'
             : 'Data berhasil disimpan.';

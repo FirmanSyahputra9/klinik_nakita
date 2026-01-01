@@ -102,14 +102,6 @@ Route::middleware(['auth', 'is.login', 'check.route.exists'])->group(function ()
         })->name('lab.input-hasil');
     });
 });
-Route::view('/error/403', 'errors.403')
-    ->name('error.403');
-
-Route::view('/error/404', 'errors.404')
-    ->name('error.404');
-
-Route::view('/error/500', 'errors.500')
-    ->name('error.500');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

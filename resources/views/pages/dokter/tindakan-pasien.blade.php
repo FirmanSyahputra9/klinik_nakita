@@ -47,7 +47,7 @@
                     <div class="w-full h-1 bg-red-600 rotate-12 opacity-80"></div>
                     <div class="w-full h-1 bg-red-600 -rotate-12 opacity-80 absolute"></div>
                 </div>
-                <h3 class="font-semibold text-lg mb-3 text-gray-800 dark:text-gray-100">Tambah Pemeriksaan Lab</h3>
+                <h3 class="font-semibold text-lg mb-3 text-gray-800 dark:text-gray-100">Tambah Pemeriksaan</h3>
 
                 <form action="{{ route('jenis-pemeriksaan.store') }}" method="POST">
                     @csrf
@@ -97,90 +97,225 @@
 
                 </form>
             </div>
-
         </div>
 
         <!-- ================================================= -->
         <!-- PEMERIKSAAN UMUM (DUMMY / FRONTEND ONLY)         -->
         <!-- ================================================= -->
-        <div class="mt-10 bg-white dark:bg-gray-800 rounded-xl shadow p-6 border">
+        <form action="{{ route('data-pemeriksaan.store') }}" method="POST">
+            @csrf
+            <div class="mt-10 bg-white dark:bg-gray-800 rounded-xl shadow p-6 border">
 
-            <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-6">
-                Pemeriksaan Umum
-            </h2>
-            <form action="{{ route('data-pemeriksaan.store') }}" method="POST">
-                @csrf
+                <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-6">
+                    Pemeriksaan Umum (isi nilai tanpa satuan)
+                </h2>
                 <input type="hidden" name="antrian_id" value="{{ $antrian->id }}">
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-                    <div>
+                    <!-- Tekanan Darah -->
+                    <div x-data="{
+                        value: @js(optional($antrian->nilai_du->where('dataUmumPasien.nama_du', 'Tekanan Darah')->first())->nilai),
+                        sanitize() {
+                            this.value = (this.value ?? '').replace(/[^0-9\/]/g, '');
+                    
+                            let parts = this.value.split('/');
+                    
+                            if (parts.length > 2) {
+                                parts = parts.slice(0, 2);
+                            }
+                    
+                            if (parts[0]?.length > 3) parts[0] = parts[0].slice(0, 3);
+                            if (parts[1]?.length > 3) parts[1] = parts[1].slice(0, 3);
+                    
+                            this.value = parts.join('/');
+                        }
+                    }">
                         <label class="font-medium">Tekanan Darah</label>
-                        <input type="text" placeholder="120/80 mmHg"
-                            class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
+
+                        <div class="relative mt-1">
+                            <input type="text" name="tekanan_darah" x-model="value" @input="sanitize"
+                                placeholder="120/80" inputmode="numeric" autocomplete="off"
+                                class="w-full border rounded px-3 py-2 pr-16 dark:bg-gray-700 dark:text-white">
+
+                            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+                                mmHg
+                            </span>
+                        </div>
                     </div>
 
-                    <div>
+
+                    <!-- Nadi -->
+                    <div x-data="{ value: '{{ optional($antrian->nilai_du->where('dataUmumPasien.nama_du', 'Nadi')->first())->nilai ?? '' }}' }"
+                        @input="
+                                value = value.replace(/[^0-9]/g, '');
+                                if (value.length > 4) value = value.slice(0, 4);
+                            ">
                         <label class="font-medium">Nadi</label>
-                        <input type="text" placeholder="80 x/menit"
-                            class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
+
+                        <div class="relative mt-1">
+                            <input type="text" name="nadi" x-model="value" inputmode="numeric" autocomplete="off"
+                                placeholder="80"
+                                class="w-full border rounded px-3 py-2 pr-20 dark:bg-gray-700 dark:text-white">
+
+                            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+                                x/menit
+                            </span>
+                        </div>
                     </div>
 
-                    <div>
+
+
+                    <!-- Suhu -->
+                    <div x-data="{ value: '{{ optional($antrian->nilai_du->where('dataUmumPasien.nama_du', 'Suhu Tubuh')->first())->nilai ?? '' }}' }"
+                        @input="
+                            value = value.replace(/,/g, '.');
+                            value = value.replace(/[^0-9.]/g, '');
+                            const parts = value.split('.');
+                            if (parts.length > 2) {
+                                value = parts[0] + '.' + parts[1];
+                            }
+                            if (value.length > 5) {
+                                value = value.slice(0, 5);
+                            }
+                        ">
                         <label class="font-medium">Suhu</label>
-                        <input type="text" placeholder="36.5 °C"
-                            class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
+
+                        <div class="relative mt-1">
+                            <input type="text" name="suhu" x-model="value" placeholder="36.5" inputmode="decimal"
+                                autocomplete="off"
+                                class="w-full border rounded px-3 py-2 pr-14 dark:bg-gray-700 dark:text-white">
+
+                            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+                                °C
+                            </span>
+                        </div>
                     </div>
 
-                    <div>
+
+                    <!-- Respirasi -->
+                    <div x-data="{
+                        value: '{{ optional($antrian->nilai_du->where('dataUmumPasien.nama_du', 'Respirasi')->first())->nilai ?? '' }}'
+                    }"
+                        @input="
+                            value = value.replace(/[^0-9]/g, '');
+                            if (value.length > 4) value = value.slice(0, 4);
+                        ">
                         <label class="font-medium">Respirasi</label>
-                        <input type="text" placeholder="20 x/menit"
-                            class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
+
+                        <div class="relative mt-1">
+                            <input type="text" name="respirasi" x-model="value" placeholder="20"
+                                inputmode="numeric" autocomplete="off"
+                                class="w-full border rounded px-3 py-2 pr-20 dark:bg-gray-700 dark:text-white">
+
+                            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+                                x/menit
+                            </span>
+                        </div>
                     </div>
 
-                    <div>
+                    <!-- Berat Badan -->
+                    <div x-data="{
+                        value: '{{ optional($antrian->nilai_du->where('dataUmumPasien.nama_du', 'Berat Badan')->first())->nilai ?? '' }}'
+                    }"
+                        @input="
+                        value = value.replace(/[^0-9.]/g, '');
+                        if ((value.match(/\./g) || []).length > 1) {
+                            value = value.slice(0, -1);
+                        }
+                        if (value.length > 5) {
+                            value = value.slice(0, 5);
+                        }
+                    ">
                         <label class="font-medium">Berat Badan</label>
-                        <input type="text" placeholder="60 kg"
-                            class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
+
+                        <div class="relative mt-1">
+                            <input type="text" name="berat_badan" x-model="value" placeholder="60"
+                                inputmode="decimal" autocomplete="off"
+                                class="w-full border rounded px-3 py-2 pr-12 dark:bg-gray-700 dark:text-white">
+
+                            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+                                kg
+                            </span>
+                        </div>
                     </div>
 
-                    <div>
+
+
+                    <!-- Tinggi Badan -->
+                    <div x-data="{ value: '{{ optional($antrian->nilai_du->where('dataUmumPasien.nama_du', 'Berat Badan')->first())->nilai ?? '' }}' }"
+                        @input="
+                            value = value.replace(/[^0-9]/g, '');
+                            if (value.length > 3) {
+                                value = value.slice(0, 3);
+                            }
+                        ">
                         <label class="font-medium">Tinggi Badan</label>
-                        <input type="text" placeholder="165 cm"
-                            class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
+
+                        <div class="relative mt-1">
+                            <input type="text" name="tinggi_badan" x-model="value" placeholder="165"
+                                inputmode="numeric" autocomplete="off"
+                                class="w-full border rounded px-3 py-2 pr-12 dark:bg-gray-700 dark:text-white">
+
+                            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+                                cm
+                            </span>
+                        </div>
                     </div>
 
+                    <!-- Kesadaran -->
                     <div>
                         <label class="font-medium">Kesadaran</label>
-                        <input type="text" placeholder="Compos Mentis"
+
+                        <select name="kesadaran"
+                            class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
+
+                            <option value="">-- Pilih --</option>
+
+                            <option value="Compos Mentis"
+                                {{ optional($antrian->nilai_du->where('dataUmumPasien.nama_du', 'Kesadaran')->first())->nilai === 'Compos Mentis' ? 'selected' : '' }}>
+                                Compos Mentis
+                            </option>
+
+                            <option value="Somnolen"
+                                {{ optional($antrian->nilai_du->where('dataUmumPasien.nama_du', 'Kesadaran')->first())->nilai === 'Somnolen' ? 'selected' : '' }}>
+                                Somnolen
+                            </option>
+
+                            <option value="Sopor"
+                                {{ optional($antrian->nilai_du->where('dataUmumPasien.nama_du', 'Kesadaran')->first())->nilai === 'Sopor' ? 'selected' : '' }}>
+                                Sopor
+                            </option>
+
+                            <option value="Koma"
+                                {{ optional($antrian->nilai_du->where('dataUmumPasien.nama_du', 'Kesadaran')->first())->nilai === 'Koma' ? 'selected' : '' }}>
+                                Koma
+                            </option>
+
+                        </select>
+                    </div>
+
+                    <!-- Keadaan Umum -->
+                    <div class="md:col-span-2" x-data="{
+                        value: @js(optional($antrian->nilai_du->where('dataUmumPasien.nama_du', 'Keadaan Umum')->first())->nilai ?? '')
+                    }"
+                        @input="
+        value = value.replace(/[^a-zA-Z\s\/]/g, '');
+        value = value.replace(/\s{2,}/g, ' ');
+        if (value.length > 100) value = value.slice(0, 100);
+    ">
+                        <label class="font-medium">Keadaan Umum</label>
+
+                        <input type="text" name="keadaan_umum" x-model="value"
+                            placeholder="Baik / Tampak sakit ringan / Lemah" autocomplete="off"
                             class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white">
                     </div>
 
-                    <div class="md:col-span-2">
-                        <label class="font-medium">Keadaan Umum</label>
-                        <textarea rows="2" placeholder="Baik / Tampak sakit ringan / Lemah"
-                            class="w-full border rounded px-3 py-2 mt-1 dark:bg-gray-700 dark:text-white"></textarea>
-                    </div>
 
                 </div>
-            </form>
-        </div>
-
-        <!-- ================================================= -->
-        <!-- FORM PEMERIKSAAN                                 -->
-        <!-- ================================================= -->
-        <form action="{{ route('pemeriksaan-umum.store') }}" method="POST">
-            @csrf
-            <input type="hidden" name="antrian_id" value="{{ $antrian->id }}">
+            </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-10">
-
-                  <!-- Keluhan -->
-                <div>
-                    <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-gray-100">Keluhan Utama</h2>
-                    <textarea readonly rows="3"
-                        class="w-full border rounded p-3 dark:bg-gray-700 dark:text-white">{{ $data->keluhan ?? '' }}</textarea>
-                </div>
 
                 <!-- Alergi -->
                 <div>
@@ -192,7 +327,11 @@
                         class="w-full border rounded p-3 mt-3 dark:bg-gray-700 dark:text-white">{{ $antrian->alergi->reaksi ?? '' }}</textarea>
                 </div>
 
-
+                <!-- Keluhan -->
+                <div>
+                    <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-gray-100">Keluhan Utama</h2>
+                    <textarea readonly rows="3" class="w-full border rounded p-3 dark:bg-gray-700 dark:text-white">{{ $data->keluhan ?? '' }}</textarea>
+                </div>
 
                 <!-- Tindakan -->
                 <div>

@@ -145,6 +145,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ObatSeeder::class,
             DokterJadwalSeeder::class,
+            DataUmumPasienSeeder::class,
         ]);
     }
 }
