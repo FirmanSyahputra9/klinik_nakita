@@ -47,7 +47,7 @@
                     <div class="w-full h-1 bg-red-600 rotate-12 opacity-80"></div>
                     <div class="w-full h-1 bg-red-600 -rotate-12 opacity-80 absolute"></div>
                 </div>
-                <h3 class="font-semibold text-lg mb-3 text-gray-800 dark:text-gray-100">Tambah Pemeriksaan</h3>
+                <h3 class="font-semibold text-lg mb-3 text-gray-800 dark:text-gray-100">Tambah Pemeriksaan Lab</h3>
 
                 <form action="{{ route('jenis-pemeriksaan.store') }}" method="POST">
                     @csrf
@@ -175,6 +175,13 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-10">
 
+                  <!-- Keluhan -->
+                <div>
+                    <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-gray-100">Keluhan Utama</h2>
+                    <textarea readonly rows="3"
+                        class="w-full border rounded p-3 dark:bg-gray-700 dark:text-white">{{ $data->keluhan ?? '' }}</textarea>
+                </div>
+
                 <!-- Alergi -->
                 <div>
                     <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">Alergi</h2>
@@ -185,11 +192,7 @@
                         class="w-full border rounded p-3 mt-3 dark:bg-gray-700 dark:text-white">{{ $antrian->alergi->reaksi ?? '' }}</textarea>
                 </div>
 
-                <!-- Keluhan -->
-                <div>
-                    <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-gray-100">Keluhan Utama</h2>
-                    <textarea readonly rows="3" class="w-full border rounded p-3 dark:bg-gray-700 dark:text-white">{{ $data->keluhan ?? '' }}</textarea>
-                </div>
+
 
                 <!-- Tindakan -->
                 <div>

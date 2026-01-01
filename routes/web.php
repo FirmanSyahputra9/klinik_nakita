@@ -90,6 +90,17 @@ Route::middleware(['auth', 'is.login', 'check.route.exists'])->group(function ()
         Route::get('registrasi/{id}', [RegistrasiController::class, 'index'])->name('registrasi.index');
         Route::resource('registrasi', RegistrasiController::class)->except(['index']);
     });
+
+    Route::prefix('lab')->group(function () {
+
+        Route::get('/dashboard', function () {
+            return view('pages.lab.dashboard');
+        })->name('lab.dashboard');
+
+        Route::get('/input-hasil', function () {
+            return view('pages.lab.input-hasil');
+        })->name('lab.input-hasil');
+    });
 });
 Route::view('/error/403', 'errors.403')
     ->name('error.403');
